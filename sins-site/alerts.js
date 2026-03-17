@@ -62,14 +62,14 @@ function navSwitch(tabId, element) {
 }
 
 // ==========================================
-// מנוע התראות חכם - מחובר למנוע "צופר" הפרטי שלנו!
+// מנוע התראות חכם - מחובר לשרת Vercel הסודי שלנו!
 // ==========================================
 let lastAlertId = "";
 let alertActive = false;
 
 async function fetchRealAlerts() {
     try {
-        // אנחנו פונים עכשיו לשרת הסודי שלך ב-Vercel! 
+        // פונים למנוע החדש שלנו שיצרת עכשיו בתיקיית api
         const targetUrl = '/api/tzofar?v=' + new Date().getTime();
         
         const response = await fetch(targetUrl, { cache: 'no-store' });
