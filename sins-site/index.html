@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINS | הקהילה הרשמית</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            var(--primary): #6366f1; var(--secondary): #8b5cf6; var(--accent): #14b8a6; var(--danger): #e11d48; var(--alert): #ff003c;
+            var(--dark-bg): #0b0f19; var(--glass-bg): rgba(17, 24, 39, 0.65); var(--glass-border): rgba(255, 255, 255, 0.06);
+            var(--text-main): #f3f4f6; var(--text-muted): #9ca3af;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Heebo', sans-serif; }
+        body { background-color: #0b0f19; color: #f3f4f6; overflow: hidden; height: 100vh; }
+
+        .ambient-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -3; background: #0b0f19; overflow: hidden; }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.45; animation: slowDrift 20s infinite alternate ease-in-out; }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(99, 102, 241, 0.25); }
+        .orb-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: rgba(20, 184, 166, 0.15); animation-delay: -5s; }
+        .orb-3 { top: 30%; left: 40%; width: 45vw; height: 45vw; background: rgba(139, 92, 246, 0.15); animation-duration: 25s; }
+
+        @keyframes slowDrift { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.1); } }
+
+        #welcome-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(25px); transition: 0.5s ease; }
+        .elegant-title { font-size: 7rem; font-weight: 900; letter-spacing: 20px; margin-bottom: 20px; color: #fff; text-shadow: 0 10px 40px rgba(99, 102, 241, 0.4); }
+        .elegant-subtitle { font-size: 1.5rem; color: #9ca3af; margin-bottom: 60px; letter-spacing: 3px; }
+        .btn-enter { padding: 20px 70px; font-size: 1.5rem; font-weight: 700; color: #fff; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; border-radius: 100px; cursor: pointer; transition: 0.4s; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.25); }
+        .btn-enter:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4); }
+
+        #black-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: #05070a; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.5s ease; }
+        #black-screen.active { opacity: 1; pointer-events: auto; }
+        #black-screen h1 { font-size: 5rem; font-weight: 900; color: #fff; letter-spacing: 5px; text-shadow: 0 0 40px rgba(99, 102, 241, 0.6); transform: scale(0.8); opacity: 0; transition: 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        #black-screen.active h1 { transform: scale(1); opacity: 1; }
+
+        @keyframes fluentOut { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.98); } }
+        @keyframes fluentIn { 0% { opacity: 0; transform: scale(0.92); } 100% { opacity: 1; transform: scale(1); } }
+
+        #core-system { display: flex; height: 100vh; width: 100vw; padding: 30px; gap: 30px; opacity: 0; pointer-events: none; transform-origin: center center; transition: background 0.3s ease, box-shadow 0.3s ease; }
+        #core-system.online { pointer-events: auto; animation: fluentIn 0.5s cubic-bezier(0, 0, 0, 1) forwards; }
+
+        .glass-nav { width: 320px; background: rgba(17, 24, 39, 0.65); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 30px; padding: 50px 20px; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .brand-box { text-align: center; margin-bottom: 50px; }
+        .brand-box h2 { font-size: 3.5rem; font-weight: 900; color: #fff; letter-spacing: 3px; }
+        .nav-menu { display: flex; flex-direction: column; gap: 8px; }
+        .nav-menu a { padding: 16px 20px; font-size: 1.2rem; font-weight: 700; color: #9ca3af; border-radius: 15px; transition: 0.3s; display: flex; align-items: center; cursor: pointer; }
+        .nav-menu a i { margin-left: 15px; font-size: 1.3rem; width: 25px; text-align: center; }
+        .nav-menu a:hover, .nav-menu a.active { color: #fff; background: rgba(255,255,255,0.03); }
+        .nav-menu a.active { background: rgba(99, 102, 241, 0.15); border-right: 4px solid #6366f1; color: #fff; }
+        .nav-alert { color: #f87171 !important; }
+        .nav-alert:hover, .nav-menu a.active-alert { background: rgba(225, 29, 72, 0.15) !important; color: #fff !important; border-right: 4px solid #ff003c !important; }
+
+        .main-display { flex: 1; background: rgba(17, 24, 39, 0.65); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 30px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3); overflow: hidden; }
+        .tab-layer { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 60px 80px; overflow-y: auto; transform-origin: center center; }
+        .tab-layer::-webkit-scrollbar { width: 6px; }
+        .tab-layer::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+        .tab-layer.show { display: block; }
+        .win11-out { animation: fluentOut 0.1s ease-out forwards; }
+        .win11-in { animation: fluentIn 0.35s cubic-bezier(0, 0, 0, 1) forwards; }
+        .page-title { font-size: 4rem; font-weight: 900; margin-bottom: 50px; color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.06); padding-bottom: 20px; }
+
+        .grid-matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .solid-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 20px; padding: 40px; transition: 0.3s; position: relative; }
+        .solid-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-5px); border-color: rgba(255,255,255,0.1); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .solid-card h3 { font-size: 1.8rem; margin-bottom: 15px; color: #fff; font-weight: 800; display: flex; align-items: center; gap: 15px; }
+        .solid-card p { font-size: 1.2rem; color: #9ca3af; line-height: 1.7; }
+        .num-badge { color: #6366f1; font-weight: 900; font-size: 1.5rem; background: rgba(99, 102, 241, 0.15); padding: 5px 15px; border-radius: 10px; }
+
+        .admin-box { text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .admin-avatar { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: #fff; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.08); margin-bottom: 25px; transition: 0.4s; }
+        .solid-card:hover .admin-avatar { transform: scale(1.1); border-color: #6366f1; box-shadow: 0 0 30px rgba(99, 102, 241, 0.15); }
+        .admin-box h3 { font-size: 2.2rem; justify-content: center; }
+        .badge-owner { background: linear-gradient(45deg, #e6b980, #eacda3); color: #000; padding: 8px 25px; border-radius: 20px; font-weight: 900; font-size: 1.1rem; margin-top: 10px; box-shadow: 0 5px 15px rgba(255,215,0,0.3); }
+        .badge-admin { background: rgba(255,255,255,0.08); padding: 8px 25px; border-radius: 20px; font-weight: 700; margin-top: 10px; color: #d1d5db; }
+
+        .form-container { max-width: 900px; margin: 0 auto; background: rgba(0,0,0,0.15); padding: 60px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.06); }
+        .elegant-form { display: flex; flex-direction: column; gap: 25px; }
+        .input-row { display: flex; gap: 20px; }
+        .input-group { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+        .input-group label { font-size: 1.1rem; font-weight: 700; color: #f3f4f6; }
+        .clean-input, .clean-select { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px; color: #fff; font-size: 1.1rem; transition: 0.3s; outline: none; }
+        .clean-input:focus, .clean-select:focus { background: rgba(255,255,255,0.05); border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15); }
+        .clean-select option { background: #0b0f19; }
+        .clean-textarea { resize: vertical; min-height: 120px; }
+        .btn-submit { background: #6366f1; color: #fff; padding: 18px; font-size: 1.3rem; font-weight: 800; border: none; border-radius: 12px; cursor: pointer; transition: 0.3s; margin-top: 15px; }
+        .btn-submit:hover { background: #8b5cf6; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(139, 92, 246, 0.25); }
+        
+        .success-banner { display: none; text-align: center; padding: 50px; border: 1px solid; border-radius: 20px; margin-top: 30px; animation: fluentIn 0.5s cubic-bezier(0, 0, 0, 1) forwards; }
+
+        /* מערכת התראות */
+        .radar-box { text-align: center; padding: 60px; border-radius: 30px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255, 255, 255, 0.06); position: relative; overflow: hidden; transition: 0.3s; }
+        .radar-animation { width: 200px; height: 200px; border-radius: 50%; border: 2px solid rgba(20, 184, 166, 0.3); margin: 0 auto 30px; position: relative; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .radar-animation::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(from 0deg, transparent 70%, rgba(20, 184, 166, 0.8) 100%); animation: spinRadar 2s linear infinite; }
+        .radar-animation i { font-size: 4rem; color: #14b8a6; position: z-index: 2; transition: 0.3s; }
+        @keyframes spinRadar { 100% { transform: rotate(360deg); } }
+        .status-dot { display: inline-block; width: 15px; height: 15px; border-radius: 50%; background: #14b8a6; box-shadow: 0 0 15px #14b8a6; margin-left: 10px; animation: pulseDot 1.5s infinite alternate; transition: 0.3s; }
+        @keyframes pulseDot { 0% { opacity: 0.5; } 100% { opacity: 1; transform: scale(1.2); } }
+        
+        .alarm-card { display: none; background: rgba(255, 0, 60, 0.15); border: 2px solid #ff003c; border-radius: 20px; padding: 40px; margin-top: 30px; animation: flashRed 1s infinite alternate; }
+        @keyframes flashRed { 0% { box-shadow: 0 0 20px rgba(255,0,60,0.2); } 100% { box-shadow: 0 0 50px rgba(255,0,60,0.8); } }
+        .alarm-card h2 { font-size: 3.5rem; color: #ff003c; margin-bottom: 10px; font-weight: 900; }
+        .alarm-card p.location { font-size: 2.5rem; color: #fff; font-weight: 700; line-height: 1.4; }
+        
+        .btn-test-alert { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); padding: 10px 20px; border-radius: 10px; cursor: pointer; margin-top: 40px; transition: 0.3s; }
+        .btn-test-alert:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+        .massive-box { text-align: center; padding: 100px 40px; border-radius: 30px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255, 255, 255, 0.06); }
+        .massive-box i.main-icon { font-size: 7rem; margin-bottom: 30px; color: #fff; }
+        .massive-box h2 { font-size: 3.5rem; margin-bottom: 20px; }
+        .massive-box p { font-size: 1.5rem; color: #9ca3af; max-width: 800px; margin: 0 auto 50px; line-height: 1.6; }
+        .btn-massive { display: inline-block; padding: 25px 80px; font-size: 1.8rem; font-weight: 800; border-radius: 100px; text-decoration: none; transition: 0.3s; }
+        .btn-discord { background: #5865F2; color: #fff; }
+        .btn-discord:hover { background: #fff; color: #5865F2; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(88,101,242,0.3); }
+    </style>
+</head>
+<body>
+
+    <div style="display: none;">
+        <iframe id="bg-music" allow="autoplay" frameborder="0"></iframe>
+    </div>
+
+    <div class="ambient-bg" id="main-ambient">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <div id="welcome-screen">
+        <h1 class="elegant-title">SINS</h1>
+        <p class="elegant-subtitle">ברוכים הבאים לקהילה האיכותית בישראל</p>
+        <button class="btn-enter" onclick="bootSystem()">כניסה לאתר</button>
+    </div>
+
+    <div id="black-screen">
+        <h1>הגעתם לשרת של סינס</h1>
+    </div>
+
+    <div id="core-system">
+        <nav class="glass-nav">
+            <div class="brand-box"><h2>SINS</h2></div>
+            <div class="nav-menu">
+                <a class="active" onclick="navSwitch('rules', this)"><i class="fas fa-file-contract"></i> חוקי השרת</a>
+                <a onclick="navSwitch('admins', this)"><i class="fas fa-users-cog"></i> צוות ההנהלה</a>
+                <a onclick="navSwitch('apply', this)"><i class="fas fa-id-card"></i> מיונים לצוות</a>
+                <a onclick="navSwitch('report', this)"><i class="fas fa-user-shield"></i> דיווחים (Report)</a>
+                <a class="nav-alert" onclick="navSwitch('alerts', this)"><i class="fas fa-broadcast-tower"></i> התראות אמת</a>
+                <a onclick="navSwitch('join', this)"><i class="fab fa-discord"></i> כניסה לשרת</a>
+            </div>
+        </nav>
+
+        <main class="main-display">
+            <section id="rules" class="tab-layer show win11-in">
+                <h2 class="page-title">תקנון השרת</h2>
+                <div class="grid-matrix">
+                    <div class="solid-card"><h3><span class="neo-num">1</span> כבוד הדדי</h3><p>יש לכבד כל חבר בשרת. אין להשתמש בשפה פוגענית. 3 אזהרות יובילו להרחקה של שבוע (באן).</p></div>
+                    <div class="solid-card"><h3><span class="neo-num">2</span> ספאם והצפות</h3><p>אין לשלוח את אותה הודעה ברצף. העונש: השתקה ל-10 דקות.</p></div>
+                    <div class="solid-card"><h3><span class="neo-num">3</span> תוכן לא הולם</h3><p>אין לשלוח תוכן 18+. השרת נועד לכולם ויש לנו 0 סובלנות. הרחקה מיידית ולצמיתות.</p></div>
+                    <div class="solid-card"><h3><span class="neo-num">4</span> איסור פרסום</h3><p>פרסום של שרתי דיסקורד אחרים, ערוצי יוטיוב או רשתות - אסור לחלוטין ללא אישור.</p></div>
+                </div>
+            </section>
+
+            <section id="admins" class="tab-layer">
+                <h2 class="page-title">הצוות המוביל</h2>
+                <div class="grid-matrix">
+                    <div class="solid-card admin-box"><div class="admin-avatar"><i class="fas fa-crown"></i></div><h3>אדיר</h3><div class="badge-owner">בעלי השרת</div></div>
+                    <div class="solid-card admin-box"><div class="admin-avatar"><i class="fas fa-shield-alt"></i></div><h3>ליעד</h3><div class="badge-admin">מנהל בכיר</div></div>
+                    <div class="solid-card admin-box"><div class="admin-avatar"><i class="fas fa-shield-alt"></i></div><h3>עמית</h3><div class="badge-admin">מנהל בכיר</div></div>
+                    <div class="solid-card admin-box"><div class="admin-avatar"><i class="fas fa-shield-alt"></i></div><h3>נדב</h3><div class="badge-admin">מנהל בכיר</div></div>
+                </div>
+            </section>
+
+            <section id="alerts" class="tab-layer">
+                <h2 class="page-title" style="color: #fff;"><i class="fas fa-satellite-dish" style="margin-left: 15px; color: #ff003c;"></i> מערכת התראות</h2>
+                <div class="radar-box" id="main-radar-box">
+                    <div class="radar-animation" id="radar-ui">
+                        <i class="fas fa-shield-alt" id="radar-icon"></i>
+                    </div>
+                    <h3 style="font-size: 2rem; margin-bottom: 15px;" id="status-text">
+                        <span class="status-dot" id="status-dot-ui"></span> סורק התראות אמת (פיקוד העורף)
+                    </h3>
+                    <p style="font-size: 1.3rem; color: #9ca3af;">המערכת מחוברת ומתעדכנת בזמן אמת.</p>
+                    
+                    <div class="alarm-card" id="active-alarm">
+                        <h2 id="alarm-title"><i class="fas fa-exclamation-triangle"></i> סוג התראה</h2>
+                        <p class="location" id="alarm-cities">אזורים...</p>
+                        <p style="margin-top: 15px; font-size: 1.2rem; color: #fff;">היכנסו מיד למרחב מוגן ושהו בו 10 דקות.</p>
+                    </div>
+                    <button class="btn-test-alert" onclick="triggerTestAlert()">טסט למנהלים: הפעל אזעקת ניסיון</button>
+                </div>
+            </section>
+
+            <section id="apply" class="tab-layer">
+                <h2 class="page-title">הגשת מועמדות לצוות</h2>
+                <div class="form-container">
+                    <form id="staff-form" class="elegant-form">
+                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
+                        <input type="hidden" name="subject" value="מועמדות חדשה לצוות השרת!">
+
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>שם משתמש בדיסקורד</label>
+                                <input type="text" name="Discord_Username" class="clean-input" placeholder="Adir#1234" required>
+                            </div>
+                            <div class="input-group">
+                                <label>גיל מועמד</label>
+                                <input type="number" name="Age" class="clean-input" placeholder="הכנס גיל..." required>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>תפקיד מבוקש</label>
+                            <select name="Requested_Role" class="clean-select" required>
+                                <option value="" disabled selected>בחר תפקיד...</option>
+                                <option value="מודרטור">מודרטור</option>
+                                <option value="הלפר">הלפר</option>
+                                <option value="צוות אירועים">צוות אירועים</option>
+                            </select>
+                        </div>
+
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>כמה שעות פעילות שבועיות תוכל לתת לנו?</label>
+                                <input type="text" name="Weekly_Hours" class="clean-input" placeholder="לדוגמה: 20 שעות בשבוע" required>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>למה כדאי לנו לבחור דווקא בך?</label>
+                            <textarea name="Why_Choose_You" class="clean-input clean-textarea" placeholder="מה מייחד אותך ממועמדים אחרים?" required></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label>מה התחביבים שלך? (קצת על עצמך)</label>
+                            <textarea name="Hobbies" class="clean-input clean-textarea" placeholder="ספר לנו על התחביבים שלך, משחקים אהובים..." required></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label>האם יש לך ניסיון קודם בצוותים?</label>
+                            <textarea name="Previous_Experience" class="clean-input clean-textarea" placeholder="ספר לנו אם היית בצוותים בעבר..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="btn-submit-apply">שלח טופס להנהלה</button>
+                    </form>
+                    
+                    <div id="apply-success" class="success-banner" style="background: rgba(20, 184, 166, 0.1); border-color: #14b8a6;">
+                        <i class="fas fa-check-circle" style="font-size: 5rem; color: #14b8a6; margin-bottom: 20px;"></i> 
+                        <h2 style="font-size: 2.5rem; color: #14b8a6; margin-bottom: 10px;">המועמדות נשלחה בהצלחה!</h2>
+                        <p style="font-size: 1.4rem; color: #fff;">הצוות יקבל את הטופס ויבחן אותו בקרוב.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="report" class="tab-layer">
+                <h2 class="page-title">דיווח על משתמש / איש צוות</h2>
+                <div class="form-container" style="border-top: 4px solid #e11d48;">
+                    <form id="report-form" class="elegant-form">
+                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
+                        <input type="hidden" name="subject" value="תלונת רפורט חדשה מהאתר!">
+
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>על מי תרצה להתלונן?</label>
+                                <select name="Reported_User_Type" class="clean-select" required style="border-color: rgba(225, 29, 72, 0.3);">
+                                    <option value="" disabled selected>בחר אפשרות...</option>
+                                    <option value="איש צוות (הנהלה/מודרטור)">איש צוות (הנהלה/מודרטור)</option>
+                                    <option value="משתמש רגיל בשרת">משתמש רגיל בשרת</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>שם המשתמש (Username)</label>
+                                <input type="text" name="Reported_Username" class="clean-input" required style="border-color: rgba(225, 29, 72, 0.3);">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>מדוע אתה רוצה להתלונן עליו?</label>
+                            <textarea name="Reason_for_Report" class="clean-input clean-textarea" required style="border-color: rgba(225, 29, 72, 0.3);"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="btn-submit-report" style="background: #e11d48; box-shadow: 0 10px 30px rgba(225, 29, 72, 0.25);">
+                            שלח דיווח להנהלה הבכירה <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
+                        </button>
+                    </form>
+                    
+                    <div id="report-success" class="success-banner" style="background: rgba(225, 29, 72, 0.1); border-color: #e11d48;">
+                        <i class="fas fa-shield-alt" style="font-size: 5rem; color: #e11d48; margin-bottom: 20px;"></i> 
+                        <h2 style="font-size: 2.5rem; color: #e11d48; margin-bottom: 10px;">הדיווח נשלח בהצלחה</h2>
+                        <p style="font-size: 1.4rem; color: #fff;">אנו ניקח את התלונה ברצינות ונטפל בה בהקדם.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="join" class="tab-layer">
+                <h2 class="page-title">כניסה לשרת</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; align-items: stretch;">
+                    <div class="massive-box" style="flex: 1; min-width: 300px; background: rgba(88, 101, 242, 0.05); border-color: rgba(88, 101, 242, 0.15); margin: 0;">
+                        <i class="fab fa-discord main-icon" style="color: #5865F2;"></i>
+                        <h2>הקהילה מחכה לכם</h2>
+                        <p style="margin-bottom: 40px;">הצטרפו עכשיו לשרת של SINS, תראו מי מחובר בלייב, וקחו חלק בקהילה האיכותית ביותר.</p>
+                        <a href="https://discord.gg/srMvcR8k" target="_blank" class="btn-massive btn-discord">היכנסו עכשיו</a>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; display: flex; justify-content: center;">
+                        <iframe src="https://discord.com/widget?id=1482203048368406579&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06);"></iframe>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="alerts.js"></script>
+</body>
+</html>ד
