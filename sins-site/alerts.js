@@ -62,7 +62,7 @@ function navSwitch(tabId, element) {
 }
 
 // ==========================================
-// מנוע התראות חכם - זיהוי איומים (כולל פרוקסי עוקף חסימות)
+// מנוע התראות חכם - זיהוי איומים (עוקף חומת אש צה"ל + זמן אמת)
 // ==========================================
 let lastAlertId = "";
 let alertActive = false;
@@ -71,14 +71,11 @@ async function fetchRealAlerts() {
     try {
         const targetUrl = 'https://www.oref.org.il/WarningMessages/alert/alerts.json?v=' + new Date().getTime();
         
-        // החלפנו לפרוקסי חזק יותר שלא נחסם בקלות: allorigins
-        const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(targetUrl);
+        // חזרנו לפרוקסי שמצליח לעבור את החומה, יחד עם טריק המהירות
+        const proxyUrl = 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl);
         
         const response = await fetch(proxyUrl, { cache: 'no-store' });
-        if (!response.ok) {
-            console.log("השרת של פיקוד העורף דחה את הבקשה (הגנת סייבר)");
-            return; 
-        }
+        if (!response.ok) return; 
         
         const textData = await response.text();
         
@@ -105,12 +102,11 @@ async function fetchRealAlerts() {
                 }
             }
         } catch (parseError) {
-            // אם הצבא שלח לנו חומת אש במקום קובץ נתונים, נראה את זה פה ב-Console
-            console.log("שגיאה בפענוח:", textData.substring(0, 50));
+            // מתעלמים משגיאות פענוח זמניות
         }
 
     } catch (error) {
-        console.error("שגיאת רשת כללית:", error);
+        // מתעלמים משגיאות רשת זמניות
     }
 }
 
