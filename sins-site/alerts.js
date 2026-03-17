@@ -1,4 +1,4 @@
-// מנוע טפסים (נשאר זהה)
+// מנוע טפסים
 document.getElementById('staff-form').addEventListener('submit', function(e) {
     e.preventDefault(); 
     const btn = document.getElementById('btn-submit-apply');
@@ -62,47 +62,55 @@ function navSwitch(tabId, element) {
 }
 
 // ==========================================
-// מנוע התראות חכם - זיהוי איומים (משודרג לזמן אמת אמיתי!)
+// מנוע התראות חכם - זיהוי איומים (כולל פרוקסי עוקף חסימות)
 // ==========================================
 let lastAlertId = "";
 let alertActive = false;
 
 async function fetchRealAlerts() {
     try {
-        // הטריק: מוסיפים את הזמן הנוכחי לקישור כדי שהפרוקסי לא ישמור מידע ישן!
         const targetUrl = 'https://www.oref.org.il/WarningMessages/alert/alerts.json?v=' + new Date().getTime();
-        const proxyUrl = 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl);
+        
+        // החלפנו לפרוקסי חזק יותר שלא נחסם בקלות: allorigins
+        const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(targetUrl);
         
         const response = await fetch(proxyUrl, { cache: 'no-store' });
-        if (!response.ok) return; 
+        if (!response.ok) {
+            console.log("השרת של פיקוד העורף דחה את הבקשה (הגנת סייבר)");
+            return; 
+        }
         
         const textData = await response.text();
         
-        // כשיש שקט, פיקוד העורף משאיר את הקובץ ריק.
+        // אם הקובץ ריק (שגרה)
         if (!textData || textData.trim() === "") {
             if (alertActive) {
-                // האזעקה נגמרה - נותנים לזה 8 שניות ואז מכבים את המסך האדום
                 setTimeout(turnOffAlert, 8000); 
             }
-            return; // יוצאים, הכל שקט
+            return; 
         }
 
-        // יש אזעקה באוויר עכשיו! מפענחים את המידע
-        const alertData = JSON.parse(textData);
-        
-        if (alertData && alertData.data && alertData.data.length > 0) {
-            const cities = alertData.data.join(', ');
-            const title = alertData.title;
-            const alertId = alertData.id || new Date().getTime().toString(); 
+        // נסיון לפענח את המידע (במידה ויש אזעקה)
+        try {
+            const alertData = JSON.parse(textData);
             
-            // בודקים שזו אזעקה חדשה כדי לא להקפיץ אותה פעמיים
-            if (alertId !== lastAlertId) {
-                lastAlertId = alertId;
-                triggerRealAlert(title, cities);
+            if (alertData && alertData.data && alertData.data.length > 0) {
+                const cities = alertData.data.join(', ');
+                const title = alertData.title;
+                const alertId = alertData.id || new Date().getTime().toString(); 
+                
+                if (alertId !== lastAlertId) {
+                    lastAlertId = alertId;
+                    triggerRealAlert(title, cities);
+                }
             }
+        } catch (parseError) {
+            // אם הצבא שלח לנו חומת אש במקום קובץ נתונים, נראה את זה פה ב-Console
+            console.log("שגיאה בפענוח:", textData.substring(0, 50));
         }
+
     } catch (error) {
-        // מתעלמים משגיאות רשת זמניות כדי שהאתר לא יקרוס
+        console.error("שגיאת רשת כללית:", error);
     }
 }
 
@@ -133,7 +141,6 @@ function triggerRealAlert(title, cities) {
     const alarmCard = document.getElementById('active-alarm');
     const bg = document.getElementById('core-system');
     
-    // משיכת העיצוב המתאים לפי סוג האיום
     const threat = getThreatStyles(title);
     
     document.getElementById('alarm-title').innerHTML = `<i class="${threat.icon}"></i> ${title}`;
@@ -155,7 +162,6 @@ function triggerRealAlert(title, cities) {
     
     alarmCard.style.animation = threat.flash ? "flashRed 1s infinite alternate" : "none";
     if(threat.flash) {
-        // מתאים את צבע ההבהוב לצבע האיום (ולא רק אדום)
         alarmCard.style.boxShadow = `0 0 20px ${threat.color}`; 
     }
     
@@ -182,12 +188,10 @@ function turnOffAlert() {
     bg.style.boxShadow = "none";
 }
 
-// שיניתי את הטסט כדי שתוכל לבדוק את סוגי האיומים!
 function triggerTestAlert() {
-    // בטסט הזה נדמה כלי טיס עוין כדי שתראה את ההבדל
     triggerRealAlert("חדירת כלי טיס עוין", "טבריה (טסט מערכת)");
     setTimeout(turnOffAlert, 15000);
 }
 
-// סריקה מהירה כל 3 שניות - מהירות של צופר!
+// קצב סריקה של חמ"ל אמיתי: 3 שניות
 setInterval(fetchRealAlerts, 3000);
