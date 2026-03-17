@@ -62,40 +62,48 @@ function navSwitch(tabId, element) {
 }
 
 // ==========================================
-// מנוע התראות חכם - זיהוי איומים
+// מנוע התראות חכם - זיהוי איומים (משודרג לזמן אמת אמיתי!)
 // ==========================================
 let lastAlertId = "";
 let alertActive = false;
 
 async function fetchRealAlerts() {
     try {
-        const targetUrl = 'https://www.oref.org.il/WarningMessages/alert/alerts.json';
-        const proxyUrl = 'https://api.codetabs.com/v1/proxy?quest=' + targetUrl;
+        // הטריק: מוסיפים את הזמן הנוכחי לקישור כדי שהפרוקסי לא ישמור מידע ישן!
+        const targetUrl = 'https://www.oref.org.il/WarningMessages/alert/alerts.json?v=' + new Date().getTime();
+        const proxyUrl = 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl);
         
         const response = await fetch(proxyUrl, { cache: 'no-store' });
         if (!response.ok) return; 
         
         const textData = await response.text();
         
-        if (textData && textData.trim() !== "") {
-            const alertData = JSON.parse(textData);
-            
-            if (alertData && alertData.data && alertData.data.length > 0) {
-                const cities = alertData.data.join(', ');
-                const title = alertData.title;
-                const alertId = alertData.id || new Date().getTime().toString(); 
-                
-                if (alertId !== lastAlertId) {
-                    lastAlertId = alertId;
-                    triggerRealAlert(title, cities);
-                }
-            } else if (alertActive) {
+        // כשיש שקט, פיקוד העורף משאיר את הקובץ ריק.
+        if (!textData || textData.trim() === "") {
+            if (alertActive) {
+                // האזעקה נגמרה - נותנים לזה 8 שניות ואז מכבים את המסך האדום
                 setTimeout(turnOffAlert, 8000); 
             }
-        } else if (alertActive) {
-            setTimeout(turnOffAlert, 8000); 
+            return; // יוצאים, הכל שקט
         }
-    } catch (error) {}
+
+        // יש אזעקה באוויר עכשיו! מפענחים את המידע
+        const alertData = JSON.parse(textData);
+        
+        if (alertData && alertData.data && alertData.data.length > 0) {
+            const cities = alertData.data.join(', ');
+            const title = alertData.title;
+            const alertId = alertData.id || new Date().getTime().toString(); 
+            
+            // בודקים שזו אזעקה חדשה כדי לא להקפיץ אותה פעמיים
+            if (alertId !== lastAlertId) {
+                lastAlertId = alertId;
+                triggerRealAlert(title, cities);
+            }
+        }
+    } catch (error) {
+        // מתעלמים משגיאות רשת זמניות כדי שהאתר לא יקרוס
+    }
 }
 
 // הפונקציה החכמה שמנתחת את האיום
@@ -181,4 +189,5 @@ function triggerTestAlert() {
     setTimeout(turnOffAlert, 15000);
 }
 
-setInterval(fetchRealAlerts, 8000);
+// סריקה מהירה כל 3 שניות - מהירות של צופר!
+setInterval(fetchRealAlerts, 3000);
