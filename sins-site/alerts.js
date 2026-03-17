@@ -62,19 +62,17 @@ function navSwitch(tabId, element) {
 }
 
 // ==========================================
-// מנוע התראות חכם - זיהוי איומים (עוקף חומת אש צה"ל + זמן אמת)
+// מנוע התראות חכם - מחובר למנוע "צופר" הפרטי שלנו!
 // ==========================================
 let lastAlertId = "";
 let alertActive = false;
 
 async function fetchRealAlerts() {
     try {
-        const targetUrl = 'https://www.oref.org.il/WarningMessages/alert/alerts.json?v=' + new Date().getTime();
+        // אנחנו פונים עכשיו לשרת הסודי שלך ב-Vercel! 
+        const targetUrl = '/api/tzofar?v=' + new Date().getTime();
         
-        // חזרנו לפרוקסי שמצליח לעבור את החומה, יחד עם טריק המהירות
-        const proxyUrl = 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl);
-        
-        const response = await fetch(proxyUrl, { cache: 'no-store' });
+        const response = await fetch(targetUrl, { cache: 'no-store' });
         if (!response.ok) return; 
         
         const textData = await response.text();
@@ -87,7 +85,7 @@ async function fetchRealAlerts() {
             return; 
         }
 
-        // נסיון לפענח את המידע (במידה ויש אזעקה)
+        // פענוח בזמן אמת
         try {
             const alertData = JSON.parse(textData);
             
@@ -102,11 +100,11 @@ async function fetchRealAlerts() {
                 }
             }
         } catch (parseError) {
-            // מתעלמים משגיאות פענוח זמניות
+            // מתעלמים משגיאות פענוח
         }
 
     } catch (error) {
-        // מתעלמים משגיאות רשת זמניות
+        // מתעלמים משגיאות רשת
     }
 }
 
@@ -124,7 +122,6 @@ function getThreatStyles(title) {
     if (title.includes("מבזק") || title.includes("הנחיות") || title.includes("עדכון") || title.includes("התרעה מקדימה")) {
         return { color: "#f59e0b", icon: "fas fa-info-circle", bgGlow: "rgba(245, 158, 11, 0.2)", cardBg: "rgba(245, 158, 11, 0.15)", type: "עדכון פיקוד העורף:", flash: false };
     }
-    // ברירת מחדל - טילים ורקטות
     return { color: "#ff003c", icon: "fas fa-rocket", bgGlow: "rgba(255, 0, 60, 0.2)", cardBg: "rgba(255, 0, 60, 0.15)", type: "ירי רקטות וטילים!", flash: true };
 }
 
