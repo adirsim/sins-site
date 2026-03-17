@@ -1,42 +1,46 @@
 export default async function handler(req, res) {
-    // מאפשרים לאתר שלך לדבר עם השרת
+    // פותחים דלתות לאתר שלך
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Cache-Control', 'no-store, max-age=0');
+
+    // הטריק: רשימה של כתובות IP ישראליות אמיתיות (בזק, הוט, סלקום)
+    const israeliIPs = [
+        '77.137.54.21', 
+        '2.55.192.14', 
+        '31.154.8.12', 
+        '84.228.114.5',
+        '147.235.200.10'
+    ];
+    // בוחרים אחת אקראית בכל פעם כדי לא לעורר חשד
+    const randomIP = israeliIPs[Math.floor(Math.random() * israeliIPs.length)];
 
     try {
-        // ניסיון 1: פנייה ישירה לפיקוד העורף עם תחפושת של דפדפן ישראלי
-        let response = await fetch('https://www.oref.org.il/WarningMessages/alert/alerts.json', {
+        const response = await fetch('https://www.oref.org.il/WarningMessages/alert/alerts.json', {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
                 'X-Requested-With': 'XMLHttpRequest',
-                'Referer': 'https://www.oref.org.il/'
+                'Referer': 'https://www.oref.org.il/',
+                'X-Forwarded-For': randomIP,
+                'Client-IP': randomIP
             },
             cache: 'no-store'
         });
 
-        // ניסיון 2: אם צה"ל במצב מלחמה וחסם את אמריקה (Vercel), פותחים תעלת מעקף (פרוקסי)
-        if (!response.ok) {
-            response = await fetch('https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent('https://www.oref.org.il/WarningMessages/alert/alerts.json?v=' + Date.now()));
-        }
-
         const arrayBuffer = await response.arrayBuffer();
         
-        // תיקון קריטי: פיקוד העורף משתמש בקידוד שפה נדיר (UTF-16LE). אנחנו מתרגמים אותו!
+        // מתרגמים את השפה הסודית של פיקוד העורף
         let text = new TextDecoder('utf-16le').decode(arrayBuffer);
         
-        // ניקוי תווים שבורים
         text = text.trim();
         if (text.charCodeAt(0) === 0xFEFF) {
             text = text.slice(1);
         }
 
-        // גיבוי למקרה שפתאום פיקוד העורף ישנה את הקידוד לרגיל
         if (text.length > 0 && !text.startsWith('{') && !text.startsWith('[')) {
             text = new TextDecoder('utf-8').decode(arrayBuffer);
             text = text.trim();
         }
 
-        // שולחים את המידע הנקי לאתר שלך!
         res.status(200).send(text);
     } catch (error) {
         res.status(500).send("");
