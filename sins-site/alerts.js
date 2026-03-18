@@ -1,190 +1,192 @@
-// מנוע טפסים
-document.getElementById('staff-form').addEventListener('submit', function(e) {
-    e.preventDefault(); 
-    const btn = document.getElementById('btn-submit-apply');
-    btn.innerHTML = 'שולח... <i class="fas fa-spinner fa-spin"></i>'; 
-    fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(this) })
-    .then(res => { if(res.ok) { document.getElementById('staff-form').style.display = 'none'; document.getElementById('apply-success').style.display = 'block'; }});
-});
+// === הגדרות המפה ===
+// יוצרים את המפה ומתמקדים על מרכז הארץ בערך
+const map = L.map('map').setView([31.5, 34.8], 7);
 
-document.getElementById('report-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('btn-submit-report');
-    btn.innerHTML = 'שולח... <i class="fas fa-spinner fa-spin"></i>'; 
-    fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(this) })
-    .then(res => { if(res.ok) { document.getElementById('report-form').style.display = 'none'; document.getElementById('report-success').style.display = 'block'; }});
-});
+// טוענים את העיצוב (התמונות) של המפה
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 18,
+}).addTo(map);
 
-function bootSystem() {
-    const welcome = document.getElementById('welcome-screen');
-    const blackScreen = document.getElementById('black-screen');
-    const core = document.getElementById('core-system');
+// מערך שישמור את הסימונים האדומים כדי שנוכל למחוק אותם בסוף האזעקה
+let activeAlertsOnMap = [];
 
-    welcome.style.opacity = '0';
-    setTimeout(() => { welcome.style.display = 'none'; }, 500);
+// מילון זמני - מתרגם שמות ערים לקואורדינטות GPS בשביל הטסטים
+const cityCoordinates = {
+    "טבריה": [32.7940, 35.5331],
+    "תל אביב - מרכז": [32.0735, 34.7817],
+    "משגב עם": [33.2530, 35.5441],
+    "שדרות": [31.5226, 34.5954],
+    // נוכל להוסיף עוד מאוחר יותר או להתחבר למאגר מלא
+};
 
-    setTimeout(() => {
-        blackScreen.classList.add('active');
-        document.getElementById('bg-music').src = "https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1&loop=1&playlist=5qap5aO4i9A&controls=0";
-    }, 500);
 
-    setTimeout(() => {
-        blackScreen.style.opacity = '0';
-        setTimeout(() => { blackScreen.style.display = 'none'; }, 500);
-        setTimeout(() => { core.classList.add('online'); }, 3000); 
-    }, 3000);
-}
+// === מערכת התראות מול השרת בפתח תקווה ===
+let alarmActive = false;
+let checkInterval;
 
-let isAnimating = false;
-function navSwitch(tabId, element) {
-    if (isAnimating) return;
-    const currentTab = document.querySelector('.tab-layer.show');
-    const newTab = document.getElementById(tabId);
-    if (currentTab === newTab) return;
-
-    isAnimating = true;
-
-    document.querySelectorAll('.nav-menu a').forEach(a => {
-        a.classList.remove('active');
-        if(a.classList.contains('nav-alert')) a.classList.remove('active-alert');
-    });
-    
-    if(element.classList.contains('nav-alert')) { element.classList.add('active-alert'); } else { element.classList.add('active'); }
-
-    currentTab.classList.remove('win11-in');
-    currentTab.classList.add('win11-out');
-
-    setTimeout(() => {
-        currentTab.classList.remove('show', 'win11-out');
-        newTab.classList.add('show', 'win11-in');
-        setTimeout(() => { isAnimating = false; }, 350); 
-    }, 100);
-}
-
-// ==========================================
-// מנוע התראות חכם - מחובר לשרת Vercel הסודי שלנו!
-// ==========================================
-let lastAlertId = "";
-let alertActive = false;
-
-async function fetchRealAlerts() {
+// פונקציה שעושה סאונד כשמופיעה אזעקה
+function playAlarmSound() {
     try {
-        // פונים למנוע החדש שלנו שיצרת עכשיו בתיקיית api
-        const targetUrl = '/api/tzofar?v=' + new Date().getTime();
-        
-        const response = await fetch(targetUrl, { cache: 'no-store' });
-        if (!response.ok) return; 
-        
-        const textData = await response.text();
-        
-        // אם הקובץ ריק (שגרה)
-        if (!textData || textData.trim() === "") {
-            if (alertActive) {
-                setTimeout(turnOffAlert, 8000); 
-            }
-            return; 
-        }
+        const audio = new Audio('https://www.myinstants.com/media/sounds/red-alert.mp3'); // צליל סירנה עדין שמצאתי
+        audio.volume = 0.5;
+        audio.play();
+    } catch (e) {
+        console.log("Audio play failed (maybe blocked by browser)");
+    }
+}
 
-        // פענוח בזמן אמת
-        try {
-            const alertData = JSON.parse(textData);
-            
-            if (alertData && alertData.data && alertData.data.length > 0) {
-                const cities = alertData.data.join(', ');
-                const title = alertData.title;
-                const alertId = alertData.id || new Date().getTime().toString(); 
-                
-                if (alertId !== lastAlertId) {
-                    lastAlertId = alertId;
-                    triggerRealAlert(title, cities);
+async function checkAlerts() {
+    try {
+        // פנייה לשרת הישראלי החדש שלנו שעוקף את החסימה
+        const response = await fetch('http://185.28.154.120', {
+            cache: 'no-store'
+        });
+        
+        const data = await response.text();
+        
+        if (data.trim() !== "") {
+            try {
+                const jsonData = JSON.parse(data);
+                if (jsonData.data && jsonData.data.length > 0) {
+                    triggerAlarm(jsonData.title, jsonData.data);
+                } else {
+                    resetAlarm();
                 }
+            } catch (e) {
+                console.log("Error parsing JSON:", e);
+                resetAlarm();
             }
-        } catch (parseError) {
-            // מתעלמים משגיאות פענוח
+        } else {
+            resetAlarm();
         }
-
+        
     } catch (error) {
-        // מתעלמים משגיאות רשת
+        console.error("Connection error:", error);
     }
 }
 
-// הפונקציה החכמה שמנתחת את האיום
-function getThreatStyles(title) {
-    if (title.includes("מחבלים") || title.includes("פשיטה")) {
-        return { color: "#9333ea", icon: "fas fa-skull-crossbones", bgGlow: "rgba(147, 51, 234, 0.2)", cardBg: "rgba(147, 51, 234, 0.15)", type: "חדירת מחבלים!", flash: true };
+function triggerAlarm(title, citiesArray) {
+    if (!alarmActive) {
+        alarmActive = true;
+        playAlarmSound(); // מפעיל סאונד רק פעם אחת בתחילת האזעקה
+        
+        document.getElementById('main-radar-box').style.background = 'rgba(255,0,60,0.1)';
+        document.getElementById('main-radar-box').style.borderColor = '#ff003c';
+        
+        document.getElementById('radar-ui').style.borderColor = 'rgba(255,0,60,0.5)';
+        document.getElementById('radar-icon').style.color = '#ff003c';
+        document.getElementById('status-dot-ui').style.background = '#ff003c';
+        document.getElementById('status-dot-ui').style.boxShadow = '0 0 15px #ff003c';
+        
+        document.getElementById('status-text').innerHTML = '<span class="status-dot" id="status-dot-ui" style="background: #ff003c; box-shadow: 0 0 15px #ff003c;"></span> זוהתה סכנה מוחשית!';
+        
+        document.getElementById('active-alarm').style.display = 'block';
     }
-    if (title.includes("כלי טיס") || title.includes("כטב\"ם")) {
-        return { color: "#f97316", icon: "fas fa-fighter-jet", bgGlow: "rgba(249, 115, 22, 0.2)", cardBg: "rgba(249, 115, 22, 0.15)", type: "חדירת כלי טיס עוין!", flash: true };
-    }
-    if (title.includes("חומרים מסוכנים") || title.includes("חומ\"ס")) {
-        return { color: "#84cc16", icon: "fas fa-radiation", bgGlow: "rgba(132, 204, 22, 0.2)", cardBg: "rgba(132, 204, 22, 0.15)", type: "אירוע חומרים מסוכנים!", flash: true };
-    }
-    if (title.includes("מבזק") || title.includes("הנחיות") || title.includes("עדכון") || title.includes("התרעה מקדימה")) {
-        return { color: "#f59e0b", icon: "fas fa-info-circle", bgGlow: "rgba(245, 158, 11, 0.2)", cardBg: "rgba(245, 158, 11, 0.15)", type: "עדכון פיקוד העורף:", flash: false };
-    }
-    return { color: "#ff003c", icon: "fas fa-rocket", bgGlow: "rgba(255, 0, 60, 0.2)", cardBg: "rgba(255, 0, 60, 0.15)", type: "ירי רקטות וטילים!", flash: true };
+    
+    document.getElementById('alarm-title').innerHTML = `<i class="fas fa-rocket"></i> ${title || 'ירי רקטות וטילים'}`;
+    document.getElementById('alarm-cities').innerText = citiesArray.join(', ');
+
+    // --- קוראים לפונקציה של המפה שתצייר את האזעקות ---
+    drawAlertsOnMap(citiesArray);
 }
 
-function triggerRealAlert(title, cities) {
-    alertActive = true;
-    const radar = document.getElementById('radar-ui');
-    const radarIcon = document.getElementById('radar-icon');
-    const statusText = document.getElementById('status-text');
-    const dot = document.getElementById('status-dot-ui');
-    const alarmCard = document.getElementById('active-alarm');
-    const bg = document.getElementById('core-system');
-    
-    const threat = getThreatStyles(title);
-    
-    document.getElementById('alarm-title').innerHTML = `<i class="${threat.icon}"></i> ${title}`;
-    document.getElementById('alarm-cities').innerText = !threat.flash ? `תוכן: ${cities}` : `אזורים: ${cities}`;
+function drawAlertsOnMap(citiesList) {
+    // מוחקים אזעקות ישנות מהמפה
+    activeAlertsOnMap.forEach(marker => map.removeLayer(marker));
+    activeAlertsOnMap = [];
 
-    radar.style.borderColor = threat.color;
-    radarIcon.className = threat.icon;
-    radarIcon.style.color = threat.color;
-    radarIcon.style.animation = "pulseDot 0.5s infinite alternate";
-    
-    dot.style.background = threat.color;
-    dot.style.boxShadow = `0 0 15px ${threat.color}`;
-    statusText.innerHTML = `<span class="status-dot" style="background: ${threat.color}; box-shadow: 0 0 15px ${threat.color};"></span> ${threat.type}`;
-    statusText.style.color = threat.color;
-    
-    alarmCard.style.display = "block";
-    alarmCard.style.borderColor = threat.color;
-    alarmCard.style.backgroundColor = threat.cardBg;
-    
-    alarmCard.style.animation = threat.flash ? "flashRed 1s infinite alternate" : "none";
-    if(threat.flash) {
-        alarmCard.style.boxShadow = `0 0 20px ${threat.color}`; 
+    // מציירים את החדשות
+    citiesList.forEach(cityName => {
+        const coords = cityCoordinates[cityName];
+        if (coords) {
+            const circle = L.circle(coords, {
+                color: 'red',
+                fillColor: '#ff003c',
+                fillOpacity: 0.6,
+                radius: 4000 // רדיוס קצת יותר גדול כדי שייראה ברור
+            }).addTo(map);
+            
+            circle.bindPopup(`<b>${cityName}</b><br>סכנה מיידית, היכנסו למרחב מוגן!`);
+            activeAlertsOnMap.push(circle);
+        }
+    });
+}
+
+function resetAlarm() {
+    if (alarmActive) {
+        alarmActive = false;
+        
+        document.getElementById('main-radar-box').style.background = 'rgba(0,0,0,0.3)';
+        document.getElementById('main-radar-box').style.borderColor = 'rgba(255, 255, 255, 0.06)';
+        
+        document.getElementById('radar-ui').style.borderColor = 'rgba(20, 184, 166, 0.3)';
+        document.getElementById('radar-icon').style.color = '#14b8a6';
+        
+        document.getElementById('status-text').innerHTML = '<span class="status-dot" id="status-dot-ui"></span> סורק התראות אמת (פיקוד העורף)';
+        
+        document.getElementById('active-alarm').style.display = 'none';
+
+        // מוחקים את העיגולים מהמפה כשהאזעקה נגמרת
+        activeAlertsOnMap.forEach(marker => map.removeLayer(marker));
+        activeAlertsOnMap = [];
     }
-    
-    bg.style.boxShadow = `inset 0 0 100px ${threat.bgGlow}`;
 }
 
-function turnOffAlert() {
-    alertActive = false;
-    lastAlertId = ""; 
-    const radar = document.getElementById('radar-ui');
-    const radarIcon = document.getElementById('radar-icon');
-    const statusText = document.getElementById('status-text');
-    const alarmCard = document.getElementById('active-alarm');
-    const bg = document.getElementById('core-system');
-
-    radar.style.borderColor = "rgba(20, 184, 166, 0.3)";
-    radarIcon.className = "fas fa-shield-alt";
-    radarIcon.style.color = "#14b8a6";
-    radarIcon.style.animation = "none";
-    
-    statusText.innerHTML = '<span class="status-dot"></span> סורק התראות אמת מחובר לשרת';
-    statusText.style.color = "#f3f4f6";
-    alarmCard.style.display = "none";
-    bg.style.boxShadow = "none";
-}
-
+// פונקציית טסט למנהלים (עכשיו היא בודקת על טבריה כדי שתראה את זה במפה)
 function triggerTestAlert() {
-    triggerRealAlert("חדירת כלי טיס עוין", "טבריה (טסט מערכת)");
-    setTimeout(turnOffAlert, 15000);
+    triggerAlarm("טסט למערכת (ירי רקטות)", ["טבריה", "תל אביב - מרכז"]);
+    
+    setTimeout(() => {
+        if (alarmActive) resetAlarm();
+    }, 15000);
 }
 
-// קצב סריקה של חמ"ל אמיתי: 3 שניות
-setInterval(fetchRealAlerts, 3000);
+// הפעלה אוטומטית כשהאתר עולה
+checkInterval = setInterval(checkAlerts, 1000); // בודק כל שנייה
+
+// === פונקציות עיצוב ומעברים (אל תיגע) ===
+function bootSystem() {
+    document.getElementById('welcome-screen').style.opacity = '0';
+    document.getElementById('welcome-screen').style.pointerEvents = 'none';
+    
+    setTimeout(() => {
+        document.getElementById('black-screen').classList.add('active');
+        
+        setTimeout(() => {
+            document.getElementById('black-screen').classList.remove('active');
+            document.getElementById('core-system').classList.add('online');
+            
+            // טריק חשוב ל-Leaflet: כשהמפה מוסתרת בטאב אחר היא מאבדת פרופורציות
+            // זה מתקן אותה ברגע שהמערכת עולה
+            setTimeout(() => { map.invalidateSize(); }, 500);
+
+        }, 2000);
+    }, 500);
+}
+
+function navSwitch(tabId, el) {
+    document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active', 'active-alert'));
+    if (tabId === 'alerts') { el.classList.add('active-alert'); } else { el.classList.add('active'); }
+    
+    document.querySelectorAll('.tab-layer').forEach(tab => {
+        if (tab.classList.contains('show')) {
+            tab.classList.add('win11-out');
+            setTimeout(() => {
+                tab.classList.remove('show', 'win11-out');
+                showNewTab(tabId);
+            }, 100);
+        }
+    });
+}
+
+function showNewTab(tabId) {
+    const newTab = document.getElementById(tabId);
+    newTab.classList.add('show', 'win11-in');
+    setTimeout(() => newTab.classList.remove('win11-in'), 350);
+
+    // מתקן את גודל המפה אם עוברים לטאב ההתראות
+    if (tabId === 'alerts') {
+        setTimeout(() => { map.invalidateSize(); }, 100);
+    }
+}
