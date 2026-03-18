@@ -1,39 +1,34 @@
 // === הגדרות המפה של SINS ===
-// מאתחלים את המפה ומתמקדים על מרכז הארץ בערך
 const map = L.map('map').setView([31.5, 34.8], 7);
 
-// טוענים את העיצוב (התמונות) של המפה
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors',
+    attribution: '© OpenStreetMap',
     maxZoom: 18,
 }).addTo(map);
 
-// מערך שישמור את הצורות (הפוליגונים) האדומים כדי למחוק אותם בסוף האזעקה
 let activeAlertsOnMap = [];
 
-// === מילון פוליגונים מדויק של SINS (הטריק המגנטי) ===
-// הגדרנו כאן את הקואורדינטות המדויקות של הגבולות עבור יישובי הטסט.
-// זה נראה "צבאי" כמו פיקוד העורף!
-const cityPolygons = {
+// === מאגר המידע של המפה ===
+// 1. פוליגונים מדויקים שיש לנו כרגע (כמו פיקוד העורף)
+const exactPolygons = {
     "טבריה": [
-        [32.8021, 35.5226],
-        [32.8058, 35.5367],
-        [32.7972, 35.5422],
-        [32.7885, 35.5370],
-        [32.7891, 35.5230],
-        [32.7970, 35.5180],
-        [32.8021, 35.5226] // סגירת הצורה
+        [32.8021, 35.5226], [32.8058, 35.5367], [32.7972, 35.5422], 
+        [32.7885, 35.5370], [32.7891, 35.5230], [32.7970, 35.5180], [32.8021, 35.5226]
     ],
     "תל אביב - מרכז": [
-        [32.0910, 34.7700],
-        [32.0950, 34.7850],
-        [32.0800, 34.7900],
-        [32.0650, 34.7800],
-        [32.0650, 34.7650],
-        [32.0800, 34.7600],
-        [32.0910, 34.7700] // סגירת הצורה
+        [32.0910, 34.7700], [32.0950, 34.7850], [32.0800, 34.7900], 
+        [32.0650, 34.7800], [32.0650, 34.7650], [32.0800, 34.7600], [32.0910, 34.7700]
     ]
-    // ליישובים אחרים נוסיף בעתיד או שנמצא מאגרGeoJSON מלא
+};
+
+// 2. קואורדינטות מרכז עיר - גיבוי ליישובים שעדיין אין לנו את השרטוט המדויק שלהם
+const fallbackCoordinates = {
+    "משגב עם": [33.2530, 35.5441],
+    "שדרות": [31.5226, 34.5954],
+    "חיפה - כרמל": [32.7940, 34.9896],
+    "אשדוד": [31.8014, 34.6435],
+    "קריית שמונה": [33.2073, 35.5694]
+    // בעתיד נטען קובץ JSON עצום שיחליף את כל זה אוטומטית!
 };
 
 
@@ -41,24 +36,20 @@ const cityPolygons = {
 let alarmActive = false;
 let checkInterval;
 
-// פונקציה שעושה סאונד כשמופיעה אזעקה
 function playAlarmSound() {
     try {
         const audio = new Audio('https://www.myinstants.com/media/sounds/red-alert.mp3'); 
         audio.volume = 0.5;
         audio.play();
     } catch (e) {
-        console.log("Audio play failed (maybe blocked by browser)");
+        console.log("Audio play failed");
     }
 }
 
 async function checkAlerts() {
     try {
-        // פנייה לשרת הישראלי החדש שלנו שעוקף את החסימה
-        const response = await fetch('http://185.28.154.120', {
-            cache: 'no-store'
-        });
-        
+        // פונים לשרת שעוקף חסימות (השרת הפיזי שלך)
+        const response = await fetch('http://185.28.154.120', { cache: 'no-store' });
         const data = await response.text();
         
         if (data.trim() !== "") {
@@ -70,13 +61,11 @@ async function checkAlerts() {
                     resetAlarm();
                 }
             } catch (e) {
-                console.log("Error parsing JSON:", e);
                 resetAlarm();
             }
         } else {
             resetAlarm();
         }
-        
     } catch (error) {
         console.error("Connection error:", error);
     }
@@ -89,50 +78,57 @@ function triggerAlarm(title, citiesArray) {
         
         document.getElementById('main-radar-box').style.background = 'rgba(255,0,60,0.1)';
         document.getElementById('main-radar-box').style.borderColor = '#ff003c';
-        
         document.getElementById('radar-ui').style.borderColor = 'rgba(255,0,60,0.5)';
         document.getElementById('radar-icon').style.color = '#ff003c';
         document.getElementById('status-dot-ui').style.background = '#ff003c';
         document.getElementById('status-dot-ui').style.boxShadow = '0 0 15px #ff003c';
-        
         document.getElementById('status-text').innerHTML = '<span class="status-dot" id="status-dot-ui" style="background: #ff003c; box-shadow: 0 0 15px #ff003c;"></span> זוהתה סכנה מוחשית!';
-        
         document.getElementById('active-alarm').style.display = 'block';
     }
     
     document.getElementById('alarm-title').innerHTML = `<i class="fas fa-rocket"></i> ${title || 'ירי רקטות וטילים'}`;
     document.getElementById('alarm-cities').innerText = citiesArray.join(', ');
 
-    // === קוראים לפונקציה של המפה שתצייר את הפוליגונים ה"צבאיים" ===
+    // ציור על המפה (פוליגונים או רדיוסים)
     drawAlertsOnMap(citiesArray);
 }
 
-function drawAlertsOnMap(citiesList) {
-    // מוחקים אזעקות ישנות מהמפה
+// הפונקציה החכמה של המפה
+async function drawAlertsOnMap(citiesList) {
+    // מנקים מפה מאזעקות קודמות
     activeAlertsOnMap.forEach(marker => map.removeLayer(marker));
     activeAlertsOnMap = [];
 
-    // מציירים את הצורות החדשות (הפוליגונים)
+    // אפקט זום קל למרכז הארץ כשיש מטח
+    map.flyTo([31.8, 34.8], 8, { animate: true, duration: 1.5 });
+
     citiesList.forEach(cityName => {
-        // מחפשים במילון הפוליגונים שלנו
-        const polyCoords = cityPolygons[cityName];
-        
-        if (polyCoords) {
-            // אם מצאנו את גבולות העיר - מציירים פוליגון כמו פיקוד העורף
-            const polygon = L.polygon(polyCoords, {
-                color: '#ff003c',       // מסגרת אדומה בהירה (סגנון פיקוד העורף)
-                weight: 2,               // עובי המסגרת
-                fillColor: '#ff003c',   // מילוי אדום
-                fillOpacity: 0.5        // שקיפות מילוי
+        // 1. קודם כל, מנסים לצייר פוליגון צבאי מדויק (אם יש לנו אותו)
+        if (exactPolygons[cityName]) {
+            const polygon = L.polygon(exactPolygons[cityName], {
+                color: '#ff003c',
+                weight: 2,
+                fillColor: '#ff003c',
+                fillOpacity: 0.5
             }).addTo(map);
             
-            polygon.bindPopup(`<b>${cityName}</b><br>סכנה מיידית, היכנסו למרחב מוגן!`);
-            
-            // הוספת האפקט ה"מגנטי" - הפוליגון יהבהב (נצטרך להוסיף CSS ל-html)
+            polygon.bindPopup(`<b>${cityName}</b><br>סכנה מיידית!`);
             polygon.getElement().classList.add('pulsing-polygon');
-            
             activeAlertsOnMap.push(polygon);
+        } 
+        // 2. אם אין פוליגון מדויק, נצייר עיגול התרעה על מרכז העיר (כדי שלא נפספס אף אזעקה!)
+        else if (fallbackCoordinates[cityName]) {
+            const circle = L.circle(fallbackCoordinates[cityName], {
+                color: 'red',
+                fillColor: '#ff003c',
+                fillOpacity: 0.6,
+                radius: 4000
+            }).addTo(map);
+            
+            circle.bindPopup(`<b>${cityName}</b><br>התרעה במרחב!`);
+            activeAlertsOnMap.push(circle);
         }
+        // 3. בהמשך - כאן נתחבר ל-API שיחפש לבד ערים שאנחנו לא מכירים!
     });
 }
 
@@ -142,40 +138,31 @@ function resetAlarm() {
         
         document.getElementById('main-radar-box').style.background = 'rgba(0,0,0,0.3)';
         document.getElementById('main-radar-box').style.borderColor = 'rgba(255, 255, 255, 0.06)';
-        
         document.getElementById('radar-ui').style.borderColor = 'rgba(20, 184, 166, 0.3)';
         document.getElementById('radar-icon').style.color = '#14b8a6';
-        
         document.getElementById('status-text').innerHTML = '<span class="status-dot" id="status-dot-ui"></span> סורק התראות אמת (פיקוד העורף)';
-        
         document.getElementById('active-alarm').style.display = 'none';
 
-        // מוחקים את הצורות מהמפה כשהאזעקה נגמרת
         activeAlertsOnMap.forEach(marker => map.removeLayer(marker));
         activeAlertsOnMap = [];
+        
+        // החזרת זום למצב שקט
+        map.flyTo([31.5, 34.8], 7, { animate: true, duration: 2 });
     }
 }
 
-// פונקציית טסט למנהלים (עכשיו היא בודקת על טבריה כדי שתראה את הפוליגון)
 function triggerTestAlert() {
-    triggerAlarm("טסט למערכת (ירי רקטות)", ["טבריה", "תל אביב - מרכז"]);
-    
-    // בטסט, מתמקדים על טבריה כדי לראות את הצורה יפה
-    map.setView([32.7940, 35.5331], 12);
+    // טסט משולב: טבריה ות"א יקבלו פוליגון, ושדרות תקבל עיגול רדיוס
+    triggerAlarm("טסט למערכת החמ\"ל", ["טבריה", "תל אביב - מרכז", "שדרות"]);
     
     setTimeout(() => {
-        if (alarmActive) {
-            resetAlarm();
-            // מחזירים את המפה למרכז אחרי הטסט
-            map.setView([31.5, 34.8], 7);
-        }
+        if (alarmActive) resetAlarm();
     }, 15000);
 }
 
-// הפעלה אוטומטית כשהאתר עולה
-checkInterval = setInterval(checkAlerts, 1000); // בודק כל שנייה
+checkInterval = setInterval(checkAlerts, 1000);
 
-// === פונקציות עיצוב ומעברים (אל תיגע) ===
+// === פונקציות מעברים ===
 function bootSystem() {
     document.getElementById('welcome-screen').style.opacity = '0';
     document.getElementById('welcome-screen').style.pointerEvents = 'none';
@@ -187,9 +174,7 @@ function bootSystem() {
             document.getElementById('black-screen').classList.remove('active');
             document.getElementById('core-system').classList.add('online');
             
-            // טריק חשוב ל-Leaflet: כשהמפה מוסתרת בטאב אחר היא מאבדת פרופורציות
             setTimeout(() => { map.invalidateSize(); }, 500);
-
         }, 2000);
     }, 500);
 }
@@ -214,7 +199,6 @@ function showNewTab(tabId) {
     newTab.classList.add('show', 'win11-in');
     setTimeout(() => newTab.classList.remove('win11-in'), 350);
 
-    // מתקן את גודל המפה אם עוברים לטאב ההתראות
     if (tabId === 'alerts') {
         setTimeout(() => { map.invalidateSize(); }, 100);
     }
