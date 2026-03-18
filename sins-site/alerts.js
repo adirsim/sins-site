@@ -3,8 +3,8 @@ let checkInterval;
 
 async function checkAlerts() {
     try {
-        // פנייה לשרת הישראלי החדש שלנו שעוקף את החסימה בפתח תקווה!
-        const response = await fetch('http://185.28.154.120', {
+        // התיקון: פונים ל"מנהרה" שלנו ב-Vercel, שמדברת עם פתח תקווה מאחורי הקלעים!
+        const response = await fetch('/api/tzofar', {
             cache: 'no-store'
         });
         
@@ -35,6 +35,13 @@ function triggerAlarm(title, citiesArray) {
     if (!alarmActive) {
         alarmActive = true;
         
+        // מפעיל סאונד סירנה
+        try {
+            const audio = new Audio('https://www.myinstants.com/media/sounds/red-alert.mp3'); 
+            audio.volume = 0.5;
+            audio.play();
+        } catch (e) {}
+
         // צובע את הכל באדום
         document.getElementById('main-radar-box').style.background = 'rgba(255,0,60,0.1)';
         document.getElementById('main-radar-box').style.borderColor = '#ff003c';
