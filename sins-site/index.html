@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
             var(--primary): #6366f1; var(--secondary): #8b5cf6; var(--accent): #14b8a6; var(--danger): #e11d48; var(--alert): #ff003c;
@@ -114,6 +115,11 @@
         .btn-massive { display: inline-block; padding: 25px 80px; font-size: 1.8rem; font-weight: 800; border-radius: 100px; text-decoration: none; transition: 0.3s; }
         .btn-discord { background: #5865F2; color: #fff; }
         .btn-discord:hover { background: #fff; color: #5865F2; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(88,101,242,0.3); }
+        
+        /* הוספתי קצת עיצוב למפה שלא תתנגש עם הרקע */
+        .leaflet-container {
+            font-family: 'Heebo', sans-serif !important;
+        }
     </style>
 </head>
 <body>
@@ -182,6 +188,8 @@
                         <span class="status-dot" id="status-dot-ui"></span> סורק התראות אמת (פיקוד העורף)
                     </h3>
                     <p style="font-size: 1.3rem; color: #9ca3af;">המערכת מחוברת ומתעדכנת בזמן אמת.</p>
+                    
+                    <div id="map" style="height: 400px; width: 100%; border-radius: 15px; margin-top: 30px; margin-bottom: 20px; z-index: 1; border: 2px solid rgba(255, 255, 255, 0.1);"></div>
                     
                     <div class="alarm-card" id="active-alarm">
                         <h2 id="alarm-title"><i class="fas fa-exclamation-triangle"></i> סוג התראה</h2>
@@ -311,6 +319,7 @@
         </main>
     </div>
     
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="alerts.js"></script>
 </body>
-</html>ד
+</html>
