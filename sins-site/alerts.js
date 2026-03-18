@@ -1,4 +1,4 @@
-// === הגדרות המפה של SINS ===
+// === הגדרות המפה של SINS - רמה צבאית ===
 const map = L.map('map').setView([31.5, 34.8], 7);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -8,8 +8,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let activeAlertsOnMap = [];
 
-// === מאגר המידע של המפה ===
-// 1. פוליגונים מדויקים שיש לנו כרגע (כמו פיקוד העורף)
+// === מאגר פוליגונים מדויקים (טעימה לפני הקובץ המלא) ===
+// אלו שרטוטים מדויקים שמדמים את פיקוד העורף לערים מרכזיות לטסטים
 const exactPolygons = {
     "טבריה": [
         [32.8021, 35.5226], [32.8058, 35.5367], [32.7972, 35.5422], 
@@ -18,17 +18,23 @@ const exactPolygons = {
     "תל אביב - מרכז": [
         [32.0910, 34.7700], [32.0950, 34.7850], [32.0800, 34.7900], 
         [32.0650, 34.7800], [32.0650, 34.7650], [32.0800, 34.7600], [32.0910, 34.7700]
+    ],
+    "חיפה - כרמל": [
+        [32.8150, 34.9700], [32.8200, 35.0000], [32.7900, 35.0100], 
+        [32.7800, 34.9800], [32.8150, 34.9700]
+    ],
+    "ירושלים - מרכז": [
+        [31.7900, 35.2000], [31.7900, 35.2300], [31.7600, 35.2300], 
+        [31.7600, 35.2000], [31.7900, 35.2000]
     ]
 };
 
-// 2. קואורדינטות מרכז עיר - גיבוי ליישובים שעדיין אין לנו את השרטוט המדויק שלהם
+// גיבוי ליישובים שעוד לא העלינו את השרטוט שלהם (כדי שלא נפספס אף אזעקה)
 const fallbackCoordinates = {
     "משגב עם": [33.2530, 35.5441],
     "שדרות": [31.5226, 34.5954],
-    "חיפה - כרמל": [32.7940, 34.9896],
     "אשדוד": [31.8014, 34.6435],
     "קריית שמונה": [33.2073, 35.5694]
-    // בעתיד נטען קובץ JSON עצום שיחליף את כל זה אוטומטית!
 };
 
 
@@ -48,7 +54,6 @@ function playAlarmSound() {
 
 async function checkAlerts() {
     try {
-        // פונים לשרת שעוקף חסימות (השרת הפיזי שלך)
         const response = await fetch('http://185.28.154.120', { cache: 'no-store' });
         const data = await response.text();
         
@@ -89,21 +94,19 @@ function triggerAlarm(title, citiesArray) {
     document.getElementById('alarm-title').innerHTML = `<i class="fas fa-rocket"></i> ${title || 'ירי רקטות וטילים'}`;
     document.getElementById('alarm-cities').innerText = citiesArray.join(', ');
 
-    // ציור על המפה (פוליגונים או רדיוסים)
     drawAlertsOnMap(citiesArray);
 }
 
-// הפונקציה החכמה של המפה
-async function drawAlertsOnMap(citiesList) {
-    // מנקים מפה מאזעקות קודמות
+// הפונקציה החכמה שמציירת על המפה (פוליגון אם יש, רדיוס אם אין)
+function drawAlertsOnMap(citiesList) {
     activeAlertsOnMap.forEach(marker => map.removeLayer(marker));
     activeAlertsOnMap = [];
 
-    // אפקט זום קל למרכז הארץ כשיש מטח
+    // זום פנימה למרכז הארץ כשיש מטח
     map.flyTo([31.8, 34.8], 8, { animate: true, duration: 1.5 });
 
     citiesList.forEach(cityName => {
-        // 1. קודם כל, מנסים לצייר פוליגון צבאי מדויק (אם יש לנו אותו)
+        // מחפשים שרטוט מדויק של פיקוד העורף
         if (exactPolygons[cityName]) {
             const polygon = L.polygon(exactPolygons[cityName], {
                 color: '#ff003c',
@@ -116,7 +119,7 @@ async function drawAlertsOnMap(citiesList) {
             polygon.getElement().classList.add('pulsing-polygon');
             activeAlertsOnMap.push(polygon);
         } 
-        // 2. אם אין פוליגון מדויק, נצייר עיגול התרעה על מרכז העיר (כדי שלא נפספס אף אזעקה!)
+        // אם אין שרטוט מדויק (עד שנעלה את הקובץ המלא), נשים עיגול חלופי חכם
         else if (fallbackCoordinates[cityName]) {
             const circle = L.circle(fallbackCoordinates[cityName], {
                 color: 'red',
@@ -128,7 +131,6 @@ async function drawAlertsOnMap(citiesList) {
             circle.bindPopup(`<b>${cityName}</b><br>התרעה במרחב!`);
             activeAlertsOnMap.push(circle);
         }
-        // 3. בהמשך - כאן נתחבר ל-API שיחפש לבד ערים שאנחנו לא מכירים!
     });
 }
 
@@ -146,14 +148,16 @@ function resetAlarm() {
         activeAlertsOnMap.forEach(marker => map.removeLayer(marker));
         activeAlertsOnMap = [];
         
-        // החזרת זום למצב שקט
         map.flyTo([31.5, 34.8], 7, { animate: true, duration: 2 });
     }
 }
 
+// טסט למנהלים שמראה גם פוליגונים מדויקים וגם עיגולים
 function triggerTestAlert() {
-    // טסט משולב: טבריה ות"א יקבלו פוליגון, ושדרות תקבל עיגול רדיוס
     triggerAlarm("טסט למערכת החמ\"ל", ["טבריה", "תל אביב - מרכז", "שדרות"]);
+    
+    // בטסט מתמקדים קצת יותר צפונה כדי לראות את טבריה ות"א
+    setTimeout(() => { map.setView([32.4, 35.1], 9); }, 1500);
     
     setTimeout(() => {
         if (alarmActive) resetAlarm();
@@ -169,11 +173,9 @@ function bootSystem() {
     
     setTimeout(() => {
         document.getElementById('black-screen').classList.add('active');
-        
         setTimeout(() => {
             document.getElementById('black-screen').classList.remove('active');
             document.getElementById('core-system').classList.add('online');
-            
             setTimeout(() => { map.invalidateSize(); }, 500);
         }, 2000);
     }, 500);
