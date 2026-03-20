@@ -119,18 +119,8 @@
         .btn-discord { background: #5865F2; color: #fff; }
         .btn-discord:hover { background: #fff; color: #5865F2; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(88,101,242,0.3); }
 
-        /* עיצוב למפה שתתאים לאתר */
-        #map-container {
-            margin-top: 30px;
-            height: 400px;
-            width: 100%;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            overflow: hidden;
-            position: relative;
-            z-index: 1;
-        }
+        /* קונטיינר המפה */
+        #map-container { margin-top: 30px; height: 400px; width: 100%; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.06); box-shadow: 0 20px 50px rgba(0,0,0,0.3); overflow: hidden; position: relative; z-index: 1; }
     </style>
 </head>
 <body>
@@ -197,12 +187,12 @@
                         <i class="fas fa-shield-alt" id="radar-icon"></i>
                     </div>
                     <h3 style="font-size: 2rem; margin-bottom: 15px;" id="status-text">
-                        <span class="status-dot" id="status-dot-ui"></span> סורק התראות אמת (פיקוד העורף)
+                        <span class="status-dot" id="status-dot-ui"></span> סורק התראות אמת
                     </h3>
                     <p style="font-size: 1.3rem; color: #9ca3af;">המערכת מחוברת ומתעדכנת בזמן אמת.</p>
                     
                     <div class="alarm-card" id="active-alarm">
-                        <h2 id="alarm-title"><i class="fas fa-exclamation-triangle"></i> סוג התראה</h2>
+                        <h2 id="alarm-title"><i class="fas fa-exclamation-triangle"></i> צבע אדום</h2>
                         <p class="location" id="alarm-cities">אזורים...</p>
                         <p style="margin-top: 15px; font-size: 1.2rem; color: #fff;">היכנסו מיד למרחב מוגן ושהו בו 10 דקות.</p>
                     </div>
@@ -212,147 +202,23 @@
                 <div id="map-container">
                     <div id="map" style="height: 100%; width: 100%;"></div>
                 </div>
-
             </section>
 
             <section id="apply" class="tab-layer">
                 <h2 class="page-title">הגשת מועמדות לצוות</h2>
-                <div class="form-container">
-                    <form id="staff-form" class="elegant-form">
-                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
-                        <input type="hidden" name="subject" value="מועמדות חדשה לצוות השרת!">
-
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label>שם משתמש בדיסקורד</label>
-                                <input type="text" name="Discord_Username" class="clean-input" placeholder="Adir#1234" required>
-                            </div>
-                            <div class="input-group">
-                                <label>גיל מועמד</label>
-                                <input type="number" name="Age" class="clean-input" placeholder="הכנס גיל..." required>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <label>תפקיד מבוקש</label>
-                            <select name="Requested_Role" class="clean-select" required>
-                                <option value="" disabled selected>בחר תפקיד...</option>
-                                <option value="מודרטור">מודרטור</option>
-                                <option value="הלפר">הלפר</option>
-                                <option value="צוות אירועים">צוות אירועים</option>
-                            </select>
-                        </div>
-
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label>כמה שעות פעילות שבועיות תוכל לתת לנו?</label>
-                                <input type="text" name="Weekly_Hours" class="clean-input" placeholder="לדוגמה: 20 שעות בשבוע" required>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <label>למה כדאי לנו לבחור דווקא בך?</label>
-                            <textarea name="Why_Choose_You" class="clean-input clean-textarea" placeholder="מה מייחד אותך ממועמדים אחרים?" required></textarea>
-                        </div>
-
-                        <div class="input-group">
-                            <label>מה התחביבים שלך? (קצת על עצמך)</label>
-                            <textarea name="Hobbies" class="clean-input clean-textarea" placeholder="ספר לנו על התחביבים שלך, משחקים אהובים..." required></textarea>
-                        </div>
-
-                        <div class="input-group">
-                            <label>האם יש לך ניסיון קודם בצוותים?</label>
-                            <textarea name="Previous_Experience" class="clean-input clean-textarea" placeholder="ספר לנו אם היית בצוותים בעבר..." required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-submit" id="btn-submit-apply">שלח טופס להנהלה</button>
-                    </form>
-                    
-                    <div id="apply-success" class="success-banner" style="background: rgba(20, 184, 166, 0.1); border-color: #14b8a6;">
-                        <i class="fas fa-check-circle" style="font-size: 5rem; color: #14b8a6; margin-bottom: 20px;"></i> 
-                        <h2 style="font-size: 2.5rem; color: #14b8a6; margin-bottom: 10px;">המועמדות נשלחה בהצלחה!</h2>
-                        <p style="font-size: 1.4rem; color: #fff;">הצוות יקבל את הטופס ויבחן אותו בקרוב.</p>
-                    </div>
-                </div>
-            </section>
+                </section>
 
             <section id="report" class="tab-layer">
                 <h2 class="page-title">דיווח על משתמש / איש צוות</h2>
-                <div class="form-container" style="border-top: 4px solid #e11d48;">
-                    <form id="report-form" class="elegant-form">
-                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
-                        <input type="hidden" name="subject" value="תלונת רפורט חדשה מהאתר!">
-
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label>על מי תרצה להתלונן?</label>
-                                <select name="Reported_User_Type" class="clean-select" required style="border-color: rgba(225, 29, 72, 0.3);">
-                                    <option value="" disabled selected>בחר אפשרות...</option>
-                                    <option value="איש צוות (הנהלה/מודרטור)">איש צוות (הנהלה/מודרטור)</option>
-                                    <option value="משתמש רגיל בשרת">משתמש רגיל בשרת</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label>שם המשתמש (Username)</label>
-                                <input type="text" name="Reported_Username" class="clean-input" required style="border-color: rgba(225, 29, 72, 0.3);">
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <label>מדוע אתה רוצה להתלונן עליו?</label>
-                            <textarea name="Reason_for_Report" class="clean-input clean-textarea" required style="border-color: rgba(225, 29, 72, 0.3);"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-submit" id="btn-submit-report" style="background: #e11d48; box-shadow: 0 10px 30px rgba(225, 29, 72, 0.25);">
-                            שלח דיווח להנהלה הבכירה <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
-                        </button>
-                    </form>
-                    
-                    <div id="report-success" class="success-banner" style="background: rgba(225, 29, 72, 0.1); border-color: #e11d48;">
-                        <i class="fas fa-shield-alt" style="font-size: 5rem; color: #e11d48; margin-bottom: 20px;"></i> 
-                        <h2 style="font-size: 2.5rem; color: #e11d48; margin-bottom: 10px;">הדיווח נשלח בהצלחה</h2>
-                        <p style="font-size: 1.4rem; color: #fff;">אנו ניקח את התלונה ברצינות ונטפל בה בהקדם.</p>
-                    </div>
-                </div>
-            </section>
+                 </section>
 
             <section id="join" class="tab-layer">
                 <h2 class="page-title">כניסה לשרת</h2>
-                <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; align-items: stretch;">
-                    <div class="massive-box" style="flex: 1; min-width: 300px; background: rgba(88, 101, 242, 0.05); border-color: rgba(88, 101, 242, 0.15); margin: 0;">
-                        <i class="fab fa-discord main-icon" style="color: #5865F2;"></i>
-                        <h2>הקהילה מחכה לכם</h2>
-                        <p style="margin-bottom: 40px;">הצטרפו עכשיו לשרת של SINS, תראו מי מחובר בלייב, וקחו חלק בקהילה האיכותית ביותר.</p>
-                        <a href="https://discord.gg/srMvcR8k" target="_blank" class="btn-massive btn-discord">היכנסו עכשיו</a>
-                    </div>
-                    <div style="flex: 1; min-width: 300px; display: flex; justify-content: center;">
-                        <iframe src="https://discord.com/widget?id=1482203048368406579&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06);"></iframe>
-                    </div>
-                </div>
-            </section>
+                 </section>
 
         </main>
     </div>
     
-    <script>
-        // יצירת המפה ומיקוד על מרכז הארץ (ישראל)
-        var map = L.map('map').setView([31.5, 34.8], 7);
-
-        // שימוש במפה עם עיצוב כהה (Dark Mode) כדי שיתאים בול לאתר שלך
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '© OpenStreetMap contributors',
-            maxZoom: 19
-        }).addTo(map);
-
-        // בגלל שהמפה מוסתרת בהתחלה (בתוך טאב), היא עלולה להופיע אפורה כשפותחים אותה
-        // הפונקציה הזו מתקנת את הגודל שלה ברגע שלוחצים על טאב "התראות אמת"
-        document.querySelector('.nav-alert').addEventListener('click', function() {
-            setTimeout(function() {
-                map.invalidateSize();
-            }, 100);
-        });
-    </script>
-
     <script src="alerts.js"></script>
 </body>
 </html>
