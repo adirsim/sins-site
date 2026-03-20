@@ -120,9 +120,9 @@ async function fetchAlerts() {
     if (isTestMode) return; 
 
     try {
-        // !!! אדיר, כאן תכניס את הלינק שלך של ה-Google Apps Script !!!
-        // עכשיו שמתי את ה-API הרשמי רק כדי שזה יעבוד לך זמנית בלי שגיאות קריסה
-        const response = await fetch('https://api.tzevaadom.co.il/notifications');
+        // 👇👇👇 אדיר, פה בדיוק אתה מדביק את הלינק של ה-Google Apps Script שלך 👇👇👇
+        const response = await fetch('הלינק-הארוך-שלך-כאן');
+        // 👆👆👆 שים את הכתובת בתוך הגרשיים במקום המילים "הלינק-הארוך-שלך-כאן" 👆👆👆
         
         if (!response.ok || response.status === 204) {
             handleNoAlerts();
