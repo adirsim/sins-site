@@ -11,7 +11,7 @@ function bootSystem() {
             
             setTimeout(() => {
                 document.getElementById('core-system').classList.add('online');
-                startAlertScanner();
+                startAlertScanner(); // מתחיל לחפש אזעקות
             }, 500);
             
         }, 1500);
@@ -24,11 +24,6 @@ function navSwitch(tabId, element) {
     
     if(tabId === 'alerts') {
         element.classList.add('active-alert');
-        setTimeout(() => {
-            if(typeof map !== 'undefined') {
-                map.invalidateSize();
-            }
-        }, 100);
     } else {
         element.classList.add('active');
     }
@@ -43,134 +38,41 @@ function navSwitch(tabId, element) {
     setTimeout(() => activeTab.classList.add('win11-in'), 10);
 }
 
-// === המערכת של המפה ===
-
-let map;
-let currentAlertLayers = []; 
-let geojsonData = null;      
-
-function initMap() {
-    map = L.map('map').setView([31.5, 34.8], 7); 
-    
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '© OpenStreetMap contributors',
-        maxZoom: 19
-    }).addTo(map);
-
-    fetch('https://raw.githubusercontent.com/idoflug/redalert/master/cities.json')
-        .then(res => res.json())
-        .then(data => {
-            geojsonData = data;
-        })
-        .catch(err => console.error("שגיאה בטעינת נתוני מפה:", err));
-}
-
-function showPolygonsOnMap(cityNamesArray) {
-    clearMapAlerts(); 
-
-    if (!geojsonData) return; 
-
-    const alertLayer = L.geoJSON(geojsonData, {
-        filter: function(feature) {
-            const nameHebrew = feature.properties.name || feature.properties.name_he || "";
-            return cityNamesArray.includes(nameHebrew);
-        },
-        style: function() {
-            return {
-                color: "#ff003c",      
-                weight: 2,             
-                fillColor: "#ff003c",  
-                fillOpacity: 0.5       
-            };
-        }
-    }).addTo(map);
-
-    currentAlertLayers.push(alertLayer);
-
-    if (alertLayer.getBounds().isValid()) {
-        map.flyToBounds(alertLayer.getBounds(), { maxZoom: 11, duration: 1.5 });
-    }
-}
-
-function clearMapAlerts() {
-    currentAlertLayers.forEach(layer => map.removeLayer(layer));
-    currentAlertLayers = [];
-}
-
-// === מערכת התראות ===
-
+// === טסט אזעקות ===
 let isTestMode = false;
 
 function triggerTestAlert() {
     isTestMode = true;
     document.getElementById('active-alarm').style.display = 'block';
-    document.getElementById('alarm-cities').innerText = 'טבריה, חיפה - הדר ועיר תחתית';
-    
-    showPolygonsOnMap(['טבריה', 'חיפה - הדר ועיר תחתית']);
+    document.getElementById('alarm-cities').innerText = 'טבריה, חיפה - הדר ועיר תחתית (טסט)';
 
     setTimeout(() => {
         isTestMode = false;
         document.getElementById('active-alarm').style.display = 'none';
-        clearMapAlerts();
-        map.flyTo([31.5, 34.8], 7, { duration: 1.5 }); 
     }, 10000); 
 }
 
+// === קריאה ל-API שלך ===
 async function fetchAlerts() {
     if (isTestMode) return; 
 
     try {
-        // פנייה לשרת ה-Vercel שלך שמביא את הטקסט מהשרת בפתח תקווה.
-        // שים לב: אם קראת לקובץ ב-Vercel בשם אחר (למשל tzofar.js), תשנה את הקישור בהתאם!
-        const response = await fetch('/api/tzofar'); // הלינק היחסי ל-API שלך ב-Vercel
-        
-        if (!response.ok) {
-            handleNoAlerts();
-            return;
-        }
-
-        // מקבלים את הטקסט (למשל: "טבריה, חיפה")
+        // 👇👇 שים כאן את הלינק המדויק ל-API/Vercel שלך 👇👇
+        const response = await fetch('/api/tzofar'); 
         const text = await response.text();
         
-        // אם הטקסט ריק - אין אזעקות
-        if (!text || text.trim() === "") {
-            handleNoAlerts();
-            return;
-        }
-
-        // הופכים את הטקסט של הערים לרשימה מסודרת שמפרידה בין הפסיקים
-        const cities = text.split(',').map(city => city.trim()).filter(city => city !== "");
-
-        // אם הרשימה לא ריקה, מפעילים את האזעקה והמפה!
-        if (cities.length > 0) {
+        if (text && text.trim() !== "") {
             document.getElementById('active-alarm').style.display = 'block';
-            document.getElementById('alarm-cities').innerText = cities.join(', ');
-            
-            showPolygonsOnMap(cities);
+            document.getElementById('alarm-cities').innerText = text.trim();
         } else {
-            handleNoAlerts();
+            document.getElementById('active-alarm').style.display = 'none';
         }
 
     } catch (error) {
-        handleNoAlerts();
-    }
-}
-
-function handleNoAlerts() {
-    if (isTestMode) return;
-    
-    document.getElementById('active-alarm').style.display = 'none';
-    
-    if (currentAlertLayers.length > 0) {
-        clearMapAlerts();
-        map.flyTo([31.5, 34.8], 7, { duration: 1.5 });
+        document.getElementById('active-alarm').style.display = 'none';
     }
 }
 
 function startAlertScanner() {
     setInterval(fetchAlerts, 2000);
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    initMap();
-});
