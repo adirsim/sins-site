@@ -7,6 +7,10 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
         :root {
             var(--primary): #6366f1; var(--secondary): #8b5cf6; var(--accent): #14b8a6; var(--danger): #e11d48; var(--alert): #ff003c;
@@ -114,6 +118,19 @@
         .btn-massive { display: inline-block; padding: 25px 80px; font-size: 1.8rem; font-weight: 800; border-radius: 100px; text-decoration: none; transition: 0.3s; }
         .btn-discord { background: #5865F2; color: #fff; }
         .btn-discord:hover { background: #fff; color: #5865F2; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(88,101,242,0.3); }
+
+        /* עיצוב למפה שתתאים לאתר */
+        #map-container {
+            margin-top: 30px;
+            height: 400px;
+            width: 100%;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -174,6 +191,7 @@
 
             <section id="alerts" class="tab-layer">
                 <h2 class="page-title" style="color: #fff;"><i class="fas fa-satellite-dish" style="margin-left: 15px; color: #ff003c;"></i> מערכת התראות</h2>
+                
                 <div class="radar-box" id="main-radar-box">
                     <div class="radar-animation" id="radar-ui">
                         <i class="fas fa-shield-alt" id="radar-icon"></i>
@@ -190,6 +208,11 @@
                     </div>
                     <button class="btn-test-alert" onclick="triggerTestAlert()">טסט למנהלים: הפעל אזעקת ניסיון</button>
                 </div>
+
+                <div id="map-container">
+                    <div id="map" style="height: 100%; width: 100%;"></div>
+                </div>
+
             </section>
 
             <section id="apply" class="tab-layer">
@@ -311,6 +334,25 @@
         </main>
     </div>
     
+    <script>
+        // יצירת המפה ומיקוד על מרכז הארץ (ישראל)
+        var map = L.map('map').setView([31.5, 34.8], 7);
+
+        // שימוש במפה עם עיצוב כהה (Dark Mode) כדי שיתאים בול לאתר שלך
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // בגלל שהמפה מוסתרת בהתחלה (בתוך טאב), היא עלולה להופיע אפורה כשפותחים אותה
+        // הפונקציה הזו מתקנת את הגודל שלה ברגע שלוחצים על טאב "התראות אמת"
+        document.querySelector('.nav-alert').addEventListener('click', function() {
+            setTimeout(function() {
+                map.invalidateSize();
+            }, 100);
+        });
+    </script>
+
     <script src="alerts.js"></script>
 </body>
 </html>
