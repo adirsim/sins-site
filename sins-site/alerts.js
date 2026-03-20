@@ -120,26 +120,29 @@ async function fetchAlerts() {
     if (isTestMode) return; 
 
     try {
-        // 👇👇👇 אדיר, פה בדיוק אתה מדביק את הלינק של ה-Google Apps Script שלך 👇👇👇
-        const response = await fetch('הלינק-הארוך-שלך-כאן');
-        // 👆👆👆 שים את הכתובת בתוך הגרשיים במקום המילים "הלינק-הארוך-שלך-כאן" 👆👆👆
+        // פנייה לשרת ה-Vercel שלך שמביא את הטקסט מהשרת בפתח תקווה.
+        // שים לב: אם קראת לקובץ ב-Vercel בשם אחר (למשל tzofar.js), תשנה את הקישור בהתאם!
+        const response = await fetch('/api/tzofar'); // הלינק היחסי ל-API שלך ב-Vercel
         
-        if (!response.ok || response.status === 204) {
+        if (!response.ok) {
             handleNoAlerts();
             return;
         }
 
+        // מקבלים את הטקסט (למשל: "טבריה, חיפה")
         const text = await response.text();
-        if (!text) {
+        
+        // אם הטקסט ריק - אין אזעקות
+        if (!text || text.trim() === "") {
             handleNoAlerts();
             return;
         }
 
-        const data = JSON.parse(text);
+        // הופכים את הטקסט של הערים לרשימה מסודרת שמפרידה בין הפסיקים
+        const cities = text.split(',').map(city => city.trim()).filter(city => city !== "");
 
-        if (Array.isArray(data) && data.length > 0) {
-            const cities = data.map(alert => alert.data).flat(); 
-            
+        // אם הרשימה לא ריקה, מפעילים את האזעקה והמפה!
+        if (cities.length > 0) {
             document.getElementById('active-alarm').style.display = 'block';
             document.getElementById('alarm-cities').innerText = cities.join(', ');
             
