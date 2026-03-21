@@ -44,6 +44,7 @@ let isTestMode = false;
 function triggerTestAlert() {
     isTestMode = true;
     document.getElementById('active-alarm').style.display = 'block';
+    document.getElementById('alarm-title').innerHTML = `<i class="fas fa-exclamation-triangle"></i> צבע אדום`;
     document.getElementById('alarm-cities').innerText = 'טבריה, חיפה - הדר ועיר תחתית (טסט)';
 
     setTimeout(() => {
@@ -57,15 +58,46 @@ async function fetchAlerts() {
     if (isTestMode) return; 
 
     try {
-        // 👇👇 שים כאן את הלינק המדויק ל-API/Vercel שלך 👇👇
         const response = await fetch('/api/tzofar'); 
         const text = await response.text();
         
-        if (text && text.trim() !== "") {
-            document.getElementById('active-alarm').style.display = 'block';
-            document.getElementById('alarm-cities').innerText = text.trim();
-        } else {
+        // אם אין טקסט, מכבים את האזעקה
+        if (!text || text.trim() === "") {
             document.getElementById('active-alarm').style.display = 'none';
+            return;
+        }
+
+        try {
+            // מנסים להבין את חבילת הנתונים (JSON) שהגיעה מהשרת
+            const data = JSON.parse(text);
+            let cities = [];
+            let alertTitle = "צבע אדום";
+
+            // שולפים את הערים והכותרת מתוך הקוד המבולגן
+            if (Array.isArray(data)) {
+                data.forEach(alert => {
+                    if (alert.data) cities = cities.concat(alert.data);
+                    if (alert.title) alertTitle = alert.title;
+                });
+            } else {
+                if (data.data) cities = data.data;
+                if (data.title) alertTitle = data.title;
+            }
+
+            // מציגים הכל נקי באתר
+            if (cities.length > 0) {
+                document.getElementById('active-alarm').style.display = 'block';
+                document.getElementById('alarm-title').innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${alertTitle}`;
+                document.getElementById('alarm-cities').innerText = cities.join(', ');
+            } else {
+                document.getElementById('active-alarm').style.display = 'none';
+            }
+
+        } catch (e) {
+            // גיבוי: אם השרת שלח סתם טקסט רגיל (לא JSON)
+            document.getElementById('active-alarm').style.display = 'block';
+            document.getElementById('alarm-title').innerHTML = `<i class="fas fa-exclamation-triangle"></i> צבע אדום`;
+            document.getElementById('alarm-cities').innerText = text.trim();
         }
 
     } catch (error) {
@@ -76,3 +108,70 @@ async function fetchAlerts() {
 function startAlertScanner() {
     setInterval(fetchAlerts, 2000);
 }
+
+
+// ==========================================
+// מערכת שליחת טפסים למייל ללא ריפרש (Web3Forms)
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. טיפול בטופס הגשת מועמדות לצוות
+    const staffForm = document.getElementById('staff-form');
+    if (staffForm) {
+        staffForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // עוצר את הריפרש!
+
+            const submitBtn = document.getElementById('btn-submit-apply');
+            submitBtn.innerText = 'שולח... ממתין לאישור';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: new FormData(this)
+                });
+
+                if (response.ok) {
+                    staffForm.style.display = 'none';
+                    document.getElementById('apply-success').style.display = 'block';
+                } else {
+                    submitBtn.innerText = 'שגיאה בשליחה. נסה שוב';
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                submitBtn.innerText = 'שגיאה ברשת. נסה שוב';
+                submitBtn.disabled = false;
+            }
+        });
+    }
+
+    // 2. טיפול בטופס הדיווחים (Report)
+    const reportForm = document.getElementById('report-form');
+    if (reportForm) {
+        reportForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // עוצר את הריפרש!
+
+            const submitBtn = document.getElementById('btn-submit-report');
+            submitBtn.innerHTML = 'שולח דיווח... <i class="fas fa-spinner fa-spin"></i>';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: new FormData(this)
+                });
+
+                if (response.ok) {
+                    reportForm.style.display = 'none';
+                    document.getElementById('report-success').style.display = 'block';
+                } else {
+                    submitBtn.innerHTML = 'שגיאה בשליחה <i class="fas fa-exclamation-triangle"></i>';
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                submitBtn.innerHTML = 'שגיאה ברשת. נסה שוב';
+                submitBtn.disabled = false;
+            }
+        });
+    }
+});
