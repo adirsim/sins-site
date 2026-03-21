@@ -195,9 +195,12 @@
             <section id="apply" class="tab-layer">
                 <h2 class="page-title">הגשת מועמדות לצוות</h2>
                 <div class="form-container">
-                    <form id="staff-form" class="elegant-form">
+                    
+                    <form action="https://api.web3forms.com/submit" method="POST" id="staff-form" class="elegant-form">
+                        
                         <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
                         <input type="hidden" name="subject" value="מועמדות חדשה לצוות השרת!">
+                        <input type="hidden" name="redirect" value="https://sins-site-theta.vercel.app/">
 
                         <div class="input-row">
                             <div class="input-group">
@@ -244,21 +247,18 @@
 
                         <button type="submit" class="btn-submit" id="btn-submit-apply">שלח טופס להנהלה</button>
                     </form>
-                    
-                    <div id="apply-success" class="success-banner" style="background: rgba(20, 184, 166, 0.1); border-color: #14b8a6;">
-                        <i class="fas fa-check-circle" style="font-size: 5rem; color: #14b8a6; margin-bottom: 20px;"></i> 
-                        <h2 style="font-size: 2.5rem; color: #14b8a6; margin-bottom: 10px;">המועמדות נשלחה בהצלחה!</h2>
-                        <p style="font-size: 1.4rem; color: #fff;">הצוות יקבל את הטופס ויבחן אותו בקרוב.</p>
-                    </div>
                 </div>
             </section>
 
             <section id="report" class="tab-layer">
                 <h2 class="page-title">דיווח על משתמש / איש צוות</h2>
                 <div class="form-container" style="border-top: 4px solid #e11d48;">
-                    <form id="report-form" class="elegant-form">
+                    
+                    <form action="https://api.web3forms.com/submit" method="POST" id="report-form" class="elegant-form">
+                        
                         <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
                         <input type="hidden" name="subject" value="תלונת רפורט חדשה מהאתר!">
+                        <input type="hidden" name="redirect" value="https://sins-site-theta.vercel.app/">
 
                         <div class="input-row">
                             <div class="input-group">
@@ -284,12 +284,6 @@
                             שלח דיווח להנהלה הבכירה <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
                         </button>
                     </form>
-                    
-                    <div id="report-success" class="success-banner" style="background: rgba(225, 29, 72, 0.1); border-color: #e11d48;">
-                        <i class="fas fa-shield-alt" style="font-size: 5rem; color: #e11d48; margin-bottom: 20px;"></i> 
-                        <h2 style="font-size: 2.5rem; color: #e11d48; margin-bottom: 10px;">הדיווח נשלח בהצלחה</h2>
-                        <p style="font-size: 1.4rem; color: #fff;">אנו ניקח את התלונה ברצינות ונטפל בה בהקדם.</p>
-                    </div>
                 </div>
             </section>
 
