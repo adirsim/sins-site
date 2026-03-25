@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     res.setHeader('Cache-Control', 'no-store, max-age=0');
     
     try {
-        // פונים לשרת הציבורי והחינמי של צופר במקום לשרת היקר שבוטל
+        // פונים לשרת הציבורי והחינמי של צופר
         const response = await fetch('https://api.tzevaadom.co.il/alerts-history', {
             headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
         });
@@ -15,36 +15,32 @@ export default async function handler(req, res) {
         let activeCities = [];
         let alertTitle = "צבע אדום";
 
-        // בודקים אם יש התראה טרייה מהמערכת (מהדקה-שתיים האחרונות)
+        // בודקים אם יש התראה טרייה
         if (historyData && historyData.length > 0) {
             const latestAlert = historyData[0];
             const alertTime = latestAlert.alerts[0].time;
             
-            // אם ההתראה קפצה ב-120 השניות האחרונות, זו אזעקת אמת פעילה
+            // אם ההתראה קפצה ב-120 השניות האחרונות
             if (now - alertTime < 120) {
                 latestAlert.alerts.forEach(a => {
                     activeCities = activeCities.concat(a.cities);
                 });
                 
-                // בודקים אם מדובר בכטב"ם או משהו אחר (0=טילים, 1=כלי טיס, 5=מחבלים)
-                if (latestAlert.alerts[0].threat === 1) {
-                    alertTitle = "חדירת כלי טיס עוין";
-                } else if (latestAlert.alerts[0].threat === 5) {
-                    alertTitle = "חדירת מחבלים";
-                } else {
-                    alertTitle = "ירי רקטות וטילים";
+                // התיקון הקטלני: פשוט לוקחים את הכותרת המדויקת מהשרת במקום לנחש מספרים!
+                if (latestAlert.title) {
+                    alertTitle = latestAlert.title;
+                } else if (latestAlert.alerts[0].title) {
+                    alertTitle = latestAlert.alerts[0].title;
                 }
             }
         }
         
-        // שולחים לאתר שלך את המידע בצורה הנקייה שהוא אוהב לקבל (JSON)
         res.status(200).json({
             title: alertTitle,
             data: activeCities
         });
         
     } catch (error) {
-        // אם יש שגיאה, מחזירים ריק כדי לא להקריס את האתר
         res.status(200).json({ title: "צבע אדום", data: [] });
     }
 }
