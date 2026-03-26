@@ -1,36 +1,42 @@
 export default async function handler(req, res) {
-    // פותחים דלתות לאתר שלך ב-Vercel
+    // פותחים דלתות לאתר
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cache-Control', 'no-store, max-age=0');
     
     try {
-        // פונים לשרת הציבורי והחינמי של צופר
         const response = await fetch('https://api.tzevaadom.co.il/alerts-history', {
             headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
         });
         const historyData = await response.json();
         
-        // מקבלים את הזמן הנוכחי (בשניות)
         const now = Math.floor(Date.now() / 1000);
         let activeCities = [];
-        let alertTitle = "צבע אדום";
+        let alertTitle = "התרעת צבע אדום"; // ברירת המחדל
 
-        // בודקים אם יש התראה טרייה
         if (historyData && historyData.length > 0) {
             const latestAlert = historyData[0];
             const alertTime = latestAlert.alerts[0].time;
             
-            // אם ההתראה קפצה ב-120 השניות האחרונות
+            // בודקים אם ההתראה טרייה (מה-120 שניות האחרונות)
             if (now - alertTime < 120) {
                 latestAlert.alerts.forEach(a => {
                     activeCities = activeCities.concat(a.cities);
                 });
                 
-                // התיקון הקטלני: פשוט לוקחים את הכותרת המדויקת מהשרת במקום לנחש מספרים!
-                if (latestAlert.title) {
-                    alertTitle = latestAlert.title;
-                } else if (latestAlert.alerts[0].title) {
-                    alertTitle = latestAlert.alerts[0].title;
+                // רשת ביטחון משולשת: בודקים גם טקסט, גם threat וגם category
+                const threatNum = latestAlert.alerts[0].threat;
+                const categoryNum = latestAlert.alerts[0].category;
+                const titleText = latestAlert.title || latestAlert.alerts[0].title || "";
+                
+                if (titleText.includes("כלי טיס") || threatNum === 2 || categoryNum === 2) {
+                    alertTitle = "חדירת כלי טיס עוין";
+                } else if (titleText.includes("מחבלים") || threatNum === 3 || categoryNum === 3) {
+                    alertTitle = "חדירת מחבלים";
+                } else if (titleText.includes("טילים") || threatNum === 1 || categoryNum === 1) {
+                    alertTitle = "ירי רקטות וטילים";
+                } else if (titleText !== "") {
+                    // אם יש טקסט אחר שצופר שלחו, נשתמש בו
+                    alertTitle = titleText;
                 }
             }
         }
@@ -41,6 +47,6 @@ export default async function handler(req, res) {
         });
         
     } catch (error) {
-        res.status(200).json({ title: "צבע אדום", data: [] });
+        res.status(200).json({ title: "התרעת צבע אדום", data: [] });
     }
 }
