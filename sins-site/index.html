@@ -416,6 +416,12 @@
         .card-inner-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 15px; color: #fff; position: relative; z-index: 5; }
         .card-inner-text { font-size: 1.15rem; color: var(--text-chroma-gray); line-height: 1.7; position: relative; z-index: 5; }
 
+        .cyber-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
         /* ------------------------------------------------------------------------ */
         /* 6. עיצובי עמוד צוות וכרטיסיות מנהלים */
         /* ------------------------------------------------------------------------ */
@@ -457,7 +463,7 @@
 
         .input-chroma-field, .select-chroma-field {
             background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 8px; padding: 20px; color: #fff; font-size: 1.1srem; outline: none;
+            border-radius: 8px; padding: 20px; color: #fff; font-size: 1.15rem; outline: none;
             transition: all 0.3s;
         }
         .input-chroma-field:focus, .select-chroma-field:focus {
@@ -486,6 +492,46 @@
         .btn-chroma-submit-node:hover { box-shadow: 0 15px 40px rgba(0, 240, 255, 0.3); }
 
         /* ------------------------------------------------------------------------ */
+        /* 7ב. חלונית מודאל להצגת ה-וי הזוהר ללא רענון האתר (MODAL PROTOCOL) */
+        /* ------------------------------------------------------------------------ */
+        .chroma-success-modal {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(1, 3, 10, 0.9); z-index: 100000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: all 0.5s var(--smooth-cubic);
+        }
+        .chroma-success-modal.active { opacity: 1; pointer-events: auto; }
+        
+        .chroma-success-content {
+            background: #060b1a; border: 2px solid var(--neon-green); border-radius: 20px;
+            padding: 60px; text-align: center; max-width: 500px; width: 90%;
+            box-shadow: 0 0 50px rgba(57, 255, 20, 0.2);
+            transform: scale(0.8); transition: transform 0.5s var(--smooth-cubic);
+        }
+        .chroma-success-modal.active .chroma-success-content { transform: scale(1); }
+
+        /* אנימציית ה-וי המשוגעת והצבעונית */
+        .neon-checkmark-wrapper {
+            width: 120px; height: 120px; border-radius: 50%;
+            border: 4px solid var(--neon-green); margin: 0 auto 30px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
+            animation: pulseSuccess 2s infinite alternate;
+        }
+        .neon-checkmark-wrapper i { font-size: 4.5rem; color: var(--neon-green); filter: drop-shadow(0 0 15px var(--neon-green)); }
+        
+        @keyframes pulseSuccess {
+            0% { box-shadow: 0 0 20px rgba(57, 255, 20, 0.3); transform: scale(1); }
+            100% { box-shadow: 0 0 40px rgba(57, 255, 20, 0.6); transform: scale(1.05); }
+        }
+
+        .btn-close-modal {
+            margin-top: 35px; background: rgba(57, 255, 20, 0.1); border: 1px solid var(--neon-green);
+            color: #fff; padding: 14px 40px; font-weight: 800; border-radius: 8px; cursor: pointer; transition: 0.3s;
+        }
+        .btn-close-modal:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 20px var(--neon-green); }
+
+        /* ------------------------------------------------------------------------ */
         /* 8. מכ"ם התראות לאומי מתקדמות */
         /* ------------------------------------------------------------------------ */
         .radar-hud-wrapper {
@@ -503,6 +549,7 @@
             border-radius: 50%; background: conic-gradient(from 0deg, transparent 40%, rgba(0, 240, 255, 0.5) 100%);
             animation: radarRotation 2.8s linear infinite;
         }
+        @keyframes radarRotation { 100% { transform: rotate(360deg); } }
         .quantum-radar-ring i { font-size: 4.5rem; color: var(--neon-cyan); z-index: 5; position: relative; }
 
         .active-chroma-pulse {
@@ -566,7 +613,21 @@
     <div class="plasma-orb orb-purple"></div>
 
     <!-- ------------------------------------------------------------------------ */
-    /* 10. מסך כניסה מאובטח (SECURE INTERFACE BOOT) */
+    /* חלונית ה-וי המרכזית (NO-REFRESH SUCCESS MODAL) */
+    /* ------------------------------------------------------------------------ */ -->
+    <div class="chroma-success-modal" id="global-success-modal">
+        <div class="chroma-success-content">
+            <div class="neon-checkmark-wrapper">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2 style="font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 10px;">הנתונים שוגרו בהצלחה!</h2>
+            <p style="color: var(--text-chroma-gray); font-size: 1.1rem;">הטופס נשלח אל מערכות ההנהלה מאחורי הקלעים ללא רענון האתר.</p>
+            <button class="btn-close-modal" onclick="closeSuccessModal()">חזור למערכת</button>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------ */
+    /* מסך כניסה מאובטח (SECURE INTERFACE BOOT) */
     /* ------------------------------------------------------------------------ */ -->
     <div id="secure-boot-wrapper">
         <div class="identity-node">
@@ -590,7 +651,7 @@
     </div>
 
     <!-- ------------------------------------------------------------------------ */
-    /* 11. ממשק הליבה הראשי (QUANTUM HUB MAINFRAME) */
+    /* ממשק הליבה הראשי (QUANTUM HUB MAINFRAME) */
     /* ------------------------------------------------------------------------ */ -->
     <div id="quantum-mainframe">
         <nav class="hud-navigation-bar">
@@ -611,10 +672,10 @@
             <section id="panel-rules-node" class="quantum-panel-layer active">
                 <h2 class="quantum-panel-title">תקנון השרת</h2>
                 <div class="cyber-grid">
-                    <div class="chroma-rotating-card"><span class="card-num">01</span><h3 class="card-inner-title">כבוד הדדי</h3><p class="card-inner-text">יש לכבד כל חבר בשרת. אין להשתמש בשפה פוגענית. 3 אזהרות יובילו להרחקה של שבוע (באן).</p></div>
-                    <div class="chroma-rotating-card"><span class="card-num">02</span><h3 class="card-inner-title">ספאם והצפות</h3><p class="card-inner-text">אין לשלוח את אותה הודעה ברצף. העונש: השתקה ל-10 דקות ברמת המערכת הגלובלית.</p></div>
-                    <div class="chroma-rotating-card"><span class="card-num">03</span><h3 class="card-inner-title">תוכן לא הולם</h3><p class="card-inner-text">אין לשלוח תוכן 18+. השרת נועד לכולם ויש לנו 0 סובלנות. הרחקה מיידית ולצמיתות מחלל השרת.</p></div>
-                    <div class="chroma-rotating-card"><span class="card-num">04</span><h3 class="card-inner-title">איסור פרסום</h3><p class="card-inner-text">פרסום של שרתי דיסקורד אחרים, ערוצי יוטיוב או רשתות - אסור לחלוטין ללא אישור מדרג הנהלה.</p></div>
+                    <div class="chroma-rotating-card"><h3>כבוד הדדי</h3><p class="card-inner-text">יש לכבד כל חבר בשרת. אין להשתמש בשפה פוגענית. 3 אזהרות יובילו להרחקה של שבוע (באן).</p></div>
+                    <div class="chroma-rotating-card"><h3>ספאם והצפות</h3><p class="card-inner-text">אין לשלוח את אותה הודעה ברצף. העונש: השתקה ל-10 דקות ברמת המערכת הגלובלית.</p></div>
+                    <div class="chroma-rotating-card"><h3>תוכן לא הולם</h3><p class="card-inner-text">אין לשלוח תוכן 18+. השרת נועד לכולם ויש לנו 0 סובלנות. הרחקה מיידית ולצמיתות מחלל השרת.</p></div>
+                    <div class="chroma-rotating-card"><h3>איסור פרסום</h3><p class="card-inner-text">פרסום של שרתי דיסקורד אחרים, ערוצי יוטיוב או רשתות - אסור לחלוטין ללא אישור מדרג הנהלה.</p></div>
                 </div>
             </section>
 
@@ -622,21 +683,20 @@
             <section id="panel-admins-node" class="quantum-panel-layer">
                 <h2 class="quantum-panel-title">הצוות המוביל</h2>
                 <div class="cyber-grid">
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-test"><div class="avatar-holo-ring"><i class="fas fa-crown" style="color: var(--neon-magenta);"></i></div></div><h3 class="card-inner-title">אדיר</h3><div class="rank-chroma-badge badge-owner-neon">בעלי השרת</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-test"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div></div><h3 class="card-inner-title">ליעד</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-test"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div></div><h3 class="card-inner-title">עמית</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-test"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div></div><h3 class="card-inner-title">משתמש</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
+                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-crown" style="color: var(--neon-magenta);"></i></div><h3 class="card-inner-title">אדיר</h3><div class="rank-chroma-badge badge-owner-neon">בעלי השרת</div></div>
+                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">ליעד</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
+                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">עמית</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
+                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">משתמש</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
                 </div>
             </section>
 
-            <!-- עמוד מיונים - בטוח ומאובטח Web3Forms -->
+            <!-- עמוד מיונים - שליחה שקטה מובנית (No Web Restart) -->
             <section id="panel-apply-node" class="quantum-panel-layer">
                 <h2 class="quantum-panel-title">הגשת מועמדות לצוות</h2>
                 <div class="chroma-form-shell">
-                    <form action="https://api.web3forms.com/submit" method="POST">
+                    <form id="apply-cyber-form">
                         <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
                         <input type="hidden" name="subject" value="מועמדות חדשה לצוות השרת!">
-                        <input type="hidden" name="redirect" value="https://sins-site-theta.vercel.app/">
 
                         <div class="chroma-input-row">
                             <div class="chroma-group"><label>שם משתמש בדיסקורד</label><input type="text" name="Discord_Username" class="input-chroma-field" placeholder="Adir#1234" required></div>
@@ -660,14 +720,13 @@
                 </div>
             </section>
 
-            <!-- עמוד רפורטים ודיווחים - בטוח ומאובטח Web3Forms -->
+            <!-- עמוד רפורטים ודיווחים - שליחה שקטה מובנית (No Web Restart) -->
             <section id="panel-report-node" class="quantum-panel-layer">
                 <h2 class="quantum-panel-title">דיווח על חריגת משתמש / איש צוות</h2>
                 <div class="chroma-form-shell" style="border-top: 4px solid var(--neon-magenta);">
-                    <form action="https://api.web3forms.com/submit" method="POST">
+                    <form id="report-cyber-form">
                         <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
                         <input type="hidden" name="subject" value="תלונת רפורט חדשה מהאתר!">
-                        <input type="hidden" name="redirect" value="https://sins-site-theta.vercel.app/">
 
                         <div class="chroma-input-row">
                             <div class="chroma-group">
@@ -720,11 +779,11 @@
         </main>
     </div>
 
-    /* ------------------------------------------------------------------------ */
-    /* 12. מנוע סקריפטים מורחב וארוך (THE QUANTUM JAVASCRIPT CORE ENGINE) */
-    /* ------------------------------------------------------------------------ */
+    <!-- ------------------------------------------------------------------------ */
+    /* מנוע סקריפטים מורחב וארוך (THE QUANTUM JAVASCRIPT CORE ENGINE) */
+    /* ------------------------------------------------------------------------ */ -->
     <script>
-        /* א. מנוע רקע חלקיקים צבעוני אינטראקטיבי (Interactive Chroma Particle Matrix) */
+        /* א. מנוע רקע חלקיקים צבעוני אינטראקטיבי */
         const canvas = document.getElementById('chroma-canvas');
         const ctx = canvas.getContext('2d');
         let particleArray = [];
@@ -740,11 +799,6 @@
         window.addEventListener('mousemove', (e) => {
             mouseNode.x = e.clientX;
             mouseNode.y = e.clientY;
-        });
-
-        window.addEventListener('mouseout', () => {
-            mouseNode.x = null;
-            mouseNode.y = null;
         });
 
         class CyberParticle {
@@ -764,7 +818,6 @@
                 if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
                 if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
 
-                // אינטראקציית עכבר חיה ומגניבה
                 if (mouseNode.x != null && mouseNode.y != null) {
                     let dx = mouseNode.x - this.x;
                     let dy = mouseNode.y - this.y;
@@ -785,12 +838,10 @@
             }
         }
 
-        // בניית מערך של 100 חלקיקים
         for (let i = 0; i < 100; i++) {
             particleArray.push(new CyberParticle());
         }
 
-        // ציור קווים מקשרים צבעוניים בין חלקיקים קרובים
         function connectParticles() {
             for (let a = 0; a < particleArray.length; a++) {
                 for (let b = a; b < particleArray.length; b++) {
@@ -818,7 +869,7 @@
         }
         runMainMatrixLoop();
 
-        /* ב. סימולציית אתחול מערכת מדורגת (Chroma Boot Sequence) */
+        /* ב. סימולציית אתחול מערכת מדורגת */
         let currentProgress = 0;
         const progressFill = document.getElementById('progress-bar-node');
         const consoleNode = document.getElementById('console-node-stream');
@@ -827,7 +878,7 @@
         const consoleMessages = [
             "> DOWNLOADING HARDWARE MANIFEST...",
             "> INTEGRATING CHROMA BORDER ROTATION LOGIC...",
-            "> SYNCING SECURE FORM HANDLERS (WEB3FORMS)...",
+            "> SYNCING AJAX FORM HANDLERS (NO-REFRESH)...",
             "> CORES STABLE. SECURITY HANDSHAKE ACCEPTED."
         ];
 
@@ -859,7 +910,7 @@
             }, 1400);
         }
 
-        /* ג. ניווט בין פאנלים (HUD Viewport Switcher) */
+        /* ג. ניווט בין פאנלים בתפריט */
         function navigateToPanel(targetPanelId, triggerButton) {
             document.querySelectorAll('.quantum-panel-layer').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.hud-tab-trigger').forEach(b => b.classList.remove('selected'));
@@ -868,38 +919,106 @@
             triggerButton.classList.add('selected');
         }
 
-        /* ד. אפקט הטיה תלת ממדית עשיר לכרטיסיות (Dual-Axis Card Perspective Tilt) */
+        /* ד. אפקט הטיה תלת ממדית לכרטיסיות */
         document.querySelectorAll('.chroma-rotating-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
                 const midX = rect.width / 2;
                 const midY = rect.height / 2;
-                
                 const rotX = (midY - y) / 10;
                 const rotY = (x - midX) / 10;
-                
                 card.style.transform = `perspective(1200px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
             });
-            
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)`;
             });
         });
 
-        /* ה. סימולציית התראות פיקוד העורף (Alert Loop Simulation) */
+        /* ה. סימולציית התראות פיקוד העורף */
         function runAlertSimulation() {
             const alertBox = document.getElementById('alert-display-box');
             alertBox.style.display = 'block';
             document.getElementById('alert-header-title').innerText = "חדירת כלי טיס עוין!";
             document.getElementById('alert-cities-list').innerText = "טבריה, מגדל, כל ערי סובב כנרת והגליל התחתון";
-            
-            // יצירת אפקט פעימה מטורף לתפריט האזעקה בצד
             document.querySelector('.hud-trigger-danger').style.animation = 'pulseChromaNode 0.4s infinite alternate';
         }
+
+        /* ------------------------------------------------------------------------ */
+        /* ו. פונקציות השליחה השקטה (FETCH API AJAX) + הצגת ה-וי הזוהר */
+        /* ------------------------------------------------------------------------ */
+        function triggerSuccessModal() {
+            document.getElementById('global-success-modal').classList.add('active');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('global-success-modal').classList.remove('active');
+        }
+
+        // ניהול שליחת טופס מיונים לצוות
+        document.getElementById('apply-cyber-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // עוצר את רענון האתר!
+            
+            const formData = new FormData(this);
+            const submitButton = this.querySelector('.btn-chroma-submit-node');
+            submitButton.innerText = "משגר נתונים...";
+            submitButton.style.pointerEvents = "none";
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    triggerSuccessModal(); // מציג את ה-וי הזוהר
+                    document.getElementById('apply-cyber-form').reset(); // מאפס שדות
+                } else {
+                    alert("שגיאה בשליחת הטופס, נסה שנית.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("שגיאת תקשורת במערכת הליבה.");
+            })
+            .finally(() => {
+                submitButton.innerText = "שלח טופס מאובטח להנהלה";
+                submitButton.style.pointerEvents = "auto";
+            });
+        });
+
+        // ניהול שליחת טופס דיווחים (Report)
+        document.getElementById('report-cyber-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // עוצר את רענון האתר!
+            
+            const formData = new FormData(this);
+            const submitButton = this.querySelector('.btn-chroma-submit-node');
+            submitButton.innerText = "משגר דיווח...";
+            submitButton.style.pointerEvents = "none";
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    triggerSuccessModal(); // מציג את ה-וי הזוהר
+                    document.getElementById('report-cyber-form').reset(); // מאפס שדות
+                } else {
+                    alert("שגיאה בשליחת הדיווח, נסה שנית.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("שגיאת תקשורת במערכת הליבה.");
+            })
+            .finally(() => {
+                submitButton.innerText = "שגר דיווח מוצפן לחלון הנהלה עליונה";
+                submitButton.style.pointerEvents = "auto";
+            });
+        });
     </script>
-    <script src="alerts.js"></script>
 </body>
 </html>
