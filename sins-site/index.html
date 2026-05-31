@@ -3,805 +3,970 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SINS | הקהילה הרשמית</title>
+    <title>SINS | THE CYBER CORE</title>
     <link rel="icon" type="image/png" href="logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- פונטים ואיקונים מתקדמים -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Heebo:wght@300;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        /* משתני מערכת עתידניים */
         :root {
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.5);
-            --secondary: #8b5cf6;
-            --accent: #14b8a6;
-            --danger: #e11d48;
-            --danger-glow: rgba(225, 29, 72, 0.4);
-            --dark-bg: #060913;
-            --panel-bg: rgba(10, 15, 30, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
+            --neon-neon: #00f0ff;
+            --neon-pink: #ff007f;
+            --neon-purple: #9d00ff;
+            --neon-green: #39ff14;
+            --cyber-bg: #03050d;
+            --panel-glass: rgba(6, 10, 26, 0.65);
+            --border-glow: rgba(0, 240, 255, 0.15);
+            --text-cyber: #e2e8f0;
+            --text-dim: #64748b;
+            --font-cyber: 'Orbitron', 'Heebo', sans-serif;
         }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Heebo', sans-serif; 
+        /* אתחול כללי */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-cyber);
+            user-select: none;
         }
 
-        body { 
-            background-color: var(--dark-bg); 
-            color: var(--text-main); 
-            overflow: hidden; 
+        body {
+            background-color: var(--cyber-bg);
+            color: var(--text-cyber);
+            overflow: hidden;
             height: 100vh;
+            perspective: 1000px;
+        }
+
+        /* קנבס חלקיקים עתידני ברקע */
+        #cyber-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -5;
+            pointer-events: none;
+        }
+
+        /* אפקטי תאורה היקפיים */
+        .ambient-glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(157, 0, 255, 0.1) 0%, transparent 70%);
+            top: -10%;
+            left: -10%;
+            filter: blur(80px);
+            z-index: -4;
+            animation: floatGlow 15s infinite alternate ease-in-out;
+        }
+        .ambient-glow.sec {
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%);
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -5s;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 50px) scale(1.2); }
+        }
+
+        /* ------------------ מסך אתחול ביומטרי (Welcome) ------------------ */
+        #boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #020308;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 1s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+
+        .cyber-logo-container {
             position: relative;
+            margin-bottom: 40px;
         }
 
-        /* רקע דינמי משודרג */
-        .ambient-bg { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh; 
-            z-index: -3; 
-            background: radial-gradient(circle at center, #0e1428 0%, #05070f 100%); 
-            overflow: hidden; 
+        .huge-cyber-title {
+            font-size: 9rem;
+            font-weight: 900;
+            letter-spacing: 20px;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.6), 0 0 40px rgba(157, 0, 255, 0.3);
+            position: relative;
+            z-index: 2;
         }
-        
-        .ambient-bg::before {
-            content: '';
+
+        /* קו סריקה לייזר */
+        .scan-line {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--neon-neon), transparent);
+            box-shadow: 0 0 15px var(--neon-neon);
+            animation: scanMove 3s infinite ease-in-out;
+            z-index: 3;
         }
 
-        .glow-orb { 
-            position: absolute; 
-            border-radius: 50%; 
-            filter: blur(160px); 
-            opacity: 0.35; 
-            animation: slowDrift 25s infinite alternate ease-in-out; 
-        }
-        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--primary); }
-        .orb-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: var(--accent); animation-delay: -7s; }
-        .orb-3 { top: 25%; left: 35%; width: 45vw; height: 45vw; background: var(--secondary); animation-duration: 30s; }
-
-        @keyframes slowDrift { 
-            0% { transform: translate(0, 0) scale(1); } 
-            100% { transform: translate(60px, 80px) scale(1.15); } 
+        @keyframes scanMove {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
         }
 
-        /* מסך כניסה עתידני */
-        #welcome-screen { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            z-index: 10000; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            background: rgba(5, 7, 15, 0.85); 
-            backdrop-filter: blur(30px); 
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
-        }
-        
-        .elegant-title { 
-            font-size: 8rem; 
-            font-weight: 900; 
-            letter-spacing: 25px; 
-            margin-bottom: 10px; 
-            color: #fff; 
-            background: linear-gradient(135deg, #fff 30%, #a5b4fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 50px rgba(99, 102, 241, 0.3); 
-            animation: titlePulse 3s infinite alternate ease-in-out;
-        }
-        
-        @keyframes titlePulse {
-            0% { transform: scale(1); opacity: 0.95; }
-            100% { transform: scale(1.02); opacity: 1; filter: drop-shadow(0 0 30px var(--primary-glow)); }
+        .boot-status-box {
+            width: 350px;
+            text-align: left;
+            direction: ltr;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-neon);
+            margin-bottom: 40px;
+            background: rgba(0, 240, 255, 0.03);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
         }
 
-        .elegant-subtitle { 
-            font-size: 1.6rem; 
-            color: var(--text-muted); 
-            margin-bottom: 50px; 
-            letter-spacing: 2px; 
-            font-weight: 300;
-        }
-        
-        .btn-enter { 
-            padding: 22px 80px; 
-            font-size: 1.6rem; 
-            font-weight: 900; 
-            color: #fff; 
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 100px; 
-            cursor: pointer; 
+        .boot-loader-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.35); 
+            margin-bottom: 20px;
         }
-        
-        .btn-enter::before {
+
+        .boot-progress {
+            position: absolute;
+            top: 0; left: 0; height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-neon));
+            box-shadow: 0 0 10px var(--neon-neon);
+            transition: width 0.1s linear;
+        }
+
+        .btn-cyber-lock {
+            padding: 20px 60px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #fff;
+            background: transparent;
+            border: 2px solid var(--neon-neon);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            letter-spacing: 2px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
+
+        .btn-cyber-lock.ready {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn-cyber-lock::before {
             content: '';
             position: absolute;
             top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.6s;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.3), transparent);
+            transition: 0.5s;
         }
 
-        .btn-enter:hover::before { left: 100%; }
-        .btn-enter:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.6); 
-            border-color: rgba(255,255,255,0.25);
+        .btn-cyber-lock:hover::before { left: 100%; }
+        .btn-cyber-lock:hover {
+            background: var(--neon-neon);
+            color: #000;
+            box-shadow: 0 0 35px var(--neon-neon);
+            text-shadow: none;
         }
 
-        #black-screen { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            z-index: 9999; 
-            background: #03050a; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            opacity: 0; 
-            pointer-events: none; 
-            transition: all 0.6s ease; 
+        /* מסך פריצה שחור חלק באמצע */
+        #matrix-preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
         }
-        #black-screen.active { opacity: 1; pointer-events: auto; }
-        #black-screen h1 { 
-            font-size: 4.5rem; 
-            font-weight: 900; 
-            color: #fff; 
-            letter-spacing: 3px; 
-            text-shadow: 0 0 50px var(--primary-glow); 
-            transform: scale(0.9); 
-            opacity: 0; 
-            transition: 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); 
+        #matrix-preloader.show { opacity: 1; pointer-events: auto; }
+        #matrix-preloader h2 {
+            font-size: 4rem;
+            color: #fff;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px var(--neon-neon);
+            transform: scale(0.8);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        #black-screen.active h1 { transform: scale(1); opacity: 1; }
+        #matrix-preloader.show h2 { transform: scale(1); }
 
-        /* מערכת קור-סיסטם מעוצבת */
-        #core-system { 
-            display: flex; 
-            height: 100vh; 
-            width: 100vw; 
-            padding: 25px; 
-            gap: 25px; 
-            opacity: 0; 
-            pointer-events: none; 
-            transition: all 0.5s ease;
+        /* ------------------ מבנה מערכת ליבה (Core Interface) ------------------ */
+        #mainframe {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            padding: 30px;
+            gap: 30px;
+            opacity: 0;
+            transform: scale(0.98);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        #core-system.online { 
-            pointer-events: auto; 
+        #mainframe.active {
             opacity: 1;
+            transform: scale(1);
         }
 
-        /* תפריט ניווט צדדי בעיצוב זכוכית */
-        .glass-nav { 
-            width: 300px; 
-            background: var(--panel-bg); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); 
-            border-radius: 24px; 
-            padding: 40px 20px; 
-            display: flex; 
-            flex-direction: column; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4); 
+        /* תפריט צד מבוסס HUD */
+        .hud-sidebar {
+            width: 320px;
+            background: var(--panel-glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.05);
             flex-shrink: 0;
+            position: relative;
         }
-        
-        .brand-box { 
-            text-align: center; 
-            margin-bottom: 40px; 
+
+        /* קישוטי פינות עתידניים לתפריט */
+        .hud-sidebar::before {
+            content: ''; position: absolute; top: -1px; left: -1px; width: 15px; height: 15px;
+            border-top: 3px solid var(--neon-neon); border-left: 3px solid var(--neon-neon);
         }
-        .brand-box h2 { 
-            font-size: 3rem; 
-            font-weight: 900; 
-            color: #fff; 
-            letter-spacing: 4px;
-            background: linear-gradient(135deg, #fff, var(--primary));
+        .hud-sidebar::after {
+            content: ''; position: absolute; bottom: -1px; right: -1px; width: 15px; height: 15px;
+            border-bottom: 3px solid var(--neon-neon); border-right: 3px solid var(--neon-neon);
+        }
+
+        .hud-logo {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hud-logo h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #fff, var(--neon-neon));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.3));
         }
-        
-        .nav-menu { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 10px; 
+
+        .hud-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
-        .nav-menu a { 
-            padding: 16px 20px; 
-            font-size: 1.15rem; 
-            font-weight: 700; 
-            color: var(--text-muted); 
-            border-radius: 16px; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            display: flex; 
-            align-items: center; 
-            cursor: pointer; 
+
+        .hud-link {
+            padding: 18px 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
             border: 1px solid transparent;
-        }
-        .nav-menu a i { 
-            margin-left: 15px; 
-            font-size: 1.25rem; 
-            width: 25px; 
-            text-align: center; 
-            transition: transform 0.3s;
-        }
-        
-        .nav-menu a:hover { 
-            color: #fff; 
-            background: rgba(255,255,255,0.03); 
-            transform: translateX(-5px);
-        }
-        .nav-menu a:hover i { transform: scale(1.1); }
-        
-        .nav-menu a.active { 
-            background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(99, 102, 241, 0.03)); 
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-right: 4px solid var(--primary); 
-            color: #fff; 
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.1);
-        }
-        
-        .nav-alert { color: rgba(248, 113, 113, 0.85) !important; }
-        .nav-alert:hover { background: rgba(225, 29, 72, 0.08) !important; color: #fff !important; }
-        .nav-menu a.active-alert, .nav-alert.active { 
-            background: linear-gradient(90deg, rgba(225, 29, 72, 0.15), rgba(225, 29, 72, 0.03)) !important; 
-            border: 1px solid rgba(225, 29, 72, 0.3) !important;
-            color: #fff !important; 
-            border-right: 4px solid var(--danger) !important; 
-            box-shadow: 0 10px 25px rgba(225, 29, 72, 0.15) !important;
+            position: relative;
         }
 
-        /* חלון תצוגה ראשי */
-        .main-display { 
-            flex: 1; 
-            background: var(--panel-bg); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); 
-            border-radius: 24px; 
-            position: relative; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4); 
-            overflow: hidden; 
-        }
-        
-        .tab-layer { 
-            display: none; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            padding: 50px 60px; 
-            overflow-y: auto; 
-        }
-        .tab-layer::-webkit-scrollbar { width: 6px; }
-        .tab-layer::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 10px; }
-        .tab-layer.show { display: block; }
-        
-        /* אנימציות חלונות חלקות */
-        .win11-in { animation: fadeInSlide 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeInSlide {
-            0% { opacity: 0; transform: translateY(15px) scale(0.99); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+        .hud-link i {
+            margin-left: 15px;
+            font-size: 1.3rem;
+            width: 25px;
+            text-align: center;
+            color: var(--text-dim);
+            transition: all 0.3s;
         }
 
-        .page-title { 
-            font-size: 3.2rem; 
-            font-weight: 900; 
-            margin-bottom: 40px; 
-            color: #fff; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
-            padding-bottom: 20px; 
+        .hud-link:hover {
+            color: #fff;
+            background: rgba(0, 240, 255, 0.02);
+            border-color: rgba(0, 240, 255, 0.1);
+            padding-right: 30px;
         }
 
-        /* גריד ומערך כרטיסיות */
-        .grid-matrix { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 25px; 
+        .hud-link:hover i { color: var(--neon-neon); transform: scale(1.1); }
+
+        .hud-link.active {
+            background: linear-gradient(90deg, rgba(0, 240, 255, 0.1), transparent);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-right: 4px solid var(--neon-neon);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
         }
-        
-        .solid-card { 
-            background: rgba(255,255,255,0.015); 
-            border: 1px solid var(--glass-border); 
-            border-radius: 20px; 
-            padding: 35px; 
-            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
-            position: relative; 
+        .hud-link.active i { color: var(--neon-neon); }
+
+        /* כפתור התראות אדום מעוצב */
+        .hud-alert-link { color: rgba(255, 0, 127, 0.7) !important; }
+        .hud-alert-link i { color: rgba(255, 0, 127, 0.7) !important; }
+        .hud-alert-link:hover { background: rgba(255, 0, 127, 0.05) !important; border-color: rgba(255, 0, 127, 0.2); }
+        .hud-alert-link.active {
+            background: linear-gradient(90deg, rgba(255, 0, 127, 0.15), transparent) !important;
+            border: 1px solid rgba(255, 0, 127, 0.4) !important;
+            border-right: 4px solid var(--neon-pink) !important;
+            color: #fff !important;
+        }
+        .hud-alert-link.active i { color: var(--neon-pink) !important; }
+
+        /* קונטיינר מסכים מרכזי */
+        .viewport-display {
+            flex: 1;
+            background: var(--panel-glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
             overflow: hidden;
         }
-        
-        .solid-card::before {
+
+        .cyber-panel {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            padding: 60px;
+            overflow-y: auto;
+        }
+        .cyber-panel::-webkit-scrollbar { width: 5px; }
+        .cyber-panel::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.2); border-radius: 10px; }
+        .cyber-panel.active { display: block; animation: panelSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        @keyframes panelSlideIn {
+            0% { opacity: 0; transform: translateY(20px) scale(0.99); filter: blur(5px); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+
+        .panel-header {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 50px;
+            color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-header::after {
+            content: '// SYSTEM_NODE';
+            font-size: 0.9rem;
+            color: var(--neon-neon);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 4px;
+        }
+
+        /* ------------------ כרטיסיות תלת ממד (3D Cyber Cards) ------------------ */
+        .cyber-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .cyber-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+
+        .cyber-card:hover {
+            background: rgba(0, 240, 255, 0.015);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 25px rgba(0, 240, 255, 0.05);
+        }
+
+        .card-num {
+            position: absolute;
+            top: 20px; left: 20px;
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--neon-purple);
+            border: 1px solid rgba(157, 0, 255, 0.3);
+            padding: 3px 10px;
+            border-radius: 4px;
+            background: rgba(157, 0, 255, 0.05);
+        }
+
+        .cyber-card h3 {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateZ(30px);
+        }
+
+        .cyber-card p {
+            font-size: 1.15rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            transform: translateZ(20px);
+        }
+
+        /* עיצובי עמוד צוות */
+        .admin-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar-frame {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: #fff;
+            background: rgba(0,0,0,0.3);
+            margin-bottom: 25px;
+            position: relative;
+            transition: all 0.4s;
+        }
+
+        .cyber-card:hover .avatar-frame {
+            border-color: var(--neon-neon);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+            transform: scale(1.05) rotate(5deg) translateZ(40px);
+        }
+
+        .rank-tag {
+            padding: 6px 24px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            text-transform: uppercase;
+        }
+        .tag-owner { background: linear-gradient(135deg, #ff007f, #9d00ff); color: #fff; box-shadow: 0 5px 20px rgba(255,0,127,0.3); }
+        .tag-admin { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #e2e8f0; }
+
+        /* ------------------ מערכת טפסים מתוחכמת ------------------ */
+        .cyber-form-holder {
+            max-width: 850px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 50px;
+            position: relative;
+        }
+
+        .form-grid-row {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .field-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .field-group label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cyber-input, .cyber-select {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 6px;
+            padding: 18px;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .cyber-input:focus, .cyber-select:focus {
+            border-color: var(--neon-neon);
+            background: rgba(0, 240, 255, 0.01);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+        }
+
+        .cyber-select option { background: #080d1a; color: #fff; }
+        .cyber-textarea { min-height: 140px; resize: vertical; }
+
+        .btn-cyber-submit {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-neon));
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 900;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+            transition: all 0.3s;
+        }
+        .btn-cyber-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 240, 255, 0.4);
+            filter: brightness(1.1);
+        }
+
+        /* ------------------ מכ"ם פיקוד העורף ------------------ */
+        .radar-panel-box {
+            text-align: center;
+            padding: 60px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 16px;
+        }
+
+        .radar-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 240, 255, 0.1);
+            margin: 0 auto 35px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .radar-container::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(800px circle at var(--x, 0px) var(--y, 0px), rgba(255,255,255,0.04), transparent 40%);
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .solid-card:hover { 
-            background: rgba(255,255,255,0.03); 
-            transform: translateY(-6px); 
-            border-color: rgba(99, 102, 241, 0.3); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(99, 102, 241, 0.05); 
-        }
-        
-        .solid-card h3 { 
-            font-size: 1.6rem; 
-            margin-bottom: 15px; 
-            color: #fff; 
-            font-weight: 800; 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            position: relative;
-            z-index: 2;
-        }
-        .solid-card p { 
-            font-size: 1.15rem; 
-            color: var(--text-muted); 
-            line-height: 1.7; 
-            position: relative;
-            z-index: 2;
-        }
-        
-        .neo-num { 
-            color: var(--primary); 
-            font-weight: 900; 
-            font-size: 1.3rem; 
-            background: rgba(99, 102, 241, 0.12); 
-            padding: 4px 14px; 
-            border-radius: 10px; 
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 50%, rgba(0, 240, 255, 0.4) 100%);
+            animation: radarRotation 3s linear infinite;
         }
 
-        /* עיצוב צוות הנהלה */
-        .admin-box { 
-            text-align: center; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
+        @keyframes radarRotation { 100% { transform: rotate(360deg); } }
+
+        .radar-container i { font-size: 4rem; color: var(--neon-neon); z-index: 5; position: relative; }
+
+        .live-pulse {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--neon-neon);
+            box-shadow: 0 0 15px var(--neon-neon);
+            margin-left: 12px;
+            animation: pulseActive 1s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
-        
-        .admin-avatar { 
-            width: 120px; 
-            height: 120px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 3.5rem; 
-            color: #fff; 
-            background: rgba(5, 7, 15, 0.4); 
-            border: 2px solid var(--glass-border); 
-            margin-bottom: 20px; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-        
-        .solid-card:hover .admin-avatar { 
-            transform: scale(1.08) rotate(5deg); 
-            border-color: var(--primary); 
-            box-shadow: 0 0 30px var(--primary-glow); 
-        }
-        
-        .admin-box h3 { font-size: 2rem; justify-content: center; }
-        
-        .badge-owner { 
-            background: linear-gradient(135deg, #f59e0b, #d97706); 
-            color: #fff; 
-            padding: 6px 24px; 
-            border-radius: 100px; 
-            font-weight: 900; 
-            font-size: 1rem; 
-            margin-top: 12px; 
-            box-shadow: 0 8px 20px rgba(217, 119, 6, 0.3); 
-            letter-spacing: 1px;
-        }
-        
-        .badge-admin { 
-            background: rgba(255, 255, 255, 0.06); 
-            border: 1px solid var(--glass-border);
-            padding: 6px 24px; 
-            border-radius: 100px; 
-            font-weight: 700; 
-            font-size: 0.95rem;
-            margin-top: 12px; 
-            color: #e5e7eb; 
+        @keyframes pulseActive { 0% { opacity: 0.3; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.2); } }
+
+        .cyber-alert-card {
+            display: none;
+            background: rgba(255, 0, 127, 0.08);
+            border: 2px solid var(--neon-pink);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            animation: cyberFlash 2s infinite alternate ease-in-out;
         }
 
-        /* טפסים ומיונים מוגנים ומעוצבים */
-        .form-container { 
-            max-width: 800px; 
-            margin: 0 auto; 
-            background: rgba(5, 7, 15, 0.3); 
-            padding: 50px; 
-            border-radius: 24px; 
-            border: 1px solid var(--glass-border); 
-            box-shadow: inset 0 4px 30px rgba(0,0,0,0.2);
-        }
-        
-        .elegant-form { display: flex; flex-direction: column; gap: 24px; }
-        .input-row { display: flex; gap: 20px; }
-        .input-group { flex: 1; display: flex; flex-direction: column; gap: 10px; }
-        .input-group label { font-size: 1.05rem; font-weight: 700; color: #fff; margin-right: 4px; }
-        
-        .clean-input, .clean-select { 
-            background: rgba(255,255,255,0.02); 
-            border: 1px solid var(--glass-border); 
-            border-radius: 14px; 
-            padding: 16px; 
-            color: #fff; 
-            font-size: 1.05rem; 
-            transition: all 0.3s; 
-            outline: none; 
-        }
-        
-        .clean-input:focus, .clean-select:focus { 
-            background: rgba(255,255,255,0.05); 
-            border-color: var(--primary); 
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2); 
-        }
-        
-        .clean-select option { background: #0c101f; color: #fff; }
-        .clean-textarea { resize: vertical; min-height: 130px; }
-        
-        .btn-submit { 
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-            color: #fff; 
-            padding: 18px; 
-            font-size: 1.25rem; 
-            font-weight: 800; 
-            border: none; 
-            border-radius: 14px; 
-            cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            margin-top: 10px; 
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
-        }
-        .btn-submit:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.45); 
-            filter: brightness(1.1);
+        @keyframes cyberFlash {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 127, 0.1); }
+            100% { box-shadow: 0 0 35px rgba(255, 0, 127, 0.3); }
         }
 
-        /* רדאר ומערכת התראות פיקוד העורף */
-        .radar-box { 
-            text-align: center; 
-            padding: 50px; 
-            border-radius: 24px; 
-            background: rgba(5, 7, 15, 0.3); 
-            border: 1px solid var(--glass-border); 
-            position: relative; 
-            overflow: hidden; 
-        }
-        
-        .radar-animation { 
-            width: 180px; 
-            height: 180px; 
-            border-radius: 50%; 
-            border: 2px solid rgba(20, 184, 166, 0.2); 
-            margin: 0 auto 25px; 
-            position: relative; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-        }
-        .radar-animation::before { 
-            content: ''; 
-            position: absolute; 
-            top: 0; left: 0; width: 100%; height: 100%; 
-            border-radius: 50%; 
-            background: conic-gradient(from 0deg, transparent 60%, rgba(20, 184, 166, 0.6) 100%); 
-            animation: spinRadar 2.5s linear infinite; 
-        }
-        .radar-animation i { font-size: 3.5rem; color: var(--accent); z-index: 2; position: relative; }
-        
-        @keyframes spinRadar { 100% { transform: rotate(360deg); } }
-        
-        .status-dot { 
-            display: inline-block; 
-            width: 12px; 
-            height: 12px; 
-            border-radius: 50%; 
-            background: var(--accent); 
-            box-shadow: 0 0 15px var(--accent); 
-            margin-left: 10px; 
-            animation: pulseDot 1.2s infinite alternate ease-in-out; 
-        }
-        @keyframes pulseDot { 0% { opacity: 0.4; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.15); } }
-        
-        .alarm-card { 
-            display: none; 
-            background: rgba(225, 29, 72, 0.12); 
-            border: 2px solid var(--danger); 
-            border-radius: 20px; 
-            padding: 35px; 
-            margin-top: 25px; 
-            animation: flashRed 1.5s infinite alternate ease-in-out; 
-        }
-        @keyframes flashRed { 0% { box-shadow: 0 0 15px rgba(225,29,72,0.15); } 100% { box-shadow: 0 0 40px var(--danger-glow); } }
-        .alarm-card h2 { font-size: 3rem; color: var(--danger); margin-bottom: 10px; font-weight: 900; }
-        .alarm-card p.location { font-size: 2.2rem; color: #fff; font-weight: 700; }
-        
-        .btn-test-alert { 
-            background: transparent; 
-            border: 1px solid rgba(255,255,255,0.12); 
-            color: var(--text-muted); 
-            padding: 12px 24px; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            margin-top: 35px; 
-            transition: 0.3s; 
+        .cyber-alert-card h2 { font-size: 3rem; color: var(--neon-pink); font-weight: 900; margin-bottom: 15px; }
+        .cyber-alert-card .towns { font-size: 2.2rem; font-weight: 700; color: #fff; }
+
+        .btn-dev-trigger {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-dim);
+            padding: 14px 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 40px;
             font-weight: 700;
+            font-size: 0.95rem;
+            transition: 0.3s;
         }
-        .btn-test-alert:hover { background: rgba(255,255,255,0.05); color: #fff; border-color: rgba(255,255,255,0.25); }
+        .btn-dev-trigger:hover { border-color: rgba(255,255,255,0.2); color: #fff; background: rgba(255,255,255,0.02); }
 
-        /* כפתור דיסקורד ענק ומעוצב */
-        .massive-box { 
-            text-align: center; 
-            padding: 80px 40px; 
-            border-radius: 24px; 
-            background: rgba(5, 7, 15, 0.15); 
-            border: 1px solid var(--glass-border); 
+        /* ------------------ עמוד דיסקורד מסיבי ------------------ */
+        .discord-massive-card {
+            text-align: center;
+            padding: 80px 50px;
+            background: rgba(88, 101, 242, 0.02);
+            border: 1px solid rgba(88, 101, 242, 0.2);
+            border-radius: 16px;
         }
-        .massive-box i.main-icon { font-size: 6rem; margin-bottom: 25px; }
-        .massive-box h2 { font-size: 3rem; margin-bottom: 15px; font-weight: 900; }
-        .massive-box p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; line-height: 1.6; }
+        .discord-massive-card i.hub-icon { font-size: 6.5rem; color: #5865F2; filter: drop-shadow(0 0 25px rgba(88,101,242,0.4)); margin-bottom: 30px; }
+        .discord-massive-card h2 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; }
+        .discord-massive-card p { font-size: 1.35rem; color: #94a3b8; max-width: 750px; margin: 0 auto 45px; line-height: 1.7; }
         
-        .btn-massive { 
-            display: inline-block; 
-            padding: 22px 70px; 
-            font-size: 1.6rem; 
-            font-weight: 800; 
-            border-radius: 100px; 
-            text-decoration: none; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        .btn-hud-massive {
+            display: inline-block;
+            padding: 24px 80px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            border-radius: 50px;
+            text-decoration: none;
+            background: #5865F2;
+            color: #fff;
+            box-shadow: 0 15px 40px rgba(88,101,242,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .btn-discord { background: #5865F2; color: #fff; box-shadow: 0 10px 30px rgba(88,101,242,0.3); border: 1px solid rgba(255,255,255,0.1); }
-        .btn-discord:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 20px 45px rgba(88,101,242,0.5); 
-            filter: brightness(1.1);
-        }
+        .btn-hud-massive:hover { transform: translateY(-5px); box-shadow: 0 25px 55px rgba(88,101,242,0.5); filter: brightness(1.1); }
 
-        /* התאמה מלאה למובייל וטאבלטים */
-        @media (max-width: 1024px) {
-            #core-system { flex-direction: column; padding: 15px; overflow-y: auto; height: auto; }
-            .glass-nav { width: 100%; padding: 25px; }
-            .main-display { height: 70vh; position: relative; }
-            .tab-layer { padding: 30px; }
-            .elegant-title { font-size: 5rem; letter-spacing: 12px; }
+        /* התאמה רספונסיבית מקיפה */
+        @media (max-width: 1100px) {
+            #mainframe { flex-direction: column; overflow-y: auto; height: auto; padding: 15px; }
+            .hud-sidebar { width: 100%; padding: 25px; }
+            .viewport-display { height: 75vh; }
+            .cyber-panel { padding: 30px; }
+            .huge-cyber-title { font-size: 5rem; letter-spacing: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <div style="display: none;">
-        <iframe id="bg-music" allow="autoplay" frameborder="0"></iframe>
+    <!-- קנבס מטריקס חלקיקים מנוהל JS -->
+    <canvas id="cyber-canvas"></canvas>
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow sec"></div>
+
+    <!-- מסך טעינה ביומטרי עתידני -->
+    <div id="boot-screen">
+        <div class="cyber-logo-container">
+            <h1 class="huge-cyber-title">SINS</h1>
+            <div class="scan-line"></div>
+        </div>
+        <div class="boot-status-box" id="boot-console">
+            > INITIALIZING SECURITY PROTOCOLS...<br>
+            > CONNECTING TO SINS MAIN NODE...<br>
+            > STATUS: READY.
+        </div>
+        <div class="boot-loader-bar">
+            <div class="boot-progress" id="boot-fill"></div>
+        </div>
+        <button class="btn-cyber-lock" id="btn-lock-trigger" onclick="runPreloader()">ACCESS HARD-LINK</button>
     </div>
 
-    <!-- רקע עם רשת דיגיטלית ובלורים -->
-    <div class="ambient-bg" id="main-ambient">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
-        <div class="glow-orb orb-3"></div>
+    <!-- פרילודר פריצה חלק -->
+    <div id="matrix-preloader">
+        <h2 id="preloader-text">DECRYPTING CORES...</h2>
     </div>
 
-    <!-- מסך כניסה -->
-    <div id="welcome-screen">
-        <h1 class="elegant-title">SINS</h1>
-        <p class="elegant-subtitle">ברוכים הבאים לקהילה האיכותית בישראל</p>
-        <button class="btn-enter" onclick="bootSystem()">כניסה לאתר</button>
-    </div>
-
-    <!-- מסך המעבר שחור החלק -->
-    <div id="black-screen">
-        <h1>הגעתם לשרת של סינס</h1>
-    </div>
-
-    <!-- המערכת המרכזית -->
-    <div id="core-system">
-        <nav class="glass-nav">
-            <div class="brand-box"><h2>SINS</h2></div>
-            <div class="nav-menu">
-                <a class="active" onclick="navSwitch('rules', this)"><i class="fas fa-file-contract"></i> חוקי השרת</a>
-                <a onclick="navSwitch('admins', this)"><i class="fas fa-users-cog"></i> צוות ההנהלה</a>
-                <a onclick="navSwitch('apply', this)"><i class="fas fa-id-card"></i> מיונים לצוות</a>
-                <a onclick="navSwitch('report', this)"><i class="fas fa-user-shield"></i> דיווחים (Report)</a>
-                <a class="nav-alert" onclick="navSwitch('alerts', this)"><i class="fas fa-broadcast-tower"></i> התראות אמת</a>
-                <a onclick="navSwitch('join', this)"><i class="fab fa-discord"></i> כניסה לשרת</a>
+    <!-- ממשק הליבה הראשי -->
+    <div id="mainframe">
+        <nav class="hud-sidebar">
+            <div class="hud-logo"><h2>SINS</h2></div>
+            <div class="hud-menu">
+                <div class="hud-link active" onclick="switchPanel('panel-rules', this)"><i class="fas fa-file-contract"></i> חוקי השרת</div>
+                <div class="hud-link" onclick="switchPanel('panel-admins', this)"><i class="fas fa-users-cog"></i> צוות ההנהלה</div>
+                <div class="hud-link" onclick="switchPanel('panel-apply', this)"><i class="fas fa-id-card"></i> מיונים לצוות</div>
+                <div class="hud-link" onclick="switchPanel('panel-report', this)"><i class="fas fa-user-shield"></i> דיווחים (Report)</div>
+                <div class="hud-link hud-alert-link" onclick="switchPanel('panel-alerts', this)"><i class="fas fa-broadcast-tower"></i> התראות אמת</div>
+                <div class="hud-link" onclick="switchPanel('panel-join', this)"><i class="fab fa-discord"></i> כניסה לשרת</div>
             </div>
         </nav>
 
-        <main class="main-display">
+        <main class="viewport-display">
             <!-- עמוד חוקים -->
-            <section id="rules" class="tab-layer show win11-in">
-                <h2 class="page-title">תקנון השרת</h2>
-                <div class="grid-matrix">
-                    <div class="solid-card"><h3><span class="neo-num">1</span> כבוד הדדי</h3><p>יש לכבד כל חבר בשרת. אין להשתמש בשפה פוגענית. 3 אזהרות יובילו להרחקה של שבוע (באן).</p></div>
-                    <div class="solid-card"><h3><span class="neo-num">2</span> ספאם והצפות</h3><p>אין לשלוח את אותה הודעה ברצף. העונש: השתקה ל-10 דקות.</p></div>
-                    <div class="solid-card"><h3><span class="neo-num">3</span> תוכן לא הולם</h3><p>אין לשלוח תוכן 18+. השרת נועד לכולם ויש לנו 0 סובלנות. הרחקה מיידית ולצמיתות.</p></div>
-                    <div class="solid-card"><h3><span class="neo-num">4</span> איסור פרסום</h3><p>פרסום של שרתי דיסקורד אחרים, ערוצי יוטיוב או רשתות - אסור לחלוטין ללא אישור.</p></div>
+            <section id="panel-rules" class="cyber-panel active">
+                <h2 class="panel-header">תקנון השרת</h2>
+                <div class="cyber-grid">
+                    <div class="cyber-card"><span class="card-num">01</span><h3>כבוד הדדי</h3><p>יש לכבד כל חבר בשרת. אין להשתמש בשפה פוגענית. 3 אזהרות יובילו להרחקה של שבוע (באן).</p></div>
+                    <div class="cyber-card"><span class="card-num">02</span><h3>ספאם והצפות</h3><p>אין לשלוח את אותה הודעה ברצף. העונש: השתקה ל-10 דקות ברמת המערכת.</p></div>
+                    <div class="cyber-card"><span class="card-num">03</span><h3>תוכן לא הולם</h3><p>אין לשלוח תוכן 18+. השרת נועד לכולם ויש לנו 0 סובלנות. הרחקה מיידית ולצמיתות.</p></div>
+                    <div class="cyber-card"><span class="card-num">04</span><h3>איסור פרסום</h3><p>פרסום של שרתי דיסקורד אחרים, ערוצי יוטיוב או רשתות - אסור לחלוטין ללא אישור מנהל.</p></div>
                 </div>
             </section>
 
-            <!-- עמוד צוות הנהלה -->
-            <section id="admins" class="tab-layer">
-                <h2 class="page-title">הצוות המוביל</h2>
-                <div class="grid-matrix">
-                    <div class="solid-card admin-box"><div class="admin-avatar"><i class="fas fa-crown"></i></div><h3>אדיר</h3><div class="badge-owner">בעלי השרת</div></div>
-                    <div class="solid-card admin-box"><div class="admin-avatar"><i class="fas fa-shield-alt"></i></div><h3>ליעד</h3><div class="badge-admin">מנהל בכיר</div></div>
-                    <div class="solid-card admin-box"><div class="admin-avatar"><i class="fas fa-shield-alt"></i></div><h3>עמית</h3><div class="badge-admin">מנהל בכיר</div></div>
-                    <div class="solid-card admin-box"><div class="admin-avatar"><i class="fas fa-shield-alt"></i></div><h3>נדב</h3><div class="badge-admin">מנהל בכיר</div></div>
+            <!-- עמוד צוות -->
+            <section id="panel-admins" class="cyber-panel">
+                <h2 class="panel-header">הצוות המוביל</h2>
+                <div class="cyber-grid">
+                    <div class="cyber-card admin-wrapper"><div class="avatar-frame"><i class="fas fa-crown" style="color: #ff007f;"></i></div><h3>אדיר</h3><div class="rank-tag tag-owner">בעלי השרת</div></div>
+                    <div class="cyber-card admin-wrapper"><div class="avatar-frame"><i class="fas fa-shield-alt"></i></div><h3>ליעד</h3><div class="rank-tag tag-admin">מנהל בכיר</div></div>
+                    <div class="cyber-card admin-wrapper"><div class="avatar-frame"><i class="fas fa-shield-alt"></i></div><h3>עמית</h3><div class="rank-tag tag-admin">מנהל בכיר</div></div>
+                    <div class="cyber-card admin-wrapper"><div class="avatar-frame"><i class="fas fa-shield-alt"></i></div><h3>נדב</h3><div class="rank-tag tag-admin">מנהל בכיר</div></div>
                 </div>
             </section>
 
-            <!-- עמוד התראות צבע אדום -->
-            <section id="alerts" class="tab-layer">
-                <h2 class="page-title"><i class="fas fa-satellite-dish" style="margin-left: 15px; color: var(--danger);"></i> מערכת התראות</h2>
-                <div class="radar-box" id="main-radar-box">
-                    <div class="radar-animation" id="radar-ui">
-                        <i class="fas fa-shield-alt" id="radar-icon"></i>
-                    </div>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 15px;" id="status-text">
-                        <span class="status-dot" id="status-dot-ui"></span> סורק התראות אמת (פיקוד העורף)
-                    </h3>
-                    <p style="font-size: 1.2rem; color: var(--text-muted);">המערכת מחוברת ומתעדכנת בזמן אמת.</p>
-                    
-                    <div class="alarm-card" id="active-alarm">
-                        <h2 id="alarm-title"><i class="fas fa-exclamation-triangle"></i> סוג התראה</h2>
-                        <p class="location" id="alarm-cities">אזורים...</p>
-                        <p style="margin-top: 15px; font-size: 1.2rem; color: #fff;">היכנסו מיד למרחב מוגן ושהו בו 10 דקות.</p>
-                    </div>
-                    <button class="btn-test-alert" onclick="triggerTestAlert()">טסט למנהלים: הפעל אזעקת ניסיון</button>
-                </div>
-            </section>
-
-            <!-- עמוד מיונים - בטוח לחלוטין לשליחה -->
-            <section id="apply" class="tab-layer">
-                <h2 class="page-title">הגשת מועמדות לצוות</h2>
-                <div class="form-container">
-                    <form action="https://api.web3forms.com/submit" method="POST" id="staff-form" class="elegant-form">
+            <!-- עמוד מיונים מוגן -->
+            <section id="panel-apply" class="cyber-panel">
+                <h2 class="panel-header">הגשת מועמדות לצוות</h2>
+                <div class="cyber-form-holder">
+                    <form action="https://api.web3forms.com/submit" method="POST" class="cyber-form">
                         <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
                         <input type="hidden" name="subject" value="מועמדות חדשה לצוות השרת!">
                         <input type="hidden" name="redirect" value="https://sins-site-theta.vercel.app/">
 
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label>שם משתמש בדיסקורד</label>
-                                <input type="text" name="Discord_Username" class="clean-input" placeholder="Adir#1234" required>
-                            </div>
-                            <div class="input-group">
-                                <label>גיל מועמד</label>
-                                <input type="number" name="Age" class="clean-input" placeholder="הכנס גיל..." required>
-                            </div>
+                        <div class="form-grid-row">
+                            <div class="field-group"><label>שם משתמש בדיסקורד</label><input type="text" name="Discord_Username" class="cyber-input" placeholder="Adir#1234" required></div>
+                            <div class="field-group"><label>גיל מועמד</label><input type="number" name="Age" class="cyber-input" placeholder="הכנס גיל..." required></div>
                         </div>
-
-                        <div class="input-group">
+                        <div class="field-group">
                             <label>תפקיד מבוקש</label>
-                            <select name="Requested_Role" class="clean-select" required>
-                                <option value="" disabled selected>בחר תפקיד...</option>
+                            <select name="Requested_Role" class="cyber-select" required>
+                                <option value="" disabled selected>בחר תפקיד מערכת...</option>
                                 <option value="מודרטור">מודרטור</option>
                                 <option value="הלפר">הלפר</option>
                                 <option value="צוות אירועים">צוות אירועים</option>
                             </select>
                         </div>
-
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label>כמה שעות פעילות שבועיות תוכל לתת לנו?</label>
-                                <input type="text" name="Weekly_Hours" class="clean-input" placeholder="לדוגמה: 20 שעות בשבוע" required>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <label>למה כדאי לנו לבחור דווקא בך?</label>
-                            <textarea name="Why_Choose_You" class="clean-input clean-textarea" placeholder="מה מייחד אותך ממועמדים אחרים?" required></textarea>
-                        </div>
-
-                        <div class="input-group">
-                            <label>מה התחביבים שלך? (קצת על עצמך)</label>
-                            <textarea name="Hobbies" class="clean-input clean-textarea" placeholder="ספר לנו על התחביבים שלך, משחקים אהובים..." required></textarea>
-                        </div>
-
-                        <div class="input-group">
-                            <label>האם יש לך ניסיון קודם בצוותים?</label>
-                            <textarea name="Previous_Experience" class="clean-input clean-textarea" placeholder="ספר לנו אם היית בצוותים בעבר..." required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-submit" id="btn-submit-apply">שלח טופס להנהלה</button>
+                        <div class="field-group"><label>כמה שעות פעילות שבועיות תוכל לתת לנו?</label><input type="text" name="Weekly_Hours" class="cyber-input" placeholder="לדוגמה: 20 שעות בשבוע" required></div>
+                        <div class="field-group"><label>למה כדאי לנו לבחור דווקא בך?</label><textarea name="Why_Choose_You" class="cyber-input cyber-textarea" placeholder="מה מייחד אותך ממועמדים אחרים?" required></textarea></div>
+                        <div class="field-group"><label>מה התחביבים שלך? (קצת על עצמך)</label><textarea name="Hobbies" class="cyber-input cyber-textarea" placeholder="ספר לנו על התחביבים שלך, משחקים אהובים..." required></textarea></div>
+                        <div class="field-group"><label>האם יש לך ניסיון קודם בצוותים?</label><textarea name="Previous_Experience" class="cyber-input cyber-textarea" placeholder="ספר לנו אם היית בצוותים בעבר..." required></textarea></div>
+                        <button type="submit" class="btn-cyber-submit">שדרג נתונים ושלח טופס</button>
                     </form>
                 </div>
             </section>
 
-            <!-- עמוד דיווחים - בטוח לחלוטין לשליחה -->
-            <section id="report" class="tab-layer">
-                <h2 class="page-title">דיווח על משתמש / איש צוות</h2>
-                <div class="form-container" style="border-top: 4px solid var(--danger);">
-                    <form action="https://api.web3forms.com/submit" method="POST" id="report-form" class="elegant-form">
+            <!-- עמוד רפורטים מוגן -->
+            <section id="panel-report" class="cyber-panel">
+                <h2 class="panel-header">דיווח על חריגת משתמש / צוות</h2>
+                <div class="cyber-form-holder" style="border-top: 3px solid var(--neon-pink);">
+                    <form action="https://api.web3forms.com/submit" method="POST" class="cyber-form">
                         <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
                         <input type="hidden" name="subject" value="תלונת רפורט חדשה מהאתר!">
                         <input type="hidden" name="redirect" value="https://sins-site-theta.vercel.app/">
 
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label>על מי תרצה להתלונן?</label>
-                                <select name="Reported_User_Type" class="clean-select" required style="border-color: rgba(225, 29, 72, 0.2);">
+                        <div class="form-grid-row">
+                            <div class="field-group">
+                                <label>סיווג נילון</label>
+                                <select name="Reported_User_Type" class="cyber-select" required style="border-color: rgba(255, 0, 127, 0.2);">
                                     <option value="" disabled selected>בחר אפשרות...</option>
                                     <option value="איש צוות (הנהלה/מודרטור)">איש צוות (הנהלה/מודרטור)</option>
                                     <option value="משתמש רגיל בשרת">משתמש רגיל בשרת</option>
                                 </select>
                             </div>
-                            <div class="input-group">
-                                <label>שם המשתמש (Username)</label>
-                                <input type="text" name="Reported_Username" class="clean-input" required style="border-color: rgba(225, 29, 72, 0.2);">
-                            </div>
+                            <div class="field-group"><label>שם המשתמש (Username)</label><input type="text" name="Reported_Username" class="cyber-input" required style="border-color: rgba(255, 0, 127, 0.2);"></div>
                         </div>
-
-                        <div class="input-group">
-                            <label>מדוע אתה רוצה להתלונן עליו?</label>
-                            <textarea name="Reason_for_Report" class="clean-input clean-textarea" required style="border-color: rgba(225, 29, 72, 0.2);"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-submit" id="btn-submit-report" style="background: linear-gradient(135deg, var(--danger), #be123c); box-shadow: 0 10px 25px rgba(225, 29, 72, 0.3);">
-                            שלח דיווח להנהלה הבכירה <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
-                        </button>
+                        <div class="field-group"><label>פירוט אירוע / סיבת הדיווח</label><textarea name="Reason_for_Report" class="cyber-input cyber-textarea" required style="border-color: rgba(255, 0, 127, 0.2);"></textarea></div>
+                        <button type="submit" class="btn-cyber-submit" style="background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple)); box-shadow: 0 10px 30px rgba(255, 0, 127, 0.2);">שיגור דיווח מוצפן לחלון הנהלה</button>
                     </form>
                 </div>
             </section>
 
-            <!-- עמוד כניסה לשרת דיסקורד -->
-            <section id="join" class="tab-layer">
-                <h2 class="page-title">כניסה לשרת</h2>
-                <div style="display: flex; flex-wrap: wrap; gap: 25px; justify-content: center; align-items: stretch;">
-                    <div class="massive-box" style="flex: 1; min-width: 300px; background: rgba(88, 101, 242, 0.03); border-color: rgba(88, 101, 242, 0.2); margin: 0;">
-                        <i class="fab fa-discord main-icon" style="color: #5865F2; filter: drop-shadow(0 0 20px rgba(88,101,242,0.3));"></i>
-                        <h2>הקהילה מחכה לכם</h2>
-                        <p style="margin-bottom: 35px;">הצטרפו עכשיו לשרת של SINS, תראו מי מחובר בלייב, וקחו חלק בקהילה האיכותית ביותר.</p>
-                        <a href="https://discord.gg/srMvcR8k" target="_blank" class="btn-massive btn-discord">היכנסו עכשיו</a>
+            <!-- עמוד פיקוד העורף -->
+            <section id="panel-alerts" class="cyber-panel">
+                <h2 class="panel-header">מכ"ם התראות לאומי</h2>
+                <div class="radar-panel-box">
+                    <div class="radar-container"><i class="fas fa-satellite-dish"></i></div>
+                    <h3 style="font-size: 2rem; margin-bottom: 15px;"><span class="live-pulse"></span> סריקת תדרים פעילה (פיקוד העורף)</h3>
+                    <p style="font-size: 1.2rem; color: var(--text-dim);">ערוץ המידע מסונכרן ישירות מול שרתי התקשורת של פיקוד העורף.</p>
+                    <div class="cyber-alert-card" id="alert-card-node">
+                        <h2 id="alert-node-type">צבע אדום!</h2>
+                        <p class="towns" id="alert-node-cities">טבריה, סובב כנרת</p>
                     </div>
-                    <div style="flex: 1; min-width: 300px; display: flex; justify-content: center;">
-                        <iframe src="https://discord.com/widget?id=1482203048368406579&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); border: 1px solid var(--glass-border);"></iframe>
-                    </div>
+                    <button class="btn-dev-trigger" onclick="testCyberAlert()">הפעל סימולציית הגנה (מצב בדיקה)</button>
                 </div>
             </section>
 
+            <!-- עמוד כניסה לשרת -->
+            <section id="panel-join" class="cyber-panel">
+                <h2 class="panel-header">חיבור לשרת הדיסקורד</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; align-items: stretch;">
+                    <div class="discord-massive-card" style="flex: 1; min-width: 320px;">
+                        <i class="fab fa-discord hub-icon"></i>
+                        <h2>SINS NET_LINK</h2>
+                        <p>התחבר עכשיו אל פרוטוקול התקשורת המרכזי של קהילת סינס. שרת הדיסקורד פתוח ומחכה לך.</p>
+                        <a href="https://discord.gg/srMvcR8k" target="_blank" class="btn-hud-massive">CONNECT NOW</a>
+                    </div>
+                    <div style="flex: 1; min-width: 320px;">
+                        <iframe src="https://discord.com/widget?id=1482203048368406579&theme=dark" width="100%" height="100%" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 12px; border: 1px solid var(--border-glow); min-height: 450px;"></iframe>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
-    <!-- אפקט תזוזת עכבר עדין לכרטיסיות (3D Light Effect) -->
+    <!-- ------------------ מערך סקריפטים (The Cyber Core JS) ------------------ -->
     <script>
-        document.querySelectorAll('.solid-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
+        /* 1. מערכת חלקיקים עתידנית דינמית (Matrix Particle Engine) */
+        const canvas = document.getElementById('cyber-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.speedY = Math.random() * 0.6 - 0.3;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(0, 240, 255, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 75; i++) { particles.push(new Particle()); }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        /* 2. מערכת טעינה ביומטרית מדורגת בכניסה (Biometric Boot Simulation) */
+        let progress = 0;
+        const fillElement = document.getElementById('boot-fill');
+        const consoleElement = document.getElementById('boot-console');
+        const lockButton = document.getElementById('btn-lock-trigger');
+
+        const consoleLogs = [
+            "> FETCHING CORES FROM SERVER...",
+            "> BYPASSING REGIONAL FIREWALLS...",
+            "> LOADING GLASSMORPHIC STYLES...",
+            "> INTEGRATING SINS INTERACTION ENGINE...",
+            "> SYSTEM LINK STABLE. OVERRIDE READY."
+        ];
+
+        const bootInterval = setInterval(() => {
+            progress += Math.floor(Math.random() * 8) + 2;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(bootInterval);
+                consoleElement.innerHTML += "<br><span style='color:var(--neon-green)'>> AUTHENTICATION SUCCESSFUL.</span>";
+                lockButton.classList.add('ready');
+            }
+            fillElement.style.width = progress + '%';
+            
+            if (progress > 20 && progress < 40) consoleElement.innerHTML = consoleLogs[0];
+            if (progress > 40 && progress < 60) consoleElement.innerHTML = consoleLogs[1] + "<br>" + consoleLogs[2];
+            if (progress > 60 && progress < 80) consoleElement.innerHTML = consoleLogs[2] + "<br>" + consoleLogs[3];
+            if (progress > 80 && progress < 100) consoleElement.innerHTML = consoleLogs[3] + "<br>" + consoleLogs[4];
+        }, 120);
+
+        function runPreloader() {
+            document.getElementById('boot-screen').style.opacity = '0';
+            document.getElementById('boot-screen').style.pointerEvents = 'none';
+            
+            const preloader = document.getElementById('matrix-preloader');
+            preloader.classList.add('show');
+            
+            setTimeout(() => {
+                document.getElementById('preloader-text').innerText = "LINK ESTABLISHED.";
+                setTimeout(() => {
+                    preloader.classList.remove('show');
+                    document.getElementById('mainframe').classList.add('active');
+                }, 800);
+            }, 1200);
+        }
+
+        /* 3. ניווט דפים (Smooth Panel Switcher) */
+        function switchPanel(panelId, btn) {
+            document.querySelectorAll('.cyber-panel').forEach(panel => panel.classList.remove('active'));
+            document.querySelectorAll('.hud-link').forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(panelId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        /* 4. אפקט הטיה תלת ממדית עשיר רצח לכרטיסיות (3D Card Tilt Engine) */
+        document.querySelectorAll('.cyber-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                card.style.setProperty('--x', `${x}px`);
-                card.style.setProperty('--y', `${y}px`);
+                
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                
+                const angleX = (yc - y) / 12;
+                const angleY = (x - xc) / 12;
+                
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
             });
         });
+
+        /* 5. סימולציית התראות בזמן אמת (Real-time Alert Testing) */
+        function testCyberAlert() {
+            const card = document.getElementById('alert-card-node');
+            card.style.display = 'block';
+            document.getElementById('alert-node-type').innerText = "חדירת כלי טיס עוין!";
+            document.getElementById('alert-node-cities').innerText = "טבריה, מגדל, אזור תעשייה קדמת גליל";
+            
+            // אפקט פעימה אדומה בתפריט בזמן אזעקה
+            document.querySelector('.hud-alert-link').style.animation = 'pulseActive 0.5s infinite alternate';
+        }
     </script>
-    
     <script src="alerts.js"></script>
 </body>
 </html>
