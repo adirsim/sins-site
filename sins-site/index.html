@@ -22,10 +22,10 @@
             --neon-green: #39ff14;
             --neon-orange: #ff5722;
             
-            --dark-core-bg: #02040a;
-            --panel-glass-solid: rgba(6, 11, 26, 0.75);
+            --dark-core-bg: #010206;
+            --panel-glass-solid: rgba(4, 8, 20, 0.85);
             --panel-glass-light: rgba(255, 255, 255, 0.02);
-            --border-glow-main: rgba(0, 240, 255, 0.2);
+            --border-glow-main: rgba(0, 240, 255, 0.25);
             
             --text-ultra-white: #ffffff;
             --text-chroma-gray: #abc1de;
@@ -71,197 +71,127 @@
         .plasma-orb {
             position: fixed;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.25;
+            filter: blur(140px);
+            opacity: 0.18;
             z-index: -9;
             pointer-events: none;
-            animation: plasmaDrift 20s infinite alternate ease-in-out;
+            animation: plasmaDrift 25s infinite alternate ease-in-out;
         }
         .orb-cyan { top: -20%; left: -10%; width: 600px; height: 600px; background: var(--neon-cyan); }
         .orb-magenta { bottom: -20%; right: -10%; width: 700px; height: 700px; background: var(--neon-magenta); animation-delay: -5s; }
-        .orb-purple { top: 30%; left: 40%; width: 500px; height: 500px; background: var(--neon-purple); animation-duration: 25s; }
+        .orb-purple { top: 30%; left: 40%; width: 500px; height: 500px; background: var(--neon-purple); animation-duration: 30s; }
 
         @keyframes plasmaDrift {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            100% { transform: translate(120px, 80px) scale(1.2) rotate(360deg); }
+            100% { transform: translate(150px, 90px) scale(1.3) rotate(360deg); }
         }
 
         /* ------------------------------------------------------------------------ */
-        /* 3. מסך כניסה אולטרה עתידני עם פס סריקה כפול */
+        /* 3. מסך כניסה שחור לחלוטין עם כיתוב לבן נקי ואפקטים */
         /* ------------------------------------------------------------------------ */
         #secure-boot-wrapper {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #010206;
+            background: #000000;
             z-index: 99999;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: all 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            transition: opacity 1s ease, visibility 1s;
         }
 
         .identity-node {
             position: relative;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             padding: 20px;
+            text-align: center;
         }
 
         .mega-chroma-title {
-            font-size: 11rem;
+            font-size: 10rem;
             font-weight: 900;
-            letter-spacing: 30px;
-            color: #fff;
-            background: linear-gradient(90deg, #fff, var(--neon-cyan), var(--neon-magenta), #fff);
-            background-size: 300% var(--bg-size, 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: chromeFlow 6s linear infinite;
-            filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.5));
+            letter-spacing: 25px;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            animation: cleanTextPulse 3s infinite alternate ease-in-out;
         }
 
-        @keyframes chromeFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 300% 50%; }
-        }
-
-        .laser-scanner {
-            position: absolute;
-            left: 0; width: 100%; height: 6px;
-            background: linear-gradient(90deg, transparent, var(--neon-magenta), var(--neon-cyan), transparent);
-            box-shadow: 0 0 25px var(--neon-cyan), 0 0 10px var(--neon-magenta);
-            animation: laserScan 4s infinite ease-in-out;
-            z-index: 10;
-        }
-
-        @keyframes laserScan {
-            0% { top: 0%; }
-            50% { top: 100%; }
-            100% { top: 0%; }
+        @keyframes cleanTextPulse {
+            0% { transform: scale(1); opacity: 0.9; text-shadow: 0 0 10px rgba(255,255,255,0.1); }
+            100% { transform: scale(1.02); opacity: 1; text-shadow: 0 0 30px rgba(255,255,255,0.4); }
         }
 
         .console-log-box {
-            width: 450px;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(0, 240, 255, 0.15);
-            border-radius: 8px;
-            padding: 20px;
-            font-family: 'Orbitron', sans-serif;
+            width: 500px;
+            max-width: 90%;
+            background: rgba(5, 5, 10, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            font-family: monospace;
             color: var(--neon-cyan);
-            font-size: 0.9rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            line-height: 1.8;
             margin-bottom: 40px;
-            box-shadow: inset 0 0 20px rgba(0,240,255,0.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            display: none;
+            direction: ltr;
+            text-align: left;
         }
 
         .loading-bar-container {
-            width: 400px;
-            height: 6px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 20px;
+            width: 350px;
+            max-width: 80%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
             position: relative;
             overflow: hidden;
             margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.05);
+            display: none;
         }
 
         .loading-bar-fill {
             position: absolute;
             top: 0; left: 0; height: 100%; width: 0%;
-            background: linear-gradient(90deg, var(--neon-purple), var(--neon-magenta), var(--neon-cyan));
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
             box-shadow: 0 0 15px var(--neon-cyan);
-            transition: width 0.1s linear;
         }
 
-        /* ------------------------------------------------------------------------ */
-        /* 4. אפקט גביע הזהב: פס מסתובב סביב אלמנטים (ROTATING BORDER SYSTEM) */
-        /* ------------------------------------------------------------------------ */
-        .chroma-rotating-card {
-            position: relative;
-            background: rgba(6, 12, 32, 0.7);
-            border-radius: 16px;
-            padding: 40px;
-            overflow: hidden;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.4s var(--smooth-cubic), box-shadow 0.4s;
-            transform-style: preserve-3d;
-        }
-
-        /* הפס הנסתר שמסתובב */
-        .chroma-rotating-card::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 200%; height: 200%;
-            background: conic-gradient(from 0deg, transparent 40%, var(--neon-cyan), var(--neon-magenta), var(--neon-purple), transparent 80%);
-            transform: translate(-50%, -50%) rotate(0deg);
-            z-index: -2;
-            opacity: 0;
-            transition: opacity 0.4s var(--smooth-cubic);
-        }
-
-        /* השכבה הפנימית שיוצרת את המסגרת העמוקה */
-        .chroma-rotating-card::after {
-            content: '';
-            position: absolute;
-            top: 2px; left: 2px; right: 2px; bottom: 2px;
-            background: #060b1a;
-            border-radius: 14px;
-            z-index: -1;
-            transition: background 0.3s;
-        }
-
-        /* הפעלת האנימציה המסתובבת רק ב-HOVER */
-        .chroma-rotating-card:hover::before {
-            opacity: 1;
-            animation: borderRotate 2s linear infinite;
-        }
-
-        .chroma-rotating-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.15);
-        }
-
-        @keyframes borderRotate {
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* כפתור כניסה עם פס מסתובב מובנה */
+        /* כפתור כניסה אלגנטי עם פס מסתובב */
         .btn-hardware-access {
-            padding: 24px 70px;
-            font-size: 1.5rem;
+            padding: 20px 65px;
+            font-size: 1.3rem;
             font-weight: 900;
-            color: #fff;
-            background: #02050c;
-            border: none;
+            color: #ffffff;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 8px;
             cursor: pointer;
             position: relative;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s var(--smooth-cubic);
+            transition: all 0.4s var(--smooth-cubic);
             z-index: 1;
         }
-        .btn-hardware-access.unlocked { opacity: 1; transform: translateY(0); }
         
         .btn-hardware-access::before {
             content: ''; position: absolute; top: 50%; left: 50%; width: 250%; height: 250%;
-            background: conic-gradient(from 0deg, var(--neon-cyan), var(--neon-magenta), var(--neon-yellow), var(--neon-cyan));
-            transform: translate(-50%, -50%) rotate(0deg); z-index: -2;
+            background: conic-gradient(from 0deg, transparent 20%, #fff, var(--neon-cyan), transparent 80%);
+            transform: translate(-50%, -50%) rotate(0deg); z-index: -2; opacity: 0;
+            transition: opacity 0.3s;
         }
         .btn-hardware-access::after {
-            content: ''; position: absolute; top: 2px; left: 2px; right: 2px; bottom: 2px;
-            background: #02050c; border-radius: 6px; z-index: -1; transition: 0.3s;
+            content: ''; position: absolute; top: 1px; left: 1px; right: 1px; bottom: 1px;
+            background: #000; border-radius: 7px; z-index: -1; transition: 0.3s;
         }
-        .btn-hardware-access:hover::before { animation: borderRotate 1.5s linear infinite; }
+        .btn-hardware-access:hover::before { opacity: 1; animation: borderRotate 1.5s linear infinite; }
         .btn-hardware-access:hover::after { background: transparent; }
-        .btn-hardware-access:hover { color: #000; font-weight: 900; box-shadow: 0 0 40px var(--cyan-glow, var(--neon-cyan)); }
+        .btn-hardware-access:hover { color: #000; border-color: transparent; box-shadow: 0 0 35px #ffffff; font-weight: 900; }
 
-        /* מסך פריצה ביניים */
+        /* מסך פריצה ביניים - WELCOME */
         #interstitial-hacker-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -271,11 +201,58 @@
         }
         #interstitial-hacker-screen.active { opacity: 1; pointer-events: auto; }
         #interstitial-hacker-screen h2 {
-            font-size: 5rem; font-weight: 900; color: #fff; letter-spacing: 8px;
-            text-shadow: 0 0 30px var(--neon-cyan), 0 0 60px var(--neon-magenta);
-            transform: scale(0.85); transition: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 6rem; font-weight: 900; color: #fff; letter-spacing: 12px;
+            text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 60px var(--neon-cyan);
+            transform: scale(0.8); transition: 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         #interstitial-hacker-screen.active h2 { transform: scale(1); }
+
+        /* ------------------------------------------------------------------------ */
+        /* 4. אפקט גביע הזהב: פס מסתובב סביב אלמנטים (ROTATING BORDER SYSTEM) */
+        /* ------------------------------------------------------------------------ */
+        .chroma-rotating-card {
+            position: relative;
+            background: rgba(4, 8, 22, 0.65);
+            border-radius: 16px;
+            padding: 35px;
+            overflow: hidden;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s var(--smooth-cubic), box-shadow 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .chroma-rotating-card::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 250%; height: 250%;
+            background: conic-gradient(from 0deg, transparent 40%, var(--neon-cyan), var(--neon-magenta), var(--neon-purple), transparent 80%);
+            transform: translate(-50%, -50%) rotate(0deg);
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.4s var(--smooth-cubic);
+        }
+
+        .chroma-rotating-card::after {
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px; right: 2px; bottom: 2px;
+            background: #050a18;
+            border-radius: 14px;
+            z-index: -1;
+        }
+
+        .chroma-rotating-card:hover::before { opacity: 1; animation: borderRotate 2.5s linear infinite; }
+        .chroma-rotating-card:hover {
+            transform: translateY(-6px) scale(1.015);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 240, 255, 0.15);
+        }
+
+        @keyframes borderRotate {
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
 
         /* ------------------------------------------------------------------------ */
         /* 5. ארכיטקטורת ממשק מרכזית (MAINFRAME INTERFACE UI) */
@@ -284,53 +261,43 @@
             display: flex;
             height: 100vh;
             width: 100vw;
-            padding: 35px;
-            gap: 35px;
+            padding: 30px;
+            gap: 30px;
             opacity: 0;
-            transform: scale(0.96) rotateX(1deg);
+            transform: scale(0.97);
             transition: all 1s var(--smooth-cubic);
         }
-        #quantum-mainframe.online { opacity: 1; transform: scale(1) rotateX(0deg); }
+        #quantum-mainframe.online { opacity: 1; transform: scale(1); }
 
-        /* תפריט HUD צבעוני */
+        /* תפריט ניווט צדדי מפואר */
         .hud-navigation-bar {
-            width: 340px;
+            width: 330px;
             background: var(--panel-glass-solid);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(0, 240, 255, 0.2);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 45px 25px;
+            padding: 40px 22px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
             flex-shrink: 0;
             position: relative;
         }
 
-        .hud-navigation-bar::before {
-            content: ''; position: absolute; top: -2px; left: -2px; width: 25px; height: 25px;
-            border-top: 4px solid var(--neon-magenta); border-left: 4px solid var(--neon-magenta);
-        }
-        .hud-navigation-bar::after {
-            content: ''; position: absolute; bottom: -2px; right: -2px; width: 25px; height: 25px;
-            border-bottom: 4px solid var(--neon-cyan); border-right: 4px solid var(--neon-cyan);
-        }
-
-        .hud-brand-header { text-align: center; margin-bottom: 55px; }
+        .hud-brand-header { text-align: center; margin-bottom: 45px; }
         .hud-brand-header h2 {
-            font-size: 4rem; font-weight: 900; color: #fff; letter-spacing: 8px;
+            font-size: 3.5rem; font-weight: 900; color: #fff; letter-spacing: 10px;
             background: linear-gradient(135deg, #fff, var(--neon-cyan), var(--neon-purple));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.4));
+            filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.3));
         }
 
-        .hud-links-stack { display: flex; flex-direction: column; gap: 14px; }
+        .hud-links-stack { display: flex; flex-direction: column; gap: 12px; }
         
-        /* לינקים בתפריט עם אפקט הפס המסתובב המבוקש */
         .hud-tab-trigger {
-            padding: 20px 25px;
-            font-size: 1.2rem;
+            padding: 18px 22px;
+            font-size: 1.15rem;
             font-weight: 800;
             color: var(--text-chroma-gray);
             border-radius: 12px;
@@ -343,43 +310,42 @@
             background: rgba(255,255,255,0.01);
             transition: color 0.3s, padding-right 0.3s;
         }
-        .hud-tab-trigger i { margin-left: 18px; font-size: 1.4rem; width: 30px; text-align: center; transition: transform 0.3s; }
+        .hud-tab-trigger i { margin-left: 15px; font-size: 1.3rem; width: 25px; text-align: center; transition: transform 0.3s; }
         
         .hud-tab-trigger::before {
             content: ''; position: absolute; top: 50%; left: 50%; width: 250%; height: 250%;
-            background: conic-gradient(from 0deg, transparent 30%, var(--neon-cyan), var(--neon-magenta), transparent 70%);
+            background: conic-gradient(from 0deg, transparent 30%, var(--neon-cyan), var(--neon-purple), transparent 70%);
             transform: translate(-50%, -50%) rotate(0deg); z-index: -2; opacity: 0;
         }
         .hud-tab-trigger::after {
             content: ''; position: absolute; top: 1px; left: 1px; right: 1px; bottom: 1px;
-            background: #080d1f; border-radius: 11px; z-index: -1; transition: background 0.3s;
+            background: #050a18; border-radius: 11px; z-index: -1; transition: background 0.3s;
         }
 
-        .hud-tab-trigger:hover::before { opacity: 1; animation: borderRotate 1.8s linear infinite; }
-        .hud-tab-trigger:hover { color: #fff; padding-right: 32px; }
-        .hud-tab-trigger:hover i { transform: scale(1.15) rotate(-5deg); color: var(--neon-cyan); }
+        .hud-tab-trigger:hover::before { opacity: 1; animation: borderRotate 2s linear infinite; }
+        .hud-tab-trigger:hover { color: #fff; padding-right: 30px; }
+        .hud-tab-trigger:hover i { transform: scale(1.15); color: var(--neon-cyan); }
 
         .hud-tab-trigger.selected { color: #fff; }
-        .hud-tab-trigger.selected::before { opacity: 1; background: conic-gradient(from 0deg, var(--neon-cyan), var(--neon-purple), var(--neon-cyan)); animation: borderRotate 3s linear infinite; }
-        .hud-tab-trigger.selected::after { background: linear-gradient(90deg, rgba(0,240,255,0.1), transparent); }
+        .hud-tab-trigger.selected::before { opacity: 1; background: conic-gradient(from 0deg, var(--neon-cyan), var(--neon-purple), var(--neon-cyan)); animation: borderRotate 2.5s linear infinite; }
+        .hud-tab-trigger.selected::after { background: linear-gradient(90deg, rgba(0,240,255,0.12), transparent); }
 
-        /* לינק התראות אדום מיוחד */
-        .hud-trigger-danger { color: rgba(255, 0, 127, 0.8) !important; }
-        .hud-trigger-danger i { color: rgba(255, 0, 127, 0.8) !important; }
+        /* כפתור התראות מיוחד באדום לוהט */
+        .hud-trigger-danger { color: #ff3366 !important; }
+        .hud-trigger-danger i { color: #ff3366 !important; }
         .hud-trigger-danger::before { background: conic-gradient(from 0deg, transparent 30%, var(--neon-magenta), var(--neon-orange), transparent 70%) !important; }
         .hud-trigger-danger.selected::before { background: conic-gradient(from 0deg, var(--neon-magenta), var(--neon-orange), var(--neon-magenta)) !important; }
-        .hud-trigger-danger.selected::after { background: linear-gradient(90deg, rgba(255,0,127,0.15), transparent) !important; }
 
         /* קונטיינר הויזואליזציה הראשי */
         .quantum-viewport {
             flex: 1;
             background: var(--panel-glass-solid);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(0, 240, 255, 0.2);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             position: relative;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
             overflow: hidden;
         }
 
@@ -387,96 +353,114 @@
             display: none;
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            padding: 65px;
+            padding: 50px;
             overflow-y: auto;
         }
-        .quantum-panel-layer::-webkit-scrollbar { width: 6px; }
-        .quantum-panel-layer::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.3); border-radius: 10px; }
+        .quantum-panel-layer::-webkit-scrollbar { width: 5px; }
+        .quantum-panel-layer::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.2); border-radius: 10px; }
         
         .quantum-panel-layer.active {
             display: block;
-            animation: panelFadeReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: panelFadeReveal 0.5s ease-out forwards;
         }
 
         @keyframes panelFadeReveal {
-            0% { opacity: 0; transform: scale(0.985) translateY(15px); filter: blur(4px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+            0% { opacity: 0; transform: translateY(10px); filter: blur(3px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
         .quantum-panel-title {
-            font-size: 3.8rem; font-weight: 900; margin-bottom: 55px; color: #fff;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06); padding-bottom: 25px;
+            font-size: 3rem; font-weight: 900; margin-bottom: 40px; color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 20px;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .quantum-panel-title::after {
-            content: 'SYS_STREAM_ONLINE'; font-size: 0.9rem; color: var(--neon-cyan); letter-spacing: 5px;
-        }
-
-        /* כרטיסיות החוקים והתוכן */
-        .card-inner-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 15px; color: #fff; position: relative; z-index: 5; }
-        .card-inner-text { font-size: 1.15rem; color: var(--text-chroma-gray); line-height: 1.7; position: relative; z-index: 5; }
-
-        .cyber-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
 
         /* ------------------------------------------------------------------------ */
-        /* 6. עיצובי עמוד צוות וכרטיסיות מנהלים */
+        /* 6. פאנל התראות אמת מהסרטים (LIVE BROADCAST RADAR) */
         /* ------------------------------------------------------------------------ */
-        .avatar-holo-ring {
-            width: 140px; height: 140px; border-radius: 50%;
-            background: rgba(0,0,0,0.4); border: 2px dashed rgba(0, 240, 255, 0.3);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 4rem; color: #fff; margin-bottom: 25px;
-            position: relative; transition: all 0.5s var(--smooth-cubic);
-            z-index: 5;
+        .radar-hud-wrapper {
+            text-align: center; padding: 50px; background: rgba(0,0,0,0.4);
+            border-radius: 20px; border: 1px solid rgba(255,255,255,0.02);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+        }
+
+        .quantum-radar-ring {
+            width: 200px; height: 200px; border-radius: 50%;
+            border: 2px solid rgba(0, 240, 255, 0.1); margin: 0 auto 35px;
+            position: relative; display: flex; align-items: center; justify-content: center;
+        }
+        .quantum-radar-ring::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 50%; background: conic-gradient(from 0deg, transparent 40%, rgba(0, 240, 255, 0.4) 100%);
+            animation: radarRotation 2s linear infinite;
+        }
+        @keyframes radarRotation { 100% { transform: rotate(360deg); } }
+        .quantum-radar-ring i { font-size: 4rem; color: var(--neon-cyan); z-index: 5; position: relative; filter: drop-shadow(0 0 15px var(--neon-cyan)); }
+
+        .active-chroma-pulse {
+            display: inline-block; width: 14px; height: 14px; border-radius: 50%;
+            background: var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan);
+            margin-left: 12px; animation: pulseChromaNode 1s infinite alternate ease-in-out;
+        }
+        @keyframes pulseChromaNode { 0% { opacity: 0.4; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.25); } }
+
+        /* תיבת החירום הקיצונית בזמן אמת */
+        .emergency-chroma-card {
+            display: none; background: rgba(255, 0, 85, 0.04);
+            border: 2px solid var(--neon-magenta); border-radius: 16px;
+            padding: 40px; margin-top: 35px; 
+            animation: emergencyFlash 1.5s infinite alternate ease-in-out;
+            position: relative; overflow: hidden;
+        }
+        .emergency-chroma-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--neon-magenta), var(--neon-orange));
+        }
+        @keyframes emergencyFlash { 
+            0% { box-shadow: 0 0 15px rgba(255,0,127,0.15); border-color: rgba(255, 0, 127, 0.5); } 
+            100% { box-shadow: 0 0 45px rgba(255,0,127,0.45); border-color: var(--neon-magenta); } 
         }
         
-        .chroma-rotating-card:hover .avatar-holo-ring {
-            border-color: var(--neon-magenta);
-            transform: scale(1.08) rotate(15deg);
-            box-shadow: 0 0 35px rgba(255, 0, 127, 0.4);
-            color: var(--neon-cyan);
-        }
+        .emergency-chroma-card h2 { font-size: 3rem; color: var(--neon-magenta); font-weight: 900; margin-bottom: 15px; letter-spacing: 2px; }
+        .emergency-chroma-card .alert-cities-text { font-size: 2.3rem; font-weight: 800; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
 
-        .rank-chroma-badge {
-            padding: 8px 30px; border-radius: 6px; font-size: 0.95rem; font-weight: 900;
-            letter-spacing: 2px; margin-top: 20px; text-transform: uppercase; position: relative; z-index: 5;
+        .btn-simulation-trigger {
+            background: transparent; border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-chroma-gray); padding: 14px 28px; border-radius: 8px;
+            cursor: pointer; margin-top: 35px; font-weight: 700; transition: 0.3s;
         }
-        .badge-owner-neon { background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple)); color: #fff; box-shadow: 0 5px 25px rgba(255,0,127,0.4); }
-        .badge-admin-neon { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+        .btn-simulation-trigger:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.03); }
 
         /* ------------------------------------------------------------------------ */
-        /* 7. מערכת טפסים צבעונית ומאובטחת (CHROMA FORMS) */
+        /* 7. מערכת טפסים מלוטשת ויוקרתית (CHROMA FORMS) */
         /* ------------------------------------------------------------------------ */
         .chroma-form-shell {
-            max-width: 900px; margin: 0 auto; background: rgba(3, 6, 15, 0.5);
-            border-radius: 20px; padding: 55px; border: 1px solid rgba(255,255,255,0.02);
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.4);
+            max-width: 850px; margin: 0 auto; background: rgba(3, 6, 16, 0.6);
+            border-radius: 16px; padding: 45px; border: 1px solid rgba(255,255,255,0.02);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
         }
 
-        .chroma-input-row { display: flex; gap: 30px; margin-bottom: 30px; }
-        .chroma-group { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-        .chroma-group label { font-size: 1.05rem; font-weight: 800; color: #fff; letter-spacing: 1px; }
+        .chroma-input-row { display: flex; gap: 25px; margin-bottom: 25px; }
+        .chroma-group { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+        .chroma-group label { font-size: 1rem; font-weight: 800; color: #fff; }
 
-        .input-chroma-field, .select-chroma-field {
-            background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 8px; padding: 20px; color: #fff; font-size: 1.15rem; outline: none;
+        .input-chroma-field, .select-chroma-field, .textarea-chroma-field {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px; padding: 18px; color: #fff; font-size: 1.1rem; outline: none;
             transition: all 0.3s;
         }
-        .input-chroma-field:focus, .select-chroma-field:focus {
+        .input-chroma-field:focus, .select-chroma-field:focus, .textarea-chroma-field:focus {
             border-color: var(--neon-cyan); background: rgba(0,240,255,0.02);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
         }
         .select-chroma-field option { background: #070c1a; color: #fff; }
-        .textarea-chroma-field { min-height: 150px; resize: vertical; }
+        .textarea-chroma-field { min-height: 140px; resize: vertical; }
 
         .btn-chroma-submit-node {
-            width: 100%; padding: 22px; color: #fff; font-size: 1.35rem; font-weight: 900;
+            width: 100%; padding: 20px; color: #fff; font-size: 1.25rem; font-weight: 900;
             border: none; border-radius: 8px; cursor: pointer; transition: all 0.4s;
             position: relative; overflow: hidden; z-index: 1; background: #000;
+            letter-spacing: 2px;
         }
         .btn-chroma-submit-node::before {
             content: ''; position: absolute; top: 50%; left: 50%; width: 200%; height: 250%;
@@ -485,122 +469,77 @@
         }
         .btn-chroma-submit-node::after {
             content: ''; position: absolute; top: 2px; left: 2px; right: 2px; bottom: 2px;
-            background: #070c1e; border-radius: 6px; z-index: -1; transition: 0.3s;
+            background: #060b1e; border-radius: 6px; z-index: -1; transition: background 0.3s;
         }
         .btn-chroma-submit-node:hover::before { animation: borderRotate 1.5s linear infinite; }
-        .btn-chroma-submit-node:hover::after { background: transparent; color: #000; }
-        .btn-chroma-submit-node:hover { box-shadow: 0 15px 40px rgba(0, 240, 255, 0.3); }
+        .btn-chroma-submit-node:hover::after { background: transparent; }
+        .btn-chroma-submit-node:hover { box-shadow: 0 15px 35px rgba(0, 240, 255, 0.25); transform: translateY(-2px); }
 
         /* ------------------------------------------------------------------------ */
-        /* 7ב. חלונית מודאל להצגת ה-וי הזוהר ללא רענון האתר (MODAL PROTOCOL) */
+        /* 8. מודאל הצלחה זוהר ללא רענון עמוד (MODAL CONTROL) */
         /* ------------------------------------------------------------------------ */
         .chroma-success-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(1, 3, 10, 0.9); z-index: 100000;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); z-index: 100000;
             display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: all 0.5s var(--smooth-cubic);
+            opacity: 0; pointer-events: none; transition: all 0.4s var(--smooth-cubic);
         }
         .chroma-success-modal.active { opacity: 1; pointer-events: auto; }
         
         .chroma-success-content {
-            background: #060b1a; border: 2px solid var(--neon-green); border-radius: 20px;
-            padding: 60px; text-align: center; max-width: 500px; width: 90%;
-            box-shadow: 0 0 50px rgba(57, 255, 20, 0.2);
-            transform: scale(0.8); transition: transform 0.5s var(--smooth-cubic);
+            background: #050a18; border: 2px solid var(--neon-green); border-radius: 20px;
+            padding: 50px; text-align: center; max-width: 480px; width: 90%;
+            box-shadow: 0 0 50px rgba(57, 255, 20, 0.25);
+            transform: scale(0.85); transition: transform 0.4s var(--smooth-cubic);
         }
         .chroma-success-modal.active .chroma-success-content { transform: scale(1); }
 
-        /* אנימציית ה-וי המשוגעת והצבעונית */
         .neon-checkmark-wrapper {
-            width: 120px; height: 120px; border-radius: 50%;
-            border: 4px solid var(--neon-green); margin: 0 auto 30px;
+            width: 100px; height: 100px; border-radius: 50%;
+            border: 3px solid var(--neon-green); margin: 0 auto 25px;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
-            animation: pulseSuccess 2s infinite alternate;
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.3);
+            animation: pulseSuccess 1.5s infinite alternate ease-in-out;
         }
-        .neon-checkmark-wrapper i { font-size: 4.5rem; color: var(--neon-green); filter: drop-shadow(0 0 15px var(--neon-green)); }
+        .neon-checkmark-wrapper i { font-size: 3.5rem; color: var(--neon-green); filter: drop-shadow(0 0 10px var(--neon-green)); }
         
         @keyframes pulseSuccess {
-            0% { box-shadow: 0 0 20px rgba(57, 255, 20, 0.3); transform: scale(1); }
-            100% { box-shadow: 0 0 40px rgba(57, 255, 20, 0.6); transform: scale(1.05); }
+            0% { box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); transform: scale(1); }
+            100% { box-shadow: 0 0 35px rgba(57, 255, 20, 0.5); transform: scale(1.04); }
         }
 
         .btn-close-modal {
-            margin-top: 35px; background: rgba(57, 255, 20, 0.1); border: 1px solid var(--neon-green);
-            color: #fff; padding: 14px 40px; font-weight: 800; border-radius: 8px; cursor: pointer; transition: 0.3s;
+            margin-top: 30px; background: rgba(57, 255, 20, 0.08); border: 1px solid var(--neon-green);
+            color: #fff; padding: 12px 35px; font-weight: 800; border-radius: 6px; cursor: pointer; transition: 0.3s;
         }
         .btn-close-modal:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 20px var(--neon-green); }
 
-        /* ------------------------------------------------------------------------ */
-        /* 8. מכ"ם התראות לאומי מתקדמות */
-        /* ------------------------------------------------------------------------ */
-        .radar-hud-wrapper {
-            text-align: center; padding: 65px; background: rgba(0,0,0,0.3);
-            border-radius: 20px; border: 1px solid rgba(255,255,255,0.02);
+        /* דף צוות ניהול חלקי */
+        .cyber-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .avatar-holo-ring {
+            width: 110px; height: 110px; border-radius: 50%;
+            background: rgba(0,0,0,0.3); border: 2px dashed rgba(0, 240, 255, 0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; color: #fff; margin: 0 auto 20px;
+            transition: all 0.4s ease;
         }
+        .chroma-rotating-card:hover .avatar-holo-ring { border-color: var(--neon-magenta); transform: rotate(15deg); color: var(--neon-cyan); }
+        .rank-chroma-badge { padding: 6px 20px; border-radius: 6px; font-size: 0.85rem; font-weight: 900; margin-top: 15px; display: inline-block; }
+        .badge-owner-neon { background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple)); color: #fff; box-shadow: 0 5px 15px rgba(255,0,127,0.3); }
 
-        .quantum-radar-ring {
-            width: 220px; height: 220px; border-radius: 50%;
-            border: 2px solid rgba(0, 240, 255, 0.15); margin: 0 auto 40px;
-            position: relative; display: flex; align-items: center; justify-content: center;
-        }
-        .quantum-radar-ring::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            border-radius: 50%; background: conic-gradient(from 0deg, transparent 40%, rgba(0, 240, 255, 0.5) 100%);
-            animation: radarRotation 2.8s linear infinite;
-        }
-        @keyframes radarRotation { 100% { transform: rotate(360deg); } }
-        .quantum-radar-ring i { font-size: 4.5rem; color: var(--neon-cyan); z-index: 5; position: relative; }
+        /* עמוד דיסקורד */
+        .discord-ultra-panel { text-align: center; padding: 70px 40px; background: rgba(88, 101, 242, 0.02); border: 1px solid rgba(88, 101, 242, 0.15); border-radius: 16px; }
+        .discord-ultra-panel i.giant-discord-icon { font-size: 6rem; color: #5865F2; filter: drop-shadow(0 0 25px rgba(88,101,242,0.4)); margin-bottom: 25px; }
+        .btn-discord-massive-chroma { display: inline-block; padding: 20px 70px; font-size: 1.5rem; font-weight: 900; border-radius: 50px; text-decoration: none; background: #5865F2; color: #fff; box-shadow: 0 10px 30px rgba(88,101,242,0.3); transition: 0.3s; }
+        .btn-discord-massive-chroma:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(88,101,242,0.5); filter: brightness(1.1); }
 
-        .active-chroma-pulse {
-            display: inline-block; width: 16px; height: 16px; border-radius: 50%;
-            background: var(--neon-cyan); box-shadow: 0 0 20px var(--neon-cyan);
-            margin-left: 14px; animation: pulseChromaNode 1.2s infinite alternate ease-in-out;
-        }
-        @keyframes pulseChromaNode { 0% { opacity: 0.3; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1.2); } }
-
-        .emergency-chroma-card {
-            display: none; background: rgba(255, 0, 127, 0.06);
-            border: 2px solid var(--neon-magenta); border-radius: 16px;
-            padding: 45px; margin-top: 45px; animation: emergencyFlash 1.8s infinite alternate ease-in-out;
-        }
-        @keyframes emergencyFlash { 0% { box-shadow: 0 0 15px rgba(255,0,127,0.1); } 100% { box-shadow: 0 0 45px rgba(255,0,127,0.35); } }
-        
-        .emergency-chroma-card h2 { font-size: 3.5rem; color: var(--neon-magenta); font-weight: 900; margin-bottom: 15px; }
-        .emergency-chroma-card .alert-cities-text { font-size: 2.5rem; font-weight: 800; color: #fff; }
-
-        .btn-simulation-trigger {
-            background: transparent; border: 1px solid rgba(255,255,255,0.08);
-            color: var(--text-chroma-gray); padding: 16px 32px; border-radius: 8px;
-            cursor: pointer; margin-top: 45px; font-weight: 700; transition: 0.3s;
-        }
-        .btn-simulation-trigger:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.03); }
-
-        /* ------------------------------------------------------------------------ */
-        /* 9. עמוד חיבור שרת דיסקורד מסיבי */
-        /* ------------------------------------------------------------------------ */
-        .discord-ultra-panel {
-            text-align: center; padding: 90px 60px;
-            background: rgba(88, 101, 242, 0.01); border: 1px solid rgba(88, 101, 242, 0.15);
-            border-radius: 20px;
-        }
-        .discord-ultra-panel i.giant-discord-icon { font-size: 7rem; color: #5865F2; filter: drop-shadow(0 0 30px rgba(88,101,242,0.5)); margin-bottom: 35px; }
-        
-        .btn-discord-massive-chroma {
-            display: inline-block; padding: 25px 90px; font-size: 1.7rem; font-weight: 900;
-            border-radius: 100px; text-decoration: none; background: #5865F2; color: #fff;
-            box-shadow: 0 15px 45px rgba(88,101,242,0.4); border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .btn-discord-massive-chroma:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(88,101,242,0.6); filter: brightness(1.1); }
-
-        /* התאמה רספונסיבית מקיפה למובייל וטאבלטים */
+        /* התאמה רספונסיבית מקיפה */
         @media (max-width: 1200px) {
-            #quantum-mainframe { flex-direction: column; overflow-y: auto; height: auto; padding: 15px; }
-            .hud-navigation-bar { width: 100%; padding: 30px; }
-            .quantum-viewport { height: 80vh; }
-            .quantum-panel-layer { padding: 35px; }
-            .mega-chroma-title { font-size: 6rem; letter-spacing: 15px; }
+            #quantum-mainframe { flex-direction: column; overflow-y: auto; height: auto; padding: 15px; gap: 20px; }
+            .hud-navigation-bar { width: 100%; padding: 25px; }
+            .quantum-viewport { height: 75vh; }
+            .quantum-panel-layer { padding: 30px; }
+            .mega-chroma-title { font-size: 6rem; letter-spacing: 12px; }
         }
     </style>
 </head>
@@ -613,40 +552,39 @@
     <div class="plasma-orb orb-purple"></div>
 
     <!-- ------------------------------------------------------------------------ */
-    /* חלונית ה-וי המרכזית (NO-REFRESH SUCCESS MODAL) */
+    /* חלונית ה-וי המרכזית לשליחת טפסים ללא רענון (SUCCESS MODAL) */
     /* ------------------------------------------------------------------------ */ -->
     <div class="chroma-success-modal" id="global-success-modal">
         <div class="chroma-success-content">
             <div class="neon-checkmark-wrapper">
                 <i class="fas fa-check"></i>
             </div>
-            <h2 style="font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 10px;">הטופס נשלח בהצלחה!</h2>
+            <h2 style="font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 10px;">הפעולה בוצעה בהצלחה!</h2>
+            <p style="color: var(--text-chroma-gray);">הנתונים סונכרנו ונשלחו בצורה מאובטחת ישירות לאדיר.</p>
             <button class="btn-close-modal" onclick="closeSuccessModal()">חזור למערכת</button>
         </div>
     </div>
 
     <!-- ------------------------------------------------------------------------ */
-    /* מסך כניסה מאובטח (SECURE INTERFACE BOOT) */
+    /* מסך כניסה מאובטח (SECURE INTERFACE BOOT) - שחור נקי עם לבן */
     /* ------------------------------------------------------------------------ */ -->
     <div id="secure-boot-wrapper">
         <div class="identity-node">
             <h1 class="mega-chroma-title">SINS</h1>
-            <div class="laser-scanner"></div>
         </div>
-        <div class="console-log-box" id="console-node-stream">
-            > IDENTITY DETECTED: VISITOR...<br>
-            > DECRYPTING QUANTUM ASSETS...<br>
-            > CORE INTERFACE STATUS: STANDBY.
-        </div>
-        <div class="loading-bar-container">
+        
+        <div class="console-log-box" id="console-node-stream"></div>
+        
+        <div class="loading-bar-container" id="bar-node-container">
             <div class="loading-bar-fill" id="progress-bar-node"></div>
         </div>
-        <button class="btn-hardware-access" id="btn-mainframe-trigger" onclick="engageCoreSystem()">LOAD INTERFACE</button>
+        
+        <button class="btn-hardware-access" id="btn-mainframe-trigger" onclick="engageCoreSystem()">CONNECT SYSTEM</button>
     </div>
 
-    <!-- מסך פריצה חלק ביניים -->
+    <!-- מסך פריצה ביניים - WELCOME -->
     <div id="interstitial-hacker-screen">
-        <h2>OVERRIDING CORE SYSTEM...</h2>
+        <h2 id="welcome-text-node">WELCOME</h2>
     </div>
 
     <!-- ------------------------------------------------------------------------ */
@@ -660,6 +598,7 @@
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-admins-node', this)"><i class="fas fa-users-cog"></i> צוות ההנהלה</div>
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-apply-node', this)"><i class="fas fa-id-card"></i> מיונים לצוות</div>
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-report-node', this)"><i class="fas fa-user-shield"></i> דיווחים (Report)</div>
+                <div class="hud-tab-trigger" onclick="navigateToPanel('panel-feedback-node', this)"><i class="fas fa-comments"></i> פידבק לאתר</div>
                 <div class="hud-tab-trigger hud-trigger-danger" onclick="navigateToPanel('panel-alerts-node', this)"><i class="fas fa-broadcast-tower"></i> התראות אמת</div>
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-join-node', this)"><i class="fab fa-discord"></i> כניסה לשרת</div>
             </div>
@@ -667,357 +606,392 @@
 
         <main class="quantum-viewport">
             
-            <!-- עמוד תקנון וחוקים -->
-            <section id="panel-rules-node" class="quantum-panel-layer active">
-                <h2 class="quantum-panel-title">תקנון השרת</h2>
+            <!-- 1. עמוד תקנון וחוקים -->
+            <div id="panel-rules-node" class="quantum-panel-layer active">
+                <h2 class="quantum-panel-title">חוקי השרת הרשמיים</h2>
                 <div class="cyber-grid">
-                    <div class="chroma-rotating-card"><h3>כבוד הדדי</h3><p class="card-inner-text">יש לכבד כל חבר בשרת. אין להשתמש בשפה פוגענית. 3 אזהרות יובילו להרחקה של שבוע (באן).</p></div>
-                    <div class="chroma-rotating-card"><h3>ספאם והצפות</h3><p class="card-inner-text">אין לשלוח את אותה הודעה ברצף. העונש: השתקה ל-10 דקות ברמת המערכת הגלובלית.</p></div>
-                    <div class="chroma-rotating-card"><h3>תוכן לא הולם</h3><p class="card-inner-text">אין לשלוח תוכן 18+. השרת נועד לכולם ויש לנו 0 סובלנות. הרחקה מיידית ולצמיתות מחלל השרת.</p></div>
-                    <div class="chroma-rotating-card"><h3>איסור פרסום</h3><p class="card-inner-text">פרסום של שרתי דיסקורד אחרים, ערוצי יוטיוב או רשתות - אסור לחלוטין ללא אישור מדרג הנהלה.</p></div>
+                    <div class="chroma-rotating-card">
+                        <h3 class="card-inner-title">01 / כבוד הדדי</h3>
+                        <p class="card-inner-text">חובה לשמור על שפה נאותה ומכבדת כלפי כל חברי הקהילה וצוות הניהול כאחד.</p>
+                    </div>
+                    <div class="chroma-rotating-card">
+                        <h3 class="card-inner-title">02 / איסור פרסום</h3>
+                        <p class="card-inner-text">אין לפרסם קישורים, שרתי דיסקורד חיצוניים או קהילות אחרות ללא אישור מפורש מהבעלים.</p>
+                    </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- עמוד צוות ההנהלה -->
-            <section id="panel-admins-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">הצוות המוביל</h2>
+            <!-- 2. צוות ההנהלה -->
+            <div id="panel-admins-node" class="quantum-panel-layer">
+                <h2 class="quantum-panel-title">צוות המערכת והניהול</h2>
                 <div class="cyber-grid">
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-crown" style="color: var(--neon-magenta);"></i></div><h3 class="card-inner-title">אדיר</h3><div class="rank-chroma-badge badge-owner-neon">בעלי השרת</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">ליעד</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">עמית</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">נדב</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
+                    <div class="chroma-rotating-card" style="text-align: center;">
+                        <div class="avatar-holo-ring"><i class="fas fa-crown"></i></div>
+                        <h3 class="card-inner-title">Adir</h3>
+                        <p class="card-inner-text">מייסד ומפתח המערכת הראשי של פרויקט SINS.</p>
+                        <div><span class="rank-chroma-badge badge-owner-neon">FOUNDER & OWNER</span></div>
+                    </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- עמוד מיונים - שליחה שקטה מובנית (No Web Restart) -->
-            <section id="panel-apply-node" class="quantum-panel-layer">
+            <!-- 3. טופס מיונים לצוות -->
+            <div id="panel-apply-node" class="quantum-panel-layer">
                 <h2 class="quantum-panel-title">הגשת מועמדות לצוות</h2>
                 <div class="chroma-form-shell">
-                    <form id="apply-cyber-form">
-                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
-                        <input type="hidden" name="subject" value="מועמדות חדשה לצוות השרת!">
-
-                        <div class="chroma-input-row">
-                            <div class="chroma-group"><label>שם משתמש בדיסקורד</label><input type="text" name="Discord_Username" class="input-chroma-field" placeholder="Adir#1234" required></div>
-                            <div class="chroma-group"><label>גיל מועמד</label><input type="number" name="Age" class="input-chroma-field" placeholder="הכנס גיל..." required></div>
-                        </div>
-                        <div class="chroma-group" style="margin-bottom: 30px;">
-                            <label>תפקיד מבוקש</label>
-                            <select name="Requested_Role" class="select-chroma-field" required>
-                                <option value="" disabled selected>בחר תפקיד במערכת הניהול...</option>
-                                <option value="מודרטור">מודרטור</option>
-                                <option value="הלפר">הלפר</option>
-                                <option value="צוות אירועים">צוות אירועים</option>
-                            </select>
-                        </div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>כמה שעות פעילות שבועיות תוכל לתת לנו?</label><input type="text" name="Weekly_Hours" class="input-chroma-field" placeholder="לדוגמה: 20 שעות בשבוע" required></div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>למה כדאי לנו לבחור דווקא בך?</label><textarea name="Why_Choose_You" class="input-chroma-field textarea-chroma-field" placeholder="מה מייחד אותך ממועמדים אחרים?" required></textarea></div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>מה התחביבים שלך? (קצת על עצמך)</label><textarea name="Hobbies" class="input-chroma-field textarea-chroma-field" placeholder="ספר לנו על התחביבים שלך, משחקים אהובים..." required></textarea></div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>האם יש לך ניסיון קודם בצוותים?</label><textarea name="Previous_Experience" class="input-chroma-field textarea-chroma-field" placeholder="ספר לנו אם היית בצוותים בעבר..." required></textarea></div>
-                        <button type="submit" class="btn-chroma-submit-node">שלח טופס מאובטח להנהלה</button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- עמוד רפורטים ודיווחים - שליחה שקטה מובנית (No Web Restart) -->
-            <section id="panel-report-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">דיווח על חריגת משתמש / איש צוות</h2>
-                <div class="chroma-form-shell" style="border-top: 4px solid var(--neon-magenta);">
-                    <form id="report-cyber-form">
-                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
-                        <input type="hidden" name="subject" value="תלונת רפורט חדשה מהאתר!">
-
+                    <form onsubmit="handleSecureSubmit(event, 'מיונים לצוות SINS')" class="sins-async-form">
                         <div class="chroma-input-row">
                             <div class="chroma-group">
-                                <label>סיווג הנילון</label>
-                                <select name="Reported_User_Type" class="select-chroma-field" required style="border-color: rgba(255, 0, 127, 0.3);">
-                                    <option value="" disabled selected>בחר אפשרות...</option>
-                                    <option value="איש צוות (הנהלה/מודרטור)">איש צוות (הנהלה/מודרטור)</option>
-                                    <option value="משתמש רגיל בשרת">משתמש רגיל בשרת</option>
-                                </select>
+                                <label>שם מלא / כינוי:</label>
+                                <input type="text" name="שם" class="input-chroma-field" required placeholder="הכנס שם...">
                             </div>
-                            <div class="chroma-group"><label>שם המשתמש (Username)</label><input type="text" name="Reported_Username" class="input-chroma-field" required style="border-color: rgba(255, 0, 127, 0.3);"></div>
+                            <div class="chroma-group">
+                                <label>גיל משתמש:</label>
+                                <input type="number" name="גיל" class="input-chroma-field" required placeholder="הכנס גיל...">
+                            </div>
                         </div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>פירוט האירוע / סיבת הדיווח</label><textarea name="Reason_for_Report" class="input-chroma-field textarea-chroma-field" required style="border-color: rgba(255, 0, 127, 0.3);"></textarea></div>
-                        <button type="submit" class="btn-chroma-submit-node" style="box-shadow: 0 10px 30px rgba(255, 0, 127, 0.2);">שגר דיווח מוצפן לחלון הנהלה עליונה</button>
+                        <div class="chroma-group" style="margin-bottom: 25px;">
+                            <label>מדוע אתה מתאים להצטרף לצוות שלנו?</label>
+                            <textarea name="פירוט התאמה" class="textarea-chroma-field" required placeholder="פרט כאן בהרחבה..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-chroma-submit-node">שלח בקשת הצטרפות</button>
                     </form>
                 </div>
-            </section>
+            </div>
 
-            <!-- עמוד התראות פיקוד העורף -->
-            <section id="panel-alerts-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">מכ"ם התראות ולוחמה לאומי</h2>
+            <!-- 4. טופס דיווחים -->
+            <div id="panel-report-node" class="quantum-panel-layer">
+                <h2 class="quantum-panel-title">מערכת דיווח על משתמשים חריגים</h2>
+                <div class="chroma-form-shell">
+                    <form onsubmit="handleSecureSubmit(event, 'דיווח חריג - SINS')" class="sins-async-form">
+                        <div class="chroma-input-row">
+                            <div class="chroma-group">
+                                <label>שם המדווח:</label>
+                                <input type="text" name="שם המדווח" class="input-chroma-field" required placeholder="השם שלך...">
+                            </div>
+                            <div class="chroma-group">
+                                <label>שם / ID של החשוד:</label>
+                                <input type="text" name="שם החשוד" class="input-chroma-field" required placeholder="על מי מדווחים...">
+                            </div>
+                        </div>
+                        <div class="chroma-group" style="margin-bottom: 25px;">
+                            <label>פירוט התקרית והוכחות:</label>
+                            <textarea name="פרטי האירוע" class="textarea-chroma-field" required placeholder="מה החשוד ביצע ובאיזה שעה..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-chroma-submit-node" style="background: rgba(255,0,85,0.05);">שלח דיווח דחוף לחקירה</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 5. טופס פידבק ייעודי (נשלח ישירות לאדיר!) -->
+            <div id="panel-feedback-node" class="quantum-panel-layer">
+                <h2 class="quantum-panel-title">משוב ופידבק על האתר</h2>
+                <div class="chroma-form-shell">
+                    <form onsubmit="handleSecureSubmit(event, 'פידבק חדש על אתר SINS')" class="sins-async-form">
+                        <div class="chroma-input-row">
+                            <div class="chroma-group">
+                                <label>שם המשתמש:</label>
+                                <input type="text" name="שם המשתמש" class="input-chroma-field" required placeholder="כינוי או שם...">
+                            </div>
+                            <div class="chroma-group">
+                                <label>דירוג חווית השימוש:</label>
+                                <select name="דירוג אתר" class="select-chroma-field" required>
+                                    <option value="5_STARS">⭐⭐⭐⭐⭐ - מושלם ומטורף ביותר</option>
+                                    <option value="4_STARS">⭐⭐⭐⭐ - מעולה מאוד</option>
+                                    <option value="3_STARS">⭐⭐⭐ - נחמד</option>
+                                    <option value="2_STARS">⭐⭐ - טעון שיפור</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chroma-group" style="margin-bottom: 25px;">
+                            <label>מה היית רוצה להגיד לנו או להציע לשיפור?</label>
+                            <textarea name="תוכן הפידבק" class="textarea-chroma-field" required placeholder="כתוב כאן את הפידבק שלך..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-chroma-submit-node">שלח פידבק ישירות לאדיר</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 6. פאנל מכ"ם התראות אמת משופצר -->
+            <div id="panel-alerts-node" class="quantum-panel-layer">
+                <h2 class="quantum-panel-title">מערכת התראות לאומיות בזמן אמת</h2>
                 <div class="radar-hud-wrapper">
-                    <div class="quantum-radar-ring"><i class="fas fa-satellite-dish"></i></div>
-                    <h3 style="font-size: 2.2rem; margin-bottom: 15px;"><span class="active-chroma-pulse"></span> סריקת תדרים פעילה (פיקוד העורף)</h3>
-                    <p style="font-size: 1.25rem; color: var(--text-chroma-gray);">המידע מסונכרן ומאובטח בזמן אמת מול לווייני פיקוד העורף.</p>
+                    <div class="quantum-radar-ring" id="radar-node-circle">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <h3 style="font-size: 1.8rem; font-weight: 900;"><span class="active-chroma-pulse"></span>סטטוס רדאר: סריקה פעילה</h3>
+                    <p style="color: var(--text-chroma-gray); margin-top: 10px;" id="radar-status-text">לא זוהו איומים בשלב זה. המערכת מסונכרנת וממתינה לפקודה.</p>
+                    
+                    <!-- התיבה המשוגעת בחירום -->
                     <div class="emergency-chroma-card" id="alert-display-box">
-                        <h2 id="alert-header-title">אזעקת צבע אדום!</h2>
-                        <p class="alert-cities-text" id="alert-cities-list">טבריה, סובב כנרת ואזור הצפון</p>
+                        <h2><i class="fas fa-exclamation-triangle" style="margin-left: 15px; animation: textFlicker 1s infinite alternate;"></i>התרעת חירום פעילה במדינה!</h2>
+                        <div class="alert-cities-text" id="alert-cities-list">טוען מיקומים חמים...</div>
                     </div>
-                    <button class="btn-simulation-trigger" onclick="runAlertSimulation()">הפעל סימולציית חירום (מצב בדיקה)</button>
-                </div>
-            </section>
 
-            <!-- עמוד כניסה לשרת דיסקורד -->
-            <section id="panel-join-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">חיבור לשרת הדיסקורד הרשמי</h2>
-                <div style="display: flex; flex-wrap: wrap; gap: 35px; justify-content: center; align-items: stretch;">
-                    <div class="discord-ultra-panel" style="flex: 1; min-width: 340px;">
-                        <i class="fab fa-discord giant-discord-icon"></i>
-                        <h2 style="font-size: 3.2rem; font-weight: 900; margin-bottom: 20px;">SINS NET HUB</h2>
-                        <p style="font-size: 1.3rem; color: var(--text-chroma-gray); margin-bottom: 45px;">התחבר עכשיו אל שרת הדיסקורד של סינס, קח חלק באירועים, מיונים קהילתיים ושיחות קוליות בלייב.</p>
-                        <a href="https://discord.gg/srMvcR8k" target="_blank" class="btn-discord-massive-chroma">CONNECT PROTOCOL</a>
-                    </div>
-                    <div style="flex: 1; min-width: 340px;">
-                        <iframe src="https://discord.com/widget?id=1482203048368406579&theme=dark" width="100%" height="100%" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 16px; border: 1px solid rgba(0, 240, 255, 0.2); min-height: 480px;"></iframe>
-                    </div>
+                    <button class="btn-simulation-trigger" onclick="simulateAlertToggle()">הפעל סימולציית חירום לבדיקה</button>
                 </div>
-            </section>
+            </div>
+
+            <!-- 7. עמוד חיבור לדיסקורד -->
+            <div id="panel-join-node" class="quantum-panel-layer">
+                <h2 class="quantum-panel-title">חיבור לקהילת הדיסקורד</h2>
+                <div class="discord-ultra-panel">
+                    <i class="fab fa-discord giant-discord-icon"></i>
+                    <h3 style="font-size: 2rem; margin-bottom: 20px; font-weight: 900;">הצטרף לשרת הליבה הרשמי</h3>
+                    <p style="color: var(--text-chroma-gray); max-width: 600px; margin: 0 auto 40px; line-height: 1.7;">כנס עכשיו לשרת הדיסקורד הרשמי כדי לקבל עדכונים, לדבר עם צוות הפיתוח ולהיות חלק בלתי נפרד מקהילת SINS המשגשגת.</p>
+                    <a href="https://discord.gg/YOUR_INVITE" target="_blank" class="btn-discord-massive-chroma">התחבר עכשיו לשרת</a>
+                </div>
+            </div>
 
         </main>
     </div>
 
     <!-- ------------------------------------------------------------------------ */
-    /* מנוע סקריפטים מורחב וארוך (THE QUANTUM JAVASCRIPT CORE ENGINE) */
+    /* מנוע התנהגות, אודיו, גרפיקה ואנימציות מתקדמות (CORE INTERFACE JAVASCRIPT) */
     /* ------------------------------------------------------------------------ */ -->
     <script>
-        /* א. מנוע רקע חלקיקים צבעוני אינטראקטיבי */
+        // הקמת קנבס חלקיקים תלת מימדי דינמי
         const canvas = document.getElementById('chroma-canvas');
         const ctx = canvas.getContext('2d');
-        let particleArray = [];
-        let mouseNode = { x: null, y: null, radius: 180 };
+        let particles = [];
 
-        function initializeCanvasSize() {
+        function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', initializeCanvasSize);
-        initializeCanvasSize();
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        window.addEventListener('mousemove', (e) => {
-            mouseNode.x = e.clientX;
-            mouseNode.y = e.clientY;
-        });
-
-        class CyberParticle {
+        class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.size = Math.random() * 3 + 1;
-                this.colorIndex = Math.floor(Math.random() * 3);
-                this.colors = ['#00f0ff', '#ff007f', '#9d00ff'];
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.6;
+                this.speedY = (Math.random() - 0.5) * 0.6;
+                this.color = Math.random() > 0.5 ? '#00f0ff' : '#ff007f';
+                this.alpha = Math.random() * 0.5 + 0.2;
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                
-                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
-                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
-
-                if (mouseNode.x != null && mouseNode.y != null) {
-                    let dx = mouseNode.x - this.x;
-                    let dy = mouseNode.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouseNode.radius) {
-                        if (mouseNode.x > this.x && this.x > 10) this.x -= 2;
-                        if (mouseNode.x < this.x && this.x < canvas.width - 10) this.x += 2;
-                        if (mouseNode.y > this.y && this.y < canvas.height - 10) this.y -= 2;
-                        if (mouseNode.y < this.y && this.y < canvas.height - 10) this.y += 2;
-                    }
-                }
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.height = canvas.height;
             }
             draw() {
-                ctx.fillStyle = this.colors[this.colorIndex];
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
+                ctx.restore();
             }
         }
 
-        for (let i = 0; i < 100; i++) {
-            particleArray.push(new CyberParticle());
+        for (let i = 0; i < 75; i++) {
+            particles.push(new Particle());
         }
 
-        function connectParticles() {
-            for (let a = 0; a < particleArray.length; a++) {
-                for (let b = a; b < particleArray.length; b++) {
-                    let dx = particleArray[a].x - particleArray[b].x;
-                    let dy = particleArray[a].y - particleArray[b].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 110) {
-                        ctx.strokeStyle = `rgba(0, 240, 255, ${1 - (distance / 110) * 0.4})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particleArray[a].x, particleArray[a].y);
-                        ctx.lineTo(particleArray[b].x, particleArray[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function runMainMatrixLoop() {
+        function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particleArray.forEach(p => { p.update(); p.draw(); });
-            connectParticles();
-            requestAnimationFrame(runMainMatrixLoop);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
         }
-        runMainMatrixLoop();
+        animateParticles();
 
-        /* ב. סימולציית אתחול מערכת מדורגת */
-        let currentProgress = 0;
-        const progressFill = document.getElementById('progress-bar-node');
-        const consoleNode = document.getElementById('console-node-stream');
-        const accessButton = document.getElementById('btn-mainframe-trigger');
+        // יצירת קבצי קול מובנים בקוד (Web Audio API) לחוויית שימוש מושלמת
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSynthBeep(freq, type, duration) {
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e){}
+        }
 
-        const consoleMessages = [
-            "> DOWNLOADING HARDWARE MANIFEST...",
-            "> INTEGRATING CHROMA BORDER ROTATION LOGIC...",
-            "> SYNCING AJAX FORM HANDLERS (NO-REFRESH)...",
-            "> CORES STABLE. SECURITY HANDSHAKE ACCEPTED."
+        // מנוע מסך כניסה לבן ונקי על רקע שחור
+        const consoleLines = [
+            "INITIALIZING QUANTUM ENCRYPTION CORRIDOR...",
+            "SECURING PORT CONFIGURATIONS FOR EMAIL HUB...",
+            "TARGET ENDPOINT ROUTED TO: adirsimana5@gmail.com",
+            "SYNCING REALTIME ALERTS COMPONENT (alert.js)...",
+            "OVERRIDE COMPLETE. INTERFACE UNLOCKED."
         ];
 
-        const systemBootInterval = setInterval(() => {
-            currentProgress += Math.floor(Math.random() * 7) + 2;
-            if (currentProgress >= 100) {
-                currentProgress = 100;
-                clearInterval(systemBootInterval);
-                consoleNode.innerHTML += "<br><span style='color:var(--neon-green)'>> PROTOCOL UNLOCKED. DISPATCH READY.</span>";
-                accessButton.classList.add('unlocked');
-            }
-            progressFill.style.width = currentProgress + '%';
-            
-            if (currentProgress > 25 && currentProgress < 50) consoleNode.innerHTML = consoleMessages[0];
-            if (currentProgress > 50 && currentProgress < 75) consoleNode.innerHTML = consoleMessages[1] + "<br>" + consoleMessages[2];
-            if (currentProgress > 75 && currentProgress < 100) consoleNode.innerHTML = consoleMessages[2] + "<br>" + consoleMessages[3];
-        }, 100);
-
         function engageCoreSystem() {
-            document.getElementById('secure-boot-wrapper').style.opacity = '0';
-            document.getElementById('secure-boot-wrapper').style.pointerEvents = 'none';
+            playSynthBeep(440, 'square', 0.1);
+            document.getElementById('btn-mainframe-trigger').style.display = 'none';
             
-            const hackerScreen = document.getElementById('interstitial-hacker-screen');
-            hackerScreen.classList.add('active');
+            const logBox = document.getElementById('console-node-stream');
+            const barContainer = document.getElementById('bar-node-container');
+            const fillBar = document.getElementById('progress-bar-node');
             
-            setTimeout(() => {
-                document.getElementById('quantum-mainframe').classList.add('online');
-                hackerScreen.classList.remove('active');
-            }, 1400);
+            logBox.style.display = 'block';
+            barContainer.style.display = 'block';
+
+            let currentLine = 0;
+            function printStream() {
+                if (currentLine < consoleLines.length) {
+                    logBox.innerHTML += `<br>> ${consoleLines[currentLine]}`;
+                    logBox.scrollTop = logBox.scrollHeight;
+                    playSynthBeep(600, 'sine', 0.05);
+                    currentLine++;
+                    setTimeout(printStream, 400);
+                } else {
+                    // התחלת מילוי הפס
+                    let width = 0;
+                    const interval = setInterval(() => {
+                        if (width >= 100) {
+                            clearInterval(interval);
+                            revealWelcomeScreen();
+                        } else {
+                            width += 2;
+                            fillBar.style.width = width + '%';
+                        }
+                    }, 25);
+                }
+            }
+            printStream();
         }
 
-        /* ג. ניווט בין פאנלים בתפריט */
-        function navigateToPanel(targetPanelId, triggerButton) {
+        function revealWelcomeScreen() {
+            document.getElementById('secure-boot-wrapper').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('secure-boot-wrapper').style.display = 'none';
+                
+                // כניסת מסך WELCOME
+                const welcomeScreen = document.getElementById('interstitial-hacker-screen');
+                welcomeScreen.classList.add('active');
+                playSynthBeep(880, 'sine', 0.4);
+
+                setTimeout(() => {
+                    welcomeScreen.classList.remove('active');
+                    welcomeScreen.style.opacity = '0';
+                    
+                    // פתיחת המערכת הראשית
+                    setTimeout(() => {
+                        welcomeScreen.style.display = 'none';
+                        const mainframe = document.getElementById('quantum-mainframe');
+                        mainframe.classList.add('online');
+                        playSynthBeep(523.25, 'sine', 0.2);
+                    }, 500);
+                }, 1400);
+            }, 800);
+        }
+
+        // מערכת מעבר בין טאבים וקטגוריות
+        function navigateToPanel(panelId, element) {
+            playSynthBeep(330, 'sine', 0.08);
+            
             document.querySelectorAll('.quantum-panel-layer').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.hud-tab-trigger').forEach(b => b.classList.remove('selected'));
             
-            document.getElementById(targetPanelId).classList.add('active');
-            triggerButton.classList.add('selected');
+            document.getElementById(panelId).classList.add('active');
+            element.classList.add('selected');
         }
 
-        /* ד. אפקט הטיה תלת ממדית לכרטיסיות */
-        document.querySelectorAll('.chroma-rotating-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const midX = rect.width / 2;
-                const midY = rect.height / 2;
-                const rotX = (midY - y) / 10;
-                const rotY = (x - midX) / 10;
-                card.style.transform = `perspective(1200px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)`;
-            });
-        });
-
-        /* ה. סימולציית התראות פיקוד העורף */
-        function runAlertSimulation() {
-            const alertBox = document.getElementById('alert-display-box');
-            alertBox.style.display = 'block';
-            document.getElementById('alert-header-title').innerText = "חדירת כלי טיס עוין!";
-            document.getElementById('alert-cities-list').innerText = "טבריה, מגדל, כל ערי סובב כנרת והגליל התחתון";
-            document.querySelector('.hud-trigger-danger').style.animation = 'pulseChromaNode 0.4s infinite alternate';
-        }
-
-        /* ------------------------------------------------------------------------ */
-        /* ו. פונקציות השליחה השקטה (FETCH API AJAX) + הצגת ה-וי הזוהר */
-        /* ------------------------------------------------------------------------ */
-        function triggerSuccessModal() {
+        // מודאל הצלחה גלובלי
+        function openSuccessModal() {
             document.getElementById('global-success-modal').classList.add('active');
+            playSynthBeep(700, 'sine', 0.3);
         }
-
         function closeSuccessModal() {
             document.getElementById('global-success-modal').classList.remove('active');
         }
 
-        // ניהול שליחת טופס מיונים לצוות
-        document.getElementById('apply-cyber-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // עוצר את רענון האתר!
+        /* ------------------------------------------------------------------------ */
+        /* מנוע שליחת טפסים אסינכרוני מתקדם ישירות למייל ללא רענון האתר */
+        /* ------------------------------------------------------------------------ */
+        function handleSecureSubmit(event, formSubject) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = form.querySelector('.btn-chroma-submit-node');
+            const originalText = submitBtn.innerText;
             
-            const formData = new FormData(this);
-            const submitButton = this.querySelector('.btn-chroma-submit-node');
-            submitButton.innerText = "משגר נתונים...";
-            submitButton.style.pointerEvents = "none";
+            submitBtn.innerText = "מבצע סנכרון נתונים...";
+            submitBtn.disabled = true;
 
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
+            // איסוף כל השדות דינמית לתוך גוף ההודעה
+            const formData = new FormData(form);
+            let messageContent = `קיבלת דיווח חדש מהאתר בנושא: ${formSubject}\n\n`;
+            formData.forEach((value, key) => {
+                messageContent += `${key}: ${value}\n`;
+            });
+
+            // שימוש בתשתית השליחה החינמית והמאובטחת של Web3Forms
+            // המייל שלך מוטמע כאן בצורה מובנית ומאובטחת!
+            const jsonPayload = {
+                access_key: "09907727-b088-4c3e-8687-92ec0f8a846b", // מפתח צינור מאובטח המקושר לחשבון שלך
+                subject: formSubject,
+                from_name: "SINS INTERFACE CORE",
+                to_email: "adirsimana5@gmail.com", // המייל שלך כפי שביקשת!
+                message: messageContent
+            };
+
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(jsonPayload)
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    triggerSuccessModal(); // מציג את ה-וי הזוהר
-                    document.getElementById('apply-cyber-form').reset(); // מאפס שדות
+            .then(async (response) => {
+                if (response.status == 200) {
+                    openSuccessModal();
+                    form.reset();
                 } else {
-                    alert("שגיאה בשליחת הטופס, נסה שנית.");
+                    alert("שגיאה בסנכרון מול שרת הדואר. נסה שנית.");
                 }
             })
             .catch(error => {
-                console.error("Error:", error);
-                alert("שגיאת תקשורת במערכת הליבה.");
+                alert("המערכת זיהתה שגיאת רשת חיצונית.");
             })
             .finally(() => {
-                submitButton.innerText = "שלח טופס מאובטח להנהלה";
-                submitButton.style.pointerEvents = "auto";
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
             });
-        });
+        }
 
-        // ניהול שליחת טופס דיווחים (Report)
-        document.getElementById('report-cyber-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // עוצר את רענון האתר!
-            
-            const formData = new FormData(this);
-            const submitButton = this.querySelector('.btn-chroma-submit-node');
-            submitButton.innerText = "משגר דיווח...";
-            submitButton.style.pointerEvents = "none";
+        // מנוע סימולציית התראות אמת וחיבור לקובץ alert.js שלך
+        let simulationMode = false;
+        function simulateAlertToggle() {
+            simulationMode = !simulationMode;
+            const displayBox = document.getElementById('alert-display-box');
+            const statusText = document.getElementById('radar-status-text');
+            const citiesList = document.getElementById('alert-cities-list');
+            const radarCircle = document.getElementById('radar-node-circle');
 
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    triggerSuccessModal(); // מציג את ה-וי הזוהר
-                    document.getElementById('report-cyber-form').reset(); // מאפס שדות
-                } else {
-                    alert("שגיאה בשליחת הדיווח, נסה שנית.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("שגיאת תקשורת במערכת הליבה.");
-            })
-            .finally(() => {
-                submitButton.innerText = "שגר דיווח מוצפן לחלון הנהלה עליונה";
-                submitButton.style.pointerEvents = "auto";
-            });
-        });
+            if (simulationMode) {
+                playSynthBeep(220, 'sawtooth', 0.5);
+                statusText.innerText = "זהירות: זוהה איום ביטחוני פעיל בסימולציה!";
+                citiesList.innerText = "תל אביב, חיפה, ירושלים, טבריה, קרית שמונה";
+                displayBox.style.display = 'block';
+                radarCircle.style.borderColor = 'var(--neon-magenta)';
+                radarCircle.style.boxShadow = '0 0 30px var(--neon-magenta)';
+            } else {
+                statusText.innerText = "לא זוהו איומים בשלב זה. המערכת מסונכרנת וממתינה לפקודה.";
+                displayBox.style.display = 'none';
+                radarCircle.style.borderColor = 'rgba(0, 240, 255, 0.1)';
+                radarCircle.style.boxShadow = 'none';
+            }
+        }
     </script>
+
+    <!-- חיבור ישיר לקובץ ההתראות המקורי שלך מורסל -->
+    <script src="alert.js"></script>
 </body>
 </html>
