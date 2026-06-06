@@ -6,7 +6,6 @@
     <title>SINS</title>
     <link rel="icon" type="image/png" href="logo.png">
     
-    <!-- פונטים ואיקונים ברמה הגבוהה ביותר -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Heebo:wght@300;400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -56,7 +55,6 @@
             perspective: 1200px;
         }
 
-        /* קנבס חלקיקים צבעוני ומטורף ברקע */
         #chroma-canvas {
             position: fixed;
             top: 0;
@@ -67,7 +65,6 @@
             pointer-events: none;
         }
 
-        /* כדורי תאורת פלזמה היקפיים דינמיים */
         .plasma-orb {
             position: fixed;
             border-radius: 50%;
@@ -174,7 +171,7 @@
         }
 
         /* ------------------------------------------------------------------------ */
-        /* 4. אפקט גביע הזהב: פס מסתובב סביב אלמנטים (ROTATING BORDER SYSTEM) */
+        /* 4. אפקט גביע הזהב: פס מסתובב סביב אלמנטים */
         /* ------------------------------------------------------------------------ */
         .chroma-rotating-card {
             position: relative;
@@ -189,7 +186,6 @@
             transform-style: preserve-3d;
         }
 
-        /* הפס הנסתר שמסתובב */
         .chroma-rotating-card::before {
             content: '';
             position: absolute;
@@ -202,7 +198,6 @@
             transition: opacity 0.4s var(--smooth-cubic);
         }
 
-        /* השכבה הפנימית שיוצרת את המסגרת העמוקה */
         .chroma-rotating-card::after {
             content: '';
             position: absolute;
@@ -213,7 +208,6 @@
             transition: background 0.3s;
         }
 
-        /* הפעלת האנימציה המסתובבת רק ב-HOVER */
         .chroma-rotating-card:hover::before {
             opacity: 1;
             animation: borderRotate 2s linear infinite;
@@ -228,7 +222,6 @@
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        /* כפתור כניסה עם פס מסתובב מובנה */
         .btn-hardware-access {
             padding: 24px 70px;
             font-size: 1.5rem;
@@ -261,7 +254,6 @@
         .btn-hardware-access:hover::after { background: transparent; }
         .btn-hardware-access:hover { color: #000; font-weight: 900; box-shadow: 0 0 40px var(--cyan-glow, var(--neon-cyan)); }
 
-        /* מסך פריצה ביניים */
         #interstitial-hacker-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -289,10 +281,10 @@
             opacity: 0;
             transform: scale(0.96) rotateX(1deg);
             transition: all 1s var(--smooth-cubic);
+            pointer-events: none;
         }
-        #quantum-mainframe.online { opacity: 1; transform: scale(1) rotateX(0deg); }
+        #quantum-mainframe.online { opacity: 1; transform: scale(1) rotateX(0deg); pointer-events: auto; }
 
-        /* תפריט HUD צבעוני */
         .hud-navigation-bar {
             width: 340px;
             background: var(--panel-glass-solid);
@@ -327,7 +319,6 @@
 
         .hud-links-stack { display: flex; flex-direction: column; gap: 14px; }
         
-        /* לינקים בתפריט עם אפקט הפס המסתובב המבוקש */
         .hud-tab-trigger {
             padding: 20px 25px;
             font-size: 1.2rem;
@@ -363,14 +354,12 @@
         .hud-tab-trigger.selected::before { opacity: 1; background: conic-gradient(from 0deg, var(--neon-cyan), var(--neon-purple), var(--neon-cyan)); animation: borderRotate 3s linear infinite; }
         .hud-tab-trigger.selected::after { background: linear-gradient(90deg, rgba(0,240,255,0.1), transparent); }
 
-        /* לינק התראות אדום מיוחד */
         .hud-trigger-danger { color: rgba(255, 0, 127, 0.8) !important; }
         .hud-trigger-danger i { color: rgba(255, 0, 127, 0.8) !important; }
         .hud-trigger-danger::before { background: conic-gradient(from 0deg, transparent 30%, var(--neon-magenta), var(--neon-orange), transparent 70%) !important; }
         .hud-trigger-danger.selected::before { background: conic-gradient(from 0deg, var(--neon-magenta), var(--neon-orange), var(--neon-magenta)) !important; }
         .hud-trigger-danger.selected::after { background: linear-gradient(90deg, rgba(255,0,127,0.15), transparent) !important; }
 
-        /* קונטיינר הויזואליזציה הראשי */
         .quantum-viewport {
             flex: 1;
             background: var(--panel-glass-solid);
@@ -412,7 +401,6 @@
             content: 'SYS_STREAM_ONLINE'; font-size: 0.9rem; color: var(--neon-cyan); letter-spacing: 5px;
         }
 
-        /* כרטיסיות החוקים והתוכן */
         .card-inner-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 15px; color: #fff; position: relative; z-index: 5; }
         .card-inner-text { font-size: 1.15rem; color: var(--text-chroma-gray); line-height: 1.7; position: relative; z-index: 5; }
 
@@ -492,7 +480,7 @@
         .btn-chroma-submit-node:hover { box-shadow: 0 15px 40px rgba(0, 240, 255, 0.3); }
 
         /* ------------------------------------------------------------------------ */
-        /* 7ב. חלונית מודאל להצגת ה-וי הזוהר ללא רענון האתר (MODAL PROTOCOL) */
+        /* 7ב. חלונית מודאל להצגת ה-וי הזוהר (MODAL PROTOCOL) */
         /* ------------------------------------------------------------------------ */
         .chroma-success-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -510,7 +498,6 @@
         }
         .chroma-success-modal.active .chroma-success-content { transform: scale(1); }
 
-        /* אנימציית ה-וי המשוגעת והצבעונית */
         .neon-checkmark-wrapper {
             width: 120px; height: 120px; border-radius: 50%;
             border: 4px solid var(--neon-green); margin: 0 auto 30px;
@@ -531,90 +518,23 @@
         }
         .btn-close-modal:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 20px var(--neon-green); }
 
-        /* ------------------------------------------------------------------------ */
-        /* 8. מכ"ם התראות לאומי מתקדמות */
-        /* ------------------------------------------------------------------------ */
-        .radar-hud-wrapper {
-            text-align: center; padding: 65px; background: rgba(0,0,0,0.3);
-            border-radius: 20px; border: 1px solid rgba(255,255,255,0.02);
-        }
-
-        .quantum-radar-ring {
-            width: 220px; height: 220px; border-radius: 50%;
-            border: 2px solid rgba(0, 240, 255, 0.15); margin: 0 auto 40px;
-            position: relative; display: flex; align-items: center; justify-content: center;
-        }
-        .quantum-radar-ring::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            border-radius: 50%; background: conic-gradient(from 0deg, transparent 40%, rgba(0, 240, 255, 0.5) 100%);
-            animation: radarRotation 2.8s linear infinite;
-        }
-        @keyframes radarRotation { 100% { transform: rotate(360deg); } }
-        .quantum-radar-ring i { font-size: 4.5rem; color: var(--neon-cyan); z-index: 5; position: relative; }
-
-        .active-chroma-pulse {
-            display: inline-block; width: 16px; height: 16px; border-radius: 50%;
-            background: var(--neon-cyan); box-shadow: 0 0 20px var(--neon-cyan);
-            margin-left: 14px; animation: pulseChromaNode 1.2s infinite alternate ease-in-out;
-        }
-        @keyframes pulseChromaNode { 0% { opacity: 0.3; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1.2); } }
-
-        .emergency-chroma-card {
-            display: none; background: rgba(255, 0, 127, 0.06);
-            border: 2px solid var(--neon-magenta); border-radius: 16px;
-            padding: 45px; margin-top: 45px; animation: emergencyFlash 1.8s infinite alternate ease-in-out;
-        }
-        @keyframes emergencyFlash { 0% { box-shadow: 0 0 15px rgba(255,0,127,0.1); } 100% { box-shadow: 0 0 45px rgba(255,0,127,0.35); } }
-        
-        .emergency-chroma-card h2 { font-size: 3.5rem; color: var(--neon-magenta); font-weight: 900; margin-bottom: 15px; }
-        .emergency-chroma-card .alert-cities-text { font-size: 2.5rem; font-weight: 800; color: #fff; }
-
-        .btn-simulation-trigger {
-            background: transparent; border: 1px solid rgba(255,255,255,0.08);
-            color: var(--text-chroma-gray); padding: 16px 32px; border-radius: 8px;
-            cursor: pointer; margin-top: 45px; font-weight: 700; transition: 0.3s;
-        }
-        .btn-simulation-trigger:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.03); }
-
-        /* ------------------------------------------------------------------------ */
-        /* 9. עמוד חיבור שרת דיסקורד מסיבי */
-        /* ------------------------------------------------------------------------ */
-        .discord-ultra-panel {
-            text-align: center; padding: 90px 60px;
-            background: rgba(88, 101, 242, 0.01); border: 1px solid rgba(88, 101, 242, 0.15);
-            border-radius: 20px;
-        }
-        .discord-ultra-panel i.giant-discord-icon { font-size: 7rem; color: #5865F2; filter: drop-shadow(0 0 30px rgba(88,101,242,0.5)); margin-bottom: 35px; }
-        
-        .btn-discord-massive-chroma {
-            display: inline-block; padding: 25px 90px; font-size: 1.7rem; font-weight: 900;
-            border-radius: 100px; text-decoration: none; background: #5865F2; color: #fff;
-            box-shadow: 0 15px 45px rgba(88,101,242,0.4); border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .btn-discord-massive-chroma:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(88,101,242,0.6); filter: brightness(1.1); }
-
-        /* התאמה רספונסיבית מקיפה למובייל וטאבלטים */
         @media (max-width: 1200px) {
             #quantum-mainframe { flex-direction: column; overflow-y: auto; height: auto; padding: 15px; }
             .hud-navigation-bar { width: 100%; padding: 30px; }
             .quantum-viewport { height: 80vh; }
             .quantum-panel-layer { padding: 35px; }
             .mega-chroma-title { font-size: 6rem; letter-spacing: 15px; }
+            .chroma-input-row { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-    <!-- קנבס החלקיקים המנוהל ע"י מנוע ה-JS הצבעוני -->
     <canvas id="chroma-canvas"></canvas>
     <div class="plasma-orb orb-cyan"></div>
     <div class="plasma-orb orb-magenta"></div>
     <div class="plasma-orb orb-purple"></div>
 
-    <!-- ------------------------------------------------------------------------ */
-    /* חלונית ה-וי המרכזית (NO-REFRESH SUCCESS MODAL) */
-    /* ------------------------------------------------------------------------ */ -->
     <div class="chroma-success-modal" id="global-success-modal">
         <div class="chroma-success-content">
             <div class="neon-checkmark-wrapper">
@@ -625,9 +545,6 @@
         </div>
     </div>
 
-    <!-- ------------------------------------------------------------------------ */
-    /* מסך כניסה מאובטח (SECURE INTERFACE BOOT) */
-    /* ------------------------------------------------------------------------ */ -->
     <div id="secure-boot-wrapper">
         <div class="identity-node">
             <h1 class="mega-chroma-title">SINS</h1>
@@ -644,14 +561,10 @@
         <button class="btn-hardware-access" id="btn-mainframe-trigger" onclick="engageCoreSystem()">LOAD INTERFACE</button>
     </div>
 
-    <!-- מסך פריצה חלק ביניים -->
     <div id="interstitial-hacker-screen">
         <h2>OVERRIDING CORE SYSTEM...</h2>
     </div>
 
-    <!-- ------------------------------------------------------------------------ */
-    /* ממשק הליבה הראשי (QUANTUM HUB MAINFRAME) */
-    /* ------------------------------------------------------------------------ */ -->
     <div id="quantum-mainframe">
         <nav class="hud-navigation-bar">
             <div class="hud-brand-header"><h2>SINS</h2></div>
@@ -660,364 +573,158 @@
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-admins-node', this)"><i class="fas fa-users-cog"></i> צוות ההנהלה</div>
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-apply-node', this)"><i class="fas fa-id-card"></i> מיונים לצוות</div>
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-report-node', this)"><i class="fas fa-user-shield"></i> דיווחים (Report)</div>
-                <div class="hud-tab-trigger hud-trigger-danger" onclick="navigateToPanel('panel-alerts-node', this)"><i class="fas fa-broadcast-tower"></i> התראות אמת</div>
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-join-node', this)"><i class="fab fa-discord"></i> כניסה לשרת</div>
             </div>
         </nav>
 
         <main class="quantum-viewport">
             
-            <!-- עמוד תקנון וחוקים -->
             <section id="panel-rules-node" class="quantum-panel-layer active">
                 <h2 class="quantum-panel-title">תקנון השרת</h2>
                 <div class="cyber-grid">
-                    <div class="chroma-rotating-card"><h3>כבוד הדדי</h3><p class="card-inner-text">יש לכבד כל חבר בשרת. אין להשתמש בשפה פוגענית. 3 אזהרות יובילו להרחקה של שבוע (באן).</p></div>
-                    <div class="chroma-rotating-card"><h3>ספאם והצפות</h3><p class="card-inner-text">אין לשלוח את אותה הודעה ברצף. העונש: השתקה ל-10 דקות ברמת המערכת הגלובלית.</p></div>
-                    <div class="chroma-rotating-card"><h3>תוכן לא הולם</h3><p class="card-inner-text">אין לשלוח תוכן 18+. השרת נועד לכולם ויש לנו 0 סובלנות. הרחקה מיידית ולצמיתות מחלל השרת.</p></div>
-                    <div class="chroma-rotating-card"><h3>איסור פרסום</h3><p class="card-inner-text">פרסום של שרתי דיסקורד אחרים, ערוצי יוטיוב או רשתות - אסור לחלוטין ללא אישור מדרג הנהלה.</p></div>
+                    <div class="chroma-rotating-card">
+                        <div class="card-inner-title">חוק 1: כבוד הדדי</div>
+                        <div class="card-inner-text">יש לשמור על שפה נאותה וכבוד בין כל שחקני השרת. אין לקלל, להעליב או לפגוע באחרים.</div>
+                    </div>
+                    <div class="chroma-rotating-card">
+                        <div class="card-inner-title">חוק 2: RDM / VDM</div>
+                        <div class="card-inner-text">אין להרוג שחקנים ללא סיבת רולפליי מוצדקת. רכבים אינם משמשים כנשק בשום פנים ואופן.</div>
+                    </div>
                 </div>
             </section>
 
-            <!-- עמוד צוות ההנהלה -->
             <section id="panel-admins-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">הצוות המוביל</h2>
+                <h2 class="quantum-panel-title">צוות ההנהלה</h2>
                 <div class="cyber-grid">
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-crown" style="color: var(--neon-magenta);"></i></div><h3 class="card-inner-title">אדיר</h3><div class="rank-chroma-badge badge-owner-neon">בעלי השרת</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">ליעד</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">עמית</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">נדב</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
+                    <div class="chroma-rotating-card" style="align-items: center; text-align: center;">
+                        <div class="avatar-holo-ring"><i class="fas fa-crown"></i></div>
+                        <div class="card-inner-title">Founder Name</div>
+                        <div class="rank-chroma-badge badge-owner-neon">בעלים</div>
+                    </div>
+                    <div class="chroma-rotating-card" style="align-items: center; text-align: center;">
+                        <div class="avatar-holo-ring"><i class="fas fa-user-shield"></i></div>
+                        <div class="card-inner-title">Admin Name</div>
+                        <div class="rank-chroma-badge badge-admin-neon">מנהל ראשי</div>
+                    </div>
                 </div>
             </section>
 
-            <!-- עמוד מיונים - שליחה שקטה מובנית (No Web Restart) -->
             <section id="panel-apply-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">הגשת מועמדות לצוות</h2>
+                <h2 class="quantum-panel-title">מיונים לצוות</h2>
                 <div class="chroma-form-shell">
-                    <form id="apply-cyber-form">
-                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
-                        <input type="hidden" name="subject" value="מועמדות חדשה לצוות השרת!">
-
-                        <div class="chroma-input-row">
-                            <div class="chroma-group"><label>שם משתמש בדיסקורד</label><input type="text" name="Discord_Username" class="input-chroma-field" placeholder="Adir#1234" required></div>
-                            <div class="chroma-group"><label>גיל מועמד</label><input type="number" name="Age" class="input-chroma-field" placeholder="הכנס גיל..." required></div>
-                        </div>
-                        <div class="chroma-group" style="margin-bottom: 30px;">
-                            <label>תפקיד מבוקש</label>
-                            <select name="Requested_Role" class="select-chroma-field" required>
-                                <option value="" disabled selected>בחר תפקיד במערכת הניהול...</option>
-                                <option value="מודרטור">מודרטור</option>
-                                <option value="הלפר">הלפר</option>
-                                <option value="צוות אירועים">צוות אירועים</option>
-                            </select>
-                        </div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>כמה שעות פעילות שבועיות תוכל לתת לנו?</label><input type="text" name="Weekly_Hours" class="input-chroma-field" placeholder="לדוגמה: 20 שעות בשבוע" required></div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>למה כדאי לנו לבחור דווקא בך?</label><textarea name="Why_Choose_You" class="input-chroma-field textarea-chroma-field" placeholder="מה מייחד אותך ממועמדים אחרים?" required></textarea></div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>מה התחביבים שלך? (קצת על עצמך)</label><textarea name="Hobbies" class="input-chroma-field textarea-chroma-field" placeholder="ספר לנו על התחביבים שלך, משחקים אהובים..." required></textarea></div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>האם יש לך ניסיון קודם בצוותים?</label><textarea name="Previous_Experience" class="input-chroma-field textarea-chroma-field" placeholder="ספר לנו אם היית בצוותים בעבר..." required></textarea></div>
-                        <button type="submit" class="btn-chroma-submit-node">שלח טופס מאובטח להנהלה</button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- עמוד רפורטים ודיווחים - שליחה שקטה מובנית (No Web Restart) -->
-            <section id="panel-report-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">דיווח על חריגת משתמש / איש צוות</h2>
-                <div class="chroma-form-shell" style="border-top: 4px solid var(--neon-magenta);">
-                    <form id="report-cyber-form">
-                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
-                        <input type="hidden" name="subject" value="תלונת רפורט חדשה מהאתר!">
-
+                    <form id="apply-form" onsubmit="handleFormSubmit(event)">
                         <div class="chroma-input-row">
                             <div class="chroma-group">
-                                <label>סיווג הנילון</label>
-                                <select name="Reported_User_Type" class="select-chroma-field" required style="border-color: rgba(255, 0, 127, 0.3);">
-                                    <option value="" disabled selected>בחר אפשרות...</option>
-                                    <option value="איש צוות (הנהלה/מודרטור)">איש צוות (הנהלה/מודרטור)</option>
-                                    <option value="משתמש רגיל בשרת">משתמש רגיל בשרת</option>
-                                </select>
+                                <label for="apply_name">שם השחקן בשרת (Key: player_name)</label>
+                                <input type="text" id="apply_name" name="player_name" class="input-chroma-field" placeholder="השם המלא שלך" required>
                             </div>
-                            <div class="chroma-group"><label>שם המשתמש (Username)</label><input type="text" name="Reported_Username" class="input-chroma-field" required style="border-color: rgba(255, 0, 127, 0.3);"></div>
+                            <div class="chroma-group">
+                                <label for="apply_discord">שם הדיסקורד שלך (Key: discord_id)</label>
+                                <input type="text" id="apply_discord" name="discord_id" class="input-chroma-field" placeholder="User#1234" required>
+                            </div>
                         </div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>פירוט האירוע / סיבת הדיווח</label><textarea name="Reason_for_Report" class="input-chroma-field textarea-chroma-field" required style="border-color: rgba(255, 0, 127, 0.3);"></textarea></div>
-                        <button type="submit" class="btn-chroma-submit-node" style="box-shadow: 0 10px 30px rgba(255, 0, 127, 0.2);">שגר דיווח מוצפן לחלון הנהלה עליונה</button>
+                        <div class="chroma-group" style="margin-bottom: 30px;">
+                            <label for="apply_age">גיל (Key: age)</label>
+                            <input type="number" id="apply_age" name="age" class="input-chroma-field" placeholder="הכנס את גילך" required>
+                        </div>
+                        <div class="chroma-group" style="margin-bottom: 30px;">
+                            <label for="apply_reason">למה כדאי לקבל אותך לצוות? (Key: reason)</label>
+                            <textarea id="apply_reason" name="reason" class="input-chroma-field textarea-chroma-field" placeholder="פרט כאן את הניסיון שלך..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-chroma-submit-node">שלח טופס מיון</button>
                     </form>
                 </div>
             </section>
 
-            <!-- עמוד התראות פיקוד העורף -->
-            <section id="panel-alerts-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">מכ"ם התראות ולוחמה לאומי</h2>
-                <div class="radar-hud-wrapper">
-                    <div class="quantum-radar-ring"><i class="fas fa-satellite-dish"></i></div>
-                    <h3 style="font-size: 2.2rem; margin-bottom: 15px;"><span class="active-chroma-pulse"></span> סריקת תדרים פעילה (פיקוד העורף)</h3>
-                    <p style="font-size: 1.25rem; color: var(--text-chroma-gray);">המידע מסונכרן ומאובטח בזמן אמת מול לווייני פיקוד העורף.</p>
-                    <div class="emergency-chroma-card" id="alert-display-box">
-                        <h2 id="alert-header-title">אזעקת צבע אדום!</h2>
-                        <p class="alert-cities-text" id="alert-cities-list">טבריה, סובב כנרת ואזור הצפון</p>
-                    </div>
-                    <button class="btn-simulation-trigger" onclick="runAlertSimulation()">הפעל סימולציית חירום (מצב בדיקה)</button>
+            <section id="panel-report-node" class="quantum-panel-layer">
+                <h2 class="quantum-panel-title">דיווחים (Report)</h2>
+                <div class="chroma-form-shell">
+                    <form id="report-form" onsubmit="handleFormSubmit(event)">
+                        <div class="chroma-input-row">
+                            <div class="chroma-group">
+                                <label for="reporter_name">השם שלך (Key: reporter)</label>
+                                <input type="text" id="reporter_name" name="reporter" class="input-chroma-field" placeholder="מי מדווח?" required>
+                            </div>
+                            <div class="chroma-group">
+                                <label for="reported_player">שם השחקן המדווח (Key: reported_player)</label>
+                                <input type="text" id="reported_player" name="reported_player" class="input-chroma-field" placeholder="על מי אתה מדווח?" required>
+                            </div>
+                        </div>
+                        <div class="chroma-group" style="margin-bottom: 30px;">
+                            <label for="rule_broken">איזה חוק נשבר? (Key: rule_broken)</label>
+                            <select id="rule_broken" name="rule_broken" class="select-chroma-field" required>
+                                <option value="" disabled selected>בחר חוק מהרשימה...</option>
+                                <option value="RDM">RDM</option>
+                                <option value="VDM">VDM</option>
+                                <option value="FailRP">FailRP</option>
+                                <option value="OOC_Chat">דיבור OOC</option>
+                                <option value="Other">אחר</option>
+                            </select>
+                        </div>
+                        <div class="chroma-group" style="margin-bottom: 30px;">
+                            <label for="proof_link">לינק להוכחה (Key: proof_link)</label>
+                            <input type="url" id="proof_link" name="proof_link" class="input-chroma-field" placeholder="קישור לסרטון ביוטיוב/תמונה" required>
+                        </div>
+                        <button type="submit" class="btn-chroma-submit-node">שלח דיווח לצוות</button>
+                    </form>
                 </div>
             </section>
 
-            <!-- עמוד כניסה לשרת דיסקורד -->
             <section id="panel-join-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">חיבור לשרת הדיסקורד הרשמי</h2>
-                <div style="display: flex; flex-wrap: wrap; gap: 35px; justify-content: center; align-items: stretch;">
-                    <div class="discord-ultra-panel" style="flex: 1; min-width: 340px;">
-                        <i class="fab fa-discord giant-discord-icon"></i>
-                        <h2 style="font-size: 3.2rem; font-weight: 900; margin-bottom: 20px;">SINS NET HUB</h2>
-                        <p style="font-size: 1.3rem; color: var(--text-chroma-gray); margin-bottom: 45px;">התחבר עכשיו אל שרת הדיסקורד של סינס, קח חלק באירועים, מיונים קהילתיים ושיחות קוליות בלייב.</p>
-                        <a href="https://discord.gg/srMvcR8k" target="_blank" class="btn-discord-massive-chroma">CONNECT PROTOCOL</a>
-                    </div>
-                    <div style="flex: 1; min-width: 340px;">
-                        <iframe src="https://discord.com/widget?id=1482203048368406579&theme=dark" width="100%" height="100%" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 16px; border: 1px solid rgba(0, 240, 255, 0.2); min-height: 480px;"></iframe>
-                    </div>
+                <h2 class="quantum-panel-title">כניסה לשרת</h2>
+                <div style="text-align: center; margin-top: 50px;">
+                    <i class="fab fa-discord" style="font-size: 8rem; color: #5865F2; filter: drop-shadow(0 0 20px #5865F2); margin-bottom: 30px;"></i>
+                    <br>
+                    <a href="#" class="btn-chroma-submit-node" style="display: inline-block; width: auto; padding: 20px 60px; text-decoration: none;">התחבר לדיסקורד שלנו</a>
                 </div>
             </section>
 
         </main>
     </div>
 
-    <!-- ------------------------------------------------------------------------ */
-    /* מנוע סקריפטים מורחב וארוך (THE QUANTUM JAVASCRIPT CORE ENGINE) */
-    /* ------------------------------------------------------------------------ */ -->
     <script>
-        /* א. מנוע רקע חלקיקים צבעוני אינטראקטיבי */
-        const canvas = document.getElementById('chroma-canvas');
-        const ctx = canvas.getContext('2d');
-        let particleArray = [];
-        let mouseNode = { x: null, y: null, radius: 180 };
-
-        function initializeCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', initializeCanvasSize);
-        initializeCanvasSize();
-
-        window.addEventListener('mousemove', (e) => {
-            mouseNode.x = e.clientX;
-            mouseNode.y = e.clientY;
-        });
-
-        class CyberParticle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.size = Math.random() * 3 + 1;
-                this.colorIndex = Math.floor(Math.random() * 3);
-                this.colors = ['#00f0ff', '#ff007f', '#9d00ff'];
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                
-                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
-                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
-
-                if (mouseNode.x != null && mouseNode.y != null) {
-                    let dx = mouseNode.x - this.x;
-                    let dy = mouseNode.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouseNode.radius) {
-                        if (mouseNode.x > this.x && this.x > 10) this.x -= 2;
-                        if (mouseNode.x < this.x && this.x < canvas.width - 10) this.x += 2;
-                        if (mouseNode.y > this.y && this.y < canvas.height - 10) this.y -= 2;
-                        if (mouseNode.y < this.y && this.y < canvas.height - 10) this.y += 2;
-                    }
-                }
-            }
-            draw() {
-                ctx.fillStyle = this.colors[this.colorIndex];
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < 100; i++) {
-            particleArray.push(new CyberParticle());
-        }
-
-        function connectParticles() {
-            for (let a = 0; a < particleArray.length; a++) {
-                for (let b = a; b < particleArray.length; b++) {
-                    let dx = particleArray[a].x - particleArray[b].x;
-                    let dy = particleArray[a].y - particleArray[b].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 110) {
-                        ctx.strokeStyle = `rgba(0, 240, 255, ${1 - (distance / 110) * 0.4})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particleArray[a].x, particleArray[a].y);
-                        ctx.lineTo(particleArray[b].x, particleArray[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function runMainMatrixLoop() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particleArray.forEach(p => { p.update(); p.draw(); });
-            connectParticles();
-            requestAnimationFrame(runMainMatrixLoop);
-        }
-        runMainMatrixLoop();
-
-        /* ב. סימולציית אתחול מערכת מדורגת */
-        let currentProgress = 0;
-        const progressFill = document.getElementById('progress-bar-node');
-        const consoleNode = document.getElementById('console-node-stream');
-        const accessButton = document.getElementById('btn-mainframe-trigger');
-
-        const consoleMessages = [
-            "> DOWNLOADING HARDWARE MANIFEST...",
-            "> INTEGRATING CHROMA BORDER ROTATION LOGIC...",
-            "> SYNCING AJAX FORM HANDLERS (NO-REFRESH)...",
-            "> CORES STABLE. SECURITY HANDSHAKE ACCEPTED."
-        ];
-
-        const systemBootInterval = setInterval(() => {
-            currentProgress += Math.floor(Math.random() * 7) + 2;
-            if (currentProgress >= 100) {
-                currentProgress = 100;
-                clearInterval(systemBootInterval);
-                consoleNode.innerHTML += "<br><span style='color:var(--neon-green)'>> PROTOCOL UNLOCKED. DISPATCH READY.</span>";
-                accessButton.classList.add('unlocked');
-            }
-            progressFill.style.width = currentProgress + '%';
-            
-            if (currentProgress > 25 && currentProgress < 50) consoleNode.innerHTML = consoleMessages[0];
-            if (currentProgress > 50 && currentProgress < 75) consoleNode.innerHTML = consoleMessages[1] + "<br>" + consoleMessages[2];
-            if (currentProgress > 75 && currentProgress < 100) consoleNode.innerHTML = consoleMessages[2] + "<br>" + consoleMessages[3];
-        }, 100);
+        // אנימציית מסך הפתיחה
+        setTimeout(() => {
+            document.getElementById('progress-bar-node').style.width = '100%';
+            document.getElementById('btn-mainframe-trigger').classList.add('unlocked');
+            document.getElementById('console-node-stream').innerHTML += '<br><span style="color: var(--neon-green)">> SYSTEM READY. PRESS BUTTON TO ENTER.</span>';
+        }, 2000);
 
         function engageCoreSystem() {
             document.getElementById('secure-boot-wrapper').style.opacity = '0';
-            document.getElementById('secure-boot-wrapper').style.pointerEvents = 'none';
-            
-            const hackerScreen = document.getElementById('interstitial-hacker-screen');
-            hackerScreen.classList.add('active');
-            
             setTimeout(() => {
-                document.getElementById('quantum-mainframe').classList.add('online');
-                hackerScreen.classList.remove('active');
-            }, 1400);
+                document.getElementById('secure-boot-wrapper').style.display = 'none';
+                document.getElementById('interstitial-hacker-screen').classList.add('active');
+                
+                setTimeout(() => {
+                    document.getElementById('interstitial-hacker-screen').classList.remove('active');
+                    document.getElementById('quantum-mainframe').classList.add('online');
+                }, 1500);
+            }, 1000);
         }
 
-        /* ג. ניווט בין פאנלים בתפריט */
-        function navigateToPanel(targetPanelId, triggerButton) {
-            document.querySelectorAll('.quantum-panel-layer').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.hud-tab-trigger').forEach(b => b.classList.remove('selected'));
+        // ניווט בין כרטיסיות
+        function navigateToPanel(panelId, triggerElement) {
+            document.querySelectorAll('.hud-tab-trigger').forEach(tab => tab.classList.remove('selected'));
+            triggerElement.classList.add('selected');
             
-            document.getElementById(targetPanelId).classList.add('active');
-            triggerButton.classList.add('selected');
+            document.querySelectorAll('.quantum-panel-layer').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            document.getElementById(panelId).classList.add('active');
         }
 
-        /* ד. אפקט הטיה תלת ממדית לכרטיסיות */
-        document.querySelectorAll('.chroma-rotating-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const midX = rect.width / 2;
-                const midY = rect.height / 2;
-                const rotX = (midY - y) / 10;
-                const rotY = (x - midX) / 10;
-                card.style.transform = `perspective(1200px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)`;
-            });
-        });
-
-        /* ה. סימולציית התראות פיקוד העורף */
-        function runAlertSimulation() {
-            const alertBox = document.getElementById('alert-display-box');
-            alertBox.style.display = 'block';
-            document.getElementById('alert-header-title').innerText = "חדירת כלי טיס עוין!";
-            document.getElementById('alert-cities-list').innerText = "טבריה, מגדל, כל ערי סובב כנרת והגליל התחתון";
-            document.querySelector('.hud-trigger-danger').style.animation = 'pulseChromaNode 0.4s infinite alternate';
-        }
-
-        /* ------------------------------------------------------------------------ */
-        /* ו. פונקציות השליחה השקטה (FETCH API AJAX) + הצגת ה-וי הזוהר */
-        /* ------------------------------------------------------------------------ */
-        function triggerSuccessModal() {
+        // שליחת טופס מדומה
+        function handleFormSubmit(event) {
+            event.preventDefault(); // מונע את רענון הדף
             document.getElementById('global-success-modal').classList.add('active');
+            event.target.reset(); // מאפס את הטופס לאחר השליחה
         }
 
         function closeSuccessModal() {
             document.getElementById('global-success-modal').classList.remove('active');
         }
-
-        // ניהול שליחת טופס מיונים לצוות
-        document.getElementById('apply-cyber-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // עוצר את רענון האתר!
-            
-            const formData = new FormData(this);
-            const submitButton = this.querySelector('.btn-chroma-submit-node');
-            submitButton.innerText = "משגר נתונים...";
-            submitButton.style.pointerEvents = "none";
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    triggerSuccessModal(); // מציג את ה-וי הזוהר
-                    document.getElementById('apply-cyber-form').reset(); // מאפס שדות
-                } else {
-                    alert("שגיאה בשליחת הטופס, נסה שנית.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("שגיאת תקשורת במערכת הליבה.");
-            })
-            .finally(() => {
-                submitButton.innerText = "שלח טופס מאובטח להנהלה";
-                submitButton.style.pointerEvents = "auto";
-            });
-        });
-
-        // ניהול שליחת טופס דיווחים (Report)
-        document.getElementById('report-cyber-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // עוצר את רענון האתר!
-            
-            const formData = new FormData(this);
-            const submitButton = this.querySelector('.btn-chroma-submit-node');
-            submitButton.innerText = "משגר דיווח...";
-            submitButton.style.pointerEvents = "none";
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    triggerSuccessModal(); // מציג את ה-וי הזוהר
-                    document.getElementById('report-cyber-form').reset(); // מאפס שדות
-                } else {
-                    alert("שגיאה בשליחת הדיווח, נסה שנית.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("שגיאת תקשורת במערכת הליבה.");
-            })
-            .finally(() => {
-                submitButton.innerText = "שגר דיווח מוצפן לחלון הנהלה עליונה";
-                submitButton.style.pointerEvents = "auto";
-            });
-        });
     </script>
 </body>
 </html>
