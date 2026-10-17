@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SINS</title>
+    <title>בואו להנות | קהילת האתר</title>
     <link rel="icon" type="image/png" href="logo.png">
     
     <!-- פונטים ואיקונים ברמה הגבוהה ביותר -->
@@ -602,6 +602,101 @@
             .quantum-panel-layer { padding: 35px; }
             .mega-chroma-title { font-size: 6rem; letter-spacing: 15px; }
         }
+
+
+        /* מסך פתיחה והתחברות */
+        .welcome-subtitle { margin-top: 18px; text-align: center; color: var(--text-chroma-gray); font-size: clamp(1rem, 2vw, 1.35rem); letter-spacing: 1px; }
+        .mega-chroma-title { font-size: clamp(3rem, 8.5vw, 7.5rem); letter-spacing: 0; text-align: center; white-space: nowrap; }
+        .identity-node { margin-bottom: 24px; }
+        .console-log-box { max-width: min(450px, calc(100vw - 36px)); width: 450px; direction: ltr; text-align: left; }
+        .loading-bar-container { max-width: min(400px, calc(100vw - 36px)); }
+        .btn-hardware-access { padding: 18px 36px; font-size: clamp(1rem, 2vw, 1.25rem); letter-spacing: 1px; }
+        #quantum-mainframe { pointer-events: none; }
+        #quantum-mainframe.online { pointer-events: auto; }
+        .hud-brand-header h2 { font-size: clamp(2rem, 3vw, 3rem); letter-spacing: 0; line-height: 1.25; }
+        .brand-caption { color: var(--text-chroma-gray); margin-top: 8px; font-size: .95rem; }
+
+        #auth-screen {
+            position: fixed; inset: 0; z-index: 10001; display: flex; align-items: center; justify-content: center;
+            padding: 24px; background: radial-gradient(circle at 20% 15%, rgba(0,240,255,.10), transparent 35%),
+            radial-gradient(circle at 80% 85%, rgba(255,0,127,.10), transparent 35%), rgba(1,3,10,.96);
+            opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .45s ease, visibility .45s ease; overflow-y: auto;
+        }
+        #auth-screen.active { opacity: 1; visibility: visible; pointer-events: auto; }
+        .auth-card {
+            width: min(100%, 540px); padding: clamp(24px, 5vw, 42px); border-radius: 22px;
+            background: rgba(6,11,26,.94); border: 1px solid rgba(0,240,255,.35);
+            box-shadow: 0 0 70px rgba(0,240,255,.10), 0 25px 80px rgba(0,0,0,.55); backdrop-filter: blur(20px);
+            animation: authCardIn .65s cubic-bezier(.16,1,.3,1) both;
+        }
+        @keyframes authCardIn { from { opacity:0; transform: translateY(22px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
+        .auth-logo { width: 66px; height: 66px; display:grid; place-items:center; margin: 0 auto 18px; border-radius: 20px;
+            color: var(--neon-cyan); font-size: 1.8rem; border: 1px solid rgba(0,240,255,.4); background: rgba(0,240,255,.07); box-shadow: 0 0 28px rgba(0,240,255,.12); }
+        .auth-card h2 { text-align:center; font-size: clamp(1.7rem, 4vw, 2.2rem); margin-bottom: 10px; }
+        .auth-intro { color: var(--text-chroma-gray); text-align:center; line-height:1.7; margin-bottom:24px; }
+        .auth-tabs { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:5px; margin-bottom:22px; border-radius:12px; background:rgba(255,255,255,.035); }
+        .auth-tab { border:1px solid transparent; color:var(--text-chroma-gray); background:transparent; padding:12px; border-radius:9px; cursor:pointer; font-weight:800; }
+        .auth-tab.active { color:#fff; background:rgba(0,240,255,.09); border-color:rgba(0,240,255,.35); }
+        .auth-field { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+        .auth-field label { font-weight:700; color:#fff; font-size:.95rem; }
+        input, textarea, select { user-select:text; -webkit-user-select:text; }
+        .auth-field input { width:100%; padding:15px 16px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.035); color:#fff; font-size:1rem; outline:none; }
+        .auth-field input:focus { border-color:var(--neon-cyan); box-shadow:0 0 0 3px rgba(0,240,255,.09); }
+        .auth-help { font-size:.82rem; line-height:1.6; color:#9fb2cb; margin:-4px 0 14px; }
+        .auth-primary, .auth-demo { width:100%; border-radius:10px; padding:15px; font-size:1rem; font-weight:900; cursor:pointer; transition:transform .2s, filter .2s; }
+        .auth-primary { color:#02040a; border:0; background:linear-gradient(90deg,var(--neon-cyan),#a7fbff); box-shadow:0 8px 28px rgba(0,240,255,.16); }
+        .auth-primary:hover, .auth-demo:hover { transform:translateY(-2px); filter:brightness(1.08); }
+        .auth-primary:disabled { opacity:.6; cursor:wait; transform:none; }
+        .auth-demo { margin-top:10px; color:#fff; background:transparent; border:1px solid rgba(255,255,255,.14); }
+        .auth-status { min-height:24px; margin-top:16px; color:#b9cde5; text-align:center; line-height:1.65; font-size:.92rem; overflow-wrap:anywhere; }
+        .auth-status.error { color:#ff8bbd; }
+        .auth-status.success { color:#83ffb5; }
+        .auth-footnote { margin-top:16px; color:#778aa5; font-size:.78rem; line-height:1.6; text-align:center; }
+        .auth-hidden { display:none !important; }
+
+        .welcome-columns { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:22px; align-items:stretch; }
+        .welcome-columns .chroma-rotating-card { padding:26px; min-width:0; }
+        .welcome-columns .card-inner-title { font-size:1.55rem; margin-bottom:18px; }
+        .welcome-columns .card-inner-text { font-size:1rem; }
+        .welcome-columns ol, .welcome-columns ul { padding-right:22px; margin:0; color:var(--text-chroma-gray); line-height:1.95; font-size:1rem; }
+        .welcome-columns li { padding-right:3px; margin-bottom:9px; }
+        .management-person { padding:13px 0; border-bottom:1px solid rgba(255,255,255,.07); }
+        .management-person:last-child { border-bottom:0; }
+        .management-person strong { display:block; color:#fff; margin-bottom:5px; font-size:1.05rem; }
+        .discord-inline-link { display:inline-flex; justify-content:center; align-items:center; gap:10px; margin-top:20px; padding:14px 18px; border-radius:11px; color:#fff; background:#5865F2; text-decoration:none; font-weight:800; transition:transform .2s, box-shadow .2s; }
+        .discord-inline-link:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(88,101,242,.3); }
+        .home-eyebrow { display:inline-flex; gap:8px; align-items:center; padding:8px 12px; margin-bottom:18px; border:1px solid rgba(0,240,255,.20); border-radius:100px; color:var(--neon-cyan); font-size:.85rem; }
+        .quantum-panel-title { font-size:clamp(1.8rem, 3vw, 2.8rem); margin-bottom:24px; }
+        .quantum-panel-title::after { font-size:.65rem; letter-spacing:2px; }
+        .discord-ultra-panel { padding:50px 28px; }
+
+        @media (max-width: 1100px) {
+            .welcome-columns { grid-template-columns:1fr; }
+            #quantum-mainframe { gap:18px; }
+            .hud-brand-header { margin-bottom:25px; }
+            .hud-navigation-bar { padding:26px 20px; }
+            .hud-links-stack { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); }
+            .hud-tab-trigger { padding:14px 12px; font-size:1rem; }
+            .quantum-viewport { min-height:70vh; height:auto; overflow:visible; }
+            .quantum-panel-layer { position:relative; display:none; padding:24px; min-height:70vh; }
+            .quantum-panel-layer.active { display:block; }
+            body { overflow:auto; height:auto; min-height:100vh; }
+        }
+        @media (max-width: 560px) {
+            #secure-boot-wrapper { padding:18px; }
+            .mega-chroma-title { font-size:clamp(2.5rem, 11vw, 4rem); }
+            .console-log-box { font-size:.75rem; padding:14px; }
+            #quantum-mainframe { width:100%; padding:10px; }
+            .hud-links-stack { grid-template-columns:1fr; }
+            .quantum-panel-layer { padding:18px; }
+            .chroma-form-shell { padding:22px 16px; }
+            .chroma-input-row { flex-direction:column; gap:18px; }
+            .quantum-panel-title::after { display:none; }
+            .discord-ultra-panel i.giant-discord-icon { font-size:4.5rem; }
+            .btn-discord-massive-chroma { padding:18px 25px; font-size:1.15rem; }
+            .auth-card { padding:24px 18px; }
+        }
+
     </style>
 </head>
 <body>
@@ -630,19 +725,56 @@
     /* ------------------------------------------------------------------------ */ -->
     <div id="secure-boot-wrapper">
         <div class="identity-node">
-            <h1 class="mega-chroma-title">SINS</h1>
+            <h1 class="mega-chroma-title">בואו להנות</h1>
+            <p class="welcome-subtitle">ברוכים הבאים לאתר הקהילה שלנו</p>
             <div class="laser-scanner"></div>
         </div>
         <div class="console-log-box" id="console-node-stream">
-            > IDENTITY DETECTED: VISITOR...<br>
-            > DECRYPTING QUANTUM ASSETS...<br>
-            > CORE INTERFACE STATUS: STANDBY.
+            > ברוכים הבאים לאתר האינטרנט של בואו להנות...<br>
+            > מכינים את ממשק הקהילה...<br>
+            > המערכת מוכנה להתחברות.
         </div>
         <div class="loading-bar-container">
             <div class="loading-bar-fill" id="progress-bar-node"></div>
         </div>
-        <button class="btn-hardware-access" id="btn-mainframe-trigger" onclick="engageCoreSystem()">LOAD INTERFACE</button>
+        <button class="btn-hardware-access" id="btn-mainframe-trigger" onclick="engageCoreSystem()">המשך להתחברות</button>
     </div>
+
+    <!-- מסך התחברות ואימות דוא"ל. הפעלה מלאה דורשת הגדרת Firebase בקוד שבהמשך. -->
+    <section id="auth-screen" aria-label="התחברות לאתר">
+        <div class="auth-card">
+            <div class="auth-logo"><i class="fas fa-user-shield"></i></div>
+            <h2 id="auth-heading">ברוכים הבאים לקהילה</h2>
+            <p class="auth-intro" id="auth-intro">התחברו עם קוד המשתמש, כתובת הדוא״ל והסיסמה שלכם כדי להיכנס לאתר.</p>
+            <div class="auth-tabs" role="tablist" aria-label="סוג פעולה">
+                <button type="button" class="auth-tab active" id="auth-login-tab" role="tab" aria-selected="true">התחברות</button>
+                <button type="button" class="auth-tab" id="auth-register-tab" role="tab" aria-selected="false">יצירת חשבון</button>
+            </div>
+            <form id="auth-form">
+                <div class="auth-field auth-hidden" id="auth-name-wrap">
+                    <label for="auth-name">שם לתצוגה</label>
+                    <input id="auth-name" type="text" autocomplete="nickname" maxlength="40" placeholder="איך לקרוא לכם?">
+                </div>
+                <div class="auth-field" id="auth-code-wrap">
+                    <label for="auth-code">קוד משתמש</label>
+                    <input id="auth-code" type="text" autocomplete="username" placeholder="הקוד שקיבלתם בעת ההרשמה" required>
+                </div>
+                <div class="auth-field">
+                    <label for="auth-email">כתובת דוא״ל</label>
+                    <input id="auth-email" type="email" autocomplete="email" placeholder="name@example.com" required>
+                </div>
+                <div class="auth-field">
+                    <label for="auth-password">סיסמה</label>
+                    <input id="auth-password" type="password" autocomplete="current-password" minlength="6" placeholder="לפחות 6 תווים" required>
+                </div>
+                <p class="auth-help" id="auth-help">חשבון חדש חייב לאמת את כתובת הדוא״ל דרך הודעת האימות שתישלח אליו.</p>
+                <button class="auth-primary" id="auth-submit" type="submit">התחברות מאובטחת</button>
+            </form>
+            <button type="button" class="auth-demo" id="auth-demo-button">כניסה לתצוגת הדגמה</button>
+            <p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
+            <p class="auth-footnote">תצוגת ההדגמה אינה מאמתת משתמשים. כדי להפעיל הרשמה, סיסמאות ואימות דוא״ל אמיתיים יש להגדיר פרויקט Firebase בקוד.</p>
+        </div>
+    </section>
 
     <!-- מסך פריצה חלק ביניים -->
     <div id="interstitial-hacker-screen">
@@ -654,13 +786,13 @@
     /* ------------------------------------------------------------------------ */ -->
     <div id="quantum-mainframe">
         <nav class="hud-navigation-bar">
-            <div class="hud-brand-header"><h2>SINS</h2></div>
+            <div class="hud-brand-header"><h2>בואו להנות</h2><p class="brand-caption">הקהילה מתחילה כאן</p></div>
             <div class="hud-links-stack">
                 <div class="hud-tab-trigger selected" onclick="navigateToPanel('panel-rules-node', this)"><i class="fas fa-file-contract"></i> חוקי השרת</div>
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-admins-node', this)"><i class="fas fa-users-cog"></i> צוות ההנהלה</div>
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-apply-node', this)"><i class="fas fa-id-card"></i> מיונים לצוות</div>
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-report-node', this)"><i class="fas fa-user-shield"></i> דיווחים (Report)</div>
-                <div class="hud-tab-trigger hud-trigger-danger" onclick="navigateToPanel('panel-alerts-node', this)"><i class="fas fa-broadcast-tower"></i> התראות אמת</div>
+                <div class="hud-tab-trigger hud-trigger-danger" onclick="navigateToPanel('panel-alerts-node', this)"><i class="fas fa-broadcast-tower"></i> סימולציית התראות</div>
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-join-node', this)"><i class="fab fa-discord"></i> כניסה לשרת</div>
             </div>
         </nav>
@@ -669,23 +801,64 @@
             
             <!-- עמוד תקנון וחוקים -->
             <section id="panel-rules-node" class="quantum-panel-layer active">
-                <h2 class="quantum-panel-title">תקנון השרת</h2>
-                <div class="cyber-grid">
-                    <div class="chroma-rotating-card"><h3>כבוד הדדי</h3><p class="card-inner-text">יש לכבד כל חבר בשרת. אין להשתמש בשפה פוגענית. 3 אזהרות יובילו להרחקה של שבוע (באן).</p></div>
-                    <div class="chroma-rotating-card"><h3>ספאם והצפות</h3><p class="card-inner-text">אין לשלוח את אותה הודעה ברצף. העונש: השתקה ל-10 דקות ברמת המערכת הגלובלית.</p></div>
-                    <div class="chroma-rotating-card"><h3>תוכן לא הולם</h3><p class="card-inner-text">אין לשלוח תוכן 18+. השרת נועד לכולם ויש לנו 0 סובלנות. הרחקה מיידית ולצמיתות מחלל השרת.</p></div>
-                    <div class="chroma-rotating-card"><h3>איסור פרסום</h3><p class="card-inner-text">פרסום של שרתי דיסקורד אחרים, ערוצי יוטיוב או רשתות - אסור לחלוטין ללא אישור מדרג הנהלה.</p></div>
+                <div class="home-eyebrow"><i class="fas fa-sparkles"></i> הבית של הקהילה</div>
+                <h2 class="quantum-panel-title">ברוכים הבאים לבואו להנות</h2>
+                <div class="welcome-columns">
+                    <article class="chroma-rotating-card">
+                        <h3 class="card-inner-title"><i class="fas fa-scroll" style="color:var(--neon-cyan);margin-left:8px"></i>חוקי האתר</h3>
+                        <ol>
+                            <li>לנהוג בכבוד.</li>
+                            <li>לכבד את כלל חברי האתר, ללא הבדל דת, גזע או מין.</li>
+                            <li>אין לפרסם אתרים ללא אישור מהנהלת שרת הדיסקורד.</li>
+                            <li>תהנו ואל תשכחו לשתף את השרת עם אנשים נוספים!</li>
+                        </ol>
+                    </article>
+                    <article class="chroma-rotating-card">
+                        <h3 class="card-inner-title"><i class="fas fa-users-cog" style="color:var(--neon-magenta);margin-left:8px"></i>בעלי האתר והצוות</h3>
+                        <div class="management-person">
+                            <strong>אדיר — מפתח האתר ובעל השרת</strong>
+                            <p class="card-inner-text">אחראי על פיתוח האתר ועל נושאים הקשורים לניהולו. אפשר לפנות אליו בשאלות ובנושאים שקשורים לשרת.</p>
+                        </div>
+                        <div class="management-person">
+                            <strong>תמיר — עדכונים ואירועים</strong>
+                            <p class="card-inner-text">אחראי למסירת מידע על עדכונים, הכרזות ואיוונטים. אפשר להגיע אליו דרך אדיר.</p>
+                        </div>
+                        <div class="management-person">
+                            <strong>ים — ראש צוות וגיוס</strong>
+                            <p class="card-inner-text">אחראי על גיוס אדמינים ועוזרי שרת. ניתן לפנות אליו בפרטי בדיסקורד בנוגע לגיוס, תקלות באתר או דיווח על שחקן.</p>
+                        </div>
+                    </article>
+                    <article class="chroma-rotating-card">
+                        <h3 class="card-inner-title"><i class="fab fa-discord" style="color:#8792ff;margin-left:8px"></i>הצטרפות לשרת הדיסקורד</h3>
+                        <p class="card-inner-text">מחפשים מקום לכיף, להנאה, להכיר אנשים ולהשתתף באירועים? הצטרפו לקהילה שלנו בדיסקורד.</p>
+                        <a class="discord-inline-link" href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> הצטרפות לשרת</a>
+                        <p class="card-inner-text" style="margin-top:20px;font-size:.9rem;overflow-wrap:anywhere">קישור לשרת: discord.gg/bbfYMNXkD</p>
+                    </article>
                 </div>
             </section>
 
             <!-- עמוד צוות ההנהלה -->
             <section id="panel-admins-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">הצוות המוביל</h2>
+                <h2 class="quantum-panel-title">בעלי האתר והצוות</h2>
                 <div class="cyber-grid">
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-crown" style="color: var(--neon-magenta);"></i></div><h3 class="card-inner-title">אדיר</h3><div class="rank-chroma-badge badge-owner-neon">בעלי השרת</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">ליעד</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">עמית</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
-                    <div class="chroma-rotating-card admin-wrapper"><div class="avatar-holo-ring"><i class="fas fa-shield-alt"></i></div><h3 class="card-inner-title">נדב</h3><div class="rank-chroma-badge badge-admin-neon">מנהל בכיר</div></div>
+                    <div class="chroma-rotating-card admin-wrapper">
+                        <div class="avatar-holo-ring"><i class="fas fa-crown" style="color:var(--neon-magenta)"></i></div>
+                        <h3 class="card-inner-title">אדיר</h3>
+                        <p class="card-inner-text">מפתח האתר ובעל השרת. אחראי על פיתוח האתר ועל שאלות הקשורות לניהולו.</p>
+                        <div class="rank-chroma-badge badge-owner-neon">בעל האתר</div>
+                    </div>
+                    <div class="chroma-rotating-card admin-wrapper">
+                        <div class="avatar-holo-ring"><i class="fas fa-bullhorn"></i></div>
+                        <h3 class="card-inner-title">תמיר</h3>
+                        <p class="card-inner-text">אחראי על עדכונים, הכרזות ואירועים. אפשר לפנות אליו דרך אדיר.</p>
+                        <div class="rank-chroma-badge badge-admin-neon">עדכונים ואירועים</div>
+                    </div>
+                    <div class="chroma-rotating-card admin-wrapper">
+                        <div class="avatar-holo-ring"><i class="fas fa-user-shield"></i></div>
+                        <h3 class="card-inner-title">ים</h3>
+                        <p class="card-inner-text">ראש צוות ואחראי לגיוס אדמינים ועוזרי שרת. מטפל בפניות בנושא גיוס, תקלות ודיווחים.</p>
+                        <div class="rank-chroma-badge badge-admin-neon">ראש צוות וגיוס</div>
+                    </div>
                 </div>
             </section>
 
@@ -746,32 +919,28 @@
 
             <!-- עמוד התראות פיקוד העורף -->
             <section id="panel-alerts-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">מכ"ם התראות ולוחמה לאומי</h2>
+                <h2 class="quantum-panel-title">סימולציית התראות</h2>
                 <div class="radar-hud-wrapper">
                     <div class="quantum-radar-ring"><i class="fas fa-satellite-dish"></i></div>
                     <h3 style="font-size: 2.2rem; margin-bottom: 15px;"><span class="active-chroma-pulse"></span> סריקת תדרים פעילה (פיקוד העורף)</h3>
-                    <p style="font-size: 1.25rem; color: var(--text-chroma-gray);">המידע מסונכרן ומאובטח בזמן אמת מול לווייני פיקוד העורף.</p>
+                    <p style="font-size: 1.1rem; color: var(--text-chroma-gray); line-height:1.8;">זהו מסך הדגמה בלבד ואינו מחובר לפיקוד העורף או למערכת התראות בזמן אמת. אין להסתמך עליו במצב חירום.</p>
                     <div class="emergency-chroma-card" id="alert-display-box">
                         <h2 id="alert-header-title">אזעקת צבע אדום!</h2>
                         <p class="alert-cities-text" id="alert-cities-list">טבריה, סובב כנרת ואזור הצפון</p>
                     </div>
-                    <button class="btn-simulation-trigger" onclick="runAlertSimulation()">הפעל סימולציית חירום (מצב בדיקה)</button>
+                    <button class="btn-simulation-trigger" onclick="runAlertSimulation()">הפעל סימולציה (הדגמה בלבד)</button>
                 </div>
             </section>
 
             <!-- עמוד כניסה לשרת דיסקורד -->
             <section id="panel-join-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">חיבור לשרת הדיסקורד הרשמי</h2>
-                <div style="display: flex; flex-wrap: wrap; gap: 35px; justify-content: center; align-items: stretch;">
-                    <div class="discord-ultra-panel" style="flex: 1; min-width: 340px;">
-                        <i class="fab fa-discord giant-discord-icon"></i>
-                        <h2 style="font-size: 3.2rem; font-weight: 900; margin-bottom: 20px;">SINS NET HUB</h2>
-                        <p style="font-size: 1.3rem; color: var(--text-chroma-gray); margin-bottom: 45px;">התחבר עכשיו אל שרת הדיסקורד של סינס, קח חלק באירועים, מיונים קהילתיים ושיחות קוליות בלייב.</p>
-                        <a href="https://discord.gg/HBtPXRQxy" target="_blank" class="btn-discord-massive-chroma">CONNECT PROTOCOL</a>
-                    </div>
-                    <div style="flex: 1; min-width: 340px;">
-                        <iframe src="https://discord.com/widget?id=1482203048368406579&theme=dark" width="100%" height="100%" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 16px; border: 1px solid rgba(0, 240, 255, 0.2); min-height: 480px;"></iframe>
-                    </div>
+                <h2 class="quantum-panel-title">הצטרפו לקהילת הדיסקורד</h2>
+                <div class="discord-ultra-panel">
+                    <i class="fab fa-discord giant-discord-icon"></i>
+                    <h2 style="font-size:clamp(2rem,4vw,3.2rem);font-weight:900;margin-bottom:20px;">בואו להנות</h2>
+                    <p style="font-size:1.15rem;color:var(--text-chroma-gray);line-height:1.8;margin-bottom:35px;">בשרת מחכים לכם כיף, שיחות, עדכונים, אירועים והזדמנות להיות חלק מהקהילה שלנו.</p>
+                    <a href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer" class="btn-discord-massive-chroma">הצטרפות לשרת הדיסקורד</a>
+                    <p style="margin-top:24px;color:var(--text-chroma-gray);">קישור הזמנה: <a href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer" style="color:var(--neon-cyan);">discord.gg/bbfYMNXkD</a></p>
                 </div>
             </section>
 
@@ -875,10 +1044,10 @@
         const accessButton = document.getElementById('btn-mainframe-trigger');
 
         const consoleMessages = [
-            "> DOWNLOADING HARDWARE MANIFEST...",
-            "> INTEGRATING CHROMA BORDER ROTATION LOGIC...",
-            "> SYNCING AJAX FORM HANDLERS (NO-REFRESH)...",
-            "> CORES STABLE. SECURITY HANDSHAKE ACCEPTED."
+            "> טוענים את אתר הקהילה...",
+            "> מפעילים אנימציות וממשק...",
+            "> מכינים את טפסי המועמדות והדיווחים...",
+            "> האתר מוכן. אפשר להמשיך למסך ההתחברות."
         ];
 
         const systemBootInterval = setInterval(() => {
@@ -886,7 +1055,7 @@
             if (currentProgress >= 100) {
                 currentProgress = 100;
                 clearInterval(systemBootInterval);
-                consoleNode.innerHTML += "<br><span style='color:var(--neon-green)'>> PROTOCOL UNLOCKED. DISPATCH READY.</span>";
+                consoleNode.innerHTML += "<br><span style='color:var(--neon-green)'>> האתר מוכן. אפשר להמשיך למסך ההתחברות.</span>";
                 accessButton.classList.add('unlocked');
             }
             progressFill.style.width = currentProgress + '%';
@@ -897,17 +1066,30 @@
         }, 100);
 
         function engageCoreSystem() {
-            document.getElementById('secure-boot-wrapper').style.opacity = '0';
-            document.getElementById('secure-boot-wrapper').style.pointerEvents = 'none';
-            
+            const boot = document.getElementById('secure-boot-wrapper');
+            boot.style.opacity = '0';
+            boot.style.pointerEvents = 'none';
             const hackerScreen = document.getElementById('interstitial-hacker-screen');
+            hackerScreen.querySelector('h2').innerText = 'WELCOME TO THE COMMUNITY';
             hackerScreen.classList.add('active');
-            
             setTimeout(() => {
-                document.getElementById('quantum-mainframe').classList.add('online');
+                boot.style.display = 'none';
                 hackerScreen.classList.remove('active');
-            }, 1400);
+                document.getElementById('auth-screen').classList.add('active');
+            }, 1000);
         }
+
+        // נקרא רק אחרי התחברות מאומתת או לאחר בחירה מפורשת בתצוגת ההדגמה.
+        window.enterWebsiteAfterAuth = function (isDemo) {
+            document.getElementById('auth-screen').classList.remove('active');
+            const hackerScreen = document.getElementById('interstitial-hacker-screen');
+            hackerScreen.querySelector('h2').innerText = isDemo ? 'DEMO MODE' : 'ACCESS GRANTED';
+            hackerScreen.classList.add('active');
+            setTimeout(() => {
+                hackerScreen.classList.remove('active');
+                document.getElementById('quantum-mainframe').classList.add('online');
+            }, 800);
+        };
 
         /* ג. ניווט בין פאנלים בתפריט */
         function navigateToPanel(targetPanelId, triggerButton) {
@@ -939,7 +1121,7 @@
         function runAlertSimulation() {
             const alertBox = document.getElementById('alert-display-box');
             alertBox.style.display = 'block';
-            document.getElementById('alert-header-title').innerText = "חדירת כלי טיס עוין!";
+            document.getElementById('alert-header-title').innerText = "התראת הדגמה";
             document.getElementById('alert-cities-list').innerText = "טבריה, מגדל, כל ערי סובב כנרת והגליל התחתון";
             document.querySelector('.hud-trigger-danger').style.animation = 'pulseChromaNode 0.4s infinite alternate';
         }
@@ -1019,5 +1201,173 @@
             });
         });
     </script>
+
+    <script>
+        // ה-SDK של Firebase נטען רק כשמוגדר פרויקט אמיתי, כדי שתצוגת ההדגמה תעבוד גם בלי הגדרות התחברות.
+        // כדי להפעיל התחברות אמיתית: החליפו את הערכים לדוגמה בפרטי הפרויקט שלכם ב-Firebase.
+        // ב-Firebase Console יש להפעיל Authentication > Sign-in method > Email/Password.
+        // לצורך בדיקה מקומית, השתמשו ב-localhost; לפרסום, הוסיפו את הדומיין המאובטח שלכם ל-Authorized domains.
+        const firebaseConfig = {
+            apiKey: 'YOUR_API_KEY',
+            authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
+            projectId: 'YOUR_PROJECT_ID',
+            appId: 'YOUR_APP_ID'
+        };
+        const firebaseConfigured = Boolean(
+            firebaseConfig.apiKey && firebaseConfig.apiKey !== 'YOUR_API_KEY' &&
+            firebaseConfig.projectId && firebaseConfig.projectId !== 'YOUR_PROJECT_ID' &&
+            firebaseConfig.appId && firebaseConfig.appId !== 'YOUR_APP_ID'
+        );
+
+        let auth = null;
+        let firebaseSdk = null;
+        let firebaseLoadAttempted = false;
+        async function ensureFirebase() {
+            if (auth && firebaseSdk) return true;
+            if (!firebaseConfigured) return false;
+            if (firebaseLoadAttempted) return Boolean(auth && firebaseSdk);
+            firebaseLoadAttempted = true;
+            try {
+                const appSdk = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
+                firebaseSdk = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js');
+                auth = firebaseSdk.getAuth(appSdk.initializeApp(firebaseConfig));
+                return true;
+            } catch (error) {
+                console.error('Firebase initialization failed:', error);
+                setStatus('לא ניתן לטעון את שירות האימות. ודאו שהאתר נפתח דרך HTTPS או localhost ושיש חיבור לאינטרנט.', 'error');
+                return false;
+            }
+        }
+
+        const authForm = document.getElementById('auth-form');
+        const loginTab = document.getElementById('auth-login-tab');
+        const registerTab = document.getElementById('auth-register-tab');
+        const nameWrap = document.getElementById('auth-name-wrap');
+        const codeWrap = document.getElementById('auth-code-wrap');
+        const nameInput = document.getElementById('auth-name');
+        const codeInput = document.getElementById('auth-code');
+        const emailInput = document.getElementById('auth-email');
+        const passwordInput = document.getElementById('auth-password');
+        const submitButton = document.getElementById('auth-submit');
+        const statusNode = document.getElementById('auth-status');
+        const heading = document.getElementById('auth-heading');
+        const intro = document.getElementById('auth-intro');
+        const help = document.getElementById('auth-help');
+        const demoButton = document.getElementById('auth-demo-button');
+        let authMode = 'login';
+
+        function setStatus(message, kind = '') {
+            statusNode.textContent = message;
+            statusNode.className = 'auth-status' + (kind ? ' ' + kind : '');
+        }
+
+        function setAuthMode(mode) {
+            authMode = mode;
+            const registering = mode === 'register';
+            loginTab.classList.toggle('active', !registering);
+            registerTab.classList.toggle('active', registering);
+            loginTab.setAttribute('aria-selected', String(!registering));
+            registerTab.setAttribute('aria-selected', String(registering));
+            nameWrap.classList.toggle('auth-hidden', !registering);
+            codeWrap.classList.toggle('auth-hidden', registering);
+            nameInput.required = registering;
+            codeInput.required = !registering;
+            passwordInput.autocomplete = registering ? 'new-password' : 'current-password';
+            heading.textContent = registering ? 'יצירת חשבון חדש' : 'ברוכים השבים לקהילה';
+            intro.textContent = registering
+                ? 'צרו חשבון עם כתובת דוא״ל וסיסמה. נשלח אליכם מייל לאימות, ותקבלו קוד משתמש אישי.'
+                : 'התחברו עם קוד המשתמש, כתובת הדוא״ל והסיסמה. הכניסה תתאפשר לאחר אימות הדוא״ל.';
+            help.textContent = registering
+                ? 'נדרש מייל פעיל. לאחר ההרשמה יש לפתוח את הודעת האימות שנשלחה אליכם.'
+                : 'אם עדיין לא אימתתם את כתובת הדוא״ל, המערכת תשלח הודעת אימות נוספת.';
+            submitButton.textContent = registering ? 'יצירת חשבון ושליחת אימות' : 'התחברות מאובטחת';
+            setStatus('');
+        }
+
+        function makeUserCode() {
+            const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            const bytes = new Uint8Array(8);
+            crypto.getRandomValues(bytes);
+            return 'BH-' + Array.from(bytes, value => alphabet[value % alphabet.length]).join('');
+        }
+
+        loginTab.addEventListener('click', () => setAuthMode('login'));
+        registerTab.addEventListener('click', () => setAuthMode('register'));
+
+        demoButton.addEventListener('click', () => {
+            setStatus('נכנסים לתצוגת הדגמה. מצב זה אינו מאמת זהות ואינו שומר חשבון.', 'success');
+            window.enterWebsiteAfterAuth(true);
+        });
+
+        authForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!firebaseConfigured || !auth) {
+                setStatus('התחברות ואימות מייל אמיתיים עדיין לא הופעלו. יש להגדיר את firebaseConfig בקוד ולהפעיל Email/Password ב-Firebase. אפשר להיכנס לתצוגת ההדגמה כדי לבדוק את עיצוב האתר.', 'error');
+                return;
+            }
+
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const firebaseReady = await ensureFirebase();
+            if (!firebaseReady) return;
+            submitButton.disabled = true;
+            submitButton.textContent = authMode === 'register' ? 'יוצרים חשבון...' : 'בודקים פרטי התחברות...';
+            setStatus('');
+
+            try {
+                if (authMode === 'register') {
+                    const displayName = nameInput.value.trim();
+                    if (!displayName) throw new Error('יש להזין שם לתצוגה.');
+                    if (password.length < 6) throw new Error('הסיסמה חייבת להכיל לפחות 6 תווים.');
+
+                    const credential = await firebaseSdk.createUserWithEmailAndPassword(auth, email, password);
+                    const userCode = makeUserCode();
+                    await firebaseSdk.updateProfile(credential.user, { displayName: JSON.stringify({ userCode, name: displayName }) });
+                    await firebaseSdk.sendEmailVerification(credential.user);
+                    await firebaseSdk.signOut(auth);
+                    setStatus(`נוצר החשבון בהצלחה. קוד המשתמש שלך הוא ${userCode}. שמור/שמרי אותו במקום בטוח, ואז פתח/י את הודעת האימות שנשלחה לכתובת ${email}. אחרי אימות המייל, התחברו באמצעות הקוד, המייל והסיסמה.`, 'success');
+                    setAuthMode('login');
+                    codeInput.value = userCode;
+                    emailInput.value = email;
+                    passwordInput.value = '';
+                    setStatus(`קוד המשתמש שלך: ${userCode}. שמור/שמרי אותו. נשלח מייל אימות אל ${email}; יש לאמת את הכתובת לפני ההתחברות.`, 'success');
+                } else {
+                    const userCode = codeInput.value.trim().toUpperCase();
+                    const credential = await firebaseSdk.signInWithEmailAndPassword(auth, email, password);
+                    await firebaseSdk.reload(credential.user);
+                    if (!credential.user.emailVerified) {
+                        await firebaseSdk.sendEmailVerification(credential.user);
+                        await firebaseSdk.signOut(auth);
+                        throw new Error('כתובת הדוא״ל עדיין לא אומתה. שלחנו הודעת אימות חדשה; אשרו אותה ונסו שוב.');
+                    }
+                    let savedProfile = {};
+                    try { savedProfile = JSON.parse(credential.user.displayName || '{}'); } catch (_) {}
+                    if ((savedProfile.userCode || '').toUpperCase() !== userCode) {
+                        await firebaseSdk.signOut(auth);
+                        throw new Error('קוד המשתמש אינו תואם לחשבון הזה. בדקו את הקוד ונסו שוב.');
+                    }
+                    setStatus('ההתחברות הצליחה. ברוכים הבאים!', 'success');
+                    window.enterWebsiteAfterAuth(false);
+                }
+            } catch (error) {
+                console.error('Authentication error:', error);
+                const messages = {
+                    'auth/email-already-in-use': 'כתובת הדוא״ל הזו כבר רשומה. נסו להתחבר במקום ליצור חשבון חדש.',
+                    'auth/invalid-email': 'כתובת הדוא״ל אינה תקינה.',
+                    'auth/weak-password': 'הסיסמה חלשה מדי. בחרו סיסמה עם לפחות 6 תווים.',
+                    'auth/invalid-credential': 'פרטי ההתחברות אינם נכונים.',
+                    'auth/too-many-requests': 'בוצעו יותר מדי ניסיונות. נסו שוב מאוחר יותר.',
+                    'auth/network-request-failed': 'לא ניתן להתחבר לרשת. בדקו את החיבור ונסו שוב.'
+                };
+                setStatus(messages[error.code] || error.message || 'אירעה שגיאה. בדקו את הפרטים ונסו שוב.', 'error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = authMode === 'register' ? 'יצירת חשבון ושליחת אימות' : 'התחברות מאובטחת';
+            }
+        });
+
+        setAuthMode('login');
+    </script>
+
 </body>
 </html>
