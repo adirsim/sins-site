@@ -604,7 +604,7 @@
         }
 
 
-        /* מסך פתיחה והתחברות */
+        /* מסך פתיחה */
         .welcome-subtitle { margin-top: 18px; text-align: center; color: var(--text-chroma-gray); font-size: clamp(1rem, 2vw, 1.35rem); letter-spacing: 1px; }
         .mega-chroma-title { font-size: clamp(3rem, 8.5vw, 7.5rem); letter-spacing: 0; text-align: center; white-space: nowrap; }
         .identity-node { margin-bottom: 24px; }
@@ -616,43 +616,7 @@
         .hud-brand-header h2 { font-size: clamp(2rem, 3vw, 3rem); letter-spacing: 0; line-height: 1.25; }
         .brand-caption { color: var(--text-chroma-gray); margin-top: 8px; font-size: .95rem; }
 
-        #auth-screen {
-            position: fixed; inset: 0; z-index: 10001; display: flex; align-items: center; justify-content: center;
-            padding: 24px; background: radial-gradient(circle at 20% 15%, rgba(0,240,255,.10), transparent 35%),
-            radial-gradient(circle at 80% 85%, rgba(255,0,127,.10), transparent 35%), rgba(1,3,10,.96);
-            opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .45s ease, visibility .45s ease; overflow-y: auto;
-        }
-        #auth-screen.active { opacity: 1; visibility: visible; pointer-events: auto; }
-        .auth-card {
-            width: min(100%, 540px); padding: clamp(24px, 5vw, 42px); border-radius: 22px;
-            background: rgba(6,11,26,.94); border: 1px solid rgba(0,240,255,.35);
-            box-shadow: 0 0 70px rgba(0,240,255,.10), 0 25px 80px rgba(0,0,0,.55); backdrop-filter: blur(20px);
-            animation: authCardIn .65s cubic-bezier(.16,1,.3,1) both;
-        }
-        @keyframes authCardIn { from { opacity:0; transform: translateY(22px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
-        .auth-logo { width: 66px; height: 66px; display:grid; place-items:center; margin: 0 auto 18px; border-radius: 20px;
-            color: var(--neon-cyan); font-size: 1.8rem; border: 1px solid rgba(0,240,255,.4); background: rgba(0,240,255,.07); box-shadow: 0 0 28px rgba(0,240,255,.12); }
-        .auth-card h2 { text-align:center; font-size: clamp(1.7rem, 4vw, 2.2rem); margin-bottom: 10px; }
-        .auth-intro { color: var(--text-chroma-gray); text-align:center; line-height:1.7; margin-bottom:24px; }
-        .auth-tabs { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:5px; margin-bottom:22px; border-radius:12px; background:rgba(255,255,255,.035); }
-        .auth-tab { border:1px solid transparent; color:var(--text-chroma-gray); background:transparent; padding:12px; border-radius:9px; cursor:pointer; font-weight:800; }
-        .auth-tab.active { color:#fff; background:rgba(0,240,255,.09); border-color:rgba(0,240,255,.35); }
-        .auth-field { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
-        .auth-field label { font-weight:700; color:#fff; font-size:.95rem; }
         input, textarea, select { user-select:text; -webkit-user-select:text; }
-        .auth-field input { width:100%; padding:15px 16px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.035); color:#fff; font-size:1rem; outline:none; }
-        .auth-field input:focus { border-color:var(--neon-cyan); box-shadow:0 0 0 3px rgba(0,240,255,.09); }
-        .auth-help { font-size:.82rem; line-height:1.6; color:#9fb2cb; margin:-4px 0 14px; }
-        .auth-primary, .auth-demo { width:100%; border-radius:10px; padding:15px; font-size:1rem; font-weight:900; cursor:pointer; transition:transform .2s, filter .2s; }
-        .auth-primary { color:#02040a; border:0; background:linear-gradient(90deg,var(--neon-cyan),#a7fbff); box-shadow:0 8px 28px rgba(0,240,255,.16); }
-        .auth-primary:hover, .auth-demo:hover { transform:translateY(-2px); filter:brightness(1.08); }
-        .auth-primary:disabled { opacity:.6; cursor:wait; transform:none; }
-        .auth-demo { margin-top:10px; color:#fff; background:transparent; border:1px solid rgba(255,255,255,.14); }
-        .auth-status { min-height:24px; margin-top:16px; color:#b9cde5; text-align:center; line-height:1.65; font-size:.92rem; overflow-wrap:anywhere; }
-        .auth-status.error { color:#ff8bbd; }
-        .auth-status.success { color:#83ffb5; }
-        .auth-footnote { margin-top:16px; color:#778aa5; font-size:.78rem; line-height:1.6; text-align:center; }
-        .auth-hidden { display:none !important; }
 
         .welcome-columns { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:22px; align-items:stretch; }
         .welcome-columns .chroma-rotating-card { padding:26px; min-width:0; }
@@ -694,7 +658,6 @@
             .quantum-panel-title::after { display:none; }
             .discord-ultra-panel i.giant-discord-icon { font-size:4.5rem; }
             .btn-discord-massive-chroma { padding:18px 25px; font-size:1.15rem; }
-            .auth-card { padding:24px 18px; }
         }
 
     </style>
@@ -732,49 +695,13 @@
         <div class="console-log-box" id="console-node-stream">
             > ברוכים הבאים לאתר האינטרנט של בואו להנות...<br>
             > מכינים את ממשק הקהילה...<br>
-            > המערכת מוכנה להתחברות.
+            > האתר מוכן לכניסה.
         </div>
         <div class="loading-bar-container">
             <div class="loading-bar-fill" id="progress-bar-node"></div>
         </div>
-        <button class="btn-hardware-access" id="btn-mainframe-trigger" onclick="engageCoreSystem()">המשך להתחברות</button>
+        <button class="btn-hardware-access" id="btn-mainframe-trigger" onclick="engageCoreSystem()">כניסה לאתר</button>
     </div>
-
-    <!-- מסך התחברות ואימות דוא"ל. הפעלה מלאה דורשת הגדרת Firebase בקוד שבהמשך. -->
-    <section id="auth-screen" aria-label="התחברות לאתר">
-        <div class="auth-card">
-            <div class="auth-logo"><i class="fas fa-user-shield"></i></div>
-            <h2 id="auth-heading">ברוכים הבאים לקהילה</h2>
-            <p class="auth-intro" id="auth-intro">התחברו עם קוד המשתמש, כתובת הדוא״ל והסיסמה שלכם כדי להיכנס לאתר.</p>
-            <div class="auth-tabs" role="tablist" aria-label="סוג פעולה">
-                <button type="button" class="auth-tab active" id="auth-login-tab" role="tab" aria-selected="true">התחברות</button>
-                <button type="button" class="auth-tab" id="auth-register-tab" role="tab" aria-selected="false">יצירת חשבון</button>
-            </div>
-            <form id="auth-form">
-                <div class="auth-field auth-hidden" id="auth-name-wrap">
-                    <label for="auth-name">שם לתצוגה</label>
-                    <input id="auth-name" type="text" autocomplete="nickname" maxlength="40" placeholder="איך לקרוא לכם?">
-                </div>
-                <div class="auth-field" id="auth-code-wrap">
-                    <label for="auth-code">קוד משתמש</label>
-                    <input id="auth-code" type="text" autocomplete="username" placeholder="הקוד שקיבלתם בעת ההרשמה" required>
-                </div>
-                <div class="auth-field">
-                    <label for="auth-email">כתובת דוא״ל</label>
-                    <input id="auth-email" type="email" autocomplete="email" placeholder="name@example.com" required>
-                </div>
-                <div class="auth-field">
-                    <label for="auth-password">סיסמה</label>
-                    <input id="auth-password" type="password" autocomplete="current-password" minlength="6" placeholder="לפחות 6 תווים" required>
-                </div>
-                <p class="auth-help" id="auth-help">חשבון חדש חייב לאמת את כתובת הדוא״ל דרך הודעת האימות שתישלח אליו.</p>
-                <button class="auth-primary" id="auth-submit" type="submit">התחברות מאובטחת</button>
-            </form>
-            <button type="button" class="auth-demo" id="auth-demo-button">כניסה לתצוגת הדגמה</button>
-            <p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
-            <p class="auth-footnote">תצוגת ההדגמה אינה מאמתת משתמשים. כדי להפעיל הרשמה, סיסמאות ואימות דוא״ל אמיתיים יש להגדיר פרויקט Firebase בקוד.</p>
-        </div>
-    </section>
 
     <!-- מסך פריצה חלק ביניים -->
     <div id="interstitial-hacker-screen">
@@ -1047,7 +974,7 @@
             "> טוענים את אתר הקהילה...",
             "> מפעילים אנימציות וממשק...",
             "> מכינים את טפסי המועמדות והדיווחים...",
-            "> האתר מוכן. אפשר להמשיך למסך ההתחברות."
+            "> האתר מוכן. אפשר להיכנס לאתר."
         ];
 
         const systemBootInterval = setInterval(() => {
@@ -1055,7 +982,7 @@
             if (currentProgress >= 100) {
                 currentProgress = 100;
                 clearInterval(systemBootInterval);
-                consoleNode.innerHTML += "<br><span style='color:var(--neon-green)'>> האתר מוכן. אפשר להמשיך למסך ההתחברות.</span>";
+                consoleNode.innerHTML += "<br><span style='color:var(--neon-green)'>> האתר מוכן. אפשר להיכנס לאתר.</span>";
                 accessButton.classList.add('unlocked');
             }
             progressFill.style.width = currentProgress + '%';
@@ -1074,22 +1001,10 @@
             hackerScreen.classList.add('active');
             setTimeout(() => {
                 boot.style.display = 'none';
+                document.getElementById('quantum-mainframe').classList.add('online');
                 hackerScreen.classList.remove('active');
-                document.getElementById('auth-screen').classList.add('active');
             }, 1000);
         }
-
-        // נקרא רק אחרי התחברות מאומתת או לאחר בחירה מפורשת בתצוגת ההדגמה.
-        window.enterWebsiteAfterAuth = function (isDemo) {
-            document.getElementById('auth-screen').classList.remove('active');
-            const hackerScreen = document.getElementById('interstitial-hacker-screen');
-            hackerScreen.querySelector('h2').innerText = isDemo ? 'DEMO MODE' : 'ACCESS GRANTED';
-            hackerScreen.classList.add('active');
-            setTimeout(() => {
-                hackerScreen.classList.remove('active');
-                document.getElementById('quantum-mainframe').classList.add('online');
-            }, 800);
-        };
 
         /* ג. ניווט בין פאנלים בתפריט */
         function navigateToPanel(targetPanelId, triggerButton) {
@@ -1202,172 +1117,6 @@
         });
     </script>
 
-    <script>
-        // ה-SDK של Firebase נטען רק כשמוגדר פרויקט אמיתי, כדי שתצוגת ההדגמה תעבוד גם בלי הגדרות התחברות.
-        // כדי להפעיל התחברות אמיתית: החליפו את הערכים לדוגמה בפרטי הפרויקט שלכם ב-Firebase.
-        // ב-Firebase Console יש להפעיל Authentication > Sign-in method > Email/Password.
-        // לצורך בדיקה מקומית, השתמשו ב-localhost; לפרסום, הוסיפו את הדומיין המאובטח שלכם ל-Authorized domains.
-        const firebaseConfig = {
-            apiKey: 'YOUR_API_KEY',
-            authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
-            projectId: 'YOUR_PROJECT_ID',
-            appId: 'YOUR_APP_ID'
-        };
-        const firebaseConfigured = Boolean(
-            firebaseConfig.apiKey && firebaseConfig.apiKey !== 'YOUR_API_KEY' &&
-            firebaseConfig.projectId && firebaseConfig.projectId !== 'YOUR_PROJECT_ID' &&
-            firebaseConfig.appId && firebaseConfig.appId !== 'YOUR_APP_ID'
-        );
-
-        let auth = null;
-        let firebaseSdk = null;
-        let firebaseLoadAttempted = false;
-        async function ensureFirebase() {
-            if (auth && firebaseSdk) return true;
-            if (!firebaseConfigured) return false;
-            if (firebaseLoadAttempted) return Boolean(auth && firebaseSdk);
-            firebaseLoadAttempted = true;
-            try {
-                const appSdk = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
-                firebaseSdk = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js');
-                auth = firebaseSdk.getAuth(appSdk.initializeApp(firebaseConfig));
-                return true;
-            } catch (error) {
-                console.error('Firebase initialization failed:', error);
-                setStatus('לא ניתן לטעון את שירות האימות. ודאו שהאתר נפתח דרך HTTPS או localhost ושיש חיבור לאינטרנט.', 'error');
-                return false;
-            }
-        }
-
-        const authForm = document.getElementById('auth-form');
-        const loginTab = document.getElementById('auth-login-tab');
-        const registerTab = document.getElementById('auth-register-tab');
-        const nameWrap = document.getElementById('auth-name-wrap');
-        const codeWrap = document.getElementById('auth-code-wrap');
-        const nameInput = document.getElementById('auth-name');
-        const codeInput = document.getElementById('auth-code');
-        const emailInput = document.getElementById('auth-email');
-        const passwordInput = document.getElementById('auth-password');
-        const submitButton = document.getElementById('auth-submit');
-        const statusNode = document.getElementById('auth-status');
-        const heading = document.getElementById('auth-heading');
-        const intro = document.getElementById('auth-intro');
-        const help = document.getElementById('auth-help');
-        const demoButton = document.getElementById('auth-demo-button');
-        let authMode = 'login';
-
-        function setStatus(message, kind = '') {
-            statusNode.textContent = message;
-            statusNode.className = 'auth-status' + (kind ? ' ' + kind : '');
-        }
-
-        function setAuthMode(mode) {
-            authMode = mode;
-            const registering = mode === 'register';
-            loginTab.classList.toggle('active', !registering);
-            registerTab.classList.toggle('active', registering);
-            loginTab.setAttribute('aria-selected', String(!registering));
-            registerTab.setAttribute('aria-selected', String(registering));
-            nameWrap.classList.toggle('auth-hidden', !registering);
-            codeWrap.classList.toggle('auth-hidden', registering);
-            nameInput.required = registering;
-            codeInput.required = !registering;
-            passwordInput.autocomplete = registering ? 'new-password' : 'current-password';
-            heading.textContent = registering ? 'יצירת חשבון חדש' : 'ברוכים השבים לקהילה';
-            intro.textContent = registering
-                ? 'צרו חשבון עם כתובת דוא״ל וסיסמה. נשלח אליכם מייל לאימות, ותקבלו קוד משתמש אישי.'
-                : 'התחברו עם קוד המשתמש, כתובת הדוא״ל והסיסמה. הכניסה תתאפשר לאחר אימות הדוא״ל.';
-            help.textContent = registering
-                ? 'נדרש מייל פעיל. לאחר ההרשמה יש לפתוח את הודעת האימות שנשלחה אליכם.'
-                : 'אם עדיין לא אימתתם את כתובת הדוא״ל, המערכת תשלח הודעת אימות נוספת.';
-            submitButton.textContent = registering ? 'יצירת חשבון ושליחת אימות' : 'התחברות מאובטחת';
-            setStatus('');
-        }
-
-        function makeUserCode() {
-            const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            const bytes = new Uint8Array(8);
-            crypto.getRandomValues(bytes);
-            return 'BH-' + Array.from(bytes, value => alphabet[value % alphabet.length]).join('');
-        }
-
-        loginTab.addEventListener('click', () => setAuthMode('login'));
-        registerTab.addEventListener('click', () => setAuthMode('register'));
-
-        demoButton.addEventListener('click', () => {
-            setStatus('נכנסים לתצוגת הדגמה. מצב זה אינו מאמת זהות ואינו שומר חשבון.', 'success');
-            window.enterWebsiteAfterAuth(true);
-        });
-
-        authForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            if (!firebaseConfigured || !auth) {
-                setStatus('התחברות ואימות מייל אמיתיים עדיין לא הופעלו. יש להגדיר את firebaseConfig בקוד ולהפעיל Email/Password ב-Firebase. אפשר להיכנס לתצוגת ההדגמה כדי לבדוק את עיצוב האתר.', 'error');
-                return;
-            }
-
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
-            const firebaseReady = await ensureFirebase();
-            if (!firebaseReady) return;
-            submitButton.disabled = true;
-            submitButton.textContent = authMode === 'register' ? 'יוצרים חשבון...' : 'בודקים פרטי התחברות...';
-            setStatus('');
-
-            try {
-                if (authMode === 'register') {
-                    const displayName = nameInput.value.trim();
-                    if (!displayName) throw new Error('יש להזין שם לתצוגה.');
-                    if (password.length < 6) throw new Error('הסיסמה חייבת להכיל לפחות 6 תווים.');
-
-                    const credential = await firebaseSdk.createUserWithEmailAndPassword(auth, email, password);
-                    const userCode = makeUserCode();
-                    await firebaseSdk.updateProfile(credential.user, { displayName: JSON.stringify({ userCode, name: displayName }) });
-                    await firebaseSdk.sendEmailVerification(credential.user);
-                    await firebaseSdk.signOut(auth);
-                    setStatus(`נוצר החשבון בהצלחה. קוד המשתמש שלך הוא ${userCode}. שמור/שמרי אותו במקום בטוח, ואז פתח/י את הודעת האימות שנשלחה לכתובת ${email}. אחרי אימות המייל, התחברו באמצעות הקוד, המייל והסיסמה.`, 'success');
-                    setAuthMode('login');
-                    codeInput.value = userCode;
-                    emailInput.value = email;
-                    passwordInput.value = '';
-                    setStatus(`קוד המשתמש שלך: ${userCode}. שמור/שמרי אותו. נשלח מייל אימות אל ${email}; יש לאמת את הכתובת לפני ההתחברות.`, 'success');
-                } else {
-                    const userCode = codeInput.value.trim().toUpperCase();
-                    const credential = await firebaseSdk.signInWithEmailAndPassword(auth, email, password);
-                    await firebaseSdk.reload(credential.user);
-                    if (!credential.user.emailVerified) {
-                        await firebaseSdk.sendEmailVerification(credential.user);
-                        await firebaseSdk.signOut(auth);
-                        throw new Error('כתובת הדוא״ל עדיין לא אומתה. שלחנו הודעת אימות חדשה; אשרו אותה ונסו שוב.');
-                    }
-                    let savedProfile = {};
-                    try { savedProfile = JSON.parse(credential.user.displayName || '{}'); } catch (_) {}
-                    if ((savedProfile.userCode || '').toUpperCase() !== userCode) {
-                        await firebaseSdk.signOut(auth);
-                        throw new Error('קוד המשתמש אינו תואם לחשבון הזה. בדקו את הקוד ונסו שוב.');
-                    }
-                    setStatus('ההתחברות הצליחה. ברוכים הבאים!', 'success');
-                    window.enterWebsiteAfterAuth(false);
-                }
-            } catch (error) {
-                console.error('Authentication error:', error);
-                const messages = {
-                    'auth/email-already-in-use': 'כתובת הדוא״ל הזו כבר רשומה. נסו להתחבר במקום ליצור חשבון חדש.',
-                    'auth/invalid-email': 'כתובת הדוא״ל אינה תקינה.',
-                    'auth/weak-password': 'הסיסמה חלשה מדי. בחרו סיסמה עם לפחות 6 תווים.',
-                    'auth/invalid-credential': 'פרטי ההתחברות אינם נכונים.',
-                    'auth/too-many-requests': 'בוצעו יותר מדי ניסיונות. נסו שוב מאוחר יותר.',
-                    'auth/network-request-failed': 'לא ניתן להתחבר לרשת. בדקו את החיבור ונסו שוב.'
-                };
-                setStatus(messages[error.code] || error.message || 'אירעה שגיאה. בדקו את הפרטים ונסו שוב.', 'error');
-            } finally {
-                submitButton.disabled = false;
-                submitButton.textContent = authMode === 'register' ? 'יצירת חשבון ושליחת אימות' : 'התחברות מאובטחת';
-            }
-        });
-
-        setAuthMode('login');
-    </script>
 
 </body>
 </html>
