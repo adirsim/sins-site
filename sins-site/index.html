@@ -46,10 +46,11 @@
 
         /* טפט iOS: כתמי צבע רכים שמאחורי הזכוכית */
         #chroma-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -10; pointer-events: none; opacity: .4; }
-        .plasma-orb { position: fixed; border-radius: 50%; filter: blur(110px); opacity: .4; z-index: -9; pointer-events: none; animation: drift 24s infinite alternate ease-in-out; }
-        .orb-cyan { top: -18%; left: -8%; width: 620px; height: 620px; background: var(--neon-cyan); }
-        .orb-magenta { bottom: -20%; right: -10%; width: 680px; height: 680px; background: var(--neon-magenta); animation-delay: -6s; }
-        .orb-purple { top: 30%; left: 40%; width: 480px; height: 480px; background: var(--neon-purple); animation-duration: 30s; }
+        .plasma-orb { position: fixed; border-radius: 50%; filter: blur(110px); opacity: .4; z-index: -9; pointer-events: none; animation: drift 24s infinite alternate ease-in-out; translate: calc(var(--px,0) * var(--k,1) * 1px) calc(var(--py,0) * var(--k,1) * 1px); transition: translate .6s var(--spring); }
+        .orb-cyan { --k: -1; } .orb-magenta { --k: 1.4; } .orb-purple { --k: -.6; }
+        .orb-cyan { top: -18%; left: -8%; width: 620px; height: 620px; background: var(--orb1, var(--neon-cyan)); }
+        .orb-magenta { bottom: -20%; right: -10%; width: 680px; height: 680px; background: var(--orb2, var(--neon-magenta)); animation-delay: -6s; }
+        .orb-purple { top: 30%; left: 40%; width: 480px; height: 480px; background: var(--orb3, var(--neon-purple)); animation-duration: 30s; }
         @keyframes drift { to { transform: translate(100px, 70px) scale(1.15); } }
 
         /* ===== 2. מסך כניסה בסגנון מסך נעילה של iOS ===== */
@@ -277,6 +278,66 @@
         .btn-discord-massive-chroma { display: inline-block; padding: 18px 54px; font-size: 1.25rem; font-weight: 600; border-radius: 999px; text-decoration: none; color: #fff; background: #5865f2; box-shadow: 0 14px 34px rgba(88,101,242,.4); transition: transform .3s var(--spring), filter .2s; }
         .btn-discord-massive-chroma:hover { filter: brightness(1.1); transform: translateY(-3px); }
 
+
+        /* ===== 10א. הגדרות מורחבות, טפטים וצבעי הדגשה ===== */
+        html[data-wallpaper="ocean"] { --orb1:#0a84ff; --orb2:#5ac8fa; --orb3:#30d0c6; }
+        html[data-wallpaper="sunset"] { --orb1:#ff9f0a; --orb2:#ff375f; --orb3:#bf5af2; }
+        html[data-wallpaper="forest"] { --orb1:#30d158; --orb2:#00c7be; --orb3:#64d2ff; }
+        html[data-wallpaper="graphite"] { --orb1:#8e8e93; --orb2:#636366; --orb3:#aeaeb2; }
+        html[data-accent="purple"] { --neon-cyan: light-dark(#af52de, #bf5af2); }
+        html[data-accent="pink"] { --neon-cyan: light-dark(#ff2d55, #ff375f); }
+        html[data-accent="green"] { --neon-cyan: light-dark(#34c759, #30d158); }
+        html[data-accent="orange"] { --neon-cyan: light-dark(#ff9500, #ff9f0a); }
+        html.big-text { font-size: 118%; }
+        html.hi-contrast { --text-chroma-gray: light-dark(#3c3c43, #ebebf5); --sep: light-dark(rgba(60,60,67,.5), rgba(235,235,245,.42)); --edge: light-dark(rgba(60,60,67,.35), rgba(255,255,255,.4)); }
+
+        .hud-settings summary { list-style: none; display: flex; align-items: center; padding: 10px 12px; border-radius: 16px; cursor: pointer; font-weight: 500; transition: background .2s; }
+        .hud-settings summary::-webkit-details-marker { display: none; }
+        .hud-settings summary:hover { background: var(--fill); }
+        .hud-settings summary .tile { display: grid; place-items: center; width: 32px; height: 32px; margin-left: 14px; border-radius: 9px; background: #8e8e93; color: #fff; font-size: .95rem; }
+        .hud-settings summary .chev { margin-right: auto; color: var(--text-chroma-gray); font-size: .8rem; transition: transform .35s var(--spring); }
+        .hud-settings[open] summary .chev { transform: rotate(180deg); }
+        .hud-settings[open] .set-body { animation: reveal .45s var(--spring); }
+        .set-title { font-size: .8rem; font-weight: 600; color: var(--text-chroma-gray); padding: 16px 12px 6px; }
+        .hud-settings-group + .set-title { padding-top: 18px; }
+        .ios-row.col { flex-direction: column; align-items: flex-start; cursor: default; }
+        .swatches { display: flex; flex-wrap: wrap; gap: 10px; }
+        .sw { width: 28px; height: 28px; border-radius: 50%; border: 0; cursor: pointer; background: var(--c); outline: 2px solid transparent; outline-offset: 2px; transition: transform .25s var(--spring), outline-color .2s; }
+        .sw:hover { transform: scale(1.12); }
+        .sw[aria-pressed="true"] { outline-color: var(--label); transform: scale(1.08); }
+        .reset-btn { width: 100%; margin-top: 14px; padding: 11px; border: 0; border-radius: 14px; background: var(--fill); color: var(--neon-magenta); font-weight: 600; font-size: .95rem; cursor: pointer; transition: transform .2s; }
+        .reset-btn:active { transform: scale(.97); }
+
+        /* ===== 10ב. אנימציות סרגל צד ===== */
+        .hud-tab-trigger { position: relative; transition: background .2s, transform .35s var(--spring); }
+        .hud-tab-trigger:nth-child(1){--i:0} .hud-tab-trigger:nth-child(2){--i:1} .hud-tab-trigger:nth-child(3){--i:2}
+        .hud-tab-trigger:nth-child(4){--i:3} .hud-tab-trigger:nth-child(5){--i:4} .hud-tab-trigger:nth-child(6){--i:5}
+        #quantum-mainframe.online .hud-tab-trigger { animation: sideIn .7s var(--spring) backwards; animation-delay: calc(.25s + var(--i, 0) * .07s); }
+        #quantum-mainframe.online .hud-brand-header { animation: sideIn .7s var(--spring) backwards; }
+        @keyframes sideIn { from { opacity: 0; transform: translateX(34px); } }
+        .hud-tab-trigger:hover { transform: translateX(-4px); }
+        .hud-tab-trigger.selected i { animation: bounceIcon .6s var(--spring); }
+        @keyframes bounceIcon { 40% { transform: scale(1.28) rotate(-8deg); } }
+        .hud-tab-trigger.selected::before { content: ""; position: absolute; inset-inline-start: -10px; top: 24%; bottom: 24%; width: 4px; border-radius: 4px; background: var(--neon-cyan); animation: barIn .5s var(--spring); }
+        @keyframes barIn { from { transform: scaleY(0); } }
+        .hud-trigger-danger i { animation: iconPulse 2.6s ease-in-out infinite; }
+        @keyframes iconPulse { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--neon-magenta) 22%, transparent); } }
+        .hud-brand-header h2 { background: linear-gradient(90deg, #0a84ff, #bf5af2, #ff375f, #0a84ff); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; animation: shimmer 7s linear infinite; }
+        @keyframes shimmer { to { background-position: -200% 50%; } }
+        @property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+        .quantum-viewport::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; pointer-events: none; z-index: 5; opacity: .6;
+            background: conic-gradient(from var(--ang), transparent 0 55%, #ff9f0a, #ff375f, #bf5af2, #0a84ff, transparent);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: ringSpin 9s linear infinite; }
+        @keyframes ringSpin { to { --ang: 360deg; } }
+
+        /* ===== 10ג. מתגי כיבוי ===== */
+        body.no-particles #chroma-canvas, body.no-orbs .plasma-orb { display: none; }
+        body.no-glass .hud-navigation-bar, body.no-glass .quantum-viewport, body.no-glass .console-log-box, body.no-glass .chroma-success-content { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--card); }
+        body.no-glow .chroma-rotating-card:hover::before { opacity: 0; animation: none; }
+        body.no-ring .quantum-viewport::after { display: none; }
+        body.no-sidefx .hud-tab-trigger, body.no-sidefx .hud-brand-header, body.no-sidefx .hud-brand-header h2, body.no-sidefx .hud-tab-trigger i, body.no-sidefx .hud-tab-trigger::before { animation: none !important; }
+        body.no-sidefx .hud-tab-trigger:hover { transform: none; }
+
         /* ===== 10. מתגים: כיבוי אפקטים ותנועה ===== */
         body.no-fx #chroma-canvas, body.no-fx .plasma-orb { display: none; }
         body.calm *, body.calm *::before, body.calm *::after { animation: none !important; transition: none !important; }
@@ -356,14 +417,11 @@
                 <div class="hud-tab-trigger" onclick="navigateToPanel('panel-join-node', this)"><i class="fab fa-discord"></i> כניסה לשרת</div>
             </div>
 
-            <!-- מתגי iOS -->
-            <div class="hud-settings">
-                <div class="hud-settings-group">
-                    <label class="ios-row"><span><i class="fas fa-moon"></i>מצב כהה</span><input type="checkbox" class="ios-switch" id="toggle-dark"></label>
-                    <label class="ios-row"><span><i class="fas fa-wand-magic-sparkles"></i>אפקטי רקע</span><input type="checkbox" class="ios-switch" id="toggle-fx"></label>
-                    <label class="ios-row"><span><i class="fas fa-film"></i>אנימציות</span><input type="checkbox" class="ios-switch" id="toggle-motion"></label>
-                </div>
-            </div>
+            <!-- הגדרות ותצוגה -->
+            <details class="hud-settings">
+                <summary><span class="tile"><i class="fas fa-gear"></i></span>הגדרות ותצוגה<i class="fas fa-chevron-down chev"></i></summary>
+                <div class="set-body" id="settings-body"></div>
+            </details>
         </nav>
 
         <main class="quantum-viewport">
@@ -597,7 +655,7 @@
 
         function runMainMatrixLoop() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (!document.body.classList.contains('no-fx')) {
+            if (!document.body.classList.contains('no-fx') && !document.body.classList.contains('no-particles')) {
                 particleArray.forEach(p => { p.update(); p.draw(); });
                 connectParticles();
             }
@@ -659,6 +717,7 @@
         /* ד. הטיה עדינה לכרטיסיות */
         document.querySelectorAll('.chroma-rotating-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
+                if (document.body.classList.contains('no-tilt')) return;
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -750,31 +809,131 @@
             });
         });
 
-        /* ז. מתגי iOS: מצב כהה, אפקטי רקע, אנימציות (נשמרים בדפדפן) */
+        /* ז. הגדרות ותצוגה: מתגי iOS, טפטים וצבעי הדגשה (נשמרים בדפדפן) */
         (function () {
             const store = {
                 get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
                 set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} }
             };
-            const tDark = document.getElementById('toggle-dark');
-            const tFx = document.getElementById('toggle-fx');
-            const tMotion = document.getElementById('toggle-motion');
             const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const sysCalm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const savedTheme = store.get('theme');
+            let prefs = {};
+            try { prefs = JSON.parse(store.get('prefs') || '{}') || {}; } catch (e) { prefs = {}; }
 
-            tDark.checked = savedTheme ? savedTheme === 'dark' : sysDark;
-            tFx.checked = store.get('fx') !== 'off';
-            tMotion.checked = store.get('motion') ? store.get('motion') !== 'off' : !sysCalm;
+            const groups = [
+                { t: 'תצוגה', items: [
+                    { k: 'dark', l: 'מצב כהה', i: 'fa-moon', d: sysDark },
+                    { k: 'glass', l: 'זכוכית שקופה', i: 'fa-droplet', d: true },
+                    { k: 'big', l: 'טקסט גדול', i: 'fa-text-height', d: false },
+                    { k: 'contrast', l: 'ניגודיות גבוהה', i: 'fa-circle-half-stroke', d: false } ] },
+                { t: 'רקע', items: [
+                    { k: 'fx', l: 'אפקטי רקע', i: 'fa-wand-magic-sparkles', d: true },
+                    { k: 'particles', l: 'חלקיקים מחוברים', i: 'fa-circle-nodes', d: true },
+                    { k: 'orbs', l: 'כדורי תאורה', i: 'fa-sun', d: true },
+                    { k: 'parallax', l: 'תנועת רקע עם העכבר', i: 'fa-arrows-up-down-left-right', d: true } ],
+                  swatches: true },
+                { t: 'אנימציות', items: [
+                    { k: 'motion', l: 'אנימציות', i: 'fa-film', d: !sysCalm },
+                    { k: 'tilt', l: 'הטיית כרטיסים', i: 'fa-cube', d: true },
+                    { k: 'glow', l: 'זוהר בריחוף', i: 'fa-bolt', d: true },
+                    { k: 'sidefx', l: 'אנימציות בסרגל הצד', i: 'fa-wave-square', d: true },
+                    { k: 'ring', l: 'הילת מסגרת', i: 'fa-circle-notch', d: true },
+                    { k: 'sound', l: 'צלילי לחיצה', i: 'fa-volume-high', d: false } ] }
+            ];
+            const defs = {};
+            groups.forEach(g => g.items.forEach(it => defs[it.k] = it.d));
+            const val = k => prefs[k] === undefined ? defs[k] : prefs[k];
+
+            const wallpapers = { aurora: '#0a84ff,#ff375f', ocean: '#0a84ff,#30d0c6', sunset: '#ff9f0a,#bf5af2', forest: '#30d158,#64d2ff', graphite: '#8e8e93,#636366' };
+            const accents = { blue: '#0a84ff', purple: '#bf5af2', pink: '#ff375f', green: '#30d158', orange: '#ff9f0a' };
+            const names = { aurora: 'זוהר', ocean: 'אוקיינוס', sunset: 'שקיעה', forest: 'יער', graphite: 'גרפיט', blue: 'כחול', purple: 'סגול', pink: 'ורוד', green: 'ירוק', orange: 'כתום' };
+
+            const body = document.getElementById('settings-body');
+            function swatchRow(title, icon, key, map, mk) {
+                const row = document.createElement('div');
+                row.className = 'ios-row col';
+                row.innerHTML = '<span><i class="fas ' + icon + '"></i>' + title + '</span>';
+                const wrap = document.createElement('div');
+                wrap.className = 'swatches';
+                Object.keys(map).forEach(name => {
+                    const b = document.createElement('button');
+                    b.type = 'button'; b.className = 'sw'; b.dataset.key = key; b.dataset.name = name;
+                    b.title = names[name]; b.setAttribute('aria-label', names[name]);
+                    b.style.setProperty('--c', mk(map[name]));
+                    b.addEventListener('click', () => { prefs[key] = name; save(); apply(); tick(); });
+                    wrap.appendChild(b);
+                });
+                row.appendChild(wrap);
+                return row;
+            }
+            groups.forEach(g => {
+                const title = document.createElement('div');
+                title.className = 'set-title'; title.textContent = g.t;
+                body.appendChild(title);
+                const box = document.createElement('div');
+                box.className = 'hud-settings-group';
+                g.items.forEach(it => {
+                    const row = document.createElement('label');
+                    row.className = 'ios-row';
+                    row.innerHTML = '<span><i class="fas ' + it.i + '"></i>' + it.l + '</span>';
+                    const inp = document.createElement('input');
+                    inp.type = 'checkbox'; inp.className = 'ios-switch'; inp.dataset.key = it.k;
+                    inp.addEventListener('change', () => { prefs[it.k] = inp.checked; save(); apply(); tick(); });
+                    row.appendChild(inp);
+                    box.appendChild(row);
+                });
+                if (g.swatches) {
+                    box.appendChild(swatchRow('טפט', 'fa-image', 'wallpaper', wallpapers, c => 'linear-gradient(135deg,' + c + ')'));
+                    box.appendChild(swatchRow('צבע הדגשה', 'fa-palette', 'accent', accents, c => c));
+                }
+                body.appendChild(box);
+            });
+            const reset = document.createElement('button');
+            reset.type = 'button'; reset.className = 'reset-btn';
+            reset.innerHTML = '<i class="fas fa-rotate-left" style="margin-left:8px"></i>איפוס הגדרות';
+            reset.addEventListener('click', () => { prefs = {}; save(); apply(); tick(); });
+            body.appendChild(reset);
+
+            function save() { store.set('prefs', JSON.stringify(prefs)); }
+
+            /* צלילי לחיצה */
+            let actx = null;
+            function tick() {
+                if (!val('sound')) return;
+                try {
+                    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+                    const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime;
+                    o.type = 'sine'; o.frequency.setValueAtTime(980, t); o.frequency.exponentialRampToValueAtTime(620, t + .09);
+                    g.gain.setValueAtTime(.05, t); g.gain.exponentialRampToValueAtTime(.0001, t + .1);
+                    o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + .11);
+                } catch (e) {}
+            }
+            document.addEventListener('click', e => {
+                if (e.target.closest('.hud-tab-trigger, .btn-hardware-access, .btn-chroma-submit-node, .btn-simulation-trigger, .btn-close-modal')) tick();
+            });
+
+            /* תנועת רקע עם העכבר */
+            window.addEventListener('mousemove', e => {
+                if (document.body.classList.contains('no-parallax')) return;
+                const r = document.documentElement.style;
+                r.setProperty('--px', ((e.clientX / window.innerWidth - .5) * 70).toFixed(1));
+                r.setProperty('--py', ((e.clientY / window.innerHeight - .5) * 70).toFixed(1));
+            });
 
             function apply() {
-                document.documentElement.dataset.theme = tDark.checked ? 'dark' : 'light';
-                document.body.classList.toggle('no-fx', !tFx.checked);
-                document.body.classList.toggle('calm', !tMotion.checked);
+                const R = document.documentElement, B = document.body;
+                R.dataset.theme = val('dark') ? 'dark' : 'light';
+                R.dataset.wallpaper = prefs.wallpaper || 'aurora';
+                R.dataset.accent = prefs.accent || 'blue';
+                R.classList.toggle('big-text', val('big'));
+                R.classList.toggle('hi-contrast', val('contrast'));
+                [['no-glass', 'glass'], ['no-fx', 'fx'], ['no-particles', 'particles'], ['no-orbs', 'orbs'], ['no-parallax', 'parallax'],
+                 ['calm', 'motion'], ['no-tilt', 'tilt'], ['no-glow', 'glow'], ['no-sidefx', 'sidefx'], ['no-ring', 'ring']]
+                    .forEach(p => B.classList.toggle(p[0], !val(p[1])));
+                if (!val('parallax')) { R.style.setProperty('--px', 0); R.style.setProperty('--py', 0); }
+                body.querySelectorAll('.ios-switch').forEach(i => i.checked = !!val(i.dataset.key));
+                body.querySelectorAll('.sw').forEach(b => b.setAttribute('aria-pressed', String((prefs[b.dataset.key] || (b.dataset.key === 'wallpaper' ? 'aurora' : 'blue')) === b.dataset.name)));
             }
-            tDark.addEventListener('change', () => { store.set('theme', tDark.checked ? 'dark' : 'light'); apply(); });
-            tFx.addEventListener('change', () => { store.set('fx', tFx.checked ? 'on' : 'off'); apply(); });
-            tMotion.addEventListener('change', () => { store.set('motion', tMotion.checked ? 'on' : 'off'); apply(); });
             apply();
         })();
     </script>
