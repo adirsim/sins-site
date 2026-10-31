@@ -1,1151 +1,837 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="color-scheme" content="light dark">
-    <title>בואו להנות | קהילת האתר</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>בואו להנות | קהילת האתר</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ================= טוקנים ================= */
+:root{
+  color-scheme:light dark;
+  --bg:light-dark(#eef0f6,#05060a);
+  --tile:light-dark(rgba(255,255,255,.6),rgba(255,255,255,.07));
+  --tile2:light-dark(rgba(255,255,255,.95),rgba(255,255,255,.16));
+  --glass:light-dark(rgba(255,255,255,.4),rgba(22,24,34,.42));
+  --label:light-dark(#0b0c10,#fff);
+  --label2:light-dark(rgba(40,42,54,.68),rgba(235,238,250,.66));
+  --sep:light-dark(rgba(60,60,67,.16),rgba(255,255,255,.13));
+  --fill:light-dark(rgba(120,120,128,.16),rgba(120,120,128,.34));
+  --field:light-dark(rgba(255,255,255,.8),rgba(255,255,255,.07));
+  --rim1:light-dark(rgba(255,255,255,.95),rgba(255,255,255,.5));
+  --rim2:light-dark(rgba(255,255,255,.3),rgba(255,255,255,.08));
+  --shadow:0 30px 80px light-dark(rgba(30,40,80,.22),rgba(0,0,0,.6));
+  --accent:#0a84ff; --green:#30d158; --red:#ff453a;
+  --radius:30px; --blur:34px; --tm:1; --spot:1;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Hebrew","Heebo","Segoe UI",Arial,sans-serif;
+  --spring:cubic-bezier(.32,.72,0,1); --bounce:cubic-bezier(.34,1.56,.64,1);
+  --c1:#0a84ff; --c2:#bf5af2; --c3:#ff375f;
+}
+:root[data-theme="dark"]{color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+:root.hc{--label2:light-dark(#2c2c34,#f2f2f7);--sep:light-dark(rgba(0,0,0,.5),rgba(255,255,255,.5));--tile:light-dark(rgba(255,255,255,.9),rgba(0,0,0,.55));--rim2:light-dark(rgba(0,0,0,.4),rgba(255,255,255,.5))}
+html{font-size:calc(16px * var(--txt,1))}
+*{margin:0;padding:0;box-sizing:border-box;font-family:var(--font);-webkit-user-drag:none}
+body{background:var(--bg);color:var(--label);height:100vh;height:100dvh;overflow:hidden;line-height:1.45;-webkit-font-smoothing:antialiased;user-select:none}
+input,textarea,select{user-select:text;-webkit-user-select:text}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 65%,transparent);outline-offset:2px}
+a{color:var(--accent);text-decoration:none}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-    <style>
-        /* ===== 1. טוקנים: צבעי המערכת של Apple, פונט SF, חומרי Liquid Glass (בהיר / כהה אוטומטי) ===== */
-        :root {
-            color-scheme: light dark;
-            --neon-cyan: light-dark(#007aff, #0a84ff);
-            --neon-magenta: light-dark(#ff2d55, #ff375f);
-            --neon-purple: light-dark(#af52de, #bf5af2);
-            --neon-yellow: light-dark(#ffcc00, #ffd60a);
-            --neon-green: light-dark(#34c759, #30d158);
-            --neon-orange: light-dark(#ff9500, #ff9f0a);
+/* ================= שכבות גרפיקה ================= */
+#gl,#fx{position:fixed;inset:0;width:100vw;height:100vh}
+#gl{z-index:-3} #fx{z-index:-2;pointer-events:none}
+body.nogl #gl,body.nogl #fx{display:none}
+body.nogl::before{content:"";position:fixed;inset:-30%;z-index:-3;background:conic-gradient(var(--c1),var(--c2),var(--c3),var(--c1));filter:blur(100px);opacity:.5;animation:spin 50s linear infinite}
+#hud{position:fixed;left:14px;bottom:14px;z-index:900;display:none;padding:8px 12px;border-radius:14px;font:600 .78rem/1.3 ui-monospace,Menlo,Consolas,monospace;direction:ltr;pointer-events:none;color:#fff;background:rgba(0,0,0,.55);backdrop-filter:blur(10px)}
+body.hud #hud{display:block}
+body.debug *{outline:1px solid rgba(255,55,95,.3)}
 
-            --bg: light-dark(#f2f2f7, #000);
-            --card: light-dark(#ffffff, #1c1c1e);
-            --glass: light-dark(rgba(255,255,255,.58), rgba(40,40,46,.52));
-            --edge: light-dark(rgba(255,255,255,.85), rgba(255,255,255,.16));
-            --label: light-dark(#000, #fff);
-            --text-chroma-gray: light-dark(rgba(60,60,67,.68), rgba(235,235,245,.62));
-            --sep: light-dark(rgba(60,60,67,.16), rgba(84,84,88,.6));
-            --fill: light-dark(rgba(120,120,128,.14), rgba(120,120,128,.3));
-            --field: light-dark(#fff, rgba(255,255,255,.07));
-            --shadow: 0 14px 50px light-dark(rgba(0,0,0,.12), rgba(0,0,0,.55));
-            --ai-glow: conic-gradient(from 0deg, transparent 25%, #ff9f0a, #ff375f, #bf5af2, #0a84ff, transparent 80%);
+/* ================= זכוכית (Liquid Glass) ================= */
+.glass{position:relative;background:var(--glass);border-radius:var(--radius);box-shadow:var(--shadow);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(190%) brightness(1.05);backdrop-filter:blur(var(--blur)) saturate(190%) brightness(1.05)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.2px;pointer-events:none;z-index:3;
+  background:linear-gradient(135deg,var(--rim1),var(--rim2) 28%,var(--rim2) 72%,var(--rim1));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:3;opacity:var(--spot);
+  background:radial-gradient(420px circle at var(--gx,50%) var(--gy,-40%),rgba(255,255,255,.17),transparent 62%)}
+.tile{position:relative;overflow:hidden;background:var(--tile);border-radius:calc(var(--radius) - 8px);padding:26px;transition:transform .45s var(--spring)}
+.tile::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:var(--spot);background:radial-gradient(300px circle at var(--gx,-400px) var(--gy,-400px),color-mix(in srgb,var(--accent) 20%,transparent),transparent 70%)}
+.tile:hover{transform:translateY(-3px)}
+body.calm *,body.calm *::before,body.calm *::after{animation:none!important;transition:none!important}
 
-            --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Hebrew", "Heebo", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
-            --spring: cubic-bezier(.32,.72,0,1);
-        }
-        :root[data-theme="dark"] { color-scheme: dark; }
-        :root[data-theme="light"] { color-scheme: light; }
+/* ================= מסך נעילה ================= */
+#lock{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;color:#fff;touch-action:none;will-change:transform;
+  padding:calc(env(safe-area-inset-top,0px) + 26px) 20px calc(env(safe-area-inset-bottom,0px) + 18px)}
+#lock::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.42),transparent 42%,rgba(0,0,0,.52))}
+#lock::after{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .5s;background:radial-gradient(70% 55% at 50% 100%,rgba(255,255,255,.75),transparent 70%)}
+#lock.torch::after{opacity:1}
+#lock.unlocking{transition:transform calc(.7s*var(--tm)) var(--spring),opacity calc(.7s*var(--tm))}
+#lock.gone{display:none}
+#lock .glass{--glass:rgba(30,32,46,.4);--rim1:rgba(255,255,255,.55);--rim2:rgba(255,255,255,.1);color:#fff}
+.lk-top{text-align:center;margin-top:1.5vh}
+#lk-ico{font-size:1.35rem;opacity:.92;display:inline-block}
+#lk-ico.pop{animation:lockPop .6s var(--bounce)}
+@keyframes lockPop{40%{transform:scale(1.5) rotate(-12deg)}}
+#lk-date{margin-top:8px;font-size:clamp(1.1rem,2.6vw,1.6rem);font-weight:600;opacity:.94}
+#lk-time{direction:ltr;font-size:clamp(5.5rem,19vw,12.5rem);font-weight:800;line-height:.95;letter-spacing:-.045em;font-variant-numeric:tabular-nums;
+  background:linear-gradient(180deg,#fff 15%,rgba(255,255,255,.5));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 12px 44px rgba(0,0,0,.28))}
+.lk-widgets{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:3vh}
+.widget{display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:28px;animation:notifIn .9s var(--bounce) both}
+.widget b{display:block;font-size:1.25rem;font-weight:800;line-height:1.2}.widget small{opacity:.8;font-size:.85rem}
+.app-tile{position:relative;flex-shrink:0;display:grid;place-items:center;width:var(--s,54px);height:var(--s,54px);border-radius:26%;color:#fff;font-size:calc(var(--s,54px)*.45);
+  background:linear-gradient(160deg,#5ac8fa,#0a84ff 50%,#5e5ce6);box-shadow:0 10px 26px rgba(10,132,255,.45),inset 0 1.5px 0 rgba(255,255,255,.6),inset 0 -8px 14px rgba(0,0,0,.18)}
+.app-tile::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(120% 70% at 30% 0%,rgba(255,255,255,.55),transparent 55%)}
+.app-tile i{position:relative;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+.ring{width:58px;height:58px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6;stroke-linecap:round}
+.ring .bg{stroke:rgba(255,255,255,.22)} .ring .fg{stroke:url(#rg);stroke-dasharray:151;stroke-dashoffset:151;animation:ringFill 2.6s .4s var(--spring) forwards}
+@keyframes ringFill{to{stroke-dashoffset:0}}
+#notifs{width:min(430px,100%);margin-top:2.5vh;display:flex;flex-direction:column;gap:10px}
+.notif{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:24px;animation:notifIn .8s var(--bounce) both}
+.notif b{display:block;font-size:.95rem}.notif span{font-size:.88rem;opacity:.88}.notif em{margin-right:auto;font-style:normal;font-size:.75rem;opacity:.6;align-self:flex-start}
+@keyframes notifIn{from{opacity:0;transform:translateY(-26px) scale(.92)}}
+.lk-bottom{margin-top:auto;width:min(540px,100%);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lk-round{width:58px;height:58px;border-radius:50%;border:0;font-size:1.25rem;cursor:pointer;display:grid;place-items:center;transition:transform .3s var(--bounce)}
+.lk-round:active{transform:scale(.88)}
+.lk-round.on{background:#fff!important;color:#111}
+#lk-go{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 14px;background:none;border:0;color:#fff;cursor:pointer;font-weight:600;font-size:.95rem;opacity:.95}
+#lk-go i{animation:hintUp 1.8s ease-in-out infinite}
+@keyframes hintUp{0%,100%{transform:translateY(3px);opacity:.5}50%{transform:translateY(-5px);opacity:1}}
+.homebar{width:146px;height:5px;border-radius:5px;background:rgba(255,255,255,.85);margin:16px auto 0}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font); user-select: none; -webkit-user-drag: none; }
-        input, textarea, select { user-select: text; -webkit-user-select: text; }
-        :focus-visible { outline: 3px solid color-mix(in srgb, var(--neon-cyan) 60%, transparent); outline-offset: 2px; }
+/* ================= אפליקציה: חלון צף + שורת לשוניות ================= */
+#app{opacity:0;pointer-events:none;transition:opacity calc(.6s*var(--tm))}
+#app.on{opacity:1;pointer-events:auto}
+#app.on .topbar{animation:dropIn calc(.8s*var(--tm)) var(--spring) both}
+#app.on .window{animation:winIn calc(.9s*var(--tm)) var(--spring) both}
+#app.on .tabbar{animation:barUp calc(.9s*var(--tm)) .1s var(--bounce) both}
+@keyframes dropIn{from{opacity:0;transform:translateY(-34px)}}
+@keyframes winIn{from{opacity:0;scale:.93;translate:0 34px}}
+@keyframes barUp{from{opacity:0;transform:translateY(60px)}}
+.topbar{position:fixed;z-index:20;top:calc(14px + env(safe-area-inset-top,0px));left:0;right:0;margin:0 auto;width:min(1200px,calc(100vw - 32px));height:62px;border-radius:999px;display:flex;align-items:center;gap:10px;padding:0 12px;
+  translate:calc(var(--tx,0)*1px) 0}
+.brand{display:flex;align-items:center;gap:12px;margin-inline-end:auto}
+.brand .app-tile{--s:40px}
+.brand h1{font-size:1.2rem;font-weight:800;letter-spacing:-.01em;line-height:1.1;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand p{font-size:.78rem;color:var(--label2)}
+.ibtn{width:42px;height:42px;border-radius:50%;border:0;background:var(--fill);cursor:pointer;display:grid;place-items:center;font-size:1rem;transition:transform .35s var(--bounce),background .2s}
+.ibtn:hover{transform:scale(1.1)} .ibtn:active{transform:scale(.92)}
+.stage{position:fixed;z-index:10;inset:calc(92px + env(safe-area-inset-top,0px)) 16px calc(108px + env(safe-area-inset-bottom,0px));display:grid;place-items:center;perspective:1600px}
+.window{width:min(1200px,100%);height:100%;overflow:hidden;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .3s ease-out;transform-style:preserve-3d}
+body.notilt .window{transform:none}
+.panel{display:none;position:absolute;inset:0;padding:44px clamp(20px,4vw,52px) 36px;overflow-y:auto;z-index:2}
+.panel.active{display:block;animation:panelIn calc(.55s*var(--tm)) var(--spring) both}
+@keyframes panelIn{from{opacity:0;transform:translateY(14px) scale(.985);filter:blur(4px)}}
+.panel::-webkit-scrollbar{width:8px}.panel::-webkit-scrollbar-thumb{background:var(--sep);border-radius:8px}
+.panel>h2.title{font-size:clamp(1.9rem,3.8vw,3rem);font-weight:800;letter-spacing:-.025em;line-height:1.1;margin-bottom:26px}
+.panel>h2.title::after{content:"";display:block;width:70px;height:5px;margin-top:14px;border-radius:5px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3))}
+.tabbar{position:fixed;z-index:30;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;translate:-50% 0;display:flex;gap:2px;padding:7px;border-radius:999px;max-width:calc(100vw - 20px)}
+.tabbar .ind{position:absolute;top:7px;bottom:7px;border-radius:999px;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.08));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 6px 22px color-mix(in srgb,var(--accent) 45%,transparent);border:1px solid rgba(255,255,255,.3);
+  transition:left calc(.55s*var(--tm)) var(--bounce),width calc(.55s*var(--tm)) var(--bounce)}
+.tab{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:78px;padding:9px 14px;border:0;background:none;border-radius:999px;cursor:pointer;color:var(--label2);font-size:.74rem;font-weight:600;transition:color .25s,transform .3s var(--bounce)}
+.tab i{font-size:1.2rem;transition:transform .45s var(--bounce)}
+.tab:hover{color:var(--label)} .tab[aria-selected="true"]{color:var(--label)} .tab[aria-selected="true"] i{color:var(--accent);transform:translateY(-1px) scale(1.18)}
 
-        body { background: var(--bg); color: var(--label); height: 100vh; height: 100dvh; width: 100vw; overflow: hidden; line-height: 1.45; -webkit-font-smoothing: antialiased; }
+/* ================= בנטו ותוכן ================= */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.hero{grid-column:span 7;grid-row:span 2;display:flex;align-items:center;gap:20px;min-height:340px;background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 26%,var(--tile)),color-mix(in srgb,var(--c3) 20%,var(--tile)))}
+.hero h3{font-size:clamp(1.8rem,3.4vw,2.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.1}
+.hero p{margin-top:12px;color:var(--label2);max-width:34ch}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.t-rules{grid-column:span 5}.t-team{grid-column:span 5}.t-join{grid-column:span 12}
+.tile h3{font-size:1.25rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.tile h3 i{color:var(--accent);font-size:1rem}
+.tile p,.tile li{color:var(--label2);font-size:.98rem}
+.rules{list-style:none;counter-reset:r}
+.rules li{counter-increment:r;display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--sep)}.rules li:last-child{border:0}
+.rules li::before{content:counter(r);flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:.8rem;font-weight:800;display:grid;place-items:center}
+.person{padding:11px 0;border-bottom:1px solid var(--sep)}.person:last-child{border:0}
+.person strong{display:block;color:var(--label);font-weight:700}
+.t-join{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.t-join .txt{flex:1;min-width:240px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 26px;border:0;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;
+  box-shadow:0 12px 28px color-mix(in srgb,var(--accent) 45%,transparent);transition:transform .3s var(--bounce),filter .2s}
+.btn:hover{filter:brightness(1.1);transform:translateY(-2px)} .btn:active{transform:scale(.96)}
+.btn.discord{background:#5865f2;box-shadow:0 12px 28px rgba(88,101,242,.45)} .btn.soft{background:var(--fill);color:var(--label);box-shadow:none}
+.btn.block{width:100%;border-radius:18px;padding:17px;font-size:1.08rem}
+/* מכשיר (Product bezel) */
+.phone{position:relative;flex-shrink:0;width:158px;height:326px;border-radius:44px;padding:7px;background:linear-gradient(145deg,#e3e5ec,#8f93a3 45%,#4a4d59);
+  box-shadow:0 40px 70px rgba(0,0,0,.42),inset 0 0 0 2px rgba(255,255,255,.4);transform:perspective(900px) rotateY(calc(var(--ry,0deg)*2 - 14deg)) rotateX(calc(var(--rx,0deg)*2 + 4deg));transition:transform .3s ease-out}
+.phone .scr{position:relative;height:100%;border-radius:38px;overflow:hidden;background:#000;display:grid;place-items:center;text-align:center;color:#fff}
+.phone .scr::before{content:"";position:absolute;inset:-40%;background:conic-gradient(var(--c1),var(--c2),var(--c3),var(--c1));filter:blur(22px);animation:spin 12s linear infinite}
+.phone .isl{position:absolute;top:10px;left:50%;translate:-50% 0;width:56px;height:16px;border-radius:12px;background:#000;z-index:3}
+.phone .pt{position:relative;z-index:2;font-weight:800;direction:ltr}.phone .pt b{display:block;font-size:2.6rem;letter-spacing:-.04em;line-height:1}.phone .pt span{font-size:.72rem;opacity:.9}
+/* צוות */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.member{text-align:center;padding:34px 24px}
+.avatar{position:relative;width:116px;height:116px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;font-size:2.6rem;color:#fff;box-shadow:0 18px 40px rgba(0,0,0,.28),inset 0 2px 0 rgba(255,255,255,.5)}
+.avatar::before{content:"";position:absolute;inset:-9px;border-radius:50%;padding:3px;background:conic-gradient(var(--c1),var(--c2),var(--c3),var(--c1));animation:spin 6s linear infinite;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.member h3{font-size:1.5rem;font-weight:800}.member p{color:var(--label2);margin-top:6px}
+.badge{display:inline-block;margin-top:16px;padding:6px 16px;border-radius:99px;background:var(--fill);font-size:.85rem;font-weight:700}
+.badge.owner{background:linear-gradient(135deg,#ff375f,#bf5af2);color:#fff}
+/* טפסים */
+.form{max-width:800px;margin:0 auto}
+.row2{display:flex;gap:18px;margin-bottom:22px}
+.field{flex:1;display:flex;flex-direction:column;gap:8px;margin-bottom:22px}.row2 .field{margin-bottom:0}
+.field label{font-size:.92rem;font-weight:700;color:var(--label2);padding-inline:4px}
+.input{background:var(--field);border:1px solid var(--sep);border-radius:16px;padding:15px 18px;color:var(--label);font-size:1.05rem;outline:0;transition:border-color .2s,box-shadow .2s;width:100%}
+textarea.input{min-height:128px;resize:vertical}
+.input:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 24%,transparent)}
+select.input option{background:var(--bg);color:var(--label)}
+.form.report .input:focus{border-color:var(--red);box-shadow:0 0 0 4px color-mix(in srgb,var(--red) 24%,transparent)}
+.form.report .btn{background:var(--red);box-shadow:0 12px 28px rgba(255,69,58,.4)}
+.fb-hero{display:flex;align-items:center;gap:20px;margin-bottom:28px;position:relative;overflow:hidden}
+.fb-hero .app-tile{--s:84px;background:linear-gradient(160deg,#ff9f0a,#ff375f 55%,#bf5af2);box-shadow:0 16px 36px rgba(255,55,95,.45),inset 0 1.5px 0 rgba(255,255,255,.6);animation:beat 2.2s ease-in-out infinite}
+@keyframes beat{0%,45%,100%{transform:scale(1)}12%{transform:scale(1.12)}28%{transform:scale(1.04)}}
+.fb-hero h3{font-size:1.5rem;font-weight:800}.fb-hero p{color:var(--label2)}
+.stars{display:flex;gap:6px}
+.star{display:grid;place-items:center;width:50px;height:50px;border:0;background:none;cursor:pointer;font-size:2.6rem;line-height:1;color:var(--fill);transition:transform .3s var(--bounce),color .2s,filter .2s}
+.star:hover{transform:scale(1.2) rotate(-6deg)} .star.on{color:#ffcc00;filter:drop-shadow(0 0 12px rgba(255,204,0,.8))}
+.star.on i{animation:pop .5s var(--bounce)} @keyframes pop{40%{transform:scale(1.4) rotate(14deg)}}
+.mood{min-height:1.6em;padding-inline:4px;color:var(--label2);font-weight:700}
+.sw-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;background:var(--field);border:1px solid var(--sep);border-radius:16px;margin-bottom:22px;cursor:pointer}
+.sw-row i{color:var(--accent);margin-left:10px}
+.t-discord{text-align:center;padding:54px 26px}
+.t-discord .app-tile{--s:112px;margin:0 auto 24px;background:#5865f2;box-shadow:0 18px 40px rgba(88,101,242,.5),inset 0 1.5px 0 rgba(255,255,255,.55)}
+.t-discord h3{justify-content:center;font-size:2rem}.t-discord p{max-width:46ch;margin:0 auto 24px}
 
-        /* טפט iOS: כתמי צבע רכים שמאחורי הזכוכית */
-        #chroma-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -10; pointer-events: none; opacity: .4; }
-        .plasma-orb { position: fixed; border-radius: 50%; filter: blur(110px); opacity: .4; z-index: -9; pointer-events: none; animation: drift 24s infinite alternate ease-in-out; translate: calc(var(--px,0) * var(--k,1) * 1px) calc(var(--py,0) * var(--k,1) * 1px); transition: translate .6s var(--spring); }
-        .orb-cyan { --k: -1; } .orb-magenta { --k: 1.4; } .orb-purple { --k: -.6; }
-        .orb-cyan { top: -18%; left: -8%; width: 620px; height: 620px; background: var(--orb1, var(--neon-cyan)); }
-        .orb-magenta { bottom: -20%; right: -10%; width: 680px; height: 680px; background: var(--orb2, var(--neon-magenta)); animation-delay: -6s; }
-        .orb-purple { top: 30%; left: 40%; width: 480px; height: 480px; background: var(--orb3, var(--neon-purple)); animation-duration: 30s; }
-        @keyframes drift { to { transform: translate(100px, 70px) scale(1.15); } }
+/* ================= מתגים ובקרים ================= */
+.ios-switch{-webkit-appearance:none;appearance:none;position:relative;flex-shrink:0;width:51px;height:31px;border-radius:99px;cursor:pointer;background:var(--fill);transition:background .3s}
+.ios-switch::after{content:"";position:absolute;top:2px;inset-inline-start:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.28);transition:inset-inline-start .35s var(--spring),width .2s}
+.ios-switch:checked{background:var(--green)}.ios-switch:checked::after{inset-inline-start:22px}
+.ios-switch:active::after{width:34px}.ios-switch:checked:active::after{inset-inline-start:15px}
+.rng{-webkit-appearance:none;appearance:none;direction:ltr;width:190px;max-width:100%;height:6px;border-radius:6px;outline:0;cursor:pointer;background:linear-gradient(90deg,var(--accent) var(--p,50%),var(--fill) var(--p,50%))}
+.rng::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.rng::-moz-range-thumb{width:24px;height:24px;border:0;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;border-radius:13px;background:var(--fill)}
+.seg button{border:0;background:none;padding:7px 14px;border-radius:10px;font-weight:700;font-size:.9rem;cursor:pointer;color:var(--label)}
+.seg button[aria-pressed="true"]{background:var(--tile2);box-shadow:0 2px 8px rgba(0,0,0,.16)}
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.sw{width:30px;height:30px;border-radius:50%;border:0;cursor:pointer;background:var(--c);outline:2px solid transparent;outline-offset:2px;transition:transform .3s var(--bounce),outline-color .2s}
+.sw:hover{transform:scale(1.14)}.sw[aria-pressed="true"]{outline-color:var(--label);transform:scale(1.08)}
 
-        /* ===== 2. מסך כניסה בסגנון מסך נעילה של iOS ===== */
-        #secure-boot-wrapper {
-            position: fixed; inset: 0; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px;
-            background:
-                radial-gradient(70vmax 60vmax at 85% -5%, rgba(10,132,255,.55), transparent 60%),
-                radial-gradient(60vmax 50vmax at 0% 45%, rgba(191,90,242,.45), transparent 60%),
-                radial-gradient(60vmax 50vmax at 75% 105%, rgba(255,55,95,.42), transparent 60%),
-                radial-gradient(40vmax 30vmax at 20% 100%, rgba(255,159,10,.3), transparent 60%),
-                var(--bg);
-            transition: opacity 1s var(--spring), transform 1s var(--spring);
-        }
-        .identity-node { position: relative; margin-bottom: 26px; padding: 10px 20px; text-align: center; }
-        .identity-node::before {
-            content: "\f5b8"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 3.4rem; color: #fff;
-            display: grid; place-items: center; width: 116px; height: 116px; margin: 0 auto 28px; border-radius: 26%;
-            background: linear-gradient(160deg, #5ac8fa, #0a84ff 50%, #5e5ce6);
-            box-shadow: 0 22px 50px rgba(10,132,255,.45), inset 0 1.5px 0 rgba(255,255,255,.55);
-            animation: rise .9s var(--spring) both;
-        }
-        .mega-chroma-title {
-            font-size: clamp(3rem, 9vw, 6.5rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; text-align: center; white-space: nowrap;
-            background: linear-gradient(90deg, #0a84ff, #bf5af2, #ff375f, #ff9f0a, #0a84ff); background-size: 300% 100%;
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            animation: flow 8s linear infinite, rise .9s .08s var(--spring) both;
-        }
-        @keyframes flow { to { background-position: 300% 50%; } }
-        @keyframes rise { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
-        .welcome-subtitle { margin-top: 10px; text-align: center; color: var(--text-chroma-gray); font-size: clamp(1.05rem, 2.4vw, 1.4rem); animation: rise .9s .16s var(--spring) both; }
-        .laser-scanner { position: absolute; left: 10%; width: 80%; height: 2px; top: 0; opacity: .35; background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent); animation: scan 5s infinite ease-in-out; pointer-events: none; }
-        @keyframes scan { 50% { top: 100%; } }
+/* ================= תפריט הגדרות (iPadOS) ================= */
+.overlay{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:12px;background:rgba(0,0,0,.42);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity calc(.35s*var(--tm))}
+.overlay.open{opacity:1;pointer-events:auto}
+.sheet{width:min(940px,100%);height:min(660px,100%);display:grid;grid-template-columns:262px 1fr;overflow:hidden;transform:scale(.93) translateY(24px);transition:transform calc(.55s*var(--tm)) var(--bounce)}
+.overlay.open .sheet{transform:none}
+.cats{padding:20px 12px;overflow:auto;border-inline-end:1px solid var(--sep);display:flex;flex-direction:column;gap:3px;position:relative;z-index:2}
+.cats h2{font-size:1.5rem;font-weight:800;padding:0 10px 14px}
+.cat{display:flex;align-items:center;gap:12px;padding:9px 10px;border:0;background:none;border-radius:14px;cursor:pointer;text-align:start;font-size:1rem;font-weight:600;transition:background .2s}
+.cat:hover{background:var(--fill)} .cat[aria-selected="true"]{background:var(--fill)}
+.cat .tl{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;color:#fff;font-size:.9rem;background:var(--c)}
+.pane{overflow:auto;padding:26px 28px;position:relative;z-index:2}
+.pane h2{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin-bottom:18px}
+.pane-close{position:absolute;top:16px;left:16px;z-index:5}
+.group{background:var(--tile);border-radius:20px;overflow:hidden;margin-bottom:18px}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 16px;font-weight:600}
+.srow+.srow{border-top:1px solid var(--sep)}
+.srow.col{flex-direction:column;align-items:flex-start}
+.srow .l{display:flex;flex-direction:column}.srow .l small{font-weight:500;color:var(--label2);font-size:.8rem}
+.srow .v{min-width:46px;text-align:left;color:var(--label2);font-variant-numeric:tabular-nums;direction:ltr;font-weight:600}
+.srow .ctl{display:flex;align-items:center;gap:12px}
+.sbtn{border:0;border-radius:12px;padding:9px 16px;background:var(--fill);font-weight:700;cursor:pointer;transition:transform .2s}.sbtn:active{transform:scale(.96)}.sbtn.red{color:var(--red)}
+.srow .info{direction:ltr;color:var(--label2);font-size:.82rem;max-width:300px;text-align:left;font-weight:600}
 
-        .console-log-box {
-            width: 440px; max-width: min(440px, calc(100vw - 36px)); min-height: 76px; margin-bottom: 26px; padding: 14px 18px; border-radius: 22px;
-            direction: rtl; text-align: right; font-size: .95rem; line-height: 1.6; color: var(--label);
-            background: var(--glass); border: 1px solid var(--edge); box-shadow: var(--shadow);
-            -webkit-backdrop-filter: blur(28px) saturate(180%); backdrop-filter: blur(28px) saturate(180%);
-        }
-        .loading-bar-container { width: 300px; max-width: min(300px, calc(100vw - 36px)); height: 6px; border-radius: 99px; background: var(--fill); overflow: hidden; margin-bottom: 30px; }
-        .loading-bar-fill { height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, #0a84ff, #bf5af2, #ff375f); transition: width .1s linear; }
+/* חלון הצלחה */
+#success .sheet2{width:min(330px,100%);padding:32px 24px 24px;text-align:center;transform:scale(1.1);transition:transform .45s var(--bounce)}
+#success.open .sheet2{transform:none}
+.okc{width:76px;height:76px;margin:0 auto 14px}
+.okc circle{fill:var(--green)} .okc path{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:50;stroke-dashoffset:50}
+#success.open .okc path{animation:draw .6s .25s ease-out forwards}@keyframes draw{to{stroke-dashoffset:0}}
+#success h2{font-size:1.35rem;margin-bottom:18px}
 
-        .btn-hardware-access {
-            position: relative; overflow: hidden; z-index: 1; padding: 17px 48px; font-size: clamp(1.05rem, 2vw, 1.25rem); font-weight: 600; color: #fff;
-            background: var(--neon-cyan); border: 0; border-radius: 999px; cursor: pointer;
-            opacity: 0; transform: translateY(24px); transition: opacity .6s var(--spring), transform .6s var(--spring), box-shadow .3s;
-            box-shadow: 0 14px 34px rgba(10,132,255,.4);
-            animation: unlockFallback .6s 4s var(--spring) forwards;
-        }
-        .btn-hardware-access.unlocked { opacity: 1; transform: none; }
-        @keyframes unlockFallback { to { opacity: 1; transform: none; } }
-        .btn-hardware-access::before { content: ""; position: absolute; top: 50%; left: 50%; width: 260%; height: 600%; background: var(--ai-glow); transform: translate(-50%, -50%); z-index: -2; opacity: 0; transition: opacity .3s; }
-        .btn-hardware-access::after { content: ""; position: absolute; inset: 2px; border-radius: 999px; background: var(--neon-cyan); z-index: -1; }
-        .btn-hardware-access:hover::before { opacity: 1; animation: spin 2.2s linear infinite; }
-        .btn-hardware-access:active { transform: scale(.97); }
-        @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
-
-        #interstitial-hacker-screen {
-            position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: var(--bg);
-            opacity: 0; pointer-events: none; transition: opacity .6s ease;
-        }
-        #interstitial-hacker-screen.active { opacity: 1; pointer-events: auto; }
-        #interstitial-hacker-screen h2 {
-            font-size: clamp(1.8rem, 6vw, 4rem); font-weight: 800; letter-spacing: -.01em; text-align: center; padding: 20px;
-            background: linear-gradient(90deg, #ff9f0a, #ff375f, #bf5af2, #0a84ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            transform: scale(.9); transition: transform .6s var(--spring);
-        }
-        #interstitial-hacker-screen.active h2 { transform: scale(1); }
-
-        /* ===== 3. כרטיסיות: זכוכית + זוהר Apple Intelligence בריחוף ===== */
-        .chroma-rotating-card {
-            position: relative; z-index: 1; overflow: hidden; display: flex; flex-direction: column; padding: 28px;
-            background: var(--card); border-radius: 26px; box-shadow: 0 1px 0 var(--sep);
-            transition: transform .4s var(--spring), box-shadow .4s; transform-style: preserve-3d;
-        }
-        .chroma-rotating-card::before { content: ""; position: absolute; top: 50%; left: 50%; width: 200%; height: 200%; background: var(--ai-glow); transform: translate(-50%, -50%); z-index: -2; opacity: 0; transition: opacity .4s; }
-        .chroma-rotating-card::after { content: ""; position: absolute; inset: 2px; background: var(--card); border-radius: 24px; z-index: -1; }
-        .chroma-rotating-card:hover::before { opacity: .9; animation: spin 3s linear infinite; }
-        .chroma-rotating-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-
-        /* ===== 4. מסגרת ראשית ותפריט צד ===== */
-        #quantum-mainframe {
-            display: flex; height: 100vh; height: 100dvh; width: 100vw; padding: 20px; gap: 20px; pointer-events: none;
-            opacity: 0; transform: scale(.98); transition: opacity .9s var(--spring), transform .9s var(--spring);
-        }
-        #quantum-mainframe.online { opacity: 1; transform: none; pointer-events: auto; }
-
-        .hud-navigation-bar, .quantum-viewport {
-            background: var(--glass); border: 1px solid var(--edge); border-radius: 30px; box-shadow: var(--shadow);
-            -webkit-backdrop-filter: blur(34px) saturate(180%); backdrop-filter: blur(34px) saturate(180%);
-        }
-        .hud-navigation-bar { width: 320px; padding: 30px 16px 18px; display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto; }
-        .hud-brand-header { padding: 0 12px 24px; }
-        .hud-brand-header h2 {
-            font-size: clamp(1.9rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.2;
-            background: linear-gradient(135deg, #0a84ff, #bf5af2 60%, #ff375f); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .brand-caption { color: var(--text-chroma-gray); margin-top: 4px; font-size: .95rem; }
-
-        .hud-links-stack { display: flex; flex-direction: column; gap: 4px; }
-        .hud-tab-trigger {
-            display: flex; align-items: center; padding: 10px 12px; font-size: 1.03rem; font-weight: 500; color: var(--label);
-            border-radius: 16px; cursor: pointer; transition: background .2s;
-        }
-        .hud-tab-trigger i {
-            display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 32px; margin-left: 14px; border-radius: 9px;
-            font-size: .95rem; color: #fff; background: var(--neon-cyan); transition: transform .3s var(--spring);
-        }
-        .hud-tab-trigger:nth-child(2) i { background: var(--neon-purple); }
-        .hud-tab-trigger:nth-child(3) i { background: var(--neon-orange); }
-        .hud-tab-trigger:nth-child(4) i { background: var(--neon-green); }
-        .hud-tab-trigger:nth-child(5) i { background: var(--neon-magenta); }
-        .hud-tab-trigger:nth-child(6) i { background: #5865f2; }
-        .hud-tab-trigger:hover { background: var(--fill); }
-        .hud-tab-trigger:hover i { transform: scale(1.08); }
-        .hud-tab-trigger.selected { background: var(--fill); font-weight: 600; }
-        .hud-trigger-danger { color: var(--neon-magenta); }
-
-        /* מתגי iOS */
-        .hud-settings { margin-top: auto; padding-top: 18px; }
-        .hud-settings-group { background: var(--card); border-radius: 18px; overflow: hidden; }
-        .ios-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 14px; font-size: .98rem; cursor: pointer; }
-        .ios-row + .ios-row { border-top: 1px solid var(--sep); }
-        .ios-row span i { width: 22px; margin-left: 10px; text-align: center; color: var(--neon-cyan); }
-        .ios-switch {
-            -webkit-appearance: none; appearance: none; position: relative; flex-shrink: 0; width: 51px; height: 31px; border-radius: 99px; cursor: pointer;
-            background: light-dark(rgba(120,120,128,.2), rgba(120,120,128,.4)); transition: background .3s;
-        }
-        .ios-switch::after {
-            content: ""; position: absolute; top: 2px; inset-inline-start: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff;
-            box-shadow: 0 3px 8px rgba(0,0,0,.25), 0 1px 1px rgba(0,0,0,.16); transition: inset-inline-start .35s var(--spring), width .2s;
-        }
-        .ios-switch:checked { background: var(--neon-green); }
-        .ios-switch:checked::after { inset-inline-start: 22px; }
-        .ios-switch:active::after { width: 34px; }
-        .ios-switch:checked:active::after { inset-inline-start: 15px; }
-
-        .quantum-viewport { flex: 1; position: relative; overflow: hidden; }
-        .quantum-panel-layer { display: none; position: absolute; inset: 0; padding: 56px; overflow-y: auto; }
-        .quantum-panel-layer::-webkit-scrollbar { width: 8px; }
-        .quantum-panel-layer::-webkit-scrollbar-thumb { background: var(--sep); border-radius: 10px; }
-        .quantum-panel-layer.active { display: block; animation: reveal .5s var(--spring) both; }
-        @keyframes reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-
-        .quantum-panel-title { font-size: clamp(1.8rem, 3.4vw, 2.8rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 28px; color: var(--label); }
-        .card-inner-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; color: var(--label); }
-        .card-inner-text { font-size: 1rem; color: var(--text-chroma-gray); line-height: 1.65; }
-        .cyber-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; }
-
-        .home-eyebrow { display: inline-flex; gap: 8px; align-items: center; padding: 7px 14px; margin-bottom: 16px; border-radius: 99px; background: var(--fill); color: var(--neon-cyan); font-size: .85rem; font-weight: 600; }
-        .welcome-columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
-        .welcome-columns .chroma-rotating-card { min-width: 0; }
-        .welcome-columns ol { padding-right: 22px; color: var(--text-chroma-gray); line-height: 1.8; font-size: 1rem; }
-        .welcome-columns li { padding-right: 4px; margin-bottom: 8px; }
-        .welcome-columns li::marker { color: var(--neon-cyan); font-weight: 700; }
-        .management-person { padding: 12px 0; border-bottom: 1px solid var(--sep); }
-        .management-person:last-child { border-bottom: 0; }
-        .management-person strong { display: block; color: var(--label); margin-bottom: 4px; font-size: 1.02rem; font-weight: 600; }
-        .discord-inline-link { display: inline-flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; padding: 13px 20px; border-radius: 999px; color: #fff; background: #5865f2; text-decoration: none; font-weight: 600; transition: transform .2s, filter .2s; }
-        .discord-inline-link:hover { filter: brightness(1.1); } .discord-inline-link:active { transform: scale(.97); }
-
-        /* ===== 5. צוות ===== */
-        .avatar-holo-ring { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 20px; font-size: 2.3rem; color: var(--neon-cyan); background: var(--fill); transition: transform .5s var(--spring); }
-        .chroma-rotating-card:hover .avatar-holo-ring { transform: scale(1.06); }
-        .rank-chroma-badge { align-self: flex-start; padding: 7px 16px; margin-top: 18px; border-radius: 99px; font-size: .88rem; font-weight: 600; }
-        .badge-owner-neon { background: linear-gradient(135deg, #ff375f, #bf5af2); color: #fff; }
-        .badge-admin-neon { background: var(--fill); color: var(--label); }
-
-        /* ===== 6. טפסים ===== */
-        .chroma-form-shell { max-width: 820px; margin: 0 auto; padding: 8px 0; }
-        .chroma-input-row { display: flex; gap: 20px; margin-bottom: 22px; }
-        .chroma-group { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-        .chroma-group label { font-size: .92rem; font-weight: 600; color: var(--text-chroma-gray); padding-inline: 4px; }
-        .input-chroma-field, .select-chroma-field {
-            background: var(--field); border: 1px solid var(--sep); border-radius: 16px; padding: 15px 18px; color: var(--label); font-size: 1.05rem; outline: none; transition: border-color .2s, box-shadow .2s;
-        }
-        .input-chroma-field:focus, .select-chroma-field:focus { border-color: var(--neon-cyan); box-shadow: 0 0 0 4px color-mix(in srgb, var(--neon-cyan) 22%, transparent); }
-        .select-chroma-field option { background: var(--card); color: var(--label); }
-        .textarea-chroma-field { min-height: 130px; resize: vertical; }
-        .btn-chroma-submit-node {
-            width: 100%; padding: 17px; color: #fff; font-size: 1.1rem; font-weight: 600; border: 0; border-radius: 16px; cursor: pointer;
-            background: var(--neon-cyan); transition: transform .2s var(--spring), filter .2s, box-shadow .3s; box-shadow: 0 10px 26px rgba(10,132,255,.3);
-        }
-        .btn-chroma-submit-node:hover { filter: brightness(1.08); } .btn-chroma-submit-node:active { transform: scale(.98); }
-        #report-cyber-form .btn-chroma-submit-node { background: var(--neon-magenta); }
-
-        /* ===== 7. חלון הצלחה (התראת iOS) ===== */
-        .chroma-success-modal {
-            position: fixed; inset: 0; z-index: 100000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.38);
-            -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity .35s var(--spring);
-        }
-        .chroma-success-modal.active { opacity: 1; pointer-events: auto; }
-        .chroma-success-content {
-            width: min(330px, 90%); padding: 32px 24px 24px; text-align: center; border-radius: 28px; background: var(--glass); border: 1px solid var(--edge); box-shadow: var(--shadow);
-            -webkit-backdrop-filter: blur(34px) saturate(180%); backdrop-filter: blur(34px) saturate(180%); transform: scale(1.1); transition: transform .4s var(--spring);
-        }
-        .chroma-success-modal.active .chroma-success-content { transform: scale(1); }
-        .chroma-success-content h2 { font-size: 1.3rem !important; font-weight: 700 !important; color: var(--label) !important; margin-bottom: 4px !important; }
-        .neon-checkmark-wrapper { width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 16px; display: grid; place-items: center; background: var(--neon-green); animation: pop .6s var(--spring) both; }
-        .neon-checkmark-wrapper i { font-size: 2rem; color: #fff; }
-        @keyframes pop { from { transform: scale(.5); opacity: 0; } to { transform: none; opacity: 1; } }
-        .btn-close-modal { margin-top: 22px; width: 100%; padding: 13px; border: 0; border-radius: 14px; background: var(--fill); color: var(--neon-cyan); font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: transform .2s; }
-        .btn-close-modal:active { transform: scale(.97); }
-
-        
-
-        /* ===== 9. דיסקורד ===== */
-        .discord-ultra-panel { text-align: center; padding: 56px 28px; background: var(--card); border-radius: 26px; }
-        .discord-ultra-panel i.giant-discord-icon { display: grid; place-items: center; width: 112px; height: 112px; margin: 0 auto 26px; border-radius: 26%; font-size: 3.4rem; color: #fff; background: #5865f2; box-shadow: 0 18px 40px rgba(88,101,242,.4); }
-        .discord-ultra-panel p { max-width: 46ch; margin-inline: auto; }
-        .btn-discord-massive-chroma { display: inline-block; padding: 18px 54px; font-size: 1.25rem; font-weight: 600; border-radius: 999px; text-decoration: none; color: #fff; background: #5865f2; box-shadow: 0 14px 34px rgba(88,101,242,.4); transition: transform .3s var(--spring), filter .2s; }
-        .btn-discord-massive-chroma:hover { filter: brightness(1.1); transform: translateY(-3px); }
-
-
-        /* ===== 10א. הגדרות מורחבות, טפטים וצבעי הדגשה ===== */
-        html[data-wallpaper="ocean"] { --orb1:#0a84ff; --orb2:#5ac8fa; --orb3:#30d0c6; }
-        html[data-wallpaper="sunset"] { --orb1:#ff9f0a; --orb2:#ff375f; --orb3:#bf5af2; }
-        html[data-wallpaper="forest"] { --orb1:#30d158; --orb2:#00c7be; --orb3:#64d2ff; }
-        html[data-wallpaper="graphite"] { --orb1:#8e8e93; --orb2:#636366; --orb3:#aeaeb2; }
-        html[data-accent="purple"] { --neon-cyan: light-dark(#af52de, #bf5af2); }
-        html[data-accent="pink"] { --neon-cyan: light-dark(#ff2d55, #ff375f); }
-        html[data-accent="green"] { --neon-cyan: light-dark(#34c759, #30d158); }
-        html[data-accent="orange"] { --neon-cyan: light-dark(#ff9500, #ff9f0a); }
-        html.big-text { font-size: 118%; }
-        html.hi-contrast { --text-chroma-gray: light-dark(#3c3c43, #ebebf5); --sep: light-dark(rgba(60,60,67,.5), rgba(235,235,245,.42)); --edge: light-dark(rgba(60,60,67,.35), rgba(255,255,255,.4)); }
-
-        .hud-settings summary { list-style: none; display: flex; align-items: center; padding: 10px 12px; border-radius: 16px; cursor: pointer; font-weight: 500; transition: background .2s; }
-        .hud-settings summary::-webkit-details-marker { display: none; }
-        .hud-settings summary:hover { background: var(--fill); }
-        .hud-settings summary .tile { display: grid; place-items: center; width: 32px; height: 32px; margin-left: 14px; border-radius: 9px; background: #8e8e93; color: #fff; font-size: .95rem; }
-        .hud-settings summary .chev { margin-right: auto; color: var(--text-chroma-gray); font-size: .8rem; transition: transform .35s var(--spring); }
-        .hud-settings[open] summary .chev { transform: rotate(180deg); }
-        .hud-settings[open] .set-body { animation: reveal .45s var(--spring); }
-        .set-title { font-size: .8rem; font-weight: 600; color: var(--text-chroma-gray); padding: 16px 12px 6px; }
-        .hud-settings-group + .set-title { padding-top: 18px; }
-        .ios-row.col { flex-direction: column; align-items: flex-start; cursor: default; }
-        .swatches { display: flex; flex-wrap: wrap; gap: 10px; }
-        .sw { width: 28px; height: 28px; border-radius: 50%; border: 0; cursor: pointer; background: var(--c); outline: 2px solid transparent; outline-offset: 2px; transition: transform .25s var(--spring), outline-color .2s; }
-        .sw:hover { transform: scale(1.12); }
-        .sw[aria-pressed="true"] { outline-color: var(--label); transform: scale(1.08); }
-        .reset-btn { width: 100%; margin-top: 14px; padding: 11px; border: 0; border-radius: 14px; background: var(--fill); color: var(--neon-magenta); font-weight: 600; font-size: .95rem; cursor: pointer; transition: transform .2s; }
-        .reset-btn:active { transform: scale(.97); }
-
-        /* ===== 10ב. אנימציות סרגל צד ===== */
-        .hud-tab-trigger { position: relative; transition: background .2s, transform .35s var(--spring); }
-        .hud-tab-trigger:nth-child(1){--i:0} .hud-tab-trigger:nth-child(2){--i:1} .hud-tab-trigger:nth-child(3){--i:2}
-        .hud-tab-trigger:nth-child(4){--i:3} .hud-tab-trigger:nth-child(5){--i:4} .hud-tab-trigger:nth-child(6){--i:5}
-        #quantum-mainframe.online .hud-tab-trigger { animation: sideIn .7s var(--spring) backwards; animation-delay: calc(.25s + var(--i, 0) * .07s); }
-        #quantum-mainframe.online .hud-brand-header { animation: sideIn .7s var(--spring) backwards; }
-        @keyframes sideIn { from { opacity: 0; transform: translateX(34px); } }
-        .hud-tab-trigger:hover { transform: translateX(-4px); }
-        .hud-tab-trigger.selected i { animation: bounceIcon .6s var(--spring); }
-        @keyframes bounceIcon { 40% { transform: scale(1.28) rotate(-8deg); } }
-        .hud-tab-trigger.selected::before { content: ""; position: absolute; inset-inline-start: -10px; top: 24%; bottom: 24%; width: 4px; border-radius: 4px; background: var(--neon-cyan); animation: barIn .5s var(--spring); }
-        @keyframes barIn { from { transform: scaleY(0); } }
-        .hud-tab-trigger:nth-child(5) i { animation: iconPulse 2.6s ease-in-out infinite; }
-        @keyframes iconPulse { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--neon-magenta) 24%, transparent); } }
-        .hud-brand-header h2 { background: linear-gradient(90deg, #0a84ff, #bf5af2, #ff375f, #0a84ff); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; animation: shimmer 7s linear infinite; }
-        @keyframes shimmer { to { background-position: -200% 50%; } }
-        @property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
-        .quantum-viewport::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; pointer-events: none; z-index: 5; opacity: .6;
-            background: conic-gradient(from var(--ang), transparent 0 55%, #ff9f0a, #ff375f, #bf5af2, #0a84ff, transparent);
-            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: ringSpin 9s linear infinite; }
-        @keyframes ringSpin { to { --ang: 360deg; } }
-
-        /* ===== 10ג. מתגי כיבוי ===== */
-        body.no-particles #chroma-canvas, body.no-orbs .plasma-orb { display: none; }
-        body.no-glass .hud-navigation-bar, body.no-glass .quantum-viewport, body.no-glass .console-log-box, body.no-glass .chroma-success-content { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--card); }
-        body.no-glow .chroma-rotating-card:hover::before { opacity: 0; animation: none; }
-        body.no-ring .quantum-viewport::after { display: none; }
-        body.no-sidefx .hud-tab-trigger, body.no-sidefx .hud-brand-header, body.no-sidefx .hud-brand-header h2, body.no-sidefx .hud-tab-trigger i, body.no-sidefx .hud-tab-trigger::before { animation: none !important; }
-        body.no-sidefx .hud-tab-trigger:hover { transform: none; }
-
-        /* ===== 10. מתגים: כיבוי אפקטים ותנועה ===== */
-        body.no-fx #chroma-canvas, body.no-fx .plasma-orb { display: none; }
-        body.calm *, body.calm *::before, body.calm *::after { animation: none !important; transition: none !important; }
-
-
-        /* ===== 10ד. פיצוץ גרפיקה ===== */
-        .aurora { position: fixed; left: -25%; top: -25%; width: 150%; height: 150%; z-index: -11; pointer-events: none; opacity: .32; filter: blur(90px); will-change: transform;
-            background: conic-gradient(from 0deg, var(--orb1, var(--neon-cyan)), var(--orb3, var(--neon-purple)), var(--orb2, var(--neon-magenta)), #ff9f0a, var(--orb1, var(--neon-cyan))); animation: spin2 45s linear infinite; }
-        @keyframes spin2 { to { transform: rotate(360deg); } }
-        #confetti-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 100001; pointer-events: none; }
-
-        .shapes { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: -8; }
-        #secure-boot-wrapper { overflow: hidden; }
-        #secure-boot-wrapper .shapes { position: absolute; z-index: 0; }
-        #secure-boot-wrapper > *:not(.shapes) { position: relative; z-index: 2; }
-        .shape {
-            position: absolute; left: var(--x); top: var(--y); width: var(--s); height: var(--s); border-radius: var(--r);
-            background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--c) 42%, transparent), transparent 70%),
-                        linear-gradient(135deg, light-dark(rgba(255,255,255,.6), rgba(255,255,255,.16)), light-dark(rgba(255,255,255,.08), rgba(255,255,255,.02)));
-            border: 1px solid light-dark(rgba(255,255,255,.85), rgba(255,255,255,.24));
-            box-shadow: 0 22px 44px color-mix(in srgb, var(--c) 32%, transparent), inset 0 1.5px 0 rgba(255,255,255,.45);
-            -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
-            translate: calc(var(--px, 0) * var(--k, 1) * 1px) calc(var(--py, 0) * var(--k, 1) * 1px);
-            animation: floaty var(--d) ease-in-out var(--dl) infinite alternate;
-        }
-        .shape.ring { background: none; border: 7px solid color-mix(in srgb, var(--c) 55%, transparent); box-shadow: 0 0 30px color-mix(in srgb, var(--c) 35%, transparent); -webkit-backdrop-filter: none; backdrop-filter: none; }
-        @keyframes floaty { from { transform: translateY(0) rotate(var(--r0)); } to { transform: translateY(-46px) rotate(var(--r1)); } }
-        .spark { position: absolute; left: var(--x); top: var(--y); width: var(--s); height: var(--s); border-radius: 50%; opacity: 0; background: light-dark(#0a84ff, #fff); box-shadow: 0 0 10px light-dark(#0a84ff, #fff); animation: twinkle var(--d) ease-in-out var(--dl) infinite; }
-        @keyframes twinkle { 50% { opacity: .95; transform: scale(1.7); } }
-
-        /* כניסה: הילות פועמות סביב האייקון */
-        .identity-node::before { animation: rise .9s var(--spring) both, ringPulse 2.8s 1s ease-out infinite; }
-        @keyframes ringPulse {
-            0% { box-shadow: 0 22px 50px rgba(10,132,255,.45), inset 0 1.5px 0 rgba(255,255,255,.55), 0 0 0 0 rgba(10,132,255,.5); }
-            100% { box-shadow: 0 22px 50px rgba(10,132,255,.45), inset 0 1.5px 0 rgba(255,255,255,.55), 0 0 0 52px rgba(10,132,255,0); }
-        }
-
-        /* זרקור שעוקב אחרי העכבר */
-        .chroma-rotating-card::after { background: radial-gradient(320px circle at var(--mx, -500px) var(--my, -500px), color-mix(in srgb, var(--neon-cyan) 22%, transparent), transparent 70%), var(--card); }
-        .chroma-rotating-card { background-image: none; }
-
-        /* כותרות עם קו צבעוני */
-        .quantum-panel-title::after { content: ""; display: block; width: 72px; height: 5px; margin-top: 14px; border-radius: 5px; background: linear-gradient(90deg, #0a84ff, #bf5af2, #ff375f); animation: barGrow .9s var(--spring) both; }
-        @keyframes barGrow { from { width: 0; } }
-
-        /* טבעת מסתובבת סביב אווטארים */
-        .avatar-holo-ring::before { content: ""; position: absolute; inset: -9px; border-radius: 50%; padding: 3px; background: var(--ai-glow); animation: spin2 5s linear infinite;
-            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-        .avatar-holo-ring { position: relative; }
-
-        /* ברק על כפתורים */
-        .btn-chroma-submit-node, #report-cyber-form .btn-chroma-submit-node, #feedback-cyber-form .btn-chroma-submit-node {
-            background-image: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.4) 50%, transparent 65%); background-size: 260% 100%; background-repeat: no-repeat; animation: shine 3.6s ease-in-out infinite; }
-        .btn-discord-massive-chroma, .discord-inline-link { background-image: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.35) 50%, transparent 65%); background-size: 260% 100%; background-repeat: no-repeat; animation: shine 4s ease-in-out infinite; }
-        @keyframes shine { 0% { background-position: 130% 0; } 60%, 100% { background-position: -130% 0; } }
-
-        /* פידבק */
-        .fb-hero { position: relative; display: flex; align-items: center; gap: 20px; margin-bottom: 30px; padding: 28px; border-radius: 28px; background: var(--card); overflow: hidden; }
-        .fb-hero::before { content: ""; position: absolute; inset: -60%; background: conic-gradient(from 0deg, rgba(255,159,10,.28), rgba(255,55,95,.28), rgba(191,90,242,.28), rgba(10,132,255,.28), rgba(255,159,10,.28)); filter: blur(34px); animation: spin2 16s linear infinite; }
-        .fb-badge { position: relative; z-index: 1; flex-shrink: 0; width: 88px; height: 88px; border-radius: 26%; display: grid; place-items: center; font-size: 2.3rem; color: #fff;
-            background: linear-gradient(160deg, #ff9f0a, #ff375f 55%, #bf5af2); box-shadow: 0 18px 38px rgba(255,55,95,.42), inset 0 1.5px 0 rgba(255,255,255,.5); animation: heartbeat 2.2s ease-in-out infinite; }
-        @keyframes heartbeat { 0%, 45%, 100% { transform: scale(1); } 12% { transform: scale(1.12); } 28% { transform: scale(1.04); } }
-        .fb-text { position: relative; z-index: 1; }
-        .fb-text h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
-        .fb-text p { color: var(--text-chroma-gray); }
-        .heart { position: absolute; bottom: -24px; left: var(--x); font-size: var(--s); color: var(--c); opacity: 0; z-index: 1; animation: riseUp 4.4s ease-in var(--dl) infinite; }
-        @keyframes riseUp { 0% { transform: translateY(0) scale(.6); opacity: 0; } 20% { opacity: .9; } 100% { transform: translateY(-150px) scale(1.25) rotate(24deg); opacity: 0; } }
-        .stars { display: flex; gap: 8px; }
-        .star { display: grid; place-items: center; width: 48px; height: 48px; background: none; border: 0; cursor: pointer; font-size: 2.7rem; line-height: 1; color: light-dark(rgba(120,120,128,.35), rgba(120,120,128,.55)); transition: transform .3s var(--spring), color .2s, filter .2s; }
-        .star:hover { transform: scale(1.2) rotate(-6deg); }
-        .star.on { color: #ffcc00; filter: drop-shadow(0 0 12px rgba(255,204,0,.75)); }
-        .star.on i { animation: starPop .5s var(--spring); }
-        @keyframes starPop { 40% { transform: scale(1.4) rotate(14deg); } }
-        .mood { min-height: 1.6em; padding-inline: 4px; color: var(--text-chroma-gray); font-weight: 600; transition: color .2s; }
-        .fb-switch { background: var(--field); border: 1px solid var(--sep); border-radius: 16px; margin-bottom: 24px; }
-
-        /* כיבוי */
-        body.no-fx .aurora, body.no-fx .shapes, body.no-aurora .aurora, body.no-shapes .shape, body.no-sparks .spark { display: none; }
-        body.no-spotlight .chroma-rotating-card::after { background: var(--card); }
-        body.no-sidefx .hud-tab-trigger:nth-child(5) i { animation: none !important; }
-
-        /* ===== 11. רספונסיבי ===== */
-        @media (max-width: 1100px) {
-            .welcome-columns { grid-template-columns: 1fr; }
-            body { overflow: auto; height: auto; min-height: 100dvh; }
-            #quantum-mainframe { flex-direction: column; height: auto; min-height: 100dvh; padding: 12px; gap: 14px; padding-top: calc(12px + env(safe-area-inset-top, 0px)); padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
-            .hud-navigation-bar { width: 100%; padding: 22px 14px; overflow: visible; }
-            .hud-links-stack { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .hud-tab-trigger { padding: 9px 10px; font-size: .98rem; }
-            .hud-settings { margin-top: 16px; }
-            .quantum-viewport { min-height: 70vh; overflow: visible; }
-            .quantum-panel-layer { position: relative; padding: 28px 20px; min-height: 70vh; }
-            .quantum-panel-layer.active { display: block; }
-        }
-        @media (max-width: 560px) {
-            .hud-links-stack { grid-template-columns: 1fr; }
-            .chroma-input-row { flex-direction: column; gap: 18px; }
-            .quantum-panel-layer { padding: 22px 16px; }
-            .btn-discord-massive-chroma { padding: 16px 28px; font-size: 1.1rem; }
-        }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
-    </style>
+/* ================= רספונסיבי ================= */
+@media (max-width:980px){
+  .bento{grid-template-columns:1fr}.hero,.t-rules,.t-team,.t-join{grid-column:auto;grid-row:auto}
+  .phone{display:none}
+}
+@media (max-width:760px){
+  .row2{flex-direction:column;gap:22px}
+  .brand p{display:none}
+  .stage{inset:calc(84px + env(safe-area-inset-top,0px)) 10px calc(92px + env(safe-area-inset-bottom,0px))}
+  .tab{min-width:0;padding:10px 12px}.tab span{display:none}.tab[aria-selected="true"]{padding-inline:18px}
+  .panel{padding:30px 18px 28px}
+  .sheet{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .cats{flex-direction:row;overflow-x:auto;border-inline-end:0;border-bottom:1px solid var(--sep);padding:12px}.cats h2{display:none}.cat span{white-space:nowrap}
+  .pane{padding:20px 16px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
 
-    <div class="aurora"></div>
-    <canvas id="chroma-canvas"></canvas>
-    <canvas id="confetti-canvas"></canvas>
-    <div class="shapes" id="shapes-global"></div>
-    <div class="plasma-orb orb-cyan"></div>
-    <div class="plasma-orb orb-magenta"></div>
-    <div class="plasma-orb orb-purple"></div>
+<canvas id="gl"></canvas>
+<canvas id="fx"></canvas>
+<div id="hud"></div>
 
-    <!-- חלונית ההצלחה -->
-    <div class="chroma-success-modal" id="global-success-modal">
-        <div class="chroma-success-content">
-            <div class="neon-checkmark-wrapper">
-                <i class="fas fa-check"></i>
+<!-- ================= מסך נעילה ================= -->
+<div id="lock" role="dialog" aria-label="מסך נעילה">
+  <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ac8fa"/><stop offset="1" stop-color="#bf5af2"/></linearGradient></defs></svg>
+  <div class="lk-top">
+    <i class="fas fa-lock" id="lk-ico"></i>
+    <div id="lk-date"></div>
+    <div id="lk-time">00:00</div>
+  </div>
+  <div class="lk-widgets">
+    <div class="widget glass" style="animation-delay:.2s"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div><b>בואו להנות</b><small>ברוכים הבאים לאתר הקהילה שלנו</small></div></div>
+    <div class="widget glass" style="animation-delay:.35s"><svg class="ring" viewBox="0 0 56 56"><circle class="bg" cx="28" cy="28" r="24"/><circle class="fg" cx="28" cy="28" r="24"/></svg><div><b id="rg-t">טוען…</b><small>הקהילה מתחילה כאן</small></div></div>
+  </div>
+  <div id="notifs"></div>
+  <div class="lk-bottom">
+    <button class="lk-round glass" id="lk-torch" aria-label="פנס"><i class="fas fa-bolt"></i></button>
+    <button id="lk-go" aria-label="כניסה לאתר"><i class="fas fa-chevron-up"></i><span>החליקו למעלה או לחצו לכניסה</span></button>
+    <button class="lk-round glass" id="lk-cam" aria-label="גלי הלם"><i class="fas fa-camera"></i></button>
+  </div>
+  <div class="homebar"></div>
+</div>
+
+<!-- ================= האתר ================= -->
+<div id="app">
+  <header class="topbar glass">
+    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div><h1>בואו להנות</h1><p>הקהילה מתחילה כאן</p></div></div>
+    <button class="ibtn" id="btn-relock" aria-label="נעילת מסך"><i class="fas fa-lock"></i></button>
+    <button class="ibtn" id="btn-settings" aria-label="הגדרות"><i class="fas fa-gear"></i></button>
+  </header>
+
+  <main class="stage"><div class="window glass" id="win">
+
+    <!-- בית: חוקים וצוות -->
+    <section id="p-home" class="panel active">
+      <h2 class="title">ברוכים הבאים לבואו להנות</h2>
+      <div class="bento">
+        <article class="tile hero">
+          <div>
+            <h3>הקהילה שלנו,<br>במקום אחד.</h3>
+            <p>מחפשים מקום לכיף, להנאה, להכיר אנשים ולהשתתף באירועים? הצטרפו לקהילה שלנו בדיסקורד.</p>
+            <div class="cta"><a class="btn discord" href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i>הצטרפות לשרת</a></div>
+          </div>
+          <div class="phone"><div class="isl"></div><div class="scr"><div class="pt"><b id="ph-time">00:00</b><span>בואו להנות</span></div></div></div>
+        </article>
+        <article class="tile t-rules">
+          <h3><i class="fas fa-scroll"></i>חוקי האתר</h3>
+          <ol class="rules">
+            <li>לנהוג בכבוד.</li>
+            <li>לכבד את כלל חברי האתר, ללא הבדל דת, גזע או מין.</li>
+            <li>אין לפרסם אתרים ללא אישור מהנהלת שרת הדיסקורד.</li>
+            <li>תהנו ואל תשכחו לשתף את השרת עם אנשים נוספים!</li>
+          </ol>
+        </article>
+        <article class="tile t-team">
+          <h3><i class="fas fa-users-cog"></i>בעלי האתר והצוות</h3>
+          <div class="person"><strong>אדיר — מפתח האתר ובעל השרת</strong><p>אחראי על פיתוח האתר ועל נושאים הקשורים לניהולו. אפשר לפנות אליו בשאלות ובנושאים שקשורים לשרת.</p></div>
+          <div class="person"><strong>תמיר — עדכונים ואירועים</strong><p>אחראי למסירת מידע על עדכונים, הכרזות ואיוונטים. אפשר להגיע אליו דרך אדיר.</p></div>
+          <div class="person"><strong>ים — ראש צוות וגיוס</strong><p>אחראי על גיוס אדמינים ועוזרי שרת. ניתן לפנות אליו בפרטי בדיסקורד בנוגע לגיוס, תקלות באתר או דיווח על שחקן.</p></div>
+        </article>
+        <article class="tile t-join">
+          <div class="txt"><h3><i class="fab fa-discord"></i>הצטרפות לשרת הדיסקורד</h3><p>מחפשים מקום לכיף, להנאה, להכיר אנשים ולהשתתף באירועים? הצטרפו לקהילה שלנו בדיסקורד.</p><p style="font-size:.88rem;margin-top:8px;overflow-wrap:anywhere">קישור לשרת: discord.gg/bbfYMNXkD</p></div>
+          <a class="btn discord" href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i>הצטרפות לשרת</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- צוות -->
+    <section id="p-team" class="panel">
+      <h2 class="title">בעלי האתר והצוות</h2>
+      <div class="team-grid">
+        <article class="tile member"><div class="avatar" style="background:linear-gradient(145deg,#ff375f,#bf5af2)"><i class="fas fa-crown"></i></div><h3>אדיר</h3><p>מפתח האתר ובעל השרת. אחראי על פיתוח האתר ועל שאלות הקשורות לניהולו.</p><span class="badge owner">בעל האתר</span></article>
+        <article class="tile member"><div class="avatar" style="background:linear-gradient(145deg,#ff9f0a,#ff375f)"><i class="fas fa-bullhorn"></i></div><h3>תמיר</h3><p>אחראי על עדכונים, הכרזות ואירועים. אפשר לפנות אליו דרך אדיר.</p><span class="badge">עדכונים ואירועים</span></article>
+        <article class="tile member"><div class="avatar" style="background:linear-gradient(145deg,#0a84ff,#5e5ce6)"><i class="fas fa-user-shield"></i></div><h3>ים</h3><p>ראש צוות ואחראי לגיוס אדמינים ועוזרי שרת. מטפל בפניות בנושא גיוס, תקלות ודיווחים.</p><span class="badge">ראש צוות וגיוס</span></article>
+      </div>
+    </section>
+
+    <!-- מיונים -->
+    <section id="p-apply" class="panel">
+      <h2 class="title">הגשת מועמדות לצוות</h2>
+      <form id="f-apply" class="form">
+        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
+        <input type="hidden" name="subject" value="מועמדות חדשה לצוות השרת!">
+        <div class="row2" style="margin-bottom:22px">
+          <div class="field"><label>שם משתמש בדיסקורד</label><input type="text" name="Discord_Username" class="input" placeholder="Adir#1234" required></div>
+          <div class="field"><label>גיל מועמד</label><input type="number" name="Age" class="input" placeholder="הכנס גיל..." required></div>
+        </div>
+        <div class="field"><label>תפקיד מבוקש</label>
+          <select name="Requested_Role" class="input" required>
+            <option value="" disabled selected>בחר תפקיד במערכת הניהול...</option>
+            <option value="מודרטור">מודרטור</option><option value="הלפר">הלפר</option><option value="צוות אירועים">צוות אירועים</option>
+          </select>
+        </div>
+        <div class="field"><label>כמה שעות פעילות שבועיות תוכל לתת לנו?</label><input type="text" name="Weekly_Hours" class="input" placeholder="לדוגמה: 20 שעות בשבוע" required></div>
+        <div class="field"><label>למה כדאי לנו לבחור דווקא בך?</label><textarea name="Why_Choose_You" class="input" placeholder="מה מייחד אותך ממועמדים אחרים?" required></textarea></div>
+        <div class="field"><label>מה התחביבים שלך? (קצת על עצמך)</label><textarea name="Hobbies" class="input" placeholder="ספר לנו על התחביבים שלך, משחקים אהובים..." required></textarea></div>
+        <div class="field"><label>האם יש לך ניסיון קודם בצוותים?</label><textarea name="Previous_Experience" class="input" placeholder="ספר לנו אם היית בצוותים בעבר..." required></textarea></div>
+        <button type="submit" class="btn block" data-idle="שלח טופס מאובטח להנהלה" data-busy="משגר נתונים...">שלח טופס מאובטח להנהלה</button>
+      </form>
+    </section>
+
+    <!-- דיווחים -->
+    <section id="p-report" class="panel">
+      <h2 class="title">דיווח על חריגת משתמש / איש צוות</h2>
+      <form id="f-report" class="form report">
+        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
+        <input type="hidden" name="subject" value="תלונת רפורט חדשה מהאתר!">
+        <div class="row2" style="margin-bottom:22px">
+          <div class="field"><label>סיווג הנילון</label>
+            <select name="Reported_User_Type" class="input" required>
+              <option value="" disabled selected>בחר אפשרות...</option>
+              <option value="איש צוות (הנהלה/מודרטור)">איש צוות (הנהלה/מודרטור)</option>
+              <option value="משתמש רגיל בשרת">משתמש רגיל בשרת</option>
+            </select>
+          </div>
+          <div class="field"><label>שם המשתמש (Username)</label><input type="text" name="Reported_Username" class="input" required></div>
+        </div>
+        <div class="field"><label>פירוט האירוע / סיבת הדיווח</label><textarea name="Reason_for_Report" class="input" required></textarea></div>
+        <button type="submit" class="btn block" data-idle="שגר דיווח מוצפן לחלון הנהלה עליונה" data-busy="משגר דיווח...">שגר דיווח מוצפן לחלון הנהלה עליונה</button>
+      </form>
+    </section>
+
+    <!-- פידבק -->
+    <section id="p-feedback" class="panel">
+      <h2 class="title">פידבק לאתר</h2>
+      <div class="form">
+        <div class="tile fb-hero"><div class="app-tile"><i class="fas fa-heart"></i></div><div><h3>ספרו לנו מה דעתכם</h3><p>הפידבק שלכם עוזר לנו לשפר את האתר והקהילה. זה לוקח דקה.</p></div></div>
+        <form id="f-feedback">
+          <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
+          <input type="hidden" name="subject" value="פידבק חדש על האתר!">
+          <input type="hidden" name="Rating" id="rating-input" value="לא דורג">
+          <div class="field">
+            <label>איך היה הביקור שלכם באתר?</label>
+            <div class="stars" id="stars" role="group" aria-label="דירוג">
+              <button type="button" class="star" aria-label="כוכב 1"><i class="fas fa-star"></i></button>
+              <button type="button" class="star" aria-label="2 כוכבים"><i class="fas fa-star"></i></button>
+              <button type="button" class="star" aria-label="3 כוכבים"><i class="fas fa-star"></i></button>
+              <button type="button" class="star" aria-label="4 כוכבים"><i class="fas fa-star"></i></button>
+              <button type="button" class="star" aria-label="5 כוכבים"><i class="fas fa-star"></i></button>
             </div>
-            <h2 style="font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 10px;">הטופס נשלח בהצלחה!</h2>
-            <button class="btn-close-modal" onclick="closeSuccessModal()">חזור למערכת</button>
-        </div>
-    </div>
-
-    <!-- מסך כניסה -->
-    <div id="secure-boot-wrapper">
-        <div class="shapes" id="shapes-boot"></div>
-        <div class="identity-node">
-            <h1 class="mega-chroma-title">בואו להנות</h1>
-            <p class="welcome-subtitle">ברוכים הבאים לאתר הקהילה שלנו</p>
-            <div class="laser-scanner"></div>
-        </div>
-        <div class="console-log-box" id="console-node-stream">
-            > ברוכים הבאים לאתר האינטרנט של בואו להנות...<br>
-            > מכינים את ממשק הקהילה...<br>
-            > האתר מוכן לכניסה.
-        </div>
-        <div class="loading-bar-container">
-            <div class="loading-bar-fill" id="progress-bar-node"></div>
-        </div>
-        <button class="btn-hardware-access" id="btn-mainframe-trigger" onclick="engageCoreSystem()">כניסה לאתר</button>
-    </div>
-
-    <div id="interstitial-hacker-screen">
-        <h2>OVERRIDING CORE SYSTEM...</h2>
-    </div>
-
-    <!-- ממשק ראשי -->
-    <div id="quantum-mainframe">
-        <nav class="hud-navigation-bar">
-            <div class="hud-brand-header"><h2>בואו להנות</h2><p class="brand-caption">הקהילה מתחילה כאן</p></div>
-            <div class="hud-links-stack">
-                <div class="hud-tab-trigger selected" onclick="navigateToPanel('panel-rules-node', this)"><i class="fas fa-file-contract"></i> חוקי השרת</div>
-                <div class="hud-tab-trigger" onclick="navigateToPanel('panel-admins-node', this)"><i class="fas fa-users-cog"></i> צוות ההנהלה</div>
-                <div class="hud-tab-trigger" onclick="navigateToPanel('panel-apply-node', this)"><i class="fas fa-id-card"></i> מיונים לצוות</div>
-                <div class="hud-tab-trigger" onclick="navigateToPanel('panel-report-node', this)"><i class="fas fa-user-shield"></i> דיווחים (Report)</div>
-                <div class="hud-tab-trigger" onclick="navigateToPanel('panel-feedback-node', this)"><i class="fas fa-comment-dots"></i> פידבק לאתר</div>
-                <div class="hud-tab-trigger" onclick="navigateToPanel('panel-join-node', this)"><i class="fab fa-discord"></i> כניסה לשרת</div>
+            <div class="mood" id="mood">לחצו על הכוכבים כדי לדרג</div>
+          </div>
+          <div class="row2" style="margin-bottom:22px">
+            <div class="field"><label>שם משתמש בדיסקורד (לא חובה)</label><input type="text" name="Discord_Username" class="input" placeholder="Adir#1234"></div>
+            <div class="field"><label>על מה הפידבק?</label>
+              <select name="Feedback_Type" class="input" required>
+                <option value="" disabled selected>בחר נושא...</option>
+                <option value="עיצוב האתר">עיצוב האתר</option><option value="תקלה באתר">תקלה באתר</option><option value="הצעה לשיפור">הצעה לשיפור</option><option value="שרת הדיסקורד">שרת הדיסקורד</option><option value="אחר">אחר</option>
+              </select>
             </div>
+          </div>
+          <div class="field"><label>מה תרצו לספר לנו?</label><textarea name="Feedback_Message" class="input" placeholder="מה אהבתם? מה אפשר לשפר?" required></textarea></div>
+          <label class="sw-row"><span><i class="fas fa-envelope"></i>אפשר לחזור אליי בדיסקורד</span><input type="checkbox" class="ios-switch" name="Contact_OK" value="כן"></label>
+          <button type="submit" class="btn block" data-idle="שלח פידבק" data-busy="שולח פידבק...">שלח פידבק</button>
+        </form>
+      </div>
+    </section>
 
-            <!-- הגדרות ותצוגה -->
-            <details class="hud-settings">
-                <summary><span class="tile"><i class="fas fa-gear"></i></span>הגדרות ותצוגה<i class="fas fa-chevron-down chev"></i></summary>
-                <div class="set-body" id="settings-body"></div>
-            </details>
-        </nav>
+    <!-- דיסקורד -->
+    <section id="p-join" class="panel">
+      <h2 class="title">הצטרפו לקהילת הדיסקורד</h2>
+      <div class="tile t-discord">
+        <div class="app-tile"><i class="fab fa-discord"></i></div>
+        <h3>בואו להנות</h3>
+        <p>בשרת מחכים לכם כיף, שיחות, עדכונים, אירועים והזדמנות להיות חלק מהקהילה שלנו.</p>
+        <a class="btn discord" href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i>הצטרפות לשרת הדיסקורד</a>
+        <p style="margin:20px auto 0;font-size:.92rem">קישור הזמנה: <a href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer">discord.gg/bbfYMNXkD</a></p>
+      </div>
+    </section>
 
-        <main class="quantum-viewport">
+  </div></main>
 
-            <!-- עמוד תקנון וחוקים -->
-            <section id="panel-rules-node" class="quantum-panel-layer active">
-                <div class="home-eyebrow"><i class="fas fa-sparkles"></i> הבית של הקהילה</div>
-                <h2 class="quantum-panel-title">ברוכים הבאים לבואו להנות</h2>
-                <div class="welcome-columns">
-                    <article class="chroma-rotating-card">
-                        <h3 class="card-inner-title"><i class="fas fa-scroll" style="color:var(--neon-cyan);margin-left:8px"></i>חוקי האתר</h3>
-                        <ol>
-                            <li>לנהוג בכבוד.</li>
-                            <li>לכבד את כלל חברי האתר, ללא הבדל דת, גזע או מין.</li>
-                            <li>אין לפרסם אתרים ללא אישור מהנהלת שרת הדיסקורד.</li>
-                            <li>תהנו ואל תשכחו לשתף את השרת עם אנשים נוספים!</li>
-                        </ol>
-                    </article>
-                    <article class="chroma-rotating-card">
-                        <h3 class="card-inner-title"><i class="fas fa-users-cog" style="color:var(--neon-magenta);margin-left:8px"></i>בעלי האתר והצוות</h3>
-                        <div class="management-person">
-                            <strong>אדיר — מפתח האתר ובעל השרת</strong>
-                            <p class="card-inner-text">אחראי על פיתוח האתר ועל נושאים הקשורים לניהולו. אפשר לפנות אליו בשאלות ובנושאים שקשורים לשרת.</p>
-                        </div>
-                        <div class="management-person">
-                            <strong>תמיר — עדכונים ואירועים</strong>
-                            <p class="card-inner-text">אחראי למסירת מידע על עדכונים, הכרזות ואיוונטים. אפשר להגיע אליו דרך אדיר.</p>
-                        </div>
-                        <div class="management-person">
-                            <strong>ים — ראש צוות וגיוס</strong>
-                            <p class="card-inner-text">אחראי על גיוס אדמינים ועוזרי שרת. ניתן לפנות אליו בפרטי בדיסקורד בנוגע לגיוס, תקלות באתר או דיווח על שחקן.</p>
-                        </div>
-                    </article>
-                    <article class="chroma-rotating-card">
-                        <h3 class="card-inner-title"><i class="fab fa-discord" style="color:#8792ff;margin-left:8px"></i>הצטרפות לשרת הדיסקורד</h3>
-                        <p class="card-inner-text">מחפשים מקום לכיף, להנאה, להכיר אנשים ולהשתתף באירועים? הצטרפו לקהילה שלנו בדיסקורד.</p>
-                        <a class="discord-inline-link" href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> הצטרפות לשרת</a>
-                        <p class="card-inner-text" style="margin-top:20px;font-size:.9rem;overflow-wrap:anywhere">קישור לשרת: discord.gg/bbfYMNXkD</p>
-                    </article>
-                </div>
-            </section>
+  <nav class="tabbar glass" id="tabbar" aria-label="ניווט ראשי">
+    <i class="ind" id="ind"></i>
+    <button class="tab" data-p="p-home" aria-selected="true"><i class="fas fa-house"></i><span>בית</span></button>
+    <button class="tab" data-p="p-team" aria-selected="false"><i class="fas fa-users-cog"></i><span>צוות</span></button>
+    <button class="tab" data-p="p-apply" aria-selected="false"><i class="fas fa-id-card"></i><span>מיונים</span></button>
+    <button class="tab" data-p="p-report" aria-selected="false"><i class="fas fa-user-shield"></i><span>דיווחים</span></button>
+    <button class="tab" data-p="p-feedback" aria-selected="false"><i class="fas fa-comment-dots"></i><span>פידבק</span></button>
+    <button class="tab" data-p="p-join" aria-selected="false"><i class="fab fa-discord"></i><span>דיסקורד</span></button>
+  </nav>
+</div>
 
-            <!-- עמוד צוות ההנהלה -->
-            <section id="panel-admins-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">בעלי האתר והצוות</h2>
-                <div class="cyber-grid">
-                    <div class="chroma-rotating-card admin-wrapper">
-                        <div class="avatar-holo-ring"><i class="fas fa-crown" style="color:var(--neon-magenta)"></i></div>
-                        <h3 class="card-inner-title">אדיר</h3>
-                        <p class="card-inner-text">מפתח האתר ובעל השרת. אחראי על פיתוח האתר ועל שאלות הקשורות לניהולו.</p>
-                        <div class="rank-chroma-badge badge-owner-neon">בעל האתר</div>
-                    </div>
-                    <div class="chroma-rotating-card admin-wrapper">
-                        <div class="avatar-holo-ring"><i class="fas fa-bullhorn"></i></div>
-                        <h3 class="card-inner-title">תמיר</h3>
-                        <p class="card-inner-text">אחראי על עדכונים, הכרזות ואירועים. אפשר לפנות אליו דרך אדיר.</p>
-                        <div class="rank-chroma-badge badge-admin-neon">עדכונים ואירועים</div>
-                    </div>
-                    <div class="chroma-rotating-card admin-wrapper">
-                        <div class="avatar-holo-ring"><i class="fas fa-user-shield"></i></div>
-                        <h3 class="card-inner-title">ים</h3>
-                        <p class="card-inner-text">ראש צוות ואחראי לגיוס אדמינים ועוזרי שרת. מטפל בפניות בנושא גיוס, תקלות ודיווחים.</p>
-                        <div class="rank-chroma-badge badge-admin-neon">ראש צוות וגיוס</div>
-                    </div>
-                </div>
-            </section>
+<!-- ================= תפריט הגדרות ================= -->
+<div class="overlay" id="settings" aria-hidden="true">
+  <div class="sheet glass" role="dialog" aria-modal="true" aria-label="הגדרות">
+    <nav class="cats" id="cats"></nav>
+    <section class="pane" id="pane"></section>
+  </div>
+</div>
 
-            <!-- עמוד מיונים -->
-            <section id="panel-apply-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">הגשת מועמדות לצוות</h2>
-                <div class="chroma-form-shell">
-                    <form id="apply-cyber-form">
-                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
-                        <input type="hidden" name="subject" value="מועמדות חדשה לצוות השרת!">
+<!-- חלון הצלחה -->
+<div class="overlay" id="success" aria-hidden="true">
+  <div class="sheet2 glass" role="alertdialog" aria-labelledby="ok-t">
+    <svg class="okc" viewBox="0 0 76 76"><circle cx="38" cy="38" r="38"/><path d="M22 39l11 11 21-23"/></svg>
+    <h2 id="ok-t">הטופס נשלח בהצלחה!</h2>
+    <button class="btn block soft" id="ok-close">חזור למערכת</button>
+  </div>
+</div>
 
-                        <div class="chroma-input-row">
-                            <div class="chroma-group"><label>שם משתמש בדיסקורד</label><input type="text" name="Discord_Username" class="input-chroma-field" placeholder="Adir#1234" required></div>
-                            <div class="chroma-group"><label>גיל מועמד</label><input type="number" name="Age" class="input-chroma-field" placeholder="הכנס גיל..." required></div>
-                        </div>
-                        <div class="chroma-group" style="margin-bottom: 30px;">
-                            <label>תפקיד מבוקש</label>
-                            <select name="Requested_Role" class="select-chroma-field" required>
-                                <option value="" disabled selected>בחר תפקיד במערכת הניהול...</option>
-                                <option value="מודרטור">מודרטור</option>
-                                <option value="הלפר">הלפר</option>
-                                <option value="צוות אירועים">צוות אירועים</option>
-                            </select>
-                        </div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>כמה שעות פעילות שבועיות תוכל לתת לנו?</label><input type="text" name="Weekly_Hours" class="input-chroma-field" placeholder="לדוגמה: 20 שעות בשבוע" required></div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>למה כדאי לנו לבחור דווקא בך?</label><textarea name="Why_Choose_You" class="input-chroma-field textarea-chroma-field" placeholder="מה מייחד אותך ממועמדים אחרים?" required></textarea></div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>מה התחביבים שלך? (קצת על עצמך)</label><textarea name="Hobbies" class="input-chroma-field textarea-chroma-field" placeholder="ספר לנו על התחביבים שלך, משחקים אהובים..." required></textarea></div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>האם יש לך ניסיון קודם בצוותים?</label><textarea name="Previous_Experience" class="input-chroma-field textarea-chroma-field" placeholder="ספר לנו אם היית בצוותים בעבר..." required></textarea></div>
-                        <button type="submit" class="btn-chroma-submit-node">שלח טופס מאובטח להנהלה</button>
-                    </form>
-                </div>
-            </section>
+<script>
+(function () {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+const coarse = matchMedia('(pointer:coarse)').matches, sysCalm = matchMedia('(prefers-reduced-motion:reduce)').matches;
+const darkMQ = matchMedia('(prefers-color-scheme: dark)');
 
-            <!-- עמוד דיווחים -->
-            <section id="panel-report-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">דיווח על חריגת משתמש / איש צוות</h2>
-                <div class="chroma-form-shell" style="border-top: 4px solid var(--neon-magenta);">
-                    <form id="report-cyber-form">
-                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
-                        <input type="hidden" name="subject" value="תלונת רפורט חדשה מהאתר!">
+/* ---------- הגדרות ברירת מחדל ופריסטים ---------- */
+const PRESETS = {
+  low:   { renderScale: 50,  octaves: 3, bloom: 0,  chroma: 0,  grain: 0,  bokeh: 0,   speed: 80 },
+  med:   { renderScale: 75,  octaves: 4, bloom: 25, chroma: 0,  grain: 15, bokeh: 40,  speed: 100 },
+  high:  { renderScale: 100, octaves: 6, bloom: 40, chroma: 0,  grain: 25, bokeh: 100, speed: 100 },
+  ultra: { renderScale: 130, octaves: 8, bloom: 70, chroma: 55, grain: 35, bokeh: 220, speed: 110 }
+};
+const GFX_KEYS = Object.keys(PRESETS.low);
+const q0 = coarse ? 'med' : 'high';
+const DEF = Object.assign({
+  theme: 'auto', accent: 'blue', txt: 100, blur: 34, radius: 30, contrast: false,
+  quality: q0, wall: 'aurora', pal: 'aurora', fps: 60,
+  ripple: true, motion: !sysCalm, tilt: true, depth: 60, spot: true, tspeed: 100,
+  hud: false, saver: false, pauseHidden: true, debug: false,
+  sound: false, vol: 50, haptic: false
+}, PRESETS[q0]);
+let P = Object.assign({}, DEF);
+try { Object.assign(P, JSON.parse(store.get('prefs2') || '{}')); } catch (e) {}
+const save = () => store.set('prefs2', JSON.stringify(P));
 
-                        <div class="chroma-input-row">
-                            <div class="chroma-group">
-                                <label>סיווג הנילון</label>
-                                <select name="Reported_User_Type" class="select-chroma-field" required style="border-color: rgba(255, 0, 127, 0.3);">
-                                    <option value="" disabled selected>בחר אפשרות...</option>
-                                    <option value="איש צוות (הנהלה/מודרטור)">איש צוות (הנהלה/מודרטור)</option>
-                                    <option value="משתמש רגיל בשרת">משתמש רגיל בשרת</option>
-                                </select>
-                            </div>
-                            <div class="chroma-group"><label>שם המשתמש (Username)</label><input type="text" name="Reported_Username" class="input-chroma-field" required style="border-color: rgba(255, 0, 127, 0.3);"></div>
-                        </div>
-                        <div class="chroma-group" style="margin-bottom: 30px;"><label>פירוט האירוע / סיבת הדיווח</label><textarea name="Reason_for_Report" class="input-chroma-field textarea-chroma-field" required style="border-color: rgba(255, 0, 127, 0.3);"></textarea></div>
-                        <button type="submit" class="btn-chroma-submit-node" style="box-shadow: 0 10px 30px rgba(255, 0, 127, 0.2);">שגר דיווח מוצפן לחלון הנהלה עליונה</button>
-                    </form>
-                </div>
-            </section>
+const ACC = { blue: '#0a84ff', purple: '#bf5af2', pink: '#ff375f', green: '#30d158', orange: '#ff9f0a' };
+const PAL = {
+  aurora: { c: [[.04,.52,1],[.75,.35,.95],[1,.22,.37]], css: ['#0a84ff', '#bf5af2', '#ff375f'], n: 'אורורה' },
+  ocean:  { c: [[.04,.52,1],[.35,.78,.98],[.19,.82,.78]], css: ['#0a84ff', '#5ac8fa', '#30d0c6'], n: 'אוקיינוס' },
+  sunset: { c: [[1,.62,.04],[1,.22,.37],[.75,.35,.95]], css: ['#ff9f0a', '#ff375f', '#bf5af2'], n: 'שקיעה' },
+  forest: { c: [[.19,.82,.35],[0,.78,.75],[.39,.82,1]], css: ['#30d158', '#00c7be', '#64d2ff'], n: 'יער' },
+  mono:   { c: [[.56,.56,.58],[.39,.39,.4],[.68,.68,.7]], css: ['#8e8e93', '#636366', '#aeaeb2'], n: 'גרפיט' }
+};
+const WALL = { aurora: 0, liquid: 1, nebula: 2, mesh: 3 };
 
-            <!-- עמוד פידבק לאתר -->
-            <section id="panel-feedback-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">פידבק לאתר</h2>
-                <div class="chroma-form-shell">
-                    <div class="fb-hero">
-                        <i class="fas fa-heart heart" style="--x:8%;--s:1rem;--c:#ff375f;--dl:0s"></i>
-                        <i class="fas fa-heart heart" style="--x:24%;--s:1.4rem;--c:#bf5af2;--dl:1.2s"></i>
-                        <i class="fas fa-star heart" style="--x:46%;--s:1.1rem;--c:#ffcc00;--dl:2.1s"></i>
-                        <i class="fas fa-heart heart" style="--x:68%;--s:1.2rem;--c:#ff9f0a;--dl:.7s"></i>
-                        <i class="fas fa-star heart" style="--x:84%;--s:1rem;--c:#0a84ff;--dl:1.8s"></i>
-                        <div class="fb-badge"><i class="fas fa-heart"></i></div>
-                        <div class="fb-text">
-                            <h3>ספרו לנו מה דעתכם</h3>
-                            <p>הפידבק שלכם עוזר לנו לשפר את האתר והקהילה. זה לוקח דקה.</p>
-                        </div>
-                    </div>
-                    <form id="feedback-cyber-form">
-                        <input type="hidden" name="access_key" value="a4cf0781-d801-4c02-aeb4-3e93d355a288">
-                        <input type="hidden" name="subject" value="פידבק חדש על האתר!">
-                        <input type="hidden" name="Rating" id="rating-input" value="לא דורג">
+/* ---------- WebGL: שיידר רקע כבד ---------- */
+const glc = $('#gl'); let gl = null, U = {}, gpuName = 'לא זמין';
+const FS = `precision highp float;
+uniform vec2 uRes,uMouse; uniform float uTime,uOct,uBloom,uChroma,uGrain,uStyle,uDark; uniform vec3 uC1,uC2,uC3; uniform vec4 uPulse;
+float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);}
+float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<8;i++){if(float(i)>=uOct)break;v+=a*noise(p);p=p*2.03+vec2(17.1,9.3);a*=.5;}return v;}
+vec3 field(vec2 uv,float t){
+  if(uStyle>2.5){
+    vec2 a=vec2(sin(t*.31),cos(t*.27))*.55,b=vec2(cos(t*.23),sin(t*.37))*.65,c=vec2(sin(t*.19+2.),cos(t*.29+1.))*.6;
+    float wa=1./(.12+dot(uv-a,uv-a)),wb=1./(.12+dot(uv-b,uv-b)),wc=1./(.12+dot(uv-c,uv-c));
+    return (uC1*wa+uC2*wb+uC3*wc)/(wa+wb+wc);
+  }
+  vec2 p=uv*1.6;
+  vec2 q=vec2(fbm(p+t*.10),fbm(p+vec2(5.2,1.3)-t*.08));
+  vec2 r=vec2(fbm(p+3.*q+vec2(1.7,9.2)+t*.15),fbm(p+3.*q+vec2(8.3,2.8)-t*.12));
+  float f=fbm(p+3.5*r);
+  vec3 col=mix(uC1,uC2,clamp(f*1.7,0.,1.));
+  col=mix(col,uC3,clamp(length(q)*.95,0.,1.)*.8);
+  if(uStyle>.5&&uStyle<1.5){float bands=abs(sin(f*10.+t*.6));col=mix(col*.82,vec3(1.),smoothstep(.93,1.,bands)*.55);}
+  col=mix(col,vec3(1.),smoothstep(.62,.95,f)*.33);
+  if(uStyle>1.5&&uStyle<2.5){vec2 g=floor(uv*190.);float s=step(.992,hash(g));col+=s*(.5+.5*sin(t*3.+hash(g+1.)*40.));col*=.8+.2*f;}
+  return col;
+}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y; float t=uTime;
+  vec2 m=(uMouse-.5*uRes)/uRes.y; vec2 d=uv-m; float md=length(d);
+  uv+=d/(md+.25)*.07*exp(-md*3.)*sin(t*2.-md*13.);
+  vec2 pc=(uPulse.xy-.5*uRes)/uRes.y; float pd=length(uv-pc);
+  float ring=exp(-pow((pd-uPulse.z*1.15)*6.5,2.))*uPulse.w;
+  uv+=normalize(uv-pc+1e-4)*ring*.06;
+  vec3 col;
+  if(uChroma>0.){float s=uChroma*.014;col=vec3(field(uv+vec2(s,0.),t).r,field(uv,t).g,field(uv-vec2(s,0.),t).b);}else col=field(uv,t);
+  col+=ring*.28;
+  float l=dot(col,vec3(.299,.587,.114));
+  col+=uBloom*pow(l,3.)*.65*col;
+  col=mix(mix(col,vec3(1.),.3)*1.03,col*.45+.02,uDark);
+  col*=1.-.38*smoothstep(.35,1.25,length((gl_FragCoord.xy/uRes-.5)*vec2(1.,.9)*2.));
+  col+=(hash(gl_FragCoord.xy+fract(uTime)*91.7)-.5)*uGrain*.14;
+  gl_FragColor=vec4(col,1.);
+}`;
+function initGL() {
+  try { gl = glc.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance' }); } catch (e) {}
+  if (!gl) return fail();
+  const mk = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(o)); return null; } return o; };
+  const v = mk(gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'), f = mk(gl.FRAGMENT_SHADER, FS);
+  if (!v || !f) return fail();
+  const pr = gl.createProgram(); gl.attachShader(pr, v); gl.attachShader(pr, f); gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return fail();
+  gl.useProgram(pr);
+  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  ['uRes','uMouse','uTime','uOct','uBloom','uChroma','uGrain','uStyle','uDark','uC1','uC2','uC3','uPulse'].forEach(n => U[n] = gl.getUniformLocation(pr, n));
+  const ext = gl.getExtension('WEBGL_debug_renderer_info'); if (ext) gpuName = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || gpuName;
+  glc.addEventListener('webglcontextlost', e => { e.preventDefault(); fail(); });
+}
+function fail() { gl = null; document.body.classList.add('nogl'); return false; }
+initGL();
 
-                        <div class="chroma-group" style="margin-bottom: 30px;">
-                            <label>איך היה הביקור שלכם באתר?</label>
-                            <div class="stars" id="star-rating" role="group" aria-label="דירוג">
-                                <button type="button" class="star" aria-label="כוכב 1"><i class="fas fa-star"></i></button>
-                                <button type="button" class="star" aria-label="2 כוכבים"><i class="fas fa-star"></i></button>
-                                <button type="button" class="star" aria-label="3 כוכבים"><i class="fas fa-star"></i></button>
-                                <button type="button" class="star" aria-label="4 כוכבים"><i class="fas fa-star"></i></button>
-                                <button type="button" class="star" aria-label="5 כוכבים"><i class="fas fa-star"></i></button>
-                            </div>
-                            <div class="mood" id="mood-label">לחצו על הכוכבים כדי לדרג</div>
-                        </div>
-                        <div class="chroma-input-row">
-                            <div class="chroma-group"><label>שם משתמש בדיסקורד (לא חובה)</label><input type="text" name="Discord_Username" class="input-chroma-field" placeholder="Adir#1234"></div>
-                            <div class="chroma-group">
-                                <label>על מה הפידבק?</label>
-                                <select name="Feedback_Type" class="select-chroma-field" required>
-                                    <option value="" disabled selected>בחר נושא...</option>
-                                    <option value="עיצוב האתר">עיצוב האתר</option>
-                                    <option value="תקלה באתר">תקלה באתר</option>
-                                    <option value="הצעה לשיפור">הצעה לשיפור</option>
-                                    <option value="שרת הדיסקורד">שרת הדיסקורד</option>
-                                    <option value="אחר">אחר</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="chroma-group" style="margin-bottom: 24px;"><label>מה תרצו לספר לנו?</label><textarea name="Feedback_Message" class="input-chroma-field textarea-chroma-field" placeholder="מה אהבתם? מה אפשר לשפר?" required></textarea></div>
-                        <label class="ios-row fb-switch"><span><i class="fas fa-envelope"></i>אפשר לחזור אליי בדיסקורד</span><input type="checkbox" class="ios-switch" name="Contact_OK" value="כן"></label>
-                        <button type="submit" class="btn-chroma-submit-node">שלח פידבק</button>
-                    </form>
-                </div>
-            </section>
+/* ---------- בוקה: חלקיקי אור ---------- */
+const fxc = $('#fx'), fx = fxc.getContext('2d'); let parts = [], sprites = [];
+function mkSprites() {
+  sprites = PAL[P.pal].css.map(col => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'), gr = g.createRadialGradient(32,32,0,32,32,32);
+    gr.addColorStop(0, col + 'ff'); gr.addColorStop(.45, col + '55'); gr.addColorStop(1, col + '00'); g.fillStyle = gr; g.fillRect(0,0,64,64); return c; });
+}
+function newPart() { return { x: Math.random()*innerWidth, y: Math.random()*innerHeight, r: 8 + Math.random()*46, vx: (Math.random()-.5)*.25, vy: -.1 - Math.random()*.5, a: .15 + Math.random()*.45, ph: Math.random()*6.28, s: Math.floor(Math.random()*3) }; }
 
-            <!-- עמוד כניסה לשרת דיסקורד -->
-            <section id="panel-join-node" class="quantum-panel-layer">
-                <h2 class="quantum-panel-title">הצטרפו לקהילת הדיסקורד</h2>
-                <div class="discord-ultra-panel">
-                    <i class="fab fa-discord giant-discord-icon"></i>
-                    <h2 style="font-size:clamp(2rem,4vw,3.2rem);font-weight:900;margin-bottom:20px;">בואו להנות</h2>
-                    <p style="font-size:1.15rem;color:var(--text-chroma-gray);line-height:1.8;margin-bottom:35px;">בשרת מחכים לכם כיף, שיחות, עדכונים, אירועים והזדמנות להיות חלק מהקהילה שלנו.</p>
-                    <a href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer" class="btn-discord-massive-chroma">הצטרפות לשרת הדיסקורד</a>
-                    <p style="margin-top:24px;color:var(--text-chroma-gray);">קישור הזמנה: <a href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer" style="color:var(--neon-cyan);">discord.gg/bbfYMNXkD</a></p>
-                </div>
-            </section>
+/* ---------- מצב ---------- */
+let mx = innerWidth/2, my = innerHeight/2, smx = mx, smy = my;
+let pulseS = { x: 0, y: 0, t0: -9, s: 0 };
+let curPal = PAL[P.pal].c.flat(), T = 0, dark = 0;
+const isDark = () => P.theme === 'dark' || (P.theme === 'auto' && darkMQ.matches);
+function resize() {
+  const dpr = Math.min(devicePixelRatio || 1, 2), sc = (P.saver ? .6 : 1) * P.renderScale / 100;
+  glc.width = Math.max(2, Math.round(innerWidth * dpr * sc)); glc.height = Math.max(2, Math.round(innerHeight * dpr * sc));
+  fxc.width = innerWidth; fxc.height = innerHeight;
+}
+addEventListener('resize', () => { resize(); moveInd(); });
+function pulse(x, y, s) { if (!P.ripple || !P.motion) return; pulseS = { x: x, y: y, t0: performance.now(), s: s || 1 }; }
 
-        </main>
-    </div>
+let last = 0, frames = 0, fpsT = performance.now(), fps = 0;
+function loop(now) {
+  requestAnimationFrame(loop);
+  if (document.hidden && P.pauseHidden) return;
+  const cap = P.saver ? 30 : (!P.motion ? Math.min(P.fps || 60, 30) : P.fps);
+  if (cap && now - last < 1000 / cap - 2) return;
+  const dt = Math.min((now - last) / 1000, .1); last = now;
+  T += dt * (P.motion ? P.speed / 100 : 0);
+  smx += (mx - smx) * .08; smy += (my - smy) * .08;
+  dark += ((isDark() ? 1 : 0) - dark) * .08;
+  const tgt = PAL[P.pal].c.flat(); for (let i = 0; i < 9; i++) curPal[i] += (tgt[i] - curPal[i]) * .05;
+  if (gl) {
+    gl.viewport(0, 0, glc.width, glc.height);
+    const k = glc.width / innerWidth, age = (now - pulseS.t0) / 1000, ps = Math.max(0, 1 - age / 1.9) * pulseS.s;
+    gl.uniform2f(U.uRes, glc.width, glc.height); gl.uniform2f(U.uMouse, smx * k, (innerHeight - smy) * k);
+    gl.uniform1f(U.uTime, T); gl.uniform1f(U.uOct, P.saver ? Math.min(P.octaves, 4) : P.octaves);
+    gl.uniform1f(U.uBloom, P.bloom / 100); gl.uniform1f(U.uChroma, P.saver ? 0 : P.chroma / 100); gl.uniform1f(U.uGrain, P.grain / 100);
+    gl.uniform1f(U.uStyle, WALL[P.wall]); gl.uniform1f(U.uDark, dark);
+    gl.uniform3f(U.uC1, curPal[0], curPal[1], curPal[2]); gl.uniform3f(U.uC2, curPal[3], curPal[4], curPal[5]); gl.uniform3f(U.uC3, curPal[6], curPal[7], curPal[8]);
+    gl.uniform4f(U.uPulse, pulseS.x * k, (innerHeight - pulseS.y) * k, age, ps);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+  /* בוקה */
+  if (!document.body.classList.contains('nogl')) {
+    const want = Math.round(P.bokeh * (P.saver ? .3 : 1));
+    while (parts.length < want) parts.push(newPart()); if (parts.length > want) parts.length = want;
+    fx.clearRect(0, 0, fxc.width, fxc.height); fx.globalCompositeOperation = 'lighter';
+    for (const p of parts) {
+      if (P.motion) { p.x += p.vx * (P.speed / 100); p.y += p.vy * (P.speed / 100); p.ph += dt * 1.2;
+        const dx = p.x - smx, dy = p.y - smy, dd = dx*dx + dy*dy; if (dd < 22000) { p.x += dx * .004; p.y += dy * .004; } }
+      if (p.y < -p.r * 2) { p.y = innerHeight + p.r; p.x = Math.random() * innerWidth; } if (p.x < -p.r * 2) p.x = innerWidth + p.r; if (p.x > innerWidth + p.r * 2) p.x = -p.r;
+      fx.globalAlpha = p.a * (.55 + .45 * Math.sin(p.ph)) * (dark > .5 ? 1 : .6);
+      fx.drawImage(sprites[p.s], p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
+    }
+    fx.globalAlpha = 1; fx.globalCompositeOperation = 'source-over';
+  }
+  frames++; if (now - fpsT > 500) { fps = Math.round(frames * 1000 / (now - fpsT)); frames = 0; fpsT = now;
+    if (document.body.classList.contains('hud')) $('#hud').textContent = 'FPS ' + fps + ' · ' + glc.width + '×' + glc.height + ' · oct ' + P.octaves + ' · bokeh ' + parts.length + (gl ? '' : ' · no-WebGL'); }
+}
 
-    <script>
-        /* א. חלקיקי רקע (צבעי Apple, עדינים) */
-        const canvas = document.getElementById('chroma-canvas');
-        const ctx = canvas.getContext('2d');
-        let particleArray = [];
-        let mouseNode = { x: null, y: null, radius: 180 };
+/* ---------- סאונד / הפטי ---------- */
+let actx = null;
+function tick(f) {
+  if (P.haptic && navigator.vibrate) { try { navigator.vibrate(8); } catch (e) {} }
+  if (!P.sound) return;
+  try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime;
+    o.type = 'sine'; o.frequency.setValueAtTime(f || 980, t); o.frequency.exponentialRampToValueAtTime((f || 980) * .62, t + .09);
+    g.gain.setValueAtTime(.08 * P.vol / 100, t); g.gain.exponentialRampToValueAtTime(.0001, t + .11); o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + .12); } catch (e) {}
+}
 
-        function initializeCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', initializeCanvasSize);
-        initializeCanvasSize();
+/* ---------- החלת הגדרות ---------- */
+function apply() {
+  const R = document.documentElement, B = document.body;
+  if (P.theme === 'auto') R.removeAttribute('data-theme'); else R.dataset.theme = P.theme;
+  R.style.setProperty('--accent', ACC[P.accent]); R.style.setProperty('--txt', P.txt / 100);
+  R.style.setProperty('--blur', P.blur + 'px'); R.style.setProperty('--radius', P.radius + 'px');
+  R.style.setProperty('--spot', P.spot ? 1 : 0); R.style.setProperty('--tm', (100 / P.tspeed).toFixed(2));
+  const pc = PAL[P.pal].css; R.style.setProperty('--c1', pc[0]); R.style.setProperty('--c2', pc[1]); R.style.setProperty('--c3', pc[2]);
+  R.classList.toggle('hc', P.contrast);
+  B.classList.toggle('calm', !P.motion); B.classList.toggle('notilt', !P.tilt || !P.motion); B.classList.toggle('hud', P.hud); B.classList.toggle('debug', P.debug);
+  mkSprites(); resize(); setTimeout(moveInd, 60);
+}
 
-        window.addEventListener('mousemove', (e) => {
-            mouseNode.x = e.clientX;
-            mouseNode.y = e.clientY;
-        });
+/* ---------- מסך נעילה ---------- */
+const lock = $('#lock'), app = $('#app'), ico = $('#lk-ico'); let unlocked = false;
+function clock() {
+  const d = new Date();
+  $('#lk-date').textContent = new Intl.DateTimeFormat('he-IL', { weekday: 'long', day: 'numeric', month: 'long' }).format(d);
+  const t = d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', hour12: false }); $('#lk-time').textContent = t; $('#ph-time').textContent = t;
+}
+clock(); setInterval(clock, 1000);
+['ברוכים הבאים לאתר האינטרנט של בואו להנות...', 'מכינים את ממשק הקהילה...', 'האתר מוכן לכניסה.'].forEach((m, i) => setTimeout(() => {
+  const n = document.createElement('div'); n.className = 'notif glass';
+  n.innerHTML = '<div class="app-tile" style="--s:38px"><i class="fas fa-face-smile-beam"></i></div><div><b>בואו להנות</b><span></span></div><em>עכשיו</em>'; n.querySelector('span').textContent = m; $('#notifs').appendChild(n);
+  if (i === 2) $('#rg-t').textContent = 'מוכן';
+}, 600 + i * 800));
+function unlock() {
+  if (unlocked) return; unlocked = true; tick(1240);
+  ico.className = 'fas fa-lock-open pop'; const r = ico.getBoundingClientRect(); pulse(r.left + r.width / 2, r.top + r.height / 2, 1.2);
+  lock.classList.add('unlocking');
+  setTimeout(() => { lock.style.transform = 'translateY(-105%)'; lock.style.opacity = '0'; app.style.opacity = ''; app.classList.add('on'); setTimeout(moveInd, 80); pulse(innerWidth / 2, innerHeight / 2, 1); }, 450);
+  setTimeout(() => lock.classList.add('gone'), 1300);
+}
+function relock() {
+  unlocked = false; tick(700); lock.classList.remove('gone'); void lock.offsetWidth; lock.style.transform = ''; lock.style.opacity = ''; lock.classList.add('unlocking');
+  app.classList.remove('on'); ico.className = 'fas fa-lock'; setTimeout(() => lock.classList.remove('unlocking'), 800);
+}
+let drag = null;
+lock.addEventListener('pointerdown', e => { if (e.target.closest('button') || unlocked) return; drag = { y: e.clientY, t: performance.now() }; lock.setPointerCapture(e.pointerId); lock.classList.remove('unlocking'); });
+lock.addEventListener('pointermove', e => { if (!drag) return; const dy = Math.min(0, e.clientY - drag.y), p = -dy / innerHeight;
+  lock.style.transform = 'translateY(' + dy + 'px)'; lock.style.opacity = String(1 - p * .5); app.style.opacity = String(Math.min(1, p * 2.4)); });
+lock.addEventListener('pointerup', e => { if (!drag) return; const dy = Math.min(0, e.clientY - drag.y), p = -dy / innerHeight, v = -dy / (performance.now() - drag.t); drag = null;
+  if (p > .2 || v > .6) { unlock(); } else { lock.classList.add('unlocking'); lock.style.transform = ''; lock.style.opacity = ''; app.style.opacity = ''; } });
+$('#lk-go').addEventListener('click', unlock);
+$('#lk-torch').addEventListener('click', function () { lock.classList.toggle('torch'); this.classList.toggle('on'); tick(1500); });
+$('#lk-cam').addEventListener('click', function () { const r = this.getBoundingClientRect(); pulse(r.left + r.width / 2, r.top + r.height / 2, 1.3); tick(900); });
+addEventListener('keydown', e => { if (!unlocked && (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowUp') && !e.target.closest('input,textarea,select')) { e.preventDefault(); unlock(); } });
+addEventListener('wheel', e => { if (!unlocked && e.deltaY > 40) unlock(); }, { passive: true });
+$('#btn-relock').addEventListener('click', relock);
 
-        class CyberParticle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.size = Math.random() * 3 + 1;
-                this.colorIndex = Math.floor(Math.random() * 3);
-                this.colors = ['#0a84ff', '#ff375f', '#bf5af2'];
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+/* ---------- ניווט ולשונית נגררת ---------- */
+const tabs = $$('.tab'), ind = $('#ind');
+function moveInd() { const b = tabs.find(t => t.getAttribute('aria-selected') === 'true'); if (!b) return; ind.style.left = b.offsetLeft + 'px'; ind.style.width = b.offsetWidth + 'px'; }
+tabs.forEach(b => b.addEventListener('click', () => {
+  $$('.panel').forEach(p => p.classList.remove('active')); $('#' + b.dataset.p).classList.add('active'); $('#' + b.dataset.p).scrollTop = 0;
+  tabs.forEach(t => t.setAttribute('aria-selected', String(t === b))); moveInd(); tick();
+  const r = b.getBoundingClientRect(); pulse(r.left + r.width / 2, r.top, .8);
+}));
+if (window.ResizeObserver) new ResizeObserver(moveInd).observe($('#tabbar')); addEventListener('load', () => setTimeout(moveInd, 100));
 
-                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
-                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+/* ---------- עכבר: פרלקסה, הטיה, זרקור זכוכית ---------- */
+const win = $('#win'), root = document.documentElement.style;
+addEventListener('pointermove', e => {
+  mx = e.clientX; my = e.clientY;
+  const nx = e.clientX / innerWidth - .5, ny = e.clientY / innerHeight - .5, dp = P.depth / 100;
+  if (P.tilt && P.motion) { root.setProperty('--ry', (nx * 9 * dp).toFixed(2) + 'deg'); root.setProperty('--rx', (-ny * 7 * dp).toFixed(2) + 'deg'); root.setProperty('--tx', (nx * -16 * dp).toFixed(1)); }
+  const g = e.target.closest && e.target.closest('.glass,.tile'); if (g) { const r = g.getBoundingClientRect(); g.style.setProperty('--gx', (e.clientX - r.left) + 'px'); g.style.setProperty('--gy', (e.clientY - r.top) + 'px'); }
+});
+addEventListener('pointerdown', e => { if (unlocked) pulse(e.clientX, e.clientY, .55); });
 
-                if (mouseNode.x != null && mouseNode.y != null) {
-                    let dx = mouseNode.x - this.x;
-                    let dy = mouseNode.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouseNode.radius) {
-                        if (mouseNode.x > this.x && this.x > 10) this.x -= 2;
-                        if (mouseNode.x < this.x && this.x < canvas.width - 10) this.x += 2;
-                        if (mouseNode.y > this.y && this.y < canvas.height - 10) this.y -= 2;
-                        if (mouseNode.y < this.y && this.y < canvas.height - 10) this.y += 2;
-                    }
-                }
-            }
-            draw() {
-                ctx.fillStyle = this.colors[this.colorIndex];
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+/* ---------- הגדרות: תפריט ---------- */
+const SCHEMA = [
+  { id: 'display', t: 'תצוגה', i: 'fa-circle-half-stroke', c: '#0a84ff', items: [
+    { k: 'theme', type: 'seg', l: 'מראה', o: [['auto', 'אוטומטי'], ['light', 'בהיר'], ['dark', 'כהה']] },
+    { k: 'accent', type: 'sw', l: 'צבע הדגשה', o: { blue: '#0a84ff', purple: '#bf5af2', pink: '#ff375f', green: '#30d158', orange: '#ff9f0a' } },
+    { k: 'txt', type: 'rng', l: 'גודל טקסט', min: 90, max: 135, step: 5, u: '%' },
+    { k: 'blur', type: 'rng', l: 'עוצמת זכוכית (טשטוש)', min: 0, max: 60, step: 2, u: 'px' },
+    { k: 'radius', type: 'rng', l: 'עיגול פינות', min: 14, max: 44, step: 2, u: 'px' },
+    { k: 'contrast', type: 'tog', l: 'ניגודיות גבוהה' } ] },
+  { id: 'gfx', t: 'גרפיקה', i: 'fa-microchip', c: '#bf5af2', items: [
+    { k: 'quality', type: 'seg', l: 'איכות גרפית', o: [['low', 'נמוכה'], ['med', 'בינונית'], ['high', 'גבוהה'], ['ultra', 'אולטרה'], ['custom', 'מותאם']] },
+    { k: 'wall', type: 'seg', l: 'סגנון רקע', o: [['aurora', 'אורורה'], ['liquid', 'נוזל'], ['nebula', 'ערפילית'], ['mesh', 'רשת']] },
+    { k: 'pal', type: 'sw', l: 'פלטת צבעים', o: 'pal' },
+    { k: 'renderScale', type: 'rng', l: 'רזולוציית רינדור', d: 'נמוך = מהיר יותר', min: 40, max: 150, step: 5, u: '%' },
+    { k: 'fps', type: 'seg', l: 'הגבלת FPS', o: [[30, '30'], [60, '60'], [120, '120'], [0, 'ללא']] } ] },
+  { id: 'fx', t: 'אפקטים', i: 'fa-wand-magic-sparkles', c: '#ff375f', items: [
+    { k: 'octaves', type: 'rng', l: 'רמת פירוט (אוקטבות)', d: 'כבד מאוד בערכים גבוהים', min: 2, max: 8, step: 1, u: '' },
+    { k: 'speed', type: 'rng', l: 'מהירות תנועה', min: 0, max: 300, step: 10, u: '%' },
+    { k: 'bloom', type: 'rng', l: 'הילה (Bloom)', min: 0, max: 100, step: 5, u: '' },
+    { k: 'chroma', type: 'rng', l: 'סטיית צבע (Chromatic)', d: 'מכפיל את עומס ה-GPU פי 3', min: 0, max: 100, step: 5, u: '' },
+    { k: 'grain', type: 'rng', l: 'גרעיניות פילם', min: 0, max: 100, step: 5, u: '' },
+    { k: 'bokeh', type: 'rng', l: 'חלקיקי אור (בוקה)', min: 0, max: 300, step: 10, u: '' },
+    { k: 'ripple', type: 'tog', l: 'גלי הלם בלחיצה ובמעברים' } ] },
+  { id: 'motion', t: 'תנועה ותלת־ממד', i: 'fa-cube', c: '#ff9f0a', items: [
+    { k: 'motion', type: 'tog', l: 'אנימציות' },
+    { k: 'tilt', type: 'tog', l: 'הטיית חלון תלת־ממדית' },
+    { k: 'depth', type: 'rng', l: 'עומק פרלקסה', min: 0, max: 100, step: 5, u: '%' },
+    { k: 'spot', type: 'tog', l: 'זרקור אור על זכוכית' },
+    { k: 'tspeed', type: 'rng', l: 'מהירות מעברים', min: 50, max: 200, step: 10, u: '%' } ] },
+  { id: 'adv', t: 'מתקדם', i: 'fa-sliders', c: '#8e8e93', items: [
+    { k: 'hud', type: 'tog', l: 'מד FPS על המסך' },
+    { k: 'saver', type: 'tog', l: 'חיסכון בסוללה', d: 'רזולוציה 60%, 30 FPS, פחות חלקיקים' },
+    { k: 'pauseHidden', type: 'tog', l: 'השהיה כשהלשונית ברקע' },
+    { k: 'debug', type: 'tog', l: 'קווי מסגרת (דיבאג)' },
+    { type: 'info', l: 'כרטיס מסך (GPU)' },
+    { type: 'btn', l: 'העתקת ההגדרות (JSON)', b: 'העתק', act: 'copy' },
+    { type: 'btn', l: 'איפוס כל ההגדרות', b: 'איפוס', act: 'reset', red: true } ] },
+  { id: 'snd', t: 'צליל ותחושה', i: 'fa-volume-high', c: '#30d158', items: [
+    { k: 'sound', type: 'tog', l: 'צלילי ממשק' },
+    { k: 'vol', type: 'rng', l: 'עוצמת קול', min: 0, max: 100, step: 5, u: '%' },
+    { k: 'haptic', type: 'tog', l: 'רטט במכשירים ניידים' } ] }
+];
+let curCat = 'display';
+const cats = $('#cats'), pane = $('#pane');
+function buildCats() {
+  cats.innerHTML = '<h2>הגדרות</h2>';
+  SCHEMA.forEach(c => { const b = document.createElement('button'); b.className = 'cat'; b.setAttribute('aria-selected', String(c.id === curCat));
+    b.innerHTML = '<span class="tl" style="--c:' + c.c + '"><i class="fas ' + c.i + '"></i></span><span>' + c.t + '</span>';
+    b.addEventListener('click', () => { curCat = c.id; buildCats(); buildPane(); tick(); }); cats.appendChild(b); });
+}
+function setVal(k, v) {
+  P[k] = v;
+  if (k === 'quality' && PRESETS[v]) { Object.assign(P, PRESETS[v]); }
+  else if (GFX_KEYS.includes(k) && P.quality !== 'custom') { P.quality = 'custom'; const q = $('[data-k="quality"]'); if (q) $$('button', q).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === 'custom'))); }
+  save(); apply();
+}
+function buildPane() {
+  const c = SCHEMA.find(x => x.id === curCat); pane.innerHTML = '';
+  const cl = document.createElement('button'); cl.className = 'ibtn pane-close'; cl.setAttribute('aria-label', 'סגירה'); cl.innerHTML = '<i class="fas fa-xmark"></i>'; cl.addEventListener('click', closeSettings); pane.appendChild(cl);
+  const h = document.createElement('h2'); h.textContent = c.t; pane.appendChild(h);
+  const g = document.createElement('div'); g.className = 'group';
+  c.items.forEach(it => {
+    const row = document.createElement('div'); row.className = 'srow';
+    const lab = '<div class="l"><span>' + it.l + '</span>' + (it.d ? '<small>' + it.d + '</small>' : '') + '</div>';
+    if (it.type === 'tog') { row.innerHTML = lab; const i = document.createElement('input'); i.type = 'checkbox'; i.className = 'ios-switch'; i.checked = !!P[it.k]; i.addEventListener('change', () => { setVal(it.k, i.checked); tick(); }); row.appendChild(i); row.style.cursor = 'pointer'; row.addEventListener('click', e => { if (e.target !== i) { i.checked = !i.checked; i.dispatchEvent(new Event('change')); } }); }
+    else if (it.type === 'rng') { row.innerHTML = lab; const w = document.createElement('div'); w.className = 'ctl'; const r = document.createElement('input'); r.type = 'range'; r.className = 'rng'; r.min = it.min; r.max = it.max; r.step = it.step; r.value = P[it.k];
+      const v = document.createElement('span'); v.className = 'v'; const upd = () => { v.textContent = r.value + it.u; r.style.setProperty('--p', ((r.value - it.min) / (it.max - it.min) * 100) + '%'); };
+      upd(); r.addEventListener('input', () => { upd(); setVal(it.k, +r.value); }); w.append(r, v); row.appendChild(w); }
+    else if (it.type === 'seg') { row.classList.add('col'); row.innerHTML = lab; const s = document.createElement('div'); s.className = 'seg'; s.dataset.k = it.k;
+      it.o.forEach(o => { const b = document.createElement('button'); b.type = 'button'; b.dataset.v = o[0]; b.textContent = o[1]; b.setAttribute('aria-pressed', String(String(P[it.k]) === String(o[0])));
+        b.addEventListener('click', () => { const val = (typeof o[0] === 'number') ? o[0] : o[0]; setVal(it.k, val); tick(); if (it.k === 'quality') buildPane(); else $$('button', s).forEach(x => x.setAttribute('aria-pressed', String(x === b))); }); s.appendChild(b); });
+      row.appendChild(s); }
+    else if (it.type === 'sw') { row.classList.add('col'); row.innerHTML = lab; const s = document.createElement('div'); s.className = 'swatches';
+      const opts = it.o === 'pal' ? Object.fromEntries(Object.keys(PAL).map(n => [n, 'linear-gradient(135deg,' + PAL[n].css[0] + ',' + PAL[n].css[2] + ')'])) : it.o;
+      Object.keys(opts).forEach(n => { const b = document.createElement('button'); b.type = 'button'; b.className = 'sw'; b.style.setProperty('--c', opts[n]); b.title = it.o === 'pal' ? PAL[n].n : n; b.setAttribute('aria-label', b.title); b.setAttribute('aria-pressed', String(P[it.k] === n));
+        b.addEventListener('click', () => { setVal(it.k, n); tick(); $$('.sw', s).forEach(x => x.setAttribute('aria-pressed', String(x === b))); pulse(innerWidth / 2, innerHeight / 2, .9); }); s.appendChild(b); });
+      row.appendChild(s); }
+    else if (it.type === 'info') { row.innerHTML = lab; const d = document.createElement('div'); d.className = 'info'; d.textContent = gpuName + (gl ? '' : ' (WebGL כבוי)'); row.appendChild(d); }
+    else if (it.type === 'btn') { row.innerHTML = lab; const b = document.createElement('button'); b.className = 'sbtn' + (it.red ? ' red' : ''); b.textContent = it.b;
+      b.addEventListener('click', () => { if (it.act === 'reset') { P = Object.assign({}, DEF); save(); apply(); buildPane(); } else { const txt = JSON.stringify(P, null, 2);
+        (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => { b.textContent = 'הועתק ✓'; }).catch(() => { b.textContent = 'לא זמין'; }); setTimeout(() => b.textContent = it.b, 1500); } tick(); });
+      row.appendChild(b); }
+    g.appendChild(row);
+  });
+  pane.appendChild(g);
+}
+const so = $('#settings');
+function openSettings() { buildCats(); buildPane(); so.classList.add('open'); so.setAttribute('aria-hidden', 'false'); tick(1100); const r = $('#btn-settings').getBoundingClientRect(); pulse(r.left + r.width / 2, r.top + r.height / 2, .9); }
+function closeSettings() { so.classList.remove('open'); so.setAttribute('aria-hidden', 'true'); tick(700); }
+$('#btn-settings').addEventListener('click', openSettings);
+so.addEventListener('click', e => { if (e.target === so) closeSettings(); });
+addEventListener('keydown', e => { if (e.key === 'Escape') { closeSettings(); closeSuccess(); } });
 
-        for (let i = 0; i < 100; i++) {
-            particleArray.push(new CyberParticle());
-        }
+/* ---------- שליחת טפסים (Web3Forms, אותו מפתח) ---------- */
+const sx = $('#success');
+function openSuccess() { sx.classList.add('open'); sx.setAttribute('aria-hidden', 'false'); pulse(innerWidth / 2, innerHeight / 2, 1.4); tick(1300); }
+function closeSuccess() { sx.classList.remove('open'); sx.setAttribute('aria-hidden', 'true'); }
+$('#ok-close').addEventListener('click', closeSuccess); sx.addEventListener('click', e => { if (e.target === sx) closeSuccess(); });
+function wire(id, errText, after) {
+  const form = $('#' + id);
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const fd = new FormData(this), btn = this.querySelector('button[type="submit"]'); btn.textContent = btn.dataset.busy; btn.style.pointerEvents = 'none';
+    fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd }).then(r => r.json()).then(d => {
+      if (d.success) { openSuccess(); form.reset(); if (after) after(); } else { alert(errText); }
+    }).catch(err => { console.error('Error:', err); alert('שגיאת תקשורת במערכת הליבה.'); })
+      .finally(() => { btn.textContent = btn.dataset.idle; btn.style.pointerEvents = 'auto'; });
+  });
+}
+wire('f-apply', 'שגיאה בשליחת הטופס, נסה שנית.');
+wire('f-report', 'שגיאה בשליחת הדיווח, נסה שנית.');
+/* פידבק: כוכבים */
+(function () {
+  const moods = ['', 'נורא 😖', 'לא משהו 😕', 'סבבה 🙂', 'יפה מאוד 😊', 'מושלם 🤩'], grp = $('#stars'), st = $$('.star', grp), lab = $('#mood'), inp = $('#rating-input'); let val = 0;
+  const paint = n => st.forEach((s, i) => s.classList.toggle('on', i < n));
+  st.forEach((s, i) => { s.addEventListener('mouseenter', () => paint(i + 1)); s.addEventListener('click', () => { val = i + 1; inp.value = val + ' מתוך 5'; lab.textContent = moods[val]; paint(val); tick(600 + val * 180);
+    const r = s.getBoundingClientRect(); pulse(r.left + r.width / 2, r.top + r.height / 2, .7); }); });
+  grp.addEventListener('mouseleave', () => paint(val));
+  wire('f-feedback', 'שגיאה בשליחת הפידבק, נסה שנית.', () => { val = 0; inp.value = 'לא דורג'; lab.textContent = 'לחצו על הכוכבים כדי לדרג'; paint(0); });
+})();
 
-        function connectParticles() {
-            for (let a = 0; a < particleArray.length; a++) {
-                for (let b = a; b < particleArray.length; b++) {
-                    let dx = particleArray[a].x - particleArray[b].x;
-                    let dy = particleArray[a].y - particleArray[b].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 110) {
-                        ctx.strokeStyle = `rgba(10, 132, 255, ${(1 - distance / 110) * 0.5})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particleArray[a].x, particleArray[a].y);
-                        ctx.lineTo(particleArray[b].x, particleArray[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function runMainMatrixLoop() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (!document.body.classList.contains('no-fx') && !document.body.classList.contains('no-particles')) {
-                particleArray.forEach(p => { p.update(); p.draw(); });
-                connectParticles();
-            }
-            requestAnimationFrame(runMainMatrixLoop);
-        }
-        runMainMatrixLoop();
-
-        /* ב. אתחול מדורג */
-        let currentProgress = 0;
-        const progressFill = document.getElementById('progress-bar-node');
-        const consoleNode = document.getElementById('console-node-stream');
-        const accessButton = document.getElementById('btn-mainframe-trigger');
-
-        const consoleMessages = [
-            "> טוענים את אתר הקהילה...",
-            "> מפעילים אנימציות וממשק...",
-            "> מכינים את טפסי המועמדות והדיווחים...",
-            "> האתר מוכן. אפשר להיכנס לאתר."
-        ];
-
-        const systemBootInterval = setInterval(() => {
-            currentProgress += Math.floor(Math.random() * 7) + 2;
-            if (currentProgress >= 100) {
-                currentProgress = 100;
-                clearInterval(systemBootInterval);
-                consoleNode.innerHTML += "<br><span style='color:var(--neon-green)'>> האתר מוכן. אפשר להיכנס לאתר.</span>";
-                accessButton.classList.add('unlocked');
-            }
-            progressFill.style.width = currentProgress + '%';
-
-            if (currentProgress > 25 && currentProgress < 50) consoleNode.innerHTML = consoleMessages[0];
-            if (currentProgress > 50 && currentProgress < 75) consoleNode.innerHTML = consoleMessages[1] + "<br>" + consoleMessages[2];
-            if (currentProgress > 75 && currentProgress < 100) consoleNode.innerHTML = consoleMessages[2] + "<br>" + consoleMessages[3];
-        }, 100);
-
-        function engageCoreSystem() {
-            const boot = document.getElementById('secure-boot-wrapper');
-            boot.style.opacity = '0';
-            boot.style.pointerEvents = 'none';
-            const hackerScreen = document.getElementById('interstitial-hacker-screen');
-            hackerScreen.querySelector('h2').innerText = 'WELCOME TO THE COMMUNITY';
-            hackerScreen.classList.add('active');
-            burst(window.innerWidth / 2, window.innerHeight / 2, 170);
-            setTimeout(() => {
-                boot.style.display = 'none';
-                document.getElementById('quantum-mainframe').classList.add('online');
-                hackerScreen.classList.remove('active');
-            }, 1000);
-        }
-
-        /* ג. ניווט */
-        function navigateToPanel(targetPanelId, triggerButton) {
-            document.querySelectorAll('.quantum-panel-layer').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.hud-tab-trigger').forEach(b => b.classList.remove('selected'));
-
-            document.getElementById(targetPanelId).classList.add('active');
-            triggerButton.classList.add('selected');
-        }
-
-        /* ד. הטיה עדינה לכרטיסיות */
-        document.querySelectorAll('.chroma-rotating-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
-                card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
-                if (document.body.classList.contains('no-tilt')) return;
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const rotX = (rect.height / 2 - y) / 35;
-                const rotY = (x - rect.width / 2) / 35;
-                card.style.transform = `perspective(1200px) translateY(-4px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = ''; card.style.removeProperty('--mx'); card.style.removeProperty('--my');
-            });
-        });
-
-
-        /* ו. שליחה שקטה + חלון הצלחה */
-        function triggerSuccessModal() {
-            document.getElementById('global-success-modal').classList.add('active');
-            burst(window.innerWidth / 2, window.innerHeight / 2.3, 150);
-        }
-
-        function closeSuccessModal() {
-            document.getElementById('global-success-modal').classList.remove('active');
-        }
-
-        document.getElementById('apply-cyber-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const formData = new FormData(this);
-            const submitButton = this.querySelector('.btn-chroma-submit-node');
-            submitButton.innerText = "משגר נתונים...";
-            submitButton.style.pointerEvents = "none";
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    triggerSuccessModal();
-                    document.getElementById('apply-cyber-form').reset();
-                } else {
-                    alert("שגיאה בשליחת הטופס, נסה שנית.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("שגיאת תקשורת במערכת הליבה.");
-            })
-            .finally(() => {
-                submitButton.innerText = "שלח טופס מאובטח להנהלה";
-                submitButton.style.pointerEvents = "auto";
-            });
-        });
-
-        document.getElementById('report-cyber-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const formData = new FormData(this);
-            const submitButton = this.querySelector('.btn-chroma-submit-node');
-            submitButton.innerText = "משגר דיווח...";
-            submitButton.style.pointerEvents = "none";
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    triggerSuccessModal();
-                    document.getElementById('report-cyber-form').reset();
-                } else {
-                    alert("שגיאה בשליחת הדיווח, נסה שנית.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("שגיאת תקשורת במערכת הליבה.");
-            })
-            .finally(() => {
-                submitButton.innerText = "שגר דיווח מוצפן לחלון הנהלה עליונה";
-                submitButton.style.pointerEvents = "auto";
-            });
-        });
-
-        /* ו2. קונפטי */
-        const cfCanvas = document.getElementById('confetti-canvas');
-        const cfCtx = cfCanvas.getContext('2d');
-        let cfBits = [], cfRunning = false;
-        function sizeConfetti() { cfCanvas.width = window.innerWidth; cfCanvas.height = window.innerHeight; }
-        window.addEventListener('resize', sizeConfetti); sizeConfetti();
-        function burst(x, y, n) {
-            const cl = document.body.classList;
-            if (cl.contains('no-confetti') || cl.contains('calm')) return;
-            const colors = ['#0a84ff', '#bf5af2', '#ff375f', '#ff9f0a', '#ffd60a', '#30d158', '#64d2ff'];
-            for (let i = 0; i < (n || 90); i++) {
-                cfBits.push({ x: x, y: y, vx: (Math.random() - .5) * 16, vy: -Math.random() * 15 - 4, w: 6 + Math.random() * 7, h: 4 + Math.random() * 7,
-                    r: Math.random() * 6.28, vr: (Math.random() - .5) * .4, c: colors[Math.floor(Math.random() * colors.length)], life: 90 + Math.random() * 70, round: Math.random() < .3 });
-            }
-            if (!cfRunning) { cfRunning = true; requestAnimationFrame(stepConfetti); }
-        }
-        function stepConfetti() {
-            cfCtx.clearRect(0, 0, cfCanvas.width, cfCanvas.height);
-            cfBits = cfBits.filter(b => b.life > 0 && b.y < cfCanvas.height + 40);
-            cfBits.forEach(b => {
-                b.vy += .36; b.x += b.vx; b.y += b.vy; b.vx *= .99; b.r += b.vr; b.life--;
-                cfCtx.save(); cfCtx.globalAlpha = Math.min(1, b.life / 40); cfCtx.translate(b.x, b.y); cfCtx.rotate(b.r); cfCtx.fillStyle = b.c;
-                if (b.round) { cfCtx.beginPath(); cfCtx.arc(0, 0, b.w / 2, 0, 6.28); cfCtx.fill(); } else { cfCtx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h); }
-                cfCtx.restore();
-            });
-            if (cfBits.length) { requestAnimationFrame(stepConfetti); } else { cfRunning = false; cfCtx.clearRect(0, 0, cfCanvas.width, cfCanvas.height); }
-        }
-
-        /* ו3. צורות זכוכית צפות וניצנוצי כוכבים */
-        function buildShapes(el, shapesCount, sparksCount) {
-            const cols = ['#0a84ff', '#bf5af2', '#ff375f', '#ff9f0a', '#30d158', '#5ac8fa'];
-            const radii = ['50%', '28%', '34%', '50% 50% 50% 12%', '42% 58% 55% 45%'];
-            const rnd = (a, b) => a + Math.random() * (b - a);
-            for (let i = 0; i < shapesCount; i++) {
-                const d = document.createElement('span');
-                d.className = 'shape' + (i % 4 === 3 ? ' ring' : '');
-                const st = d.style;
-                st.setProperty('--x', rnd(2, 92).toFixed(1) + '%'); st.setProperty('--y', rnd(2, 88).toFixed(1) + '%');
-                st.setProperty('--s', rnd(60, 170).toFixed(0) + 'px'); st.setProperty('--r', radii[i % radii.length]);
-                st.setProperty('--c', cols[i % cols.length]); st.setProperty('--d', rnd(7, 14).toFixed(1) + 's'); st.setProperty('--dl', (-rnd(0, 10)).toFixed(1) + 's');
-                st.setProperty('--r0', rnd(-25, 0).toFixed(0) + 'deg'); st.setProperty('--r1', rnd(10, 40).toFixed(0) + 'deg'); st.setProperty('--k', rnd(-1.6, 1.6).toFixed(2));
-                el.appendChild(d);
-            }
-            for (let i = 0; i < sparksCount; i++) {
-                const p = document.createElement('span');
-                p.className = 'spark';
-                p.style.setProperty('--x', rnd(0, 100).toFixed(1) + '%'); p.style.setProperty('--y', rnd(0, 100).toFixed(1) + '%');
-                p.style.setProperty('--s', rnd(2, 5).toFixed(1) + 'px'); p.style.setProperty('--d', rnd(2.5, 6).toFixed(1) + 's'); p.style.setProperty('--dl', (-rnd(0, 6)).toFixed(1) + 's');
-                el.appendChild(p);
-            }
-        }
-        buildShapes(document.getElementById('shapes-global'), 9, 55);
-        buildShapes(document.getElementById('shapes-boot'), 8, 45);
-
-        /* ו4. פידבק לאתר: דירוג בכוכבים ושליחה (אותו מפתח של טופס המיונים) */
-        (function () {
-            const moods = ['', 'נורא 😖', 'לא משהו 😕', 'סבבה 🙂', 'יפה מאוד 😊', 'מושלם 🤩'];
-            const group = document.getElementById('star-rating');
-            const stars = Array.from(group.querySelectorAll('.star'));
-            const label = document.getElementById('mood-label');
-            const input = document.getElementById('rating-input');
-            const form = document.getElementById('feedback-cyber-form');
-            let val = 0;
-            const paint = n => stars.forEach((s, i) => s.classList.toggle('on', i < n));
-            stars.forEach((s, i) => {
-                s.addEventListener('mouseenter', () => paint(i + 1));
-                s.addEventListener('click', () => {
-                    val = i + 1; input.value = val + ' מתוך 5'; label.textContent = moods[val]; paint(val);
-                    const r = s.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2, 26);
-                });
-            });
-            group.addEventListener('mouseleave', () => paint(val));
-
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                const formData = new FormData(this);
-                const submitButton = this.querySelector('.btn-chroma-submit-node');
-                submitButton.innerText = "שולח פידבק...";
-                submitButton.style.pointerEvents = "none";
-
-                fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        triggerSuccessModal();
-                        form.reset(); val = 0; input.value = 'לא דורג'; label.textContent = 'לחצו על הכוכבים כדי לדרג'; paint(0);
-                    } else {
-                        alert("שגיאה בשליחת הפידבק, נסה שנית.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    alert("שגיאת תקשורת במערכת הליבה.");
-                })
-                .finally(() => {
-                    submitButton.innerText = "שלח פידבק";
-                    submitButton.style.pointerEvents = "auto";
-                });
-            });
-        })();
-
-        /* ז. הגדרות ותצוגה: מתגי iOS, טפטים וצבעי הדגשה (נשמרים בדפדפן) */
-        (function () {
-            const store = {
-                get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
-                set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} }
-            };
-            const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const sysCalm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            let prefs = {};
-            try { prefs = JSON.parse(store.get('prefs') || '{}') || {}; } catch (e) { prefs = {}; }
-
-            const groups = [
-                { t: 'תצוגה', items: [
-                    { k: 'dark', l: 'מצב כהה', i: 'fa-moon', d: sysDark },
-                    { k: 'glass', l: 'זכוכית שקופה', i: 'fa-droplet', d: true },
-                    { k: 'big', l: 'טקסט גדול', i: 'fa-text-height', d: false },
-                    { k: 'contrast', l: 'ניגודיות גבוהה', i: 'fa-circle-half-stroke', d: false } ] },
-                { t: 'רקע', items: [
-                    { k: 'fx', l: 'אפקטי רקע', i: 'fa-wand-magic-sparkles', d: true },
-                    { k: 'particles', l: 'חלקיקים מחוברים', i: 'fa-circle-nodes', d: true },
-                    { k: 'orbs', l: 'כדורי תאורה', i: 'fa-sun', d: true },
-                    { k: 'parallax', l: 'תנועת רקע עם העכבר', i: 'fa-arrows-up-down-left-right', d: true },
-                    { k: 'aurora', l: 'זוהר אורורה', i: 'fa-water', d: true },
-                    { k: 'shapes', l: 'צורות זכוכית צפות', i: 'fa-shapes', d: true },
-                    { k: 'sparks', l: 'ניצנוצי כוכבים', i: 'fa-star', d: true } ],
-                  swatches: true },
-                { t: 'אנימציות', items: [
-                    { k: 'motion', l: 'אנימציות', i: 'fa-film', d: !sysCalm },
-                    { k: 'tilt', l: 'הטיית כרטיסים', i: 'fa-cube', d: true },
-                    { k: 'glow', l: 'זוהר בריחוף', i: 'fa-bolt', d: true },
-                    { k: 'sidefx', l: 'אנימציות בסרגל הצד', i: 'fa-wave-square', d: true },
-                    { k: 'ring', l: 'הילת מסגרת', i: 'fa-circle-notch', d: true },
-                    { k: 'spotlight', l: 'זרקור על הכרטיסים', i: 'fa-lightbulb', d: true },
-                    { k: 'confetti', l: 'קונפטי', i: 'fa-champagne-glasses', d: true },
-                    { k: 'sound', l: 'צלילי לחיצה', i: 'fa-volume-high', d: false } ] }
-            ];
-            const defs = {};
-            groups.forEach(g => g.items.forEach(it => defs[it.k] = it.d));
-            const val = k => prefs[k] === undefined ? defs[k] : prefs[k];
-
-            const wallpapers = { aurora: '#0a84ff,#ff375f', ocean: '#0a84ff,#30d0c6', sunset: '#ff9f0a,#bf5af2', forest: '#30d158,#64d2ff', graphite: '#8e8e93,#636366' };
-            const accents = { blue: '#0a84ff', purple: '#bf5af2', pink: '#ff375f', green: '#30d158', orange: '#ff9f0a' };
-            const names = { aurora: 'זוהר', ocean: 'אוקיינוס', sunset: 'שקיעה', forest: 'יער', graphite: 'גרפיט', blue: 'כחול', purple: 'סגול', pink: 'ורוד', green: 'ירוק', orange: 'כתום' };
-
-            const body = document.getElementById('settings-body');
-            function swatchRow(title, icon, key, map, mk) {
-                const row = document.createElement('div');
-                row.className = 'ios-row col';
-                row.innerHTML = '<span><i class="fas ' + icon + '"></i>' + title + '</span>';
-                const wrap = document.createElement('div');
-                wrap.className = 'swatches';
-                Object.keys(map).forEach(name => {
-                    const b = document.createElement('button');
-                    b.type = 'button'; b.className = 'sw'; b.dataset.key = key; b.dataset.name = name;
-                    b.title = names[name]; b.setAttribute('aria-label', names[name]);
-                    b.style.setProperty('--c', mk(map[name]));
-                    b.addEventListener('click', () => { prefs[key] = name; save(); apply(); tick(); });
-                    wrap.appendChild(b);
-                });
-                row.appendChild(wrap);
-                return row;
-            }
-            groups.forEach(g => {
-                const title = document.createElement('div');
-                title.className = 'set-title'; title.textContent = g.t;
-                body.appendChild(title);
-                const box = document.createElement('div');
-                box.className = 'hud-settings-group';
-                g.items.forEach(it => {
-                    const row = document.createElement('label');
-                    row.className = 'ios-row';
-                    row.innerHTML = '<span><i class="fas ' + it.i + '"></i>' + it.l + '</span>';
-                    const inp = document.createElement('input');
-                    inp.type = 'checkbox'; inp.className = 'ios-switch'; inp.dataset.key = it.k;
-                    inp.addEventListener('change', () => { prefs[it.k] = inp.checked; save(); apply(); tick(); });
-                    row.appendChild(inp);
-                    box.appendChild(row);
-                });
-                if (g.swatches) {
-                    box.appendChild(swatchRow('טפט', 'fa-image', 'wallpaper', wallpapers, c => 'linear-gradient(135deg,' + c + ')'));
-                    box.appendChild(swatchRow('צבע הדגשה', 'fa-palette', 'accent', accents, c => c));
-                }
-                body.appendChild(box);
-            });
-            const reset = document.createElement('button');
-            reset.type = 'button'; reset.className = 'reset-btn';
-            reset.innerHTML = '<i class="fas fa-rotate-left" style="margin-left:8px"></i>איפוס הגדרות';
-            reset.addEventListener('click', () => { prefs = {}; save(); apply(); tick(); });
-            body.appendChild(reset);
-
-            function save() { store.set('prefs', JSON.stringify(prefs)); }
-
-            /* צלילי לחיצה */
-            let actx = null;
-            function tick() {
-                if (!val('sound')) return;
-                try {
-                    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
-                    const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime;
-                    o.type = 'sine'; o.frequency.setValueAtTime(980, t); o.frequency.exponentialRampToValueAtTime(620, t + .09);
-                    g.gain.setValueAtTime(.05, t); g.gain.exponentialRampToValueAtTime(.0001, t + .1);
-                    o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + .11);
-                } catch (e) {}
-            }
-            document.addEventListener('click', e => {
-                if (e.target.closest('.hud-tab-trigger, .btn-hardware-access, .btn-chroma-submit-node, .btn-simulation-trigger, .btn-close-modal')) tick();
-            });
-
-            /* תנועת רקע עם העכבר */
-            window.addEventListener('mousemove', e => {
-                if (document.body.classList.contains('no-parallax')) return;
-                const r = document.documentElement.style;
-                r.setProperty('--px', ((e.clientX / window.innerWidth - .5) * 70).toFixed(1));
-                r.setProperty('--py', ((e.clientY / window.innerHeight - .5) * 70).toFixed(1));
-            });
-
-            function apply() {
-                const R = document.documentElement, B = document.body;
-                R.dataset.theme = val('dark') ? 'dark' : 'light';
-                R.dataset.wallpaper = prefs.wallpaper || 'aurora';
-                R.dataset.accent = prefs.accent || 'blue';
-                R.classList.toggle('big-text', val('big'));
-                R.classList.toggle('hi-contrast', val('contrast'));
-                [['no-glass', 'glass'], ['no-fx', 'fx'], ['no-particles', 'particles'], ['no-orbs', 'orbs'], ['no-parallax', 'parallax'],
-                 ['calm', 'motion'], ['no-tilt', 'tilt'], ['no-glow', 'glow'], ['no-sidefx', 'sidefx'], ['no-ring', 'ring'],
-                 ['no-aurora', 'aurora'], ['no-shapes', 'shapes'], ['no-sparks', 'sparks'], ['no-spotlight', 'spotlight'], ['no-confetti', 'confetti']]
-                    .forEach(p => B.classList.toggle(p[0], !val(p[1])));
-                if (!val('parallax')) { R.style.setProperty('--px', 0); R.style.setProperty('--py', 0); }
-                body.querySelectorAll('.ios-switch').forEach(i => i.checked = !!val(i.dataset.key));
-                body.querySelectorAll('.sw').forEach(b => b.setAttribute('aria-pressed', String((prefs[b.dataset.key] || (b.dataset.key === 'wallpaper' ? 'aurora' : 'blue')) === b.dataset.name)));
-            }
-            apply();
-        })();
-    </script>
-
+/* ---------- הפעלה ---------- */
+apply(); requestAnimationFrame(loop);
+})();
+</script>
 </body>
 </html>
