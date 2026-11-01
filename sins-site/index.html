@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <meta name="application-version" content="9.6.23.40">
-<title>בואו להנות | NOVA Edge Engine — Version 9.6.23.40</title>
+<title>בואו להנות | Babylon.js Engine — Version 9.6.23.40</title>
 <link rel="icon" type="image/png" href="logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -45,9 +45,10 @@ a{color:var(--accent);text-decoration:none}
 
 /* ================= שכבות גרפיקה ================= */
 #gl,#fx{position:fixed;inset:0;width:100vw;height:100vh}
-#gl{display:none} #fx{display:none;z-index:-2;pointer-events:none}
-#nova-edge-canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:-3;pointer-events:none;display:block}
-body.nogl #gl{display:none} body.nogl #fx{display:block}
+#gl{display:block;z-index:-3;pointer-events:none;touch-action:none;outline:0;background:transparent}
+#fx{display:none;z-index:-2;pointer-events:none}
+#nova-edge-canvas{display:none}
+body.nogl #gl{display:none} body.nogl #fx{display:none}
 body.nogl::before{content:"";position:fixed;inset:0;z-index:-3;background:
  radial-gradient(circle at 15% 27%,rgba(103,213,255,.75) 0 2px,transparent 4px),radial-gradient(circle at 84% 22%,rgba(103,213,255,.72) 0 2px,transparent 4px),radial-gradient(circle at 17% 76%,rgba(103,213,255,.62) 0 2px,transparent 4px),radial-gradient(circle at 86% 73%,rgba(103,213,255,.62) 0 2px,transparent 4px),
  radial-gradient(ellipse at 50% 48%,color-mix(in srgb,var(--c2) 26%,#061b42),transparent 58%),linear-gradient(135deg,#030b1d 0%,#082652 48%,#030b1d 100%),
@@ -345,6 +346,62 @@ body.nogl[data-scene="quantum"]::before{background:radial-gradient(circle at 50%
 body.nogl[data-scene="matrix"]::before{background:repeating-linear-gradient(90deg,transparent 0 24px,rgba(40,255,135,.12) 25px,transparent 26px),linear-gradient(135deg,#010b08,#032b1a 50%,#010805)}
 body.nogl[data-scene="solar"]::before{background:radial-gradient(circle at 50% 48%,rgba(255,145,30,.36),transparent 25%),radial-gradient(ellipse at 50% 48%,rgba(255,45,35,.14),transparent 55%),linear-gradient(135deg,#170604,#341006,#05030a)}
 
+
+/* ================= NOVA / ART DIRECTION REFRESH ================= */
+:root{--bg:light-dark(#e8edf6,#030813);--glass:light-dark(rgba(255,255,255,.52),rgba(8,17,34,.56));--tile:light-dark(rgba(255,255,255,.66),rgba(9,23,45,.62));--shadow:0 28px 90px rgba(0,0,0,.30);}
+body{background:radial-gradient(ellipse at 50% 44%,#0b2851 0%,#06142b 38%,#020611 100%);}
+body::before{content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;background:
+  radial-gradient(ellipse at 17% 18%,rgba(0,135,255,.16),transparent 34%),
+  radial-gradient(ellipse at 84% 72%,rgba(0,224,255,.10),transparent 34%),
+  linear-gradient(135deg,rgba(255,255,255,.025),transparent 42%,rgba(50,135,255,.035));}
+#gl{filter:saturate(1.18) contrast(1.08);}
+.topbar{height:66px;background:linear-gradient(115deg,rgba(5,19,42,.84),rgba(9,34,68,.66) 56%,rgba(7,18,40,.80));border:1px solid rgba(120,190,255,.24);box-shadow:0 22px 70px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.22);}
+.brand .app-tile{background:linear-gradient(145deg,#67d8ff,#0876ff 58%,#4434c8);box-shadow:0 10px 34px rgba(0,132,255,.40),inset 0 1px 0 rgba(255,255,255,.65);}
+.brand h1{background:linear-gradient(100deg,#f4fbff 0%,#87dcff 45%,#5b9cff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 28px rgba(55,165,255,.18);}
+.brand p{color:rgba(219,237,255,.67);letter-spacing:.025em;}
+.version-chip{background:linear-gradient(110deg,#075bd9,#0bb5e8);border-color:rgba(180,235,255,.48);box-shadow:0 5px 20px rgba(0,135,255,.28);}
+.ibtn{background:linear-gradient(145deg,rgba(130,195,255,.20),rgba(255,255,255,.055));border:1px solid rgba(160,210,255,.20);color:#eaf7ff;}
+.stage{inset:calc(96px + env(safe-area-inset-top,0px)) 18px calc(112px + env(safe-area-inset-bottom,0px));}
+.window{background:linear-gradient(135deg,rgba(10,29,58,.72),rgba(7,17,34,.70) 58%,rgba(8,25,49,.68));border:1px solid rgba(129,194,255,.20);box-shadow:0 35px 110px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.10);}
+.window::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:linear-gradient(110deg,rgba(31,134,255,.065),transparent 28%,transparent 70%,rgba(45,209,255,.045));}
+.panel{scrollbar-color:rgba(130,190,255,.25) transparent;}
+.panel>h2.title{color:#f2f8ff;text-shadow:0 5px 28px rgba(0,0,0,.24);}
+.panel>h2.title::after{width:92px;height:4px;background:linear-gradient(90deg,#0d8eff,#20d8ff,#8a7bff);box-shadow:0 0 22px rgba(0,166,255,.42);}
+.tile{background:linear-gradient(145deg,rgba(17,46,82,.80),rgba(7,22,43,.72));border:1px solid rgba(139,197,255,.17);box-shadow:0 20px 55px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.10);}
+.tile:hover{border-color:rgba(77,190,255,.42);box-shadow:0 26px 70px rgba(0,0,0,.28),0 0 30px rgba(0,133,255,.09),inset 0 1px 0 rgba(255,255,255,.15);}
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:360px;background:linear-gradient(125deg,rgba(5,26,60,.96),rgba(8,63,120,.85) 52%,rgba(7,27,62,.93));border-color:rgba(72,171,255,.34);}
+.hero::before{content:"";position:absolute;z-index:-1;inset:-30%;background:radial-gradient(circle at 70% 43%,rgba(0,180,255,.30),transparent 24%),radial-gradient(circle at 83% 72%,rgba(79,85,255,.22),transparent 30%),repeating-linear-gradient(135deg,transparent 0 39px,rgba(100,195,255,.08) 40px,transparent 41px);transform:rotate(-8deg);}
+.hero::after{content:"";position:absolute;z-index:-1;width:360px;height:360px;inset-inline-start:54%;top:50%;translate:0 -50%;border-radius:50%;border:1px solid rgba(80,190,255,.16);box-shadow:0 0 0 22px rgba(50,160,255,.035),0 0 0 58px rgba(50,160,255,.025),inset 0 0 55px rgba(0,151,255,.10);pointer-events:none;}
+.hero h3{color:#fff;text-shadow:0 8px 36px rgba(0,0,0,.34);}
+.hero p,.tile p,.person p{color:rgba(220,235,255,.76);}
+.hero .phone{filter:drop-shadow(0 24px 32px rgba(0,0,0,.40));}
+.t-rules,.t-team,.t-join{background:linear-gradient(145deg,rgba(13,37,68,.83),rgba(7,19,37,.78));}
+.tile h3{color:#f5f9ff;}
+.rules li{color:rgba(229,241,255,.82);}
+.person{border-color:rgba(145,199,255,.14);}
+.avatar{box-shadow:0 10px 28px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.35);}
+.badge{border:1px solid rgba(130,195,255,.18);background:rgba(60,145,255,.15);color:#d7edff;}
+.tabbar{background:linear-gradient(135deg,rgba(6,20,42,.88),rgba(8,28,55,.72));border:1px solid rgba(133,194,255,.22);box-shadow:0 18px 55px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.14);}
+.tab{color:rgba(225,241,255,.63);}
+.tab[aria-selected="true"]{color:#fff;}
+.tab[aria-selected="true"] i{color:#51caff;filter:drop-shadow(0 0 9px rgba(44,190,255,.70));}
+.tabbar .ind{background:linear-gradient(180deg,rgba(45,163,255,.26),rgba(35,110,230,.12));border-color:rgba(110,210,255,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 0 24px rgba(0,145,255,.25);}
+.form .input{background:rgba(4,15,31,.50);border-color:rgba(125,186,243,.22);color:#f3f8ff;}
+.form .input::placeholder{color:rgba(210,229,251,.40);}
+.form label{color:#e6f2ff;}
+.glass{border:1px solid rgba(139,201,255,.16);box-shadow:0 26px 85px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.14);}
+.overlay{background:rgba(1,7,18,.68);}
+.sheet{background:linear-gradient(145deg,rgba(12,32,59,.94),rgba(5,15,31,.96));border:1px solid rgba(126,194,255,.22);}
+.cats{background:rgba(0,9,22,.30);}
+.cat{color:rgba(225,240,255,.76);}
+.cat[aria-selected="true"]{color:#fff;background:linear-gradient(100deg,rgba(0,145,255,.22),rgba(0,205,255,.08));}
+.group{background:rgba(4,17,34,.58);border:1px solid rgba(122,184,245,.14);}
+.srow+.srow{border-color:rgba(122,184,245,.11);}
+.srow .l small,.srow .v{color:rgba(209,230,255,.62);}
+.sselect{background:rgba(4,17,35,.72);color:#eef8ff;border-color:rgba(120,188,255,.22);}
+.sbtn{background:rgba(33,129,220,.18);color:#dff4ff;border:1px solid rgba(120,200,255,.18);}
+@media(max-width:760px){.stage{inset:calc(86px + env(safe-area-inset-top,0px)) 10px calc(98px + env(safe-area-inset-bottom,0px));}.hero{min-height:280px}.hero::after{inset-inline-start:28%;opacity:.55}}
+
 </style>
 </head>
 <body>
@@ -377,7 +434,7 @@ body.nogl[data-scene="solar"]::before{background:radial-gradient(circle at 50% 4
 <!-- ================= האתר ================= -->
 <div id="app">
   <header class="topbar glass">
-    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 9.6.23.40</span></div><p>הקהילה מתחילה כאן · NOVA Visual Engine · Procedural FX</p></div></div>
+    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 9.6.23.40</span></div><p>הקהילה מתחילה כאן · NOVA Visual Studio · Babylon.js 3D</p></div></div>
     <button class="ibtn" id="btn-relock" aria-label="נעילת מסך"><i class="fas fa-lock"></i></button>
     <button class="ibtn" id="btn-settings" aria-label="הגדרות"><i class="fas fa-gear"></i></button>
   </header>
@@ -557,7 +614,7 @@ body.nogl[data-scene="solar"]::before{background:radial-gradient(circle at 50% 4
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/pixi.js@8.22.0/dist/pixi.min.js"></script>
+<script src="https://cdn.babylonjs.com/v9.33.1/babylon.js"></script>
 <script>
 (async function () {
 'use strict';
@@ -581,7 +638,7 @@ const DEF = Object.assign({
   ripple: true, motion: !sysCalm, tilt: true, depth: 60, spot: true, tspeed: 100,
   hud: false, saver: false, pauseHidden: true, debug: false,
   sound: false, vol: 50, haptic: false,
-  engineMode: 'nova', scene: 'prime', particleDensity: 190, enginePower: 100, layerDepth: 78, interactiveFX: true,
+  engineMode: 'babylon', scene: 'prime', particleDensity: 190, enginePower: 100, layerDepth: 78, interactiveFX: true,
   engine3d: 'auto', zoom3d: 112, detail3d: 92, glow3d: 96, rotate3d: true, shadows3d: true, shape3d: 'core'
 }, PRESETS[q0]);
 let P = Object.assign({}, DEF);
@@ -594,10 +651,10 @@ try {
   }
 } catch (e) {}
 P.wall = 'prime';
-P.engineMode = ['nova','fusion','classic3d'].includes(P.engineMode) ? P.engineMode : 'nova';
+P.engineMode = 'babylon';
 P.scene = ['prime','rog','cyber','aurora','nebula','quantum','matrix','solar','synth','abyss','prism','emerald','dusk','storm','magma','holo'].includes(P.scene) ? P.scene : 'prime';
 P.shape3d = ['core','crystal','rog','cube','reactor'].includes(P.shape3d) ? P.shape3d : 'core';
-P.engineMode = 'edge';
+P.engineMode = 'babylon';
 P.renderScale = Math.max(50, Math.min(90, Number(P.renderScale) || 72));
 P.particleDensity = Math.max(20, Math.min(160, Number(P.particleDensity) || 90));
 P.bokeh = Math.max(0, Math.min(80, Number(P.bokeh) || 24));
@@ -640,240 +697,418 @@ const SCENES = {
 if (!PAL[P.pal]) P.pal = 'prime';
 const WALL = { prime: 0 }; // הרקע הקבוע: לוח אם בסגנון PRIME BIOS
 
-/* ---------- NOVA Edge Engine 9.6.23.40 · PixiJS GPU renderer ---------- */
-const glc = $('#gl'), fxc = $('#fx'), fx = fxc.getContext('2d', { alpha: true, desynchronized: true });
-let gl = null, U = {}, gpuName = 'Canvas 2D fallback';
+/* ---------- Babylon.js 3D Engine · Version 9.6.23.40 ---------- */
+const glc = $('#gl'), fxc = $('#fx');
+let gl = null, U = {}, gpuName = 'Babylon.js — initializing';
 const NovaEdge = (() => {
-  let app = null, ready = false, bgSprite = null, bgTexture = null;
-  let decor = null, motion = null, shadow = null, particlesLayer = null, modelRoot = null, modelGraphic = null;
-  let particleTexture = null, particles = [], pulses = [], fallbackParticles = [];
-  let lastScene = '', lastPalette = '', lastShape = '', lastDetail = 0, lastCount = -1;
-  let screenW = innerWidth, screenH = innerHeight, currentResolution = 1;
-  const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
-  const hex = c => parseInt(String(c || '#ffffff').replace('#','').slice(0,6),16) || 0xffffff;
-  const rgba = (c,a) => { const n=hex(c); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; };
-  const rand = (a,b) => a + Math.random()*(b-a);
-  const pt = (cx,cy,r,a) => [cx+Math.cos(a)*r,cy+Math.sin(a)*r];
-  function makeParticleTexture() {
-    const c=document.createElement('canvas'); c.width=c.height=64;
-    const x=c.getContext('2d'); const g=x.createRadialGradient(32,32,1,32,32,31);
-    g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(.18,'rgba(255,255,255,.82)');
-    g.addColorStop(.55,'rgba(255,255,255,.18)'); g.addColorStop(1,'rgba(255,255,255,0)');
-    x.fillStyle=g; x.fillRect(0,0,64,64); return PIXI.Texture.from(c);
+  const B = window.BABYLON;
+  let engine = null, scene = null, camera = null, ready = false;
+  let bgPlane = null, bgTexture = null, bgMaterial = null;
+  let modelRoot = null, modelParts = [], modelMaterials = [], orbitParts = [], particleSource = null, particles = [];
+  let shadowDisc = null, pulseMeshes = [], pulseQueue = [];
+  let lastBackdrop = '', lastModel = '', lastParticleCount = -1, lastScale = -1, lastGlow = -1;
+  let viewW = innerWidth, viewH = innerHeight;
+  const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+  const rand = (a,b) => a + Math.random() * (b-a);
+  const col = value => B.Color3.FromHexString(String(value || '#ffffff'));
+  const mat = (name, diffuse, emissive, specular=.32) => {
+    const m = new B.StandardMaterial(name, scene);
+    m.diffuseColor = col(diffuse);
+    m.emissiveColor = col(emissive).scale(.2 + clamp((Number(P.glow3d)||75)/100,0,1)*.62);
+    modelMaterials.push(m);
+    m.specularColor = new B.Color3(specular, specular, specular);
+    m.specularPower = 96;
+    m.useGlossinessFromSpecularMapAlpha = false;
+    return m;
+  };
+  function attach(mesh, material, parent=modelRoot) {
+    mesh.material = material;
+    mesh.parent = parent;
+    mesh.isPickable = false;
+    mesh.alwaysSelectAsActiveMesh = false;
+    modelParts.push(mesh);
+    return mesh;
   }
-  function makeBackdrop(scene, colors, w, h, grain=0) {
-    const c=document.createElement('canvas'); c.width=1280; c.height=800;
-    const x=c.getContext('2d');
-    const g=x.createLinearGradient(0,0,1280,800);
-    g.addColorStop(0,'#030817'); g.addColorStop(.52,'#07182d'); g.addColorStop(1,'#020611');
-    if(scene==='rog'||scene==='solar'||scene==='magma') { g.addColorStop(.35,'#190912'); g.addColorStop(.75,'#080711'); }
-    if(scene==='synth'||scene==='cyber'||scene==='prism') { g.addColorStop(.48,'#160d35'); }
-    if(scene==='abyss'||scene==='aurora'||scene==='emerald'||scene==='matrix') { g.addColorStop(.5,'#03252d'); }
-    x.fillStyle=g; x.fillRect(0,0,c.width,c.height);
-    const glow=x.createRadialGradient(640,350,10,640,350,620);
-    glow.addColorStop(0,rgba(colors[1],.22)); glow.addColorStop(.52,rgba(colors[0],.09)); glow.addColorStop(1,'rgba(0,0,0,0)');
-    x.fillStyle=glow; x.fillRect(0,0,c.width,c.height);
-    const vignette=x.createRadialGradient(640,390,240,640,390,760);
-    vignette.addColorStop(0,'rgba(0,0,0,0)'); vignette.addColorStop(1,'rgba(0,0,0,.56)');
-    x.fillStyle=vignette; x.fillRect(0,0,c.width,c.height);
-    // Quiet background texture: a single cached texture, regenerated only on scene/palette changes.
-    // A tiny, cached grain texture adds finish without a live per-pixel noise pass.
-    const grainDots=Math.round(clamp(grain,0,10)*55); x.fillStyle=rgba(colors[2],.14);
-    for(let i=0;i<grainDots;i++){const gx=(i*97.13)%1280,gy=(i*53.71)%800;x.fillRect(gx,gy,1,1);}
-    x.lineWidth=1; x.strokeStyle=rgba(colors[0],.09);
-    for(let xx=0;xx<=1280;xx+=64){x.beginPath();x.moveTo(xx,0);x.lineTo(xx,800);x.stroke();}
-    for(let yy=0;yy<=800;yy+=64){x.beginPath();x.moveTo(0,yy);x.lineTo(1280,yy);x.stroke();}
-    // Fine diagonal traces create depth without a per-pixel shader.
-    x.strokeStyle=rgba(colors[1],.07); x.lineWidth=2;
-    for(let i=0;i<14;i++){const y=40+i*58;x.beginPath();x.moveTo(0,y);x.lineTo(260,y+90);x.lineTo(460,y+90);x.stroke();}
-    return PIXI.Texture.from(c);
+  function box(name, w, h, d, material, x=0, y=0, z=0, rotZ=0) {
+    const m = B.MeshBuilder.CreateBox(name, {width:w, height:h, depth:d}, scene);
+    m.position.set(x,y,z); m.rotation.z = rotZ;
+    return attach(m, material);
   }
-  function line(g, points, color, width=1, alpha=.35) {
-    if(!points.length)return; g.moveTo(points[0][0],points[0][1]);
-    for(let i=1;i<points.length;i++)g.lineTo(points[i][0],points[i][1]);
-    g.stroke({color:hex(color),width,alpha});
+  function sphere(name, diameter, material, x=0, y=0, z=0, segments=12) {
+    const m = B.MeshBuilder.CreateSphere(name, {diameter, segments}, scene);
+    m.position.set(x,y,z);
+    return attach(m, material);
   }
-  function buildDecor(scene, colors, w, h, detail) {
-    decor.clear();
-    const [c1,c2,c3]=colors, cx=w*.5, cy=h*.5, min=Math.min(w,h);
-    // Frame corners and thin HUD-style guide marks.
-    const pad=Math.max(24,min*.055), L=Math.max(34,min*.07);
-    [[pad,pad,1,1],[w-pad,pad,-1,1],[pad,h-pad,1,-1],[w-pad,h-pad,-1,-1]].forEach(([x,y,sx,sy])=>{
-      line(decor,[[x,y+sy*L],[x,y],[x+sx*L,y]],c1,2,.35);
-      decor.circle(x,y,3).fill({color:hex(c2),alpha:.62});
-    });
-    if(scene==='prime'||scene==='emerald'||scene==='holo'){
-      const paths=[[[0,h*.23],[w*.13,h*.23],[w*.13,h*.37],[w*.29,h*.37]],[[w,h*.72],[w*.86,h*.72],[w*.86,h*.59],[w*.71,h*.59]],[[w*.04,h*.83],[w*.20,h*.83],[w*.20,h*.70],[w*.35,h*.70]],[[w*.96,h*.16],[w*.82,h*.16],[w*.82,h*.31],[w*.67,h*.31]],[[w*.05,h*.48],[w*.17,h*.48],[w*.17,h*.41],[w*.27,h*.41]]];
-      paths.forEach(p=>{line(decor,p,c2,5,.07);line(decor,p,c1,1.35,.5);});
-      for(let i=0;i<32;i++){const x=(i%8)*w/7+w*.04,y=Math.floor(i/8)*h/4+h*.12;decor.circle(x,y,1.7).fill({color:hex(c3),alpha:.33});}
-    } else if(scene==='rog'){
-      for(let i=0;i<5;i++){decor.circle(cx,cy,min*(.19+i*.055)).stroke({color:hex(c1),width:i===0?2:1,alpha:.12+i*.035});}
-      const pts=[[cx-min*.43,cy-min*.2],[cx-min*.15,cy-min*.2],[cx,cy-min*.34],[cx+min*.15,cy-min*.2],[cx+min*.43,cy-min*.2],[cx+min*.22,cy+min*.2],[cx,cy+min*.28],[cx-min*.22,cy+min*.2],[cx-min*.43,cy-min*.2]];
-      line(decor,pts,c2,2,.32);
-      for(let i=0;i<9;i++)line(decor,[[w*(i/8),0],[w*(i/8+.08),h*.14]],c1,1,.1);
-    } else if(scene==='cyber'||scene==='synth'){
-      const horizon=h*.53;line(decor,[[0,horizon],[w,horizon]],c2,2,.25);
-      for(let i=-12;i<=12;i++)line(decor,[[cx+i*2,horizon],[cx+i*w*.085,h]],c1,1,.2);
-      for(let i=1;i<13;i++){const t=i/13,y=horizon+(h-horizon)*t*t;line(decor,[[0,y],[w,y]],c2,1,.22);}
-    } else if(scene==='aurora'||scene==='abyss'||scene==='quantum'){
-      for(let k=0;k<6;k++){const pts=[];for(let i=0;i<=34;i++){const x=w*i/34,y=h*(.24+k*.085)+Math.sin(i*.24+k*.8)*h*.027;pts.push([x,y]);}line(decor,pts,[c1,c2,c3][k%3],2+k*.12,.15);}
-      for(let i=0;i<detail*2;i++){const a=rand(0,Math.PI*2);const p=pt(cx,cy,min*rand(.18,.44),a);decor.circle(p[0],p[1],rand(1,2.5)).fill({color:hex(c3),alpha:.38});}
-    } else if(scene==='nebula'||scene==='prism'){
-      for(let i=0;i<detail*9;i++){const x=rand(0,w),y=rand(0,h),r=rand(.6,2);decor.circle(x,y,r).fill({color:hex([c1,c2,c3][i%3]),alpha:rand(.12,.5)});}
-      for(let i=0;i<5;i++)decor.circle(cx,cy,min*(.15+i*.09)).stroke({color:hex(c2),width:1,alpha:.12});
-    } else if(scene==='matrix'){
-      for(let i=0;i<Math.min(26,detail*5);i++){const x=(i+.5)*w/27;line(decor,[[x,0],[x,h]],c1,1,.12);}
-    } else if(scene==='solar'||scene==='dusk'||scene==='magma'){
-      for(let i=0;i<34;i++){const a=i*Math.PI*2/34;line(decor,[pt(cx,cy,min*.18,a),pt(cx,cy,min*.48,a)],i%2?c1:c2,1,.12);}
-      decor.circle(cx,cy,min*.22).stroke({color:hex(c3),width:2,alpha:.2});
-    } else if(scene==='storm'){
-      for(let i=0;i<7;i++){let x=rand(w*.12,w*.88),y=0,pts=[[x,y]];for(let k=0;k<6;k++){x+=rand(-48,48);y+=h/7;pts.push([x,y]);}line(decor,pts,c1,1.6,.22);}
-    }
-    // Sparse fine details scale with the quality control, not with display pixels.
-    for(let i=0;i<detail*5;i++){const x=(i*137.5)%w,y=(i*83.7)%h;decor.circle(x,y,1).fill({color:hex(c2),alpha:.17});}
+  function torus(name, diameter, thickness, material, rx=0, ry=0, rz=0) {
+    const m = B.MeshBuilder.CreateTorus(name, {diameter, thickness, tessellation:48}, scene);
+    m.rotation.set(rx,ry,rz);
+    return attach(m, material);
   }
-  function buildParticles(count, w, h, colors) {
-    particlesLayer.removeChildren(); particles=[];
-    for(let i=0;i<count;i++){
-      const sp=new PIXI.Sprite(particleTexture); sp.anchor.set(.5); sp.scale.set(rand(.12,.42));
-      particlesLayer.addChild(sp);
-      particles.push({sp,x:rand(0,w),y:rand(0,h),vx:rand(-9,9),vy:rand(-13,13),r:rand(.18,.5),phase:rand(0,6.28),color:hex(colors[i%3]),base:rand(.25,.72),layer:rand(.25,1)});
-    }
-    lastCount=count;
+  function cylinder(name, height, diameter, material, x=0, y=0, z=0, rx=0, ry=0, rz=0, tess=16) {
+    const m = B.MeshBuilder.CreateCylinder(name, {height, diameter, tessellation:tess}, scene);
+    m.position.set(x,y,z); m.rotation.set(rx,ry,rz);
+    return attach(m, material);
   }
-  function polygon(g, pts, color, alpha=1, strokeColor=null, strokeWidth=1) {
-    g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.lineTo(pts[0][0],pts[0][1]);
-    g.fill({color:hex(color),alpha}); if(strokeColor)line(g,[...pts,pts[0]],strokeColor,strokeWidth,.75);
+  function clearModel() {
+    if (modelRoot) modelRoot.dispose(false, true);
+    modelRoot = new B.TransformNode('babylon-model-root', scene);
+    modelParts = []; modelMaterials = []; orbitParts = []; lastGlow = -1;
   }
-  function buildModel(shape, colors, detail=80) {
-    modelGraphic.clear();
-    const g=modelGraphic,[c1,c2,c3]=colors;
-    // Soft elliptical platform and two thin orbit rings form a reusable depth stage.
-    g.circle(0,0,116).stroke({color:hex(c1),width:2,alpha:.20});
-    g.circle(0,0,94).stroke({color:hex(c2),width:1,alpha:.3});
-    if(shape==='core'){
-      g.roundRect(-104,-76,208,152,22).fill({color:0x061329,alpha:.96}).stroke({color:hex(c1),width:3,alpha:.85});
-      g.roundRect(-88,-60,176,120,17).fill({color:0x0d2441,alpha:.98}).stroke({color:hex(c2),width:2,alpha:.7});
-      const pinCount=Math.round(4+clamp(detail,40,100)/12); for(let i=0;i<pinCount;i++){const x=-72+i*(144/Math.max(1,pinCount-1));g.rect(x,-91,8,15).fill({color:hex(c3),alpha:.72});g.rect(x,76,8,15).fill({color:hex(c3),alpha:.72});}
-      for(let i=0;i<5;i++){const y=-48+i*24;g.rect(-119,y,15,7).fill({color:hex(c3),alpha:.68});g.rect(104,y,15,7).fill({color:hex(c3),alpha:.68});}
-      g.roundRect(-48,-38,96,76,12).fill({color:0x07101f,alpha:1}).stroke({color:hex(c1),width:2,alpha:.9});
-      g.circle(0,0,24).fill({color:hex(c2),alpha:.25}).stroke({color:hex(c3),width:2,alpha:.9});
-      g.circle(0,0,9).fill({color:hex(c3),alpha:.95});
-      line(g,[[-37,-53],[37,-53]],c3,2,.7);line(g,[[-37,53],[37,53]],c3,2,.7);
-    } else if(shape==='crystal'){
-      polygon(g,[[0,-116],[67,-38],[50,77],[0,112],[-50,77],[-67,-38]],c1,.48,c3,2);
-      polygon(g,[[0,-116],[0,112],[-50,77],[-67,-38]],c2,.32,c2,1);
-      polygon(g,[[0,-116],[67,-38],[0,112]],c3,.25,c3,1);
-      line(g,[[-67,-38],[0,0],[67,-38]],'#ffffff',2,.56);line(g,[[-50,77],[0,0],[50,77]],c1,2,.6);
-    } else if(shape==='rog'){
-      polygon(g,[[-122,-20],[-70,-76],[0,-93],[70,-76],[122,-20],[68,54],[0,80],[-68,54]],0x120812,.96,c1,3);
-      polygon(g,[[-78,0],[-38,-24],[0,-30],[38,-24],[78,0],[38,24],[0,30],[-38,24]],c2,.5,c3,2);
-      g.circle(0,0,20).fill({color:hex(c3),alpha:.95});g.circle(0,0,8).fill({color:0xffd5dc,alpha:.9});
-      line(g,[[-135,-55],[-92,-91],[-35,-107]],c3,3,.75);line(g,[[135,-55],[92,-91],[35,-107]],c3,3,.75);
-    } else if(shape==='cube'){
-      polygon(g,[[0,-105],[95,-52],[0,0],[-95,-52]],c2,.58,c3,2);
-      polygon(g,[[-95,-52],[0,0],[0,108],[-95,54]],c1,.52,c1,2);
-      polygon(g,[[95,-52],[0,0],[0,108],[95,54]],c3,.34,c3,2);
-      line(g,[[0,-105],[0,0],[0,108]],'#ffffff',2,.68);
+  function makeModel(shape, colors, detail=80) {
+    clearModel();
+    const [c1,c2,c3] = colors;
+    const dark = mat('armor-deep', '#061325', c1, .72);
+    const base = mat('brushed-titanium', '#263d59', c2, .94);
+    const main = mat('primary-enamel', c1, c1, .82);
+    const accent = mat('secondary-enamel', c2, c2, .90);
+    const bright = mat('energy-emission', c3, c3, 1);
+    const white = mat('ceramic-highlight', '#d9f5ff', c3, 1);
+    const board = mat('circuit-board', '#0a2637', c1, .65);
+    const trace = mat('circuit-traces', c3, c3, .78);
+    const black = mat('glass-black', '#020711', '#06182b', .98);
+    const addTube = (name, pts, material, radius=.025) => {
+      const path=pts.map(p=>new B.Vector3(p[0],p[1],p[2]));
+      const m=B.MeshBuilder.CreateTube(name,{path,radius,tessellation:7,cap:B.Mesh.CAP_ALL},scene);
+      return attach(m,material);
+    };
+    const addFrame = (w,h,z,material,th=.055) => {
+      box('frame-top-'+modelParts.length,w,th,.07,material,0,h/2,z);
+      box('frame-bottom-'+modelParts.length,w,th,.07,material,0,-h/2,z);
+      box('frame-left-'+modelParts.length,th,h,.07,material,-w/2,0,z);
+      box('frame-right-'+modelParts.length,th,h,.07,material,w/2,0,z);
+    };
+
+    if (shape === 'core') {
+      // Layered PRIME motherboard package with a luminous processor die.
+      box('prime-backplate',5.15,3.68,.20,dark,0,0,.10);
+      box('prime-pcb',4.88,3.40,.13,board,0,0,-.04);
+      addFrame(5.10,3.62,.16,base,.085);
+      addFrame(4.72,3.22,-.13,main,.035);
+      // Corner armor and mounting points.
+      for(const sx of [-1,1]) for(const sy of [-1,1]) {
+        box('corner-armor',.58,.50,.17,base,sx*2.10,sy*1.35,-.22,sx*sy*.12);
+        cylinder('mount-ring',.12,.24,white,sx*2.13,sy*1.37,-.35,Math.PI/2,0,0,12);
+        cylinder('mount-core',.09,.11,dark,sx*2.13,sy*1.37,-.43,Math.PI/2,0,0,10);
+      }
+      // Circuit routes kept at the board perimeter so the chip stays visually clear.
+      const routes=[
+        [[-2.15,1.05,-.22],[-1.70,1.05,-.22],[-1.70,1.46,-.22],[-.95,1.46,-.22]],
+        [[2.15,1.05,-.22],[1.70,1.05,-.22],[1.70,1.46,-.22],[.95,1.46,-.22]],
+        [[-2.15,-1.05,-.22],[-1.72,-1.05,-.22],[-1.72,-1.45,-.22],[-.95,-1.45,-.22]],
+        [[2.15,-1.05,-.22],[1.72,-1.05,-.22],[1.72,-1.45,-.22],[.95,-1.45,-.22]],
+        [[-2.25,.35,-.22],[-1.88,.35,-.22],[-1.88,.72,-.22],[-1.55,.72,-.22]],
+        [[2.25,.35,-.22],[1.88,.35,-.22],[1.88,.72,-.22],[1.55,.72,-.22]],
+        [[-2.25,-.35,-.22],[-1.88,-.35,-.22],[-1.88,-.72,-.22],[-1.55,-.72,-.22]],
+        [[2.25,-.35,-.22],[1.88,-.35,-.22],[1.88,-.72,-.22],[1.55,-.72,-.22]]
+      ];
+      routes.forEach((p,i)=>addTube('pcb-route-'+i,p,i%2?trace:accent,.018));
+      // CPU socket: machined frame, ceramic substrate and central die.
+      box('socket-shadow',2.85,2.48,.23,black,0,0,-.28);
+      box('socket-titanium',2.67,2.30,.19,base,0,0,-.43);
+      box('socket-enamel',2.38,2.02,.15,main,0,0,-.57);
+      box('socket-glass',2.04,1.70,.12,dark,0,0,-.68);
+      addFrame(2.72,2.34,-.43,white,.045);
+      box('cpu-die-edge',1.58,1.32,.18,accent,0,0,-.82);
+      box('cpu-die-core',1.36,1.10,.13,black,0,0,-.94);
+      const die=B.MeshBuilder.CreatePolyhedron('prime-crystal-die',{type:1,size:.62},scene);
+      die.scaling.set(1.28,1.02,.52);die.position.set(0,0,-1.10);attach(die,bright);
+      torus('die-halo-inner',1.78,.045,white,0,0,0);
+      torus('die-halo-outer',2.12,.028,trace,.08,.12,0);
+      // Dense contact pads along the four sides.
+      for(let i=0;i<12;i++){
+        const x=-1.74+i*.316;
+        box('pin-n-'+i,.125,.20,.10,white,x,1.77,-.10);
+        box('pin-s-'+i,.125,.20,.10,white,x,-1.77,-.10);
+      }
+      for(let i=0;i<8;i++){
+        const y=-1.15+i*.33;
+        box('pin-e-'+i,.20,.12,.10,accent,2.48,y,-.10);
+        box('pin-w-'+i,.20,.12,.10,accent,-2.48,y,-.10);
+      }
+      // Capacitors and small status LEDs.
+      for(let i=0;i<4;i++){
+        const x=(i%2?1:-1)*1.72,y=(i<2?1:-1)*.80;
+        cylinder('capacitor-can-'+i,.30,.23,base,x,y,-.34,Math.PI/2,0,0,14);
+        cylinder('capacitor-cap-'+i,.08,.17,white,x,y,-.51,Math.PI/2,0,0,14);
+      }
+      for(let i=0;i<7;i++){
+        const x=-1.35+i*.45;
+        sphere('status-led-'+i,.075,i%2?bright:trace,x,-1.53,-.27,8);
+      }
+      // Thin orbital elements frame the chip without obscuring it.
+      const r1=torus('prime-orbit-a',5.80,.020,accent,.92,.18,.08);
+      const r2=torus('prime-orbit-b',6.28,.014,trace,.35,.78,.26);
+      orbitParts=[r1,r2];
+    } else if (shape === 'crystal') {
+      // Multi-faceted energy crystal on an engineered floating dais.
+      cylinder('crystal-base-lower',.22,3.65,base,0,-1.72,0,Math.PI/2,0,0,48);
+      cylinder('crystal-base-top',.15,3.15,main,0,-1.57,0,Math.PI/2,0,0,48);
+      torus('crystal-base-ring',3.35,.045,bright,Math.PI/2,0,0);
+      const crystal=B.MeshBuilder.CreatePolyhedron('crystal-primary',{type:2,size:2.25},scene);
+      crystal.scaling.set(1.05,1.72,.76);crystal.rotation.set(.14,.28,.10);crystal.position.y=.12;attach(crystal,accent);
+      const inner=B.MeshBuilder.CreatePolyhedron('crystal-inner',{type:1,size:1.10},scene);
+      inner.scaling.set(.78,1.22,.72);inner.rotation.set(-.18,-.36,.2);inner.position.set(.02,.10,-.10);attach(inner,bright);
+      for(let i=0;i<6;i++){
+        const a=i*Math.PI/3,x=Math.cos(a)*1.64,y=Math.sin(a)*1.35;
+        const shard=B.MeshBuilder.CreatePolyhedron('crystal-shard-'+i,{type:i%2?1:2,size:.52},scene);
+        shard.scaling.set(.48,.90,.40);shard.position.set(x,y,-.15);shard.rotation.z=a;attach(shard,i%2?white:main);
+      }
+      orbitParts=[torus('crystal-orbit-a',4.7,.035,main,.95,.22,.12),torus('crystal-orbit-b',5.35,.022,white,.25,.84,.34)];
+    } else if (shape === 'rog') {
+      // Layered aggressive ROG-inspired red reactor shield.
+      const plate=B.MeshBuilder.CreatePolyhedron('rog-outer-armor',{type:3,size:2.22},scene);
+      plate.scaling.set(1.55,1.28,.72);plate.rotation.set(.12,.16,0);attach(plate,dark);
+      const plate2=B.MeshBuilder.CreatePolyhedron('rog-inner-armor',{type:2,size:1.83},scene);
+      plate2.scaling.set(1.34,1.12,.58);plate2.position.z=-.32;plate2.rotation.set(.1,-.15,.02);attach(plate2,main);
+      box('rog-glass-inlay',2.45,1.75,.16,black,0,0,-.64);
+      // Angular side blades.
+      for(let s of [-1,1]){
+        const wing=B.MeshBuilder.CreatePolyhedron('rog-wing-'+s,{type:1,size:1.2},scene);
+        wing.scaling.set(.50,1.65,.34);wing.position.set(s*1.95,.05,-.55);wing.rotation.z=s*-.24;attach(wing,accent);
+        box('rog-ridge-'+s,.12,1.9,.12,white,s*2.2,.05,-.73,s*.18);
+      }
+      const eye=B.MeshBuilder.CreateSphere('rog-reactor-eye',{diameter:1.72,segments:20},scene);
+      eye.scaling.set(1.24,.78,.48);eye.position.z=-.89;attach(eye,accent);
+      const iris=B.MeshBuilder.CreatePolyhedron('rog-energy-iris',{type:1,size:.72},scene);
+      iris.scaling.set(1.18,.88,.54);iris.position.set(0,0,-1.22);attach(iris,bright);
+      sphere('rog-hotspot',.34,white,0,0,-1.49,16);
+      torus('rog-reactor-ring',3.75,.075,main,.10,.24,0);
+      torus('rog-outer-ring',5.25,.023,bright,.55,-.48,.15);
+      for(let i=0;i<6;i++){
+        const a=i*Math.PI/3;
+        box('rog-armor-rivet-'+i,.18,.18,.13,white,Math.cos(a)*1.55,Math.sin(a)*1.08,-.82,a);
+      }
+      orbitParts=[torus('rog-orbit-a',5.75,.018,accent,.85,.2,.35),torus('rog-orbit-b',4.8,.022,bright,.22,.92,-.22)];
+    } else if (shape === 'cube') {
+      // Nested holographic cubes with bright edge geometry and a central reactor.
+      const cube=B.MeshBuilder.CreateBox('holo-cube-outer',{size:2.72},scene);
+      cube.rotation.set(.52,.68,.18);attach(cube,dark);cube.enableEdgesRendering();cube.edgesWidth=4;cube.edgesColor=new B.Color4(.18,.72,1,.92);
+      const frame=B.MeshBuilder.CreateBox('holo-cube-frame',{size:2.36},scene);
+      frame.rotation.set(-.34,.44,.26);attach(frame,accent);frame.enableEdgesRendering();frame.edgesWidth=3;frame.edgesColor=new B.Color4(.52,.9,1,.88);
+      const inner=B.MeshBuilder.CreateBox('holo-cube-core',{size:1.28},scene);
+      inner.rotation.set(.22,-.28,.08);attach(inner,main);inner.enableEdgesRendering();inner.edgesWidth=2;inner.edgesColor=new B.Color4(.5,.95,1,1);
+      const heart=B.MeshBuilder.CreatePolyhedron('holo-heart',{type:1,size:.55},scene);heart.position.z=-.48;attach(heart,white);
+      for(let i=0;i<4;i++){
+        const a=i*Math.PI/2;
+        const node=sphere('cube-node-'+i,.20,bright,Math.cos(a)*2.02,Math.sin(a)*2.02,-.15,10);
+        orbitParts.push(node);
+      }
+      orbitParts.push(torus('cube-orbit',4.9,.026,trace,.95,.24,.22));
     } else {
-      g.circle(0,0,87).stroke({color:hex(c1),width:13,alpha:.42});g.circle(0,0,66).stroke({color:hex(c3),width:4,alpha:.9});
-      for(let i=0;i<8;i++){const a=i*Math.PI/4;const p1=pt(0,0,26,a),p2=pt(0,0,76,a+.24),p3=pt(0,0,105,a+.42),p4=pt(0,0,61,a+.56);polygon(g,[p1,p2,p3,p4],i%2?c2:c1,.5,c3,1);}
-      g.circle(0,0,28).fill({color:hex(c3),alpha:.82}).stroke({color:hex(c2),width:4,alpha:1});g.circle(0,0,11).fill({color:0xffffff,alpha:.8});
+      // NOVA turbine — visible mechanical blades, central shaft and turbine rings.
+      cylinder('turbine-rear-housing',.54,3.25,dark,0,0,.08,Math.PI/2,0,0,32);
+      torus('turbine-outer-rim',4.30,.16,base,.04,.08,0);
+      torus('turbine-light-rim',3.90,.055,bright,.08,.12,0);
+      torus('turbine-inner-rim',2.72,.085,accent,.06,-.12,0);
+      for(let i=0;i<10;i++){
+        const a=i*Math.PI/5,x=Math.cos(a)*.96,y=Math.sin(a)*.96;
+        const blade=box('turbine-blade-'+i,.52,1.52,.23,i%2?accent:main,x,y,-.38,a+Math.PI/2);
+        blade.rotation.x=.12*Math.cos(a);blade.rotation.y=.10*Math.sin(a);
+      }
+      cylinder('turbine-hub',.48,1.25,base,0,0,-.64,Math.PI/2,0,0,28);
+      cylinder('turbine-core-ring',.18,.92,bright,0,0,-.91,Math.PI/2,0,0,24);
+      sphere('turbine-energy-core',.58,white,0,0,-1.08,16);
+      for(let i=0;i<10;i++){
+        const a=i*Math.PI/5;
+        sphere('turbine-lamp-'+i,.10,white,Math.cos(a)*1.82,Math.sin(a)*1.82,-.48,8);
+      }
+      orbitParts=[torus('turbine-orbit-a',5.20,.022,trace,.9,.22,.12),torus('turbine-orbit-b',5.8,.018,accent,.24,.82,-.16)];
     }
+    // Shared outer guide rings and satellite markers.
+    if(orbitParts.length<3) orbitParts.push(torus('orbit-guide-outer',6.15,.012,trace,.34,.72,.22));
+    const sat1=sphere('orbit-satellite-a',.13,white,3.00,1.70,-.62,8);
+    const sat2=sphere('orbit-satellite-b',.10,bright,-3.10,-1.52,-.52,8);
+    orbitParts.push(sat1,sat2);
   }
-  function rebuild(P, colors, w, h) {
-    const scene=P.scene, palette=colors.join('|'), key=scene+'|'+palette+'|'+Math.round(w)+'x'+Math.round(h)+'|'+P.octaves+'|'+P.grain;
-    if(key!==lastScene){
-      if(bgTexture)bgTexture.destroy(true);
-      bgTexture=makeBackdrop(scene,colors,w,h,P.grain||0); bgSprite.texture=bgTexture; bgSprite.width=w;bgSprite.height=h;
-      buildDecor(scene,colors,w,h,clamp(Number(P.octaves)||4,2,5)); lastScene=key;
+
+  function drawBackdrop(name, colors) {
+    // High-end static art plate: generated once per theme switch, then reused as a GPU texture.
+    const canvas=document.createElement('canvas');canvas.width=1536;canvas.height=960;
+    const ctx=canvas.getContext('2d',{alpha:false});
+    const schemes={
+      prime:['#020917','#082a55','#06142a'],rog:['#09040c','#310919','#090711'],cyber:['#090819','#251052','#07091b'],
+      aurora:['#03171d','#07534b','#041321'],nebula:['#07051b','#28104d','#08091c'],quantum:['#031322','#074461','#030b1b'],
+      matrix:['#020d0a','#063522','#020a08'],solar:['#190806','#641c0e','#0b0710'],synth:['#0d0621','#3a1760','#08091b'],
+      abyss:['#031724','#07506b','#020b18'],prism:['#100820','#412866','#080a1b'],emerald:['#031a16','#086347','#020b0c'],
+      dusk:['#1a0a1d','#6c302f','#09101c'],storm:['#071225','#163a68','#030814'],magma:['#190704','#70270e','#08040b'],holo:['#03131e','#075b78','#030b19']
+    };
+    const base=schemes[name]||schemes.prime;
+    const rgb=(hex,a)=>{const h=hex.replace('#','');return `rgba(${parseInt(h.slice(0,2),16)},${parseInt(h.slice(2,4),16)},${parseInt(h.slice(4,6),16)},${a})`;};
+    const w=canvas.width,h=canvas.height,cx=w*.5,cy=h*.48;
+    let g=ctx.createLinearGradient(0,0,w,h);g.addColorStop(0,base[0]);g.addColorStop(.48,base[1]);g.addColorStop(1,base[2]);ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+    // Wide cinematic pools of light.
+    [[.18,.22,.34,colors[0],.22],[.82,.30,.32,colors[1],.17],[.54,.80,.40,colors[2],.11],[.50,.48,.25,colors[0],.10]].forEach(([x,y,r,c,a])=>{
+      const glow=ctx.createRadialGradient(w*x,h*y,2,w*x,h*y,w*r);glow.addColorStop(0,rgb(c,a));glow.addColorStop(.52,rgb(c,a*.22));glow.addColorStop(1,rgb(c,0));ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
+    });
+    // Fine engineering grid, fading away from the central focal object.
+    ctx.save();ctx.lineWidth=1;ctx.strokeStyle=rgb(colors[0],.105);
+    for(let x=0;x<=w;x+=48){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+    for(let y=0;y<=h;y+=48){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+    const fade=ctx.createRadialGradient(cx,cy,100,cx,cy,690);fade.addColorStop(0,'rgba(0,0,0,.02)');fade.addColorStop(.62,'rgba(0,0,0,.10)');fade.addColorStop(1,'rgba(0,0,0,.58)');ctx.fillStyle=fade;ctx.fillRect(0,0,w,h);ctx.restore();
+    // Centered reactor halo and technical arcs.
+    ctx.save();
+    [178,220,278,346].forEach((r,i)=>{ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.strokeStyle=rgb(i%2?colors[1]:colors[0],.13-i*.018);ctx.lineWidth=i===1?2:1;ctx.setLineDash(i===2?[8,13]:i===3?[2,14]:[]);ctx.stroke();});
+    ctx.setLineDash([]);
+    for(let i=0;i<8;i++){const a=i*Math.PI/4;ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*350,cy+Math.sin(a)*350);ctx.lineTo(cx+Math.cos(a)*445,cy+Math.sin(a)*445);ctx.strokeStyle=rgb(colors[2],.16);ctx.lineWidth=1.2;ctx.stroke();}
+    // Corner brackets, small reticles and hardware marks.
+    const bracket=(x,y,sx,sy)=>{ctx.beginPath();ctx.moveTo(x,y+sy*56);ctx.lineTo(x,y);ctx.lineTo(x+sx*56,y);ctx.strokeStyle=rgb(colors[2],.58);ctx.lineWidth=2;ctx.stroke();};
+    bracket(64,64,1,1);bracket(w-64,64,-1,1);bracket(64,h-64,1,-1);bracket(w-64,h-64,-1,-1);
+    // Routed traces on the outer perimeter, leaving the central focus readable.
+    const routes=[
+      [[0,176],[128,176],[128,260],[250,260],[250,318],[360,318]],
+      [[0,670],[158,670],[158,590],[260,590],[260,530],[360,530]],
+      [[w,190],[w-140,190],[w-140,270],[w-260,270],[w-260,335],[w-365,335]],
+      [[w,690],[w-150,690],[w-150,600],[w-260,600],[w-260,540],[w-365,540]],
+      [[245,0],[245,112],[330,112],[330,174]],[[w-245,h],[w-245,h-112],[w-330,h-112],[w-330,h-174]]
+    ];
+    routes.forEach((pts,i)=>{ctx.beginPath();pts.forEach((p,j)=>j?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=rgb(colors[0],.18);ctx.lineWidth=7;ctx.stroke();ctx.strokeStyle=rgb(colors[2],.63);ctx.lineWidth=1.5;ctx.stroke();pts.forEach(p=>{ctx.beginPath();ctx.arc(p[0],p[1],3.2,0,Math.PI*2);ctx.fillStyle=rgb(colors[2],.75);ctx.fill();});});
+    // Subtle data panels left/right.
+    const panel=(x,y,ww,hh,align)=>{ctx.fillStyle='rgba(2,12,28,.34)';ctx.strokeStyle=rgb(colors[0],.24);ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x,y,ww,hh,12);ctx.fill();ctx.stroke();ctx.fillStyle=rgb(colors[2],.56);ctx.fillRect(x+14,y+14,align==='left'?ww*.34:ww*.46,3);for(let j=0;j<4;j++){ctx.fillStyle=rgb(colors[j%3],.26);ctx.fillRect(x+14,y+32+j*13,ww*(.25+(j%2)*.16),2);}};
+    panel(42,365,190,110,'left');panel(w-232,365,190,110,'right');
+    // A fine field of stars / micro LEDs using deterministic coordinates.
+    for(let i=0;i<125;i++){const x=((i*197+31)%w),y=((i*113+71)%h),r=.7+(i%4)*.42;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=rgb(colors[i%3],.24+(i%4)*.09);ctx.fill();}
+    // Diagonal light sweep and cinematic vignette.
+    const sweep=ctx.createLinearGradient(0,h*.15,w,h*.82);sweep.addColorStop(0,'rgba(255,255,255,0)');sweep.addColorStop(.48,rgb(colors[1],.055));sweep.addColorStop(.54,'rgba(255,255,255,0)');sweep.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=sweep;ctx.fillRect(0,0,w,h);
+    const vignette=ctx.createRadialGradient(cx,cy,260,cx,cy,930);vignette.addColorStop(0,'rgba(0,0,0,0)');vignette.addColorStop(1,'rgba(0,0,0,.68)');ctx.fillStyle=vignette;ctx.fillRect(0,0,w,h);
+    ctx.restore();
+    if(!bgTexture){bgTexture=new B.DynamicTexture('babylon-backdrop',{width:w,height:h},scene,false);bgTexture.hasAlpha=false;}
+    const texCtx=bgTexture.getContext();texCtx.clearRect(0,0,w,h);texCtx.drawImage(canvas,0,0);bgTexture.update(false);
+    bgMaterial.emissiveTexture=bgTexture;bgMaterial.diffuseTexture=bgTexture;
+  }
+
+  function buildParticles(P, colors) {
+    particles.slice(1).forEach(p=>p.dispose());particles=[];
+    if(particleSource){particleSource.dispose();particleSource=null;}
+    const count=clamp(Math.round((Number(P.particleDensity)||60)*.24),12,42)*(P.saver?.55:1)|0;
+    const particleMat=mat('star-particle',colors[2],colors[2],.1);
+    particleSource=B.MeshBuilder.CreateSphere('particle-source',{diameter:.045,segments:5},scene);
+    particleSource.material=particleMat;particleSource.isPickable=false;
+    particles.push(particleSource);
+    for(let i=1;i<count;i++) particles.push(particleSource.createInstance('particle-'+i));
+    particles.forEach(p=>{
+      p.position.set(rand(-9,9),rand(-5.5,5.5),rand(1.5,4.1));
+      const scale=rand(.55,1.5);p.scaling.setAll(scale);
+      p.metadata={vx:rand(-.12,.12),vy:rand(-.17,.17),phase:rand(0,6.28)};
+      p.isPickable=false;
+    });
+    lastParticleCount=count;
+  }
+
+  function updateSceneTheme(P, colors) {
+    const key=P.scene+'|'+colors.join('|');
+    if(key!==lastBackdrop){drawBackdrop(P.scene,colors);lastBackdrop=key;}
+    if(P.shape3d+'|'+colors.join('|')+'|'+P.detail3d!==lastModel){
+      makeModel(P.shape3d,colors,P.detail3d);lastModel=P.shape3d+'|'+colors.join('|')+'|'+P.detail3d;
     }
-    if(P.shape3d!==lastShape||palette!==lastPalette||P.detail3d!==lastDetail){buildModel(P.shape3d,colors,P.detail3d);lastShape=P.shape3d;lastPalette=palette;lastDetail=P.detail3d;}
-    const desired=Math.round(clamp((Number(P.particleDensity)||90)*.34+(Number(P.bokeh)||0)*.2,24,148)*(P.saver?.58:1));
-    if(desired!==lastCount)buildParticles(desired,w,h,colors);
-    screenW=w;screenH=h;
+    const count=clamp(Math.round((Number(P.particleDensity)||60)*.24),12,42)*(P.saver?.55:1)|0;
+    if(count!==lastParticleCount)buildParticles(P,colors);
+    modelRoot.setEnabled(P.engine3d!=='off');
+    if(shadowDisc)shadowDisc.setEnabled(!!P.shadows3d && P.engine3d!=='off');
+    const glow=clamp((Number(P.glow3d)||75)/100,0,1);
+    if(Math.abs(glow-lastGlow)>.01){modelMaterials.forEach(m=>{m.emissiveColor=m.diffuseColor.scale(.2+glow*.62);});lastGlow=glow;}
   }
+
   async function init(P, colors) {
-    if(!window.PIXI)throw new Error('PixiJS CDN unavailable');
-    app=new PIXI.Application();
-    const res=Math.min(devicePixelRatio||1,1.15)*clamp((Number(P.renderScale)||72)/100,.58,.9)*(P.saver?.82:1);
-    await app.init({width:innerWidth,height:innerHeight,preference:['webgpu','webgl'],resolution:res,autoDensity:true,antialias:false,backgroundAlpha:0,autoStart:false,sharedTicker:false,clearBeforeRender:true,webgpu:{powerPreference:'high-performance'},webgl:{powerPreference:'high-performance'}});
-    app.ticker.stop();
-    app.canvas.id='nova-edge-canvas'; app.canvas.setAttribute('aria-hidden','true');
-    document.body.appendChild(app.canvas);
-    bgSprite=new PIXI.Sprite(PIXI.Texture.WHITE); bgSprite.width=innerWidth;bgSprite.height=innerHeight;
-    decor=new PIXI.Graphics(); motion=new PIXI.Graphics(); shadow=new PIXI.Graphics(); particlesLayer=new PIXI.Container();
-    modelRoot=new PIXI.Container(); modelGraphic=new PIXI.Graphics(); modelRoot.addChild(modelGraphic);
-    app.stage.addChild(bgSprite,decor,shadow,particlesLayer,motion,modelRoot);
-    particleTexture=makeParticleTexture();
-    ready=true; currentResolution=res; gpuName='PixiJS 8.22.0 · '+String(app.renderer.name||'GPU').toUpperCase();
-    rebuild(P,colors,innerWidth,innerHeight);
-  }
-  function resize(P,colors){
-    screenW=innerWidth;screenH=innerHeight;
-    if(ready){
-      const res=Math.min(devicePixelRatio||1,1.15)*clamp((Number(P.renderScale)||72)/100,.58,.9)*(P.saver?.82:1);
-      const sizeChanged=innerWidth!==screenW||innerHeight!==screenH;
-      if(sizeChanged||Math.abs(res-currentResolution)>.015){try{app.renderer.resolution=res;app.renderer.resize(innerWidth,innerHeight);currentResolution=res;}catch(e){app.renderer.resize(innerWidth,innerHeight);}}
-      bgSprite.width=innerWidth;bgSprite.height=innerHeight;
-      rebuild(P,colors,innerWidth,innerHeight);
-    }else if(fx){const dpr=Math.min(devicePixelRatio||1,1.25);fxc.width=Math.round(innerWidth*dpr);fxc.height=Math.round(innerHeight*dpr);fx.setTransform(dpr,0,0,dpr,0,0);}
-  }
-  function pulse(x,y){pulses.push({x,y,t:0});if(pulses.length>6)pulses.shift();}
-  function render(P,colors,t,dt,mouse,adaptive=1){
-    if(ready){
-      rebuild(P,colors,innerWidth,innerHeight);
-      const power=clamp(Number(P.enginePower)||90,20,120)/100, speed=(P.motion?1:0)*power*(Number(P.speed)||100)/100;
-      const par=P.interactiveFX?clamp(Number(P.layerDepth)||60,0,100)/100:0;
-      decor.x=(mouse.x/innerWidth-.5)*par*7;decor.y=(mouse.y/innerHeight-.5)*par*5;
-      modelRoot.visible=P.engine3d!=='off';
-      shadow.clear(); if(modelRoot.visible&&P.shadows3d){shadow.ellipse(innerWidth*.5,innerHeight*.49+78,Math.min(innerWidth,innerHeight)*.17,Math.min(innerWidth,innerHeight)*.026).fill({color:0x000000,alpha:.22});shadow.ellipse(innerWidth*.5,innerHeight*.49+78,Math.min(innerWidth,innerHeight)*.12,Math.min(innerWidth,innerHeight)*.014).fill({color:hex(colors[0]),alpha:.10});}
-      modelRoot.position.set(innerWidth*.5+(P.interactiveFX?(mouse.x/innerWidth-.5)*par*11:0),innerHeight*.49+(P.interactiveFX?(mouse.y/innerHeight-.5)*par*8:0));
-      const sc=clamp(Math.min(innerWidth/900,innerHeight/650)*.83,.38,1.05)*(Number(P.zoom3d)||100)/100;
-      modelRoot.scale.set(sc);modelRoot.alpha=clamp((Number(P.glow3d)||70)/100,.35,1);
-      modelRoot.rotation=P.rotate3d&&P.motion?Math.sin(t*.24)*.035:0;
-      const active=Math.max(16,Math.floor(particles.length*clamp(adaptive,.35,1)));
-      for(let i=0;i<particles.length;i++){
-        const p=particles[i],sp=p.sp;sp.visible=i<active;
-        if(i>=active)continue;
-        if(P.motion){p.phase+=dt*(.55+(i%5)*.12)*speed;p.x+=p.vx*dt*speed;p.y+=p.vy*dt*speed+Math.sin(p.phase)*.1;
-          if(p.x<-15)p.x=innerWidth+15;if(p.x>innerWidth+15)p.x=-15;if(p.y<-15)p.y=innerHeight+15;if(p.y>innerHeight+15)p.y=-15;
-        }
-        if(P.interactiveFX){const dx=p.x-mouse.x,dy=p.y-mouse.y,d2=dx*dx+dy*dy;if(d2<30000){p.x+=dx*.00035*par;p.y+=dy*.00035*par;}}
-        sp.position.set(p.x,p.y);sp.alpha=p.base*(.62+.38*Math.sin(p.phase))*(P.theme==='light'?.48:1)*(0.78+clamp(Number(P.bloom)||0,0,100)/450);
-        sp.scale.set(p.r*(.72+.28*Math.sin(p.phase*.8)));sp.tint=p.color;
-      }
-      motion.clear();
-      if(P.motion){
-        const cx=innerWidth*.5,cy=innerHeight*.49,R=Math.min(innerWidth,innerHeight)*.31;
-        if(P.scene==='rog'||P.scene==='quantum'||P.scene==='nebula'){
-          for(let i=0;i<3;i++){const rr=R*(.65+i*.16)+Math.sin(t*.6+i)*5;motion.circle(cx,cy,rr).stroke({color:hex(colors[i]),width:1.2,alpha:.12+.06*Math.sin(t+i)});}
-        } else if(P.scene==='prime'||P.scene==='holo'||P.scene==='emerald'){
-          const phase=(t*.15)%1;const x=innerWidth*(.1+phase*.8);motion.rect(x,0,1.4,innerHeight).fill({color:hex(colors[2]),alpha:.12});
-          motion.rect(x-18,0,36,innerHeight).fill({color:hex(colors[1]),alpha:.025});
-        } else if(P.scene==='aurora'||P.scene==='abyss'){
-          for(let k=0;k<3;k++){const pts=[];for(let j=0;j<=30;j++){const x=innerWidth*j/30,y=innerHeight*(.34+k*.09)+Math.sin(j*.23+t*.42+k)*innerHeight*.025;pts.push([x,y]);}line(motion,pts,colors[k],2,.13);}
-        } else if(P.scene==='matrix'){
-          for(let i=0;i<12;i++){const x=((i*97+t*42)%innerWidth);const y=(i*71+t*125)%(innerHeight+80)-40;motion.rect(x,y,1.4,34+(i%4)*12).fill({color:hex(colors[i%3]),alpha:.28});}
-        }
-      }
-      for(let i=pulses.length-1;i>=0;i--){const q=pulses[i];q.t+=dt;if(q.t>1.1){pulses.splice(i,1);continue;}for(let j=0;j<2;j++){motion.circle(q.x,q.y,12+q.t*170+j*18).stroke({color:hex(colors[j]),width:2-j*.5,alpha:(1-q.t/1.1)*.42});}}
-      modelRoot.visible=P.engine3d!=='off';
-      app.renderer.render({container:app.stage});
-    } else if(fx){
-      const w=innerWidth,h=innerHeight;fx.clearRect(0,0,w,h);fx.save();fx.globalCompositeOperation='lighter';
-      const count=Math.min(48,Math.max(16,Math.round((P.particleDensity||70)*.22)));
-      while(fallbackParticles.length<count)fallbackParticles.push({x:rand(0,w),y:rand(0,h),vx:rand(-7,7),vy:rand(-9,9),r:rand(1,3),phase:rand(0,6)});
-      fallbackParticles.length=count;
-      fallbackParticles.forEach((p,i)=>{if(P.motion){p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;p.phase+=dt;}
-        fx.globalAlpha=.25+.35*(.5+.5*Math.sin(p.phase));fx.fillStyle=colors[i%3];fx.beginPath();fx.arc(p.x,p.y,p.r,0,Math.PI*2);fx.fill();});
-      fx.restore();
+    if(!B || !B.Engine) throw new Error('Babylon.js CDN unavailable');
+    engine=new B.Engine(glc,false,{alpha:true,antialias:false,stencil:false,preserveDrawingBuffer:false,powerPreference:'high-performance',adaptToDeviceRatio:true},true);
+    engine.enableOfflineSupport=false;
+    engine.setHardwareScalingLevel(clamp(1.18+(1-(Number(P.renderScale)||72)/100)*.62,1.12,1.55));
+    scene=new B.Scene(engine);
+    scene.clearColor=new B.Color4(0,0,0,0);
+    scene.skipPointerMovePicking=true;
+    scene.autoClear=true;
+    scene.autoClearDepthAndStencil=true;
+    camera=new B.UniversalCamera('babylon-camera',new B.Vector3(0,0,-14.6),scene);
+    camera.setTarget(B.Vector3.Zero());camera.fov=.78;camera.minZ=.1;camera.maxZ=80;
+    camera.inputs.clear();scene.activeCamera=camera;
+    const hemi=new B.HemisphericLight('soft-hemisphere',new B.Vector3(0,1,-1),scene);hemi.intensity=.92;hemi.diffuse=new B.Color3(.62,.76,1);hemi.groundColor=new B.Color3(.025,.04,.08);
+    const keyLight=new B.DirectionalLight('front-key',new B.Vector3(0,0,1),scene);keyLight.position=new B.Vector3(-4,5,-8);keyLight.intensity=.88;keyLight.diffuse=new B.Color3(.72,.86,1);
+    const rimLight=new B.PointLight('rim-light',new B.Vector3(3,2,2),scene);rimLight.intensity=.62;rimLight.range=18;
+
+    bgPlane=B.MeshBuilder.CreatePlane('procedural-background',{width:30,height:18.8},scene);
+    bgPlane.position.set(0,0,6.2);bgPlane.isPickable=false;
+    bgMaterial=new B.StandardMaterial('procedural-background-material',scene);
+    bgMaterial.disableLighting=true;bgMaterial.backFaceCulling=false;bgMaterial.specularColor=B.Color3.Black();
+    bgPlane.material=bgMaterial;
+
+    shadowDisc=B.MeshBuilder.CreateDisc('soft-model-shadow',{radius:2.15,tessellation:48},scene);
+    shadowDisc.position.set(0,-2.65,-.8);shadowDisc.scaling.y=.27;
+    const shadowMat=new B.StandardMaterial('soft-shadow-material',scene);
+    shadowMat.diffuseColor=new B.Color3(.01,.025,.05);shadowMat.emissiveColor=new B.Color3(.005,.012,.028);shadowMat.alpha=.24;shadowMat.disableLighting=true;shadowMat.backFaceCulling=false;
+    shadowDisc.material=shadowMat;shadowDisc.isPickable=false;shadowDisc.isVisible=true;
+
+    for(let i=0;i<3;i++){
+      const pm=new B.StandardMaterial('pulse-material-'+i,scene);pm.diffuseColor=col(colors[i]);pm.emissiveColor=col(colors[i]);pm.alpha=.58;
+      const ring=B.MeshBuilder.CreateTorus('interaction-pulse-'+i,{diameter:1,thickness:.025,tessellation:40},scene);
+      ring.material=pm;ring.setEnabled(false);ring.isPickable=false;pulseMeshes.push({mesh:ring,mat:pm,life:0});
     }
+    buildParticles(P,colors);updateSceneTheme(P,colors);
+    ready=true;gl=glc;
+    gpuName='Babylon.js 9.33.1 · WebGL '+(engine.webGLVersion||'');
+    return true;
+  }
+
+  function resize(P, colors) {
+    if(!ready)return;
+    const target=clamp(1.18+(1-(Number(P.renderScale)||72)/100)*.62+(P.saver?.18:0),1.12,1.75);
+    if(Math.abs(target-lastScale)>.02){engine.setHardwareScalingLevel(target);lastScale=target;}
+    engine.resize();viewW=innerWidth;viewH=innerHeight;
+    updateSceneTheme(P,colors);
+  }
+  function pulse(x,y) {
+    if(!ready)return;
+    const slot=pulseMeshes.find(p=>p.life<=0)||pulseMeshes[0];
+    slot.life=.001;
+    const nx=(x/Math.max(1,innerWidth)-.5)*15.5;
+    const ny=(.5-y/Math.max(1,innerHeight))*8.6;
+    slot.mesh.position.set(nx,ny,-1.0);slot.mesh.scaling.setAll(.12);slot.mesh.setEnabled(true);
+  }
+  function render(P, colors, t, dt, mouse, adaptive=1) {
+    if(!ready)return;
+    updateSceneTheme(P,colors);
+    const motion=P.motion?1:0;
+    const speed=motion*clamp(Number(P.speed)||100,0,300)/100;
+    const depth=P.interactiveFX?clamp(Number(P.layerDepth)||60,0,100)/100:0;
+    const power=clamp(Number(P.enginePower)||90,20,120)/100;
+    if(P.rotate3d&&motion){
+      modelRoot.rotation.y=Math.sin(t*.18)*.25+(mouse.x/Math.max(1,viewW)-.5)*depth*.14;
+      modelRoot.rotation.x=.12+Math.sin(t*.14)*.075-(mouse.y/Math.max(1,viewH)-.5)*depth*.10;
+      orbitParts.forEach((m,i)=>{m.rotation.z += dt*speed*(i%2?-.075:.105);});
+    }
+    modelRoot.position.x=P.interactiveFX?(mouse.x/Math.max(1,viewW)-.5)*depth*.42:0;
+    modelRoot.position.y=P.interactiveFX?-(mouse.y/Math.max(1,viewH)-.5)*depth*.28+Math.sin(t*.7)*.035*motion:Math.sin(t*.7)*.035*motion;
+    const scale=clamp(Math.min(viewW/900,viewH/680)*.98,.55,1.18)*(Number(P.zoom3d)||100)/100;
+    modelRoot.scaling.setAll(scale);
+    modelRoot.setEnabled(P.engine3d!=='off');
+    if(shadowDisc){shadowDisc.setEnabled(!!P.shadows3d&&P.engine3d!=='off');shadowDisc.position.x=modelRoot.position.x;}
+    const particleLimit=Math.max(8,Math.floor(particles.length*clamp(adaptive,.35,1)));
+    for(let i=0;i<particles.length;i++){
+      const p=particles[i];p.setEnabled(i<particleLimit);
+      if(i>=particleLimit)continue;
+      const md=p.metadata||{};
+      if(motion){p.position.x+=md.vx*dt*speed*power*8;p.position.y+=md.vy*dt*speed*power*8;md.phase+=dt;}
+      if(p.position.x<-9.5)p.position.x=9.5;if(p.position.x>9.5)p.position.x=-9.5;
+      if(p.position.y<-5.8)p.position.y=5.8;if(p.position.y>5.8)p.position.y=-5.8;
+      if(P.interactiveFX){const dx=p.position.x-(mouse.x/Math.max(1,viewW)-.5)*15.5,dy=p.position.y-(.5-mouse.y/Math.max(1,viewH))*8.6;if(dx*dx+dy*dy<1.8){p.position.x+=dx*.002*depth;p.position.y+=dy*.002*depth;}}
+    }
+    pulseMeshes.forEach(p=>{
+      if(p.life<=0)return;
+      p.life+=dt*1.05;
+      const sc=.12+p.life*1.45;p.mesh.scaling.setAll(sc);p.mat.alpha=Math.max(0,(1-p.life)*.58);
+      if(p.life>=1){p.life=0;p.mesh.setEnabled(false);}
+    });
+    // Camera parallax is deliberately subtle so the UI remains visually stable.
+    const camX=P.interactiveFX?(mouse.x/Math.max(1,viewW)-.5)*depth*.34:0;
+    const camY=P.interactiveFX?-(mouse.y/Math.max(1,viewH)-.5)*depth*.22:0;
+    camera.position.x+=(camX-camera.position.x)*.035;
+    camera.position.y+=(camY-camera.position.y)*.035;
+    camera.setTarget(B.Vector3.Zero());
+    scene.render();
   }
   return {init,resize,pulse,render,get ready(){return ready;}};
 })();
 try { await NovaEdge.init(P, PAL[P.pal].css); }
-catch (e) { console.warn('NOVA Edge switched to Canvas fallback:',e); document.body.classList.add('nogl'); gpuName='Canvas 2D fallback'; }
+catch (e) { console.warn('Babylon.js switched to CSS fallback:',e); document.body.classList.add('nogl'); gpuName='CSS fallback (Babylon.js unavailable)'; }
 
 /* ---------- מצב ---------- */
 let mx = innerWidth/2, my = innerHeight/2, smx = mx, smy = my;
@@ -898,7 +1133,7 @@ function loop(now) {
   if(now-fpsT>650){
     fps=Math.round(frames*1000/(now-fpsT));frames=0;fpsT=now;
     if(now-adaptAt>1800){const target=P.saver?.58:(fps<32?.42:fps<40?.55:fps<48?.68:fps<55?.82:1);adaptiveQuality+=(target-adaptiveQuality)*.45;adaptAt=now;}
-    if(document.body.classList.contains('hud'))$('#hud').textContent='FPS '+fps+' · '+(NovaEdge.ready?gpuName:'Canvas 2D fallback')+' · '+P.scene.toUpperCase()+' · '+Math.round(P.renderScale)+'%';
+    if(document.body.classList.contains('hud'))$('#hud').textContent='FPS '+fps+' · '+(NovaEdge.ready?gpuName:'CSS fallback')+' · '+P.scene.toUpperCase()+' · '+Math.round(P.renderScale)+'%';
   }
 }
 
@@ -921,7 +1156,7 @@ function apply() {
   R.style.setProperty('--spot', P.spot ? 1 : 0); R.style.setProperty('--tm', (100 / P.tspeed).toFixed(2));
   const pc = PAL[P.pal].css; R.style.setProperty('--c1', pc[0]); R.style.setProperty('--c2', pc[1]); R.style.setProperty('--c3', pc[2]);
   R.classList.toggle('hc', P.contrast);
-  B.dataset.scene = P.scene; B.dataset.engine = 'edge';
+  B.dataset.scene = P.scene; B.dataset.engine = 'babylon';
   B.classList.toggle('calm', !P.motion); B.classList.toggle('notilt', !P.tilt || !P.motion); B.classList.toggle('hud', P.hud); B.classList.toggle('debug', P.debug);
   resize(); setTimeout(moveInd, 60);
 }
@@ -997,15 +1232,15 @@ const SCHEMA = [
     { type: 'note', l: 'רקע קבוע · PRIME BIOS', d: 'רקע PRIME קבוע; בחירת ROG Reactor מחליפה אוטומטית לסביבת גרפיקה אדומה בסגנון ROG.' },
     { k: 'pal', type: 'sw', l: 'צבעי הרקע וה־3D', o: 'pal' },
     { k: 'renderScale', type: 'rng', l: 'איכות ורזולוציית רינדור', d: 'המנוע מגביל את הרזולוציה כדי להפחית עומס', min: 50, max: 90, step: 5, u: '%' },
-    { k: 'fps', type: 'seg', l: 'הגבלת FPS', o: [[30, '30'], [60, '60'], [120, '120'], [0, 'ללא']] } ] },
-  { id: 'nova', t: 'NOVA Edge Engine', i: 'fa-gauge-high', c: '#00c8ff', items: [
-    { type: 'note', l: 'מנוע חדש · PixiJS 8.22.0', d: 'מעדיף WebGPU במכשירים תומכים ועובר ל־WebGL. שכבות וחלקיקים עוברים batching; אין Ray Marching או חישוב תלת־ממדי לכל פיקסל.' },
+    { k: 'fps', type: 'seg', l: 'הגבלת FPS', o: [[30, '30'], [45, '45'], [60, '60'], [0, 'אוטומטי (עד 60)']] } ] },
+  { id: 'nova', t: 'Babylon.js 3D Engine', i: 'fa-gauge-high', c: '#00c8ff', items: [
+    { type: 'note', l: 'Babylon.js 9.33.1 · מנוע תלת־ממדי אמיתי', d: 'סצנת 3D עם מצלמה, תאורה, חומרים וגאומטריה. הרינדור נעשה ב־WebGL עם רזולוציה מופחתת, ללא צללי GPU או פוסט־פרוססינג כבדים.' },
     { k: 'scene', type: 'sel', l: 'עולם / רקע מונפש', o: [['prime','PRIME Circuit — לוח אם כחול'],['rog','ROG Redline — אדום'],['cyber','Cyber Grid — עיר ניאון'],['aurora','Aurora Flow — זוהר צפוני'],['nebula','Deep Space — ערפילית חלל'],['quantum','Quantum Pulse — גלים קוונטיים'],['matrix','Digital Rain — גשם דיגיטלי'],['solar','Solar Flare — התפרצות שמש'],['synth','Synthwave — שקיעה ניאונית'],['abyss','Abyss — מעמקי האוקיינוס'],['prism','Prism Hall — היכל קריסטל'],['emerald','Emerald Reactor — כור ירוק'],['dusk','Dusk Horizon — אופק שקיעה'],['storm','Electric Storm — סערת חשמל'],['magma','Magma Flow — זרימת מגמה'],['holo','Holo Circuit — מעגל הולוגרפי']] },
-    { k: 'enginePower', type: 'rng', l: 'עוצמת מנוע NOVA Edge', d: 'מהירות ותנועה של האלמנטים', min: 40, max: 120, step: 5, u: '%' },
+    { k: 'enginePower', type: 'rng', l: 'עוצמת תנועה של הסצנה', d: 'מהירות ותנועה של האלמנטים', min: 40, max: 120, step: 5, u: '%' },
     { k: 'particleDensity', type: 'rng', l: 'צפיפות חלקיקים', d: 'מוגבלת אוטומטית כדי לשמור על ביצועים', min: 20, max: 160, step: 10, u: '' },
     { k: 'layerDepth', type: 'rng', l: 'עומק שכבות ופרלקסה', min: 0, max: 100, step: 5, u: '%' },
     { k: 'interactiveFX', type: 'tog', l: 'אפקטים מגיבים לעכבר וללחיצות' },
-    { type: 'note', l: 'NOVA Edge · Version 9.6.23.40', d: '16 עולמות רקע, שכבות עומק, אנימציית חלקיקים, מודלים וקטוריים בסגנון 2.5D ומצב Canvas חלופי אם WebGL אינו זמין.' }
+    { type: 'note', l: 'Babylon.js · Version 9.6.23.40', d: '16 עולמות רקע, מצלמת 3D, אובייקטים עם עומק אמיתי, חומרים ותאורה. במקרה ש־Babylon.js לא נטען, מוצג רקע CSS חלופי.' }
   ] },
   { id: 'fx', t: 'אפקטים', i: 'fa-wand-magic-sparkles', c: '#ff375f', items: [
     { k: 'octaves', type: 'rng', l: 'רמת פרטי רקע', d: 'שולטת בכמות הקווים והעיטורים הסטטיים', min: 2, max: 5, step: 1, u: '' },
@@ -1015,13 +1250,13 @@ const SCHEMA = [
     { k: 'bokeh', type: 'rng', l: 'חלקיקי אור (בוקה)', min: 0, max: 80, step: 5, u: '' },
     { k: 'ripple', type: 'tog', l: 'גלי הלם בלחיצה ובמעברים' } ] },
   { id: 'motion', t: 'תנועה ותלת־ממד', i: 'fa-cube', c: '#ff9f0a', items: [
-    { k: 'engine3d', type: 'seg', l: 'הצגת מודל עומק', d: 'המודלים מצוירים בשכבות וקטוריות 2.5D במקום Ray Marching כבד', o: [['auto', 'אוטומטי'], ['locked', 'מופעל תמיד'], ['off', 'כבוי']] },
-    { k: 'shape3d', type: 'sel', l: 'מודל עומק 2.5D', d: 'מודלים וקטוריים בשכבות עם תחושת עומק, ללא רינדור תלת־ממדי כבד.', o: [['core','מעבד PRIME'],['crystal','קריסטל'],['rog','ROG Reactor'],['cube','Holo Cube — קוביית אנרגיה'],['reactor','NOVA Turbine — טורבינת אנרגיה']] },
+    { k: 'engine3d', type: 'seg', l: 'הצגת מודל תלת־ממדי', d: 'בחירת תצוגה אוטומטית, פעילה תמיד או כבויה', o: [['auto', 'אוטומטי'], ['locked', 'מופעל תמיד'], ['off', 'כבוי']] },
+    { k: 'shape3d', type: 'sel', l: 'מודל תלת־ממדי', d: 'מודלים פרוצדורליים אמיתיים בתוך סצנת Babylon.js.', o: [['core','מעבד PRIME'],['crystal','קריסטל'],['rog','ROG Reactor'],['cube','Holo Cube — קוביית אנרגיה'],['reactor','NOVA Turbine — טורבינת אנרגיה']] },
     { k: 'zoom3d', type: 'rng', l: 'זום מצלמת 3D', min: 80, max: 140, step: 5, u: '%' },
     { k: 'detail3d', type: 'rng', l: 'רמת פירוט המודל', min: 40, max: 100, step: 5, u: '%' },
     { k: 'glow3d', type: 'rng', l: 'עוצמת תאורה והילה', min: 0, max: 100, step: 5, u: '%' },
     { k: 'rotate3d', type: 'tog', l: 'סיבוב אובייקטים תלת־ממדיים' },
-    { k: 'shadows3d', type: 'tog', l: 'צללי עומק וצללית מודל' },
+    { k: 'shadows3d', type: 'tog', l: 'צללית רכה מתחת למודל' },
     { k: 'motion', type: 'tog', l: 'אנימציות ממשק' },
     { k: 'tilt', type: 'tog', l: 'הטיית חלון תלת־ממדית' },
     { k: 'depth', type: 'rng', l: 'עומק פרלקסה', min: 0, max: 100, step: 5, u: '%' },
@@ -1083,7 +1318,7 @@ function buildPane() {
         b.addEventListener('click', () => { setVal(it.k, n); tick(); $$('.sw', s).forEach(x => x.setAttribute('aria-pressed', String(x === b))); pulse(innerWidth / 2, innerHeight / 2, .9); }); s.appendChild(b); });
       row.appendChild(s); }
     else if (it.type === 'note') { row.classList.add('col'); row.innerHTML = '<div class="l"><span>' + it.l + '</span></div>'; const d = document.createElement('div'); d.className = 'info'; d.textContent = it.d || ''; row.appendChild(d); }
-    else if (it.type === 'info') { row.innerHTML = lab; const d = document.createElement('div'); d.className = 'info'; d.textContent = gpuName + (gl ? ' · WebGL 3D פעיל' : ' · WebGL לא זמין'); row.appendChild(d); }
+    else if (it.type === 'info') { row.innerHTML = lab; const d = document.createElement('div'); d.className = 'info'; d.textContent = gpuName; row.appendChild(d); }
     else if (it.type === 'btn') { row.innerHTML = lab; const b = document.createElement('button'); b.className = 'sbtn' + (it.red ? ' red' : ''); b.textContent = it.b;
       b.addEventListener('click', () => { if (it.act === 'reset') { P = Object.assign({}, DEF); adaptiveQuality = 1; save(); apply(); buildPane(); } else { const txt = JSON.stringify(P, null, 2);
         (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => { b.textContent = 'הועתק ✓'; }).catch(() => { b.textContent = 'לא זמין'; }); setTimeout(() => b.textContent = it.b, 1500); } tick(); });
