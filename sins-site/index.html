@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="application-version" content="9.0.0.1">
-<title>בואו להנות | NOVA Visual Engine — Version 9.0.0.1</title>
+<meta name="application-version" content="9.5.13.1">
+<title>בואו להנות | NOVA Visual Engine — Version 9.5.13.1</title>
 <link rel="icon" type="image/png" href="logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -54,6 +54,14 @@ body.nogl::before{content:"";position:fixed;inset:0;z-index:-3;background:
 body.nogl::after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:
  linear-gradient(90deg,transparent 0 14.8%,rgba(42,154,255,.28) 14.9%,transparent 15.1% 100%),linear-gradient(90deg,transparent 0 84%,rgba(42,154,255,.24) 84.1%,transparent 84.3% 100%),
  linear-gradient(135deg,transparent 0 38%,rgba(42,154,255,.18) 38.1%,transparent 38.4% 100%),linear-gradient(45deg,transparent 0 68%,rgba(42,154,255,.16) 68.1%,transparent 68.4% 100%)}
+body.nogl[data-scene="synth"]::before{background:radial-gradient(ellipse at 50% 42%,#652b96,transparent 42%),linear-gradient(180deg,#100629,#251047 56%,#050514 100%),repeating-linear-gradient(0deg,transparent 0 36px,#8c55ff26 37px 38px)}
+body.nogl[data-scene="abyss"]::before{background:radial-gradient(ellipse at 50% 34%,#087f9b88,transparent 48%),linear-gradient(160deg,#001b35,#003d5c 56%,#00101f)}
+body.nogl[data-scene="prism"]::before{background:radial-gradient(ellipse at 50% 50%,#6a36b088,transparent 48%),linear-gradient(135deg,#10072d,#071c40 55%,#16082e)}
+body.nogl[data-scene="emerald"]::before{background:radial-gradient(ellipse at 50% 45%,#087d4b88,transparent 50%),linear-gradient(145deg,#031b13,#042d25 55%,#020b0b)}
+body.nogl[data-scene="dusk"]::before{background:radial-gradient(ellipse at 68% 42%,#ff8c4d88,transparent 42%),linear-gradient(180deg,#280f27,#6b2d36 52%,#0c1426)}
+body.nogl[data-scene="storm"]::before{background:radial-gradient(ellipse at 50% 38%,#1d6ac088,transparent 45%),linear-gradient(145deg,#030a18,#09213d 55%,#020610)}
+body.nogl[data-scene="magma"]::before{background:radial-gradient(ellipse at 50% 50%,#a9321588,transparent 48%),linear-gradient(145deg,#170600,#3b1008 55%,#080302)}
+body.nogl[data-scene="holo"]::before{background:radial-gradient(ellipse at 50% 40%,#174e9a88,transparent 48%),linear-gradient(145deg,#030817,#10104a 56%,#030511)}
 #hud{position:fixed;left:14px;bottom:14px;z-index:900;display:none;padding:8px 12px;border-radius:14px;font:600 .78rem/1.3 ui-monospace,Menlo,Consolas,monospace;direction:ltr;pointer-events:none;color:#fff;background:rgba(0,0,0,.55);backdrop-filter:blur(10px)}
 body.hud #hud{display:block}
 body.debug *{outline:1px solid rgba(255,55,95,.3)}
@@ -247,13 +255,32 @@ select.input option{background:var(--bg);color:var(--label)}
 .sbtn{border:0;border-radius:12px;padding:9px 16px;background:var(--fill);font-weight:700;cursor:pointer;transition:transform .2s}.sbtn:active{transform:scale(.96)}.sbtn.red{color:var(--red)}
 .srow .info{direction:ltr;color:var(--label2);font-size:.82rem;max-width:300px;text-align:left;font-weight:600}
 
-/* חלון הצלחה */
-#success .sheet2{width:min(330px,100%);padding:32px 24px 24px;text-align:center;transform:scale(1.1);transition:transform .45s var(--bounce)}
-#success.open .sheet2{transform:none}
-.okc{width:76px;height:76px;margin:0 auto 14px}
-.okc circle{fill:var(--green)} .okc path{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:50;stroke-dashoffset:50}
-#success.open .okc path{animation:draw .6s .25s ease-out forwards}@keyframes draw{to{stroke-dashoffset:0}}
-#success h2{font-size:1.35rem;margin-bottom:18px}
+/* חלון הצלחה — NOVA Success Experience */
+#success{background:radial-gradient(ellipse at 50% 46%,rgba(22,209,130,.16),transparent 48%),rgba(2,7,18,.66);}
+#success .sheet2{position:relative;isolation:isolate;width:min(510px,calc(100% - 22px));padding:34px clamp(22px,4vw,42px) 30px;text-align:center;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(15,23,38,.68) 46%,rgba(7,18,32,.80));box-shadow:0 34px 100px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.22);transform:translateY(24px) scale(.92);transition:transform .55s var(--bounce);}
+#success .sheet2::before{content:"";position:absolute;inset:-1px;z-index:-1;opacity:.9;background:radial-gradient(65% 42% at 50% 0%,rgba(48,209,136,.24),transparent 72%),linear-gradient(125deg,transparent 20%,rgba(255,255,255,.075) 48%,transparent 72%);pointer-events:none}
+#success .sheet2::after{content:"";position:absolute;inset:10px;border:1px solid rgba(255,255,255,.075);border-radius:24px;pointer-events:none;z-index:-1}
+#success.open .sheet2{transform:translateY(0) scale(1)}
+.success-mark{width:112px;height:112px;margin:0 auto 18px;display:grid;place-items:center;position:relative;}
+.success-mark::before,.success-mark::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(48,209,136,.42);animation:successOrbit 3.6s linear infinite}
+.success-mark::after{inset:10px;border-color:rgba(110,255,190,.22);animation-direction:reverse;animation-duration:5.2s}
+.success-mark .mark-glow{position:absolute;inset:15px;border-radius:50%;background:radial-gradient(circle,rgba(48,209,136,.36),rgba(48,209,136,.08) 55%,transparent 72%);filter:blur(4px)}
+.okc{width:78px;height:78px;position:relative;z-index:1;filter:drop-shadow(0 8px 22px rgba(48,209,136,.36))}
+.okc circle{fill:url(#successGradient);stroke:rgba(255,255,255,.36);stroke-width:1.2}
+.okc path{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:50;stroke-dashoffset:50}
+#success.open .okc path{animation:draw .62s .25s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes successOrbit{to{transform:rotate(360deg)}}
+.success-kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:12px;padding:7px 12px;border-radius:999px;border:1px solid rgba(80,230,160,.22);background:rgba(48,209,136,.10);color:#9df4c6;font-size:.72rem;font-weight:900;letter-spacing:.12em;direction:ltr}
+.success-kicker i{font-size:.55rem;filter:drop-shadow(0 0 7px #30d158)}
+#success h2{font-size:clamp(1.45rem,4vw,1.9rem);line-height:1.2;letter-spacing:-.035em;margin-bottom:9px;font-weight:900;color:#fff}
+#success .success-message{max-width:360px;margin:0 auto 22px;color:rgba(244,248,255,.72);font-size:.98rem;line-height:1.7}
+.success-details{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:24px}
+.success-details span{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:12px;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.09);font-size:.78rem;font-weight:700;color:rgba(255,255,255,.85)}
+.success-details i{color:#83efb7}
+#ok-close{min-height:50px;border:1px solid rgba(255,255,255,.24);background:linear-gradient(110deg,#1bba74,#20d58a);color:#062a1b;box-shadow:0 12px 30px rgba(30,205,126,.25);font-weight:900;transition:transform .2s,filter .2s}
+#ok-close:hover{filter:brightness(1.08);transform:translateY(-2px)}
+@media(max-width:520px){#success .sheet2{padding:28px 20px 24px}.success-mark{width:94px;height:94px}.okc{width:68px;height:68px}.success-details{gap:6px}.success-details span{font-size:.72rem}}
 
 /* ================= רספונסיבי ================= */
 @media (max-width:980px){
@@ -349,7 +376,7 @@ body.nogl[data-scene="solar"]::before{background:radial-gradient(circle at 50% 4
 <!-- ================= האתר ================= -->
 <div id="app">
   <header class="topbar glass">
-    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 9.4.0.9</span></div><p>הקהילה מתחילה כאן · NOVA Visual Engine · Procedural FX</p></div></div>
+    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 9.5.13.1</span></div><p>הקהילה מתחילה כאן · NOVA Visual Engine · Procedural FX</p></div></div>
     <button class="ibtn" id="btn-relock" aria-label="נעילת מסך"><i class="fas fa-lock"></i></button>
     <button class="ibtn" id="btn-settings" aria-label="הגדרות"><i class="fas fa-gear"></i></button>
   </header>
@@ -514,12 +541,18 @@ body.nogl[data-scene="solar"]::before{background:radial-gradient(circle at 50% 4
   </div>
 </div>
 
-<!-- חלון הצלחה -->
+<!-- חלון הצלחה — NOVA -->
 <div class="overlay" id="success" aria-hidden="true">
-  <div class="sheet2 glass" role="alertdialog" aria-labelledby="ok-t">
-    <svg class="okc" viewBox="0 0 76 76"><circle cx="38" cy="38" r="38"/><path d="M22 39l11 11 21-23"/></svg>
+  <div class="sheet2 glass" role="alertdialog" aria-modal="true" aria-labelledby="ok-t" aria-describedby="ok-msg">
+    <div class="success-mark" aria-hidden="true">
+      <span class="mark-glow"></span>
+      <svg class="okc" viewBox="0 0 76 76"><defs><linearGradient id="successGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#53efaa"/><stop offset="1" stop-color="#12a968"/></linearGradient></defs><circle cx="38" cy="38" r="36.5"/><path d="M22 39l11 11 21-23"/></svg>
+    </div>
+    <div class="success-kicker"><i class="fas fa-circle"></i><span>SUBMISSION CONFIRMED</span></div>
     <h2 id="ok-t">הטופס נשלח בהצלחה!</h2>
-    <button class="btn block soft" id="ok-close">חזור למערכת</button>
+    <p class="success-message" id="ok-msg">הפרטים התקבלו במערכת. תודה שהקדשת מזמנך!</p>
+    <div class="success-details"><span><i class="fas fa-shield-check"></i> שליחה מאובטחת</span><span><i class="fas fa-check-double"></i> הפעולה הושלמה</span></div>
+    <button class="btn block soft" id="ok-close"><i class="fas fa-arrow-right-long" aria-hidden="true"></i> חזרה לאתר</button>
   </div>
 </div>
 
@@ -560,8 +593,8 @@ try {
 } catch (e) {}
 P.wall = 'prime';
 P.engineMode = ['nova','fusion','classic3d'].includes(P.engineMode) ? P.engineMode : 'nova';
-P.scene = ['prime','rog','cyber','aurora','nebula','quantum','matrix','solar'].includes(P.scene) ? P.scene : 'prime';
-P.shape3d = ['crystal','rog'].includes(P.shape3d) ? P.shape3d : 'core';
+P.scene = ['prime','rog','cyber','aurora','nebula','quantum','matrix','solar','synth','abyss','prism','emerald','dusk','storm','magma','holo'].includes(P.scene) ? P.scene : 'prime';
+P.shape3d = ['core','crystal','rog','cube','reactor'].includes(P.shape3d) ? P.shape3d : 'core';
 const save = () => store.set('prefs3', JSON.stringify(P));
 
 const ACC = { blue: '#0a84ff', purple: '#bf5af2', pink: '#ff375f', green: '#30d158', orange: '#ff9f0a' };
@@ -571,7 +604,11 @@ const PAL = {
   violet:  { c: [[.27,.28,.88],[.35,.62,1],[.77,.58,1]], css: ['#4648e0', '#5aa0ff', '#c58cff'], n: 'Violet' },
   emerald: { c: [[.02,.42,.50],[.05,.78,.70],[.42,.96,.82]], css: ['#087b8c', '#12c8b0', '#70f5d5'], n: 'Emerald' },
   graphite:{ c: [[.28,.43,.62],[.55,.72,.88],[.82,.92,1]], css: ['#496f9e', '#8db8df', '#d1e8ff'], n: 'Graphite' },
-  rog:     { c: [[.34,.018,.055],[.98,.045,.12],[1.0,.34,.25]], css: ['#861329', '#ff2448', '#ff8068'], n: 'ROG Red' }
+  rog:     { c: [[.34,.018,.055],[.98,.045,.12],[1.0,.34,.25]], css: ['#861329', '#ff2448', '#ff8068'], n: 'ROG Red' },
+  sunset:  { c: [[.58,.13,.10],[1.0,.34,.14],[1.0,.74,.38]], css: ['#a83b32', '#ff7043', '#ffd08a'], n: 'Sunset Ember' },
+  ocean:   { c: [[.012,.19,.42],[.02,.58,.82],[.30,.92,1]], css: ['#064b86', '#089fd1', '#75eaff'], n: 'Ocean Blue' },
+  mint:    { c: [[.012,.30,.22],[.035,.68,.43],[.48,.98,.70]], css: ['#087b55', '#16c784', '#9cf5bf'], n: 'Mint Reactor' },
+  neon:    { c: [[.20,.04,.58],[.58,.13,.94],[.12,.80,1]], css: ['#5420ad', '#a64dff', '#36d9ff'], n: 'Neon Spectrum' }
 };
 const SCENES = {
   prime:   { index: 0, pal: 'prime',   label: 'PRIME Circuit — לוח אם כחול' },
@@ -581,7 +618,15 @@ const SCENES = {
   nebula:  { index: 4, pal: 'violet',  label: 'Deep Space — ערפילית חלל' },
   quantum: { index: 5, pal: 'arctic',  label: 'Quantum Pulse — גלים קוונטיים' },
   matrix:  { index: 6, pal: 'emerald', label: 'Digital Rain — גשם דיגיטלי' },
-  solar:   { index: 7, pal: 'rog',     label: 'Solar Flare — התפרצות שמש' }
+  solar:   { index: 7, pal: 'rog',     label: 'Solar Flare — התפרצות שמש' },
+  synth:   { index: 8, pal: 'neon',    label: 'Synthwave — שקיעה ניאונית' },
+  abyss:   { index: 9, pal: 'ocean',   label: 'Abyss — מעמקי האוקיינוס' },
+  prism:   { index: 10, pal: 'violet', label: 'Prism Hall — היכל קריסטל' },
+  emerald: { index: 11, pal: 'mint',   label: 'Emerald Reactor — כור ירוק' },
+  dusk:    { index: 12, pal: 'sunset', label: 'Dusk Horizon — אופק שקיעה' },
+  storm:   { index: 13, pal: 'arctic', label: 'Electric Storm — סערת חשמל' },
+  magma:   { index: 14, pal: 'sunset', label: 'Magma Flow — זרימת מגמה' },
+  holo:    { index: 15, pal: 'neon',   label: 'Holo Circuit — מעגל הולוגרפי' }
 };
 if (!PAL[P.pal]) P.pal = 'prime';
 const WALL = { prime: 0 }; // הרקע הקבוע: לוח אם בסגנון PRIME BIOS
@@ -729,13 +774,62 @@ vec3 field(vec2 uv,float t){
     float column=exp(-abs(fract(q.x*34.)-.5)*90.);
     col+=uC1*(column*.055+glyph*(.34+.3*fall));
     col+=uC2*exp(-abs(q.y-(fall-.5)*1.8)*18.)*column*.18;
-  }else if(uScene>6.5){
+  }else if(uScene>6.5&&uScene<7.5){
     vec2 q=p;float r=length(q);float a=atan(q.y,q.x);col=vec3(.018,.004,.002);
     float rays=pow(max(0.,cos(a*19.+sin(a*5.)*.7)),24.);
     float flare=exp(-r*2.2)*(1.1+.35*sin(t*1.4));
     float corona=exp(-abs(r-(.36+.025*sin(a*8.+t)))*24.);
     col+=uC1*(rays*flare*.42+corona*.32)+uC2*exp(-r*5.)*.34;
     col+=uC3*pow(max(0.,1.-r*1.5),7.)*.20;
+  }else if(uScene>7.5&&uScene<8.5){
+    vec2 q=p;col=vec3(.012,.003,.035);float horizon=-.18;
+    float sunR=length(vec2(q.x,q.y-horizon-.20));
+    float sun=1.-smoothstep(.34,.37,sunR);float stripe=step(.10,fract((q.y-horizon-.20)*34.));
+    col+=uC2*sun*(.22+.22*stripe)+uC3*exp(-abs(q.y-horizon)*4.)*.22;
+    float gridX=abs(fract((q.x+1.5)*24.)-.5),gridY=abs(fract((q.y-horizon)*30.)-.5);
+    float grid=(1.-smoothstep(.015,.045,min(gridX,gridY)))*smoothstep(-.8,horizon,q.y);
+    col+=uC1*grid*.30;col+=uC3*pow(max(0.,1.-abs(q.y-horizon)*1.2),3.)*.08;
+  }else if(uScene>8.5&&uScene<9.5){
+    vec2 q=p;col=vec3(.001,.012,.038);float r=length(q);float a=atan(q.y,q.x);
+    float caustic=pow(.5+.5*cos(q.x*13.+sin(q.y*8.+t*.7)*2.+t),8.);
+    float waves=pow(.5+.5*cos(r*25.-t*1.2+sin(a*5.)*.7),11.);
+    float shafts=pow(max(0.,cos(a*8.+sin(r*4.-t)*.4)),12.)*exp(-r*.7);
+    col+=uC1*(caustic*.13+waves*.11)+uC2*(shafts*.24);
+    float bubbles=step(.996,hash(floor((q+vec2(2.,1.))*vec2(55.,38.))));col+=uC3*bubbles*(.3+.2*sin(t*2.));
+  }else if(uScene>9.5&&uScene<10.5){
+    vec2 q=p;col=vec3(.009,.004,.025);float a=atan(q.y,q.x);float r=length(q);
+    float facet=abs(cos(a*6.+.18*sin(t*.18)));float beams=pow(facet,22.)*smoothstep(1.15,.08,r);
+    float rings=exp(-abs(r-(.48+.035*sin(a*3.+t*.4)))*38.);
+    float shards=pow(max(0.,sin(a*9.+r*13.-t*.3)),18.)*exp(-r*.65);
+    col+=uC1*(beams*.18+shards*.13)+uC2*(rings*.26)+uC3*exp(-r*3.)*.10;
+  }else if(uScene>10.5&&uScene<11.5){
+    vec2 q=p;col=vec3(.002,.018,.012);float r=length(q),a=atan(q.y,q.x);
+    float ring1=exp(-abs(r-(.28+.02*sin(t)))*38.);float ring2=exp(-abs(r-(.53+.025*cos(t*.7)))*24.);
+    float teeth=pow(max(0.,cos(a*18.+t*.8)),18.)*smoothstep(.9,.18,r);
+    float core=exp(-r*4.8);col+=uC1*(ring1*.34+ring2*.18+teeth*.12)+uC2*core*.25+uC3*exp(-abs(r-.72)*18.)*.12;
+  }else if(uScene>11.5&&uScene<12.5){
+    vec2 q=p;col=vec3(.025,.006,.009);float horizon=-.24+.045*sin(t*.16);
+    float sky=exp(-abs(q.y-horizon)*2.4);float sun=exp(-length(q-vec2(.18,.10))*3.2);
+    float hill1=exp(-abs(q.y-(-.42+.07*sin(q.x*3.2+t*.12)))*18.);
+    float hill2=exp(-abs(q.y-(-.57+.05*sin(q.x*5.1-t*.10+1.)))*22.);
+    col+=uC1*(sky*.18+hill1*.12)+uC2*sun*.28+uC3*hill2*.16;
+    float stars=step(.997,hash(floor((q+vec2(2.,1.))*vec2(78.,48.))));col+=stars*uC3*.55;
+  }else if(uScene>12.5&&uScene<13.5){
+    vec2 q=p;col=vec3(.002,.009,.025);float n=fbm(q*3.4+vec2(t*.04,-t*.07));
+    float bolt=abs(sin(q.x*18.+sin(q.y*11.+t)*3.+n*8.));bolt=pow(1.-bolt,34.);
+    float fork=pow(max(0.,cos(q.x*8.-q.y*17.+t*.8)),28.)*step(.1,n);
+    float cloud=fbm(q*2.1+vec2(-t*.03,t*.02));col+=uC1*cloud*.10+uC2*(bolt*.48+fork*.18)+uC3*bolt*.22;
+    col+=uC3*exp(-abs(q.x-.24*sin(t*.35))*2.8)*.035;
+  }else if(uScene>13.5&&uScene<14.5){
+    vec2 q=p;col=vec3(.025,.004,.001);float n=fbm(q*3.2+vec2(t*.018,-t*.025));float n2=fbm(q*7.0-vec2(t*.03,t*.015));
+    float cracks=1.-smoothstep(.015,.075,abs(n-n2*.62-.12));float heat=pow(clamp(n*.65+n2*.42,0.,1.),2.);
+    col+=uC1*(heat*.25+cracks*.42)+uC2*pow(heat,3.)*.34+uC3*exp(-abs(n-.52)*22.)*.17;
+  }else if(uScene>14.5&&uScene<15.5){
+    vec2 q=p;col=vec3(.003,.005,.026);vec2 cell=floor((q+vec2(1.5,1.))*vec2(44.,34.));
+    float gx=abs(fract(q.x*44.)-.5),gy=abs(fract(q.y*34.)-.5);float grid=1.-smoothstep(.46,.495,min(gx,gy));
+    float trace=pow(max(0.,sin((q.x+q.y*.72)*17.+t*1.3)),18.);float pulse=exp(-abs(fract(t*.08)-fract((q.x-q.y*.4+2.)*.2))*8.);
+    float node=step(.992,hash(cell))*(.4+.6*sin(t*2.+hash(cell+4.)*20.));
+    col+=uC1*grid*.14+uC2*(trace*.30+pulse*.24)+uC3*node*.42;
   }
   float vign=1.-.30*smoothstep(.35,1.25,length(p*vec2(.82,1.0)));
   return col*vign;
@@ -772,7 +866,7 @@ vec2 scene(vec3 p){
   }else if(uShape<1.5){
     float wave=sin(q.x*8.+uTime*.48)*sin(q.y*7.-uTime*.32)*sin(q.z*8.)*.012;
     d=vec2(sdOcta(q,1.16)+wave,1.);
-  }else{
+  }else if(uShape<2.5){
     // ROG-inspired angular eye reactor: graphite chassis, beveled crimson eye plate and plasma iris.
     d=vec2(sdRoundBox(q,vec3(.88,.62,.17),.13),11.);
     float outerEye=max(abs(q.y)-(.43*(1.-abs(q.x)/.98)),abs(q.x)-.98);
@@ -780,21 +874,31 @@ vec2 scene(vec3 p){
     float innerEye=max(abs(q.y)-(.205*(1.-abs(q.x)/.57)),abs(q.x)-.57);
     float innerEye3=max(innerEye,abs(q.z-.22)-.16);
     d=opU(d,vec2(max(outerEye3,-innerEye3),12.));
-    // Three swept armor blades on each side.
-    vec3 bl1=rotZ(q-vec3(-.60,.38,.02),-.38);
-    vec3 bl2=rotZ(q-vec3(-.64,.16,.01),-.20);
-    vec3 br1=rotZ(q-vec3(.60,.38,.02),.38);
-    vec3 br2=rotZ(q-vec3(.64,.16,.01),.20);
+    vec3 bl1=rotZ(q-vec3(-.60,.38,.02),-.38);vec3 bl2=rotZ(q-vec3(-.64,.16,.01),-.20);
+    vec3 br1=rotZ(q-vec3(.60,.38,.02),.38);vec3 br2=rotZ(q-vec3(.64,.16,.01),.20);
     float blades=min(min(sdRoundBox(bl1,vec3(.34,.052,.075),.025),sdRoundBox(bl2,vec3(.30,.042,.065),.02)),min(sdRoundBox(br1,vec3(.34,.052,.075),.025),sdRoundBox(br2,vec3(.30,.042,.065),.02)));
-    d=opU(d,vec2(blades,12.));
-    d=opU(d,vec2(sdOcta(q-vec3(0.,0.,.30),.255),14.));
+    d=opU(d,vec2(blades,12.));d=opU(d,vec2(sdOcta(q-vec3(0.,0.,.30),.255),14.));
     d=opU(d,vec2(sdTorusZ(q-vec3(0.,0.,.19),vec2(.34,.025)),13.));
-    // Machined side ports and metallic fasteners.
-    for(int i=0;i<4;i++){
-      float x=-.60+float(i)*.40;
-      d=opU(d,vec2(sdSphere(q-vec3(x,.51,.16),.035),15.));
-      d=opU(d,vec2(sdSphere(q-vec3(x,-.51,.16),.035),15.));
-    }
+    for(int i=0;i<4;i++){float x=-.60+float(i)*.40;d=opU(d,vec2(sdSphere(q-vec3(x,.51,.16),.035),15.));d=opU(d,vec2(sdSphere(q-vec3(x,-.51,.16),.035),15.));}
+  }else if(uShape<3.5){
+    // Holographic containment cube: bevelled outer shell, inner chassis, luminous diamond and corner locks.
+    vec3 cq=rotY(q,uTime*.16*rot);cq=rotX(cq,.22+sin(uTime*.22)*.04*rot);
+    d=vec2(sdRoundBox(cq,vec3(.72,.72,.72),.10),20.);
+    float frame=max(sdBox(cq,vec3(.91)), -sdBox(cq,vec3(.79)));
+    d=opU(d,vec2(frame,21.));
+    d=opU(d,vec2(sdRoundBox(cq,vec3(.56,.56,.56),.085),22.));
+    d=opU(d,vec2(sdOcta(cq-vec3(0.,0.,.04),.43),23.));
+    for(int i=0;i<8;i++){float sx=(mod(float(i),2.)*2.-1.)*.78;float sy=(mod(floor(float(i)/2.),2.)*2.-1.)*.78;float sz=(floor(float(i)/4.)*2.-1.)*.78;d=opU(d,vec2(sdSphere(cq-vec3(sx,sy,sz),.055),24.));}
+  }else{
+    // NOVA turbine reactor: layered metallic ring stack, six rotating vanes and a plasma center.
+    vec3 rq=rotZ(q,uTime*.11*rot);rq=rotX(rq,1.5708);
+    d=vec2(sdSphere(rq, .62),30.);
+    d=opU(d,vec2(sdTorus(rq,vec2(.86,.085)),31.));
+    d=opU(d,vec2(sdTorus(rq,vec2(1.04,.028)),32.));
+    d=opU(d,vec2(sdTorus(rotY(rq,1.5708),vec2(.91,.022)),32.));
+    for(int i=0;i<6;i++){float a=float(i)*1.04719755+uTime*.24*rot;vec3 vq=rotZ(rq-vec3(cos(a)*.58,sin(a)*.58,0.),a+.42);d=opU(d,vec2(sdRoundBox(vq,vec3(.29,.075,.065),.035),33.));}
+    d=opU(d,vec2(sdOcta(rq-vec3(0.,0.,.53),.31),34.));
+    d=opU(d,vec2(sdSphere(rq-vec3(0.,0.,.62),.085),35.));
   }
   // Two precision orbital rings and a third thin signal ring.
   vec3 r=rotZ(rotX(q,1.13),.16);
@@ -851,12 +955,16 @@ void main(){
       float spec=pow(max(dot(reflect(-lightDir,n),view),0.),mix(48.,110.,u3DQuality));
       float fres=pow(1.-max(dot(n,view),0.),3.2);
       vec3 base=uC1;
-      if(uShape>1.5&&mat>10.5){
+      if(uShape>1.5&&uShape<2.5&&mat>10.5){
         if(mat<11.5)base=vec3(.045,.052,.075);
         else if(mat<12.5)base=mix(uC1,vec3(.075,.008,.022),.28);
         else if(mat<13.5)base=mix(uC2,uC3,.35);
         else if(mat<14.5)base=mix(uC2,vec3(1.,.20,.12),.48+.18*sin(t*2.));
         else base=vec3(.46,.52,.61);
+      }else if(uShape>2.5&&uShape<3.5&&mat>19.5){
+        if(mat<20.5)base=vec3(.035,.055,.095);else if(mat<21.5)base=mix(uC1,vec3(.68,.83,.96),.55);else if(mat<22.5)base=mix(uC1,uC2,.3);else if(mat<23.5)base=mix(uC2,uC3,.58+.18*sin(t*1.8));else base=vec3(.62,.78,.94);
+      }else if(uShape>=3.5&&mat>29.5){
+        if(mat<30.5)base=vec3(.035,.055,.075);else if(mat<31.5)base=mix(uC1,uC2,.35);else if(mat<32.5)base=mix(uC2,vec3(.72,.85,.96),.6);else if(mat<33.5)base=mix(uC1,uC2,.5);else if(mat<34.5)base=mix(uC2,uC3,.65);else base=uC3;
       }else if(mat<1.5){base=mix(uC1,uC2,.22+.12*sin(pos.x*18.+pos.y*17.));}
       else if(mat<2.5){base=mix(uC2,vec3(.58,.78,.94),.58);}
       else if(mat<3.5){base=mix(uC1,uC2,.52);}
@@ -943,6 +1051,33 @@ const NovaEngine = (() => {
     }else if(enabled&&scene==='solar'){
       const cx=w*.5,cy=h*.48,R=Math.min(w,h)*.25;let gr=ctx.createRadialGradient(cx,cy,0,cx,cy,R*2.5);gr.addColorStop(0,c3+'35');gr.addColorStop(.35,c2+'18');gr.addColorStop(1,c1+'00');ctx.fillStyle=gr;ctx.fillRect(cx-R*2.5,cy-R*2.5,R*5,R*5);
       for(let i=0;i<38;i++){let a=i*Math.PI*2/38+t*.012;ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*R*.85,cy+Math.sin(a)*R*.85);ctx.lineTo(cx+Math.cos(a)*R*(1.15+(i%5)*.11),cy+Math.sin(a)*R*(1.15+(i%5)*.11));ctx.strokeStyle=c2+'30';ctx.lineWidth=1.5;ctx.stroke();}
+    }else if(enabled&&scene==='synth'){
+      const cx=w*.5,hz=h*.55;ctx.lineWidth=1;ctx.strokeStyle=c2+'58';ctx.shadowColor=c2;ctx.shadowBlur=12;
+      const sunR=Math.min(w,h)*.16;const sg=ctx.createRadialGradient(cx,hz-sunR*.58,0,cx,hz-sunR*.58,sunR*1.6);sg.addColorStop(0,c3+'55');sg.addColorStop(1,c2+'00');ctx.fillStyle=sg;ctx.fillRect(cx-sunR*2,hz-sunR*2,sunR*4,sunR*4);
+      for(let i=0;i<13;i++){let y=hz-sunR+i*sunR*.12;ctx.globalAlpha=.12+i*.018;ctx.beginPath();ctx.moveTo(cx-sunR,y);ctx.lineTo(cx+sunR,y);ctx.stroke();}ctx.globalAlpha=1;
+      for(let i=-12;i<=12;i++){ctx.beginPath();ctx.moveTo(cx,hz);ctx.lineTo(cx+i*w*.09,h);ctx.stroke();}for(let i=0;i<14;i++){let f=(i/14+(t*.10)%1),y=hz+(h-hz)*f*f;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}ctx.shadowBlur=0;
+    }else if(enabled&&scene==='abyss'){
+      for(let b=0;b<9;b++){ctx.beginPath();for(let x=0;x<=w+6;x+=6){let y=h*(.22+b*.075)+Math.sin(x*.004+t*.45+b)*h*.018+Math.sin(x*.011-t*.32+b*1.7)*h*.008;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.strokeStyle=[c1,c2,c3][b%3]+'35';ctx.lineWidth=7-b*.45;ctx.shadowColor=c2;ctx.shadowBlur=18;ctx.stroke();}ctx.shadowBlur=0;
+    }else if(enabled&&scene==='prism'){
+      const cx=w*.5,cy=h*.48,R=Math.min(w,h)*.34;ctx.save();ctx.translate(cx,cy);ctx.rotate(t*.025);ctx.strokeStyle=c2+'46';ctx.shadowColor=c2;ctx.shadowBlur=18;
+      for(let i=0;i<10;i++){let r=R*(.28+i*.075);ctx.beginPath();for(let k=0;k<6;k++){let a=k*Math.PI/3;let x=Math.cos(a)*r,y=Math.sin(a)*r;if(k===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.closePath();ctx.stroke();}ctx.restore();ctx.shadowBlur=0;
+    }else if(enabled&&scene==='emerald'){
+      const cx=w*.5,cy=h*.48,R=Math.min(w,h)*.32;ctx.shadowColor=c2;ctx.shadowBlur=20;
+      for(let i=0;i<7;i++){let r=R*(.3+i*.12);ctx.beginPath();ctx.arc(cx,cy,r,t*(i%2?-.15:.18),t*(i%2?-.15:.18)+Math.PI*(1.2+i*.08));ctx.strokeStyle=[c1,c2,c3][i%3]+'55';ctx.lineWidth=2+i%2;ctx.stroke();}
+      for(let i=0;i<8;i++){let a=i*Math.PI/4+t*.12;ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*R*.35,cy+Math.sin(a)*R*.35);ctx.lineTo(cx+Math.cos(a)*R*1.3,cy+Math.sin(a)*R*1.3);ctx.strokeStyle=c3+'26';ctx.stroke();}ctx.shadowBlur=0;
+    }else if(enabled&&scene==='dusk'){
+      const cx=w*.64,cy=h*.42,R=Math.min(w,h)*.20;let g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*2.4);g.addColorStop(0,c3+'44');g.addColorStop(.5,c2+'1f');g.addColorStop(1,c1+'00');ctx.fillStyle=g;ctx.fillRect(cx-R*2.4,cy-R*2.4,R*4.8,R*4.8);
+      for(let i=0;i<5;i++){ctx.beginPath();for(let x=0;x<=w;x+=8){let y=h*(.68+i*.065)+Math.sin(x*.003+i+t*.09)*h*.025;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.strokeStyle=[c1,c2,c3][i%3]+'35';ctx.lineWidth=12-i;ctx.stroke();}
+    }else if(enabled&&scene==='storm'){
+      ctx.strokeStyle=c3+'55';ctx.shadowColor=c2;ctx.shadowBlur=18;ctx.lineWidth=2;
+      for(let bolt=0;bolt<4;bolt++){let x=w*(.18+bolt*.22),y=-10;ctx.beginPath();ctx.moveTo(x,y);for(let j=0;j<9;j++){x+=(Math.sin(t*2+bolt*4+j*5)*.5)*w*.055;y+=h*.105;ctx.lineTo(x,y);}ctx.stroke();}ctx.shadowBlur=0;
+    }else if(enabled&&scene==='magma'){
+      for(let i=0;i<9;i++){ctx.beginPath();for(let x=0;x<=w;x+=7){let y=h*(.25+i*.075)+Math.sin(x*.003+t*.16+i)*h*.04+Math.sin(x*.009-t*.13+i*2)*h*.014;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.strokeStyle=[c1,c2,c3][i%3]+'32';ctx.lineWidth=16-i;ctx.shadowColor=c2;ctx.shadowBlur=22;ctx.stroke();}ctx.shadowBlur=0;
+    }else if(enabled&&scene==='holo'){
+      ctx.lineWidth=1;ctx.strokeStyle=c2+'38';ctx.shadowColor=c2;ctx.shadowBlur=10;
+      for(let i=0;i<30;i++){let x=(i/30)*w;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+      for(let i=0;i<22;i++){let y=(i/22)*h;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+      for(let i=0;i<8;i++){let x=(t*.11+i*.137)%1*w;ctx.globalAlpha=.28;ctx.fillStyle=c3;ctx.fillRect(x,0,2,h);ctx.globalAlpha=1;}ctx.shadowBlur=0;
     }
     // Animated signal particles, motes, and trails form the common NOVA simulation layer.
     const speed=powerK*(P.motion?1:0);for(let i=0;i<particles.length;i++){const p=particles[i];p.ph+=dt*(.5+i%5*.08)*speed;p.x+=p.vx*dt*powerK*60;p.y+=((scene==='matrix'?p.vy:p.vy*.18)*dt*powerK*60);if(scene==='matrix'){if(p.y>h+25){p.y=-20;p.x=rand(0,w);}}else{p.x+=Math.sin(p.ph)*.22*powerK;if(p.y<-20)p.y=h+20;if(p.y>h+20)p.y=-20;if(p.x<-20)p.x=w+20;if(p.x>w+20)p.x=-20;}
@@ -997,7 +1132,7 @@ function loop(now) {
     gl.uniform1f(U.uGlow, P.glow3d / 100);
     gl.uniform1f(U.uShadows, P.shadows3d ? 1 : 0);
     gl.uniform1f(U.uRotate, P.rotate3d && P.motion ? 1 : 0);
-    gl.uniform1f(U.uShape, P.shape3d === 'rog' ? 2 : P.shape3d === 'crystal' ? 1 : 0);
+    gl.uniform1f(U.uShape, ({core:0,crystal:1,rog:2,cube:3,reactor:4})[P.shape3d] ?? 0);
     gl.uniform1f(U.uScene, SCENES[P.scene].index);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
@@ -1122,12 +1257,12 @@ const SCHEMA = [
     { k: 'fps', type: 'seg', l: 'הגבלת FPS', o: [[30, '30'], [60, '60'], [120, '120'], [0, 'ללא']] } ] },
   { id: 'nova', t: 'NOVA Engine', i: 'fa-atom', c: '#00c8ff', items: [
     { k: 'engineMode', type: 'seg', l: 'מצב מנוע', d: 'NOVA הוא מנוע 2D/2.5D עצמאי; Fusion משלב גם מודל 3D; Classic מריץ את מנוע ה־3D הישן.', o: [['nova', 'NOVA 2.5D'], ['fusion', 'Fusion'], ['classic3d', 'Classic 3D']] },
-    { k: 'scene', type: 'sel', l: 'עולם / רקע מונפש', o: [['prime','PRIME Circuit — לוח אם כחול'],['rog','ROG Redline — אדום'],['cyber','Cyber Grid — עיר ניאון'],['aurora','Aurora Flow — זוהר צפוני'],['nebula','Deep Space — ערפילית חלל'],['quantum','Quantum Pulse — גלים קוונטיים'],['matrix','Digital Rain — גשם דיגיטלי'],['solar','Solar Flare — התפרצות שמש']] },
+    { k: 'scene', type: 'sel', l: 'עולם / רקע מונפש', o: [['prime','PRIME Circuit — לוח אם כחול'],['rog','ROG Redline — אדום'],['cyber','Cyber Grid — עיר ניאון'],['aurora','Aurora Flow — זוהר צפוני'],['nebula','Deep Space — ערפילית חלל'],['quantum','Quantum Pulse — גלים קוונטיים'],['matrix','Digital Rain — גשם דיגיטלי'],['solar','Solar Flare — התפרצות שמש'],['synth','Synthwave — שקיעה ניאונית'],['abyss','Abyss — מעמקי האוקיינוס'],['prism','Prism Hall — היכל קריסטל'],['emerald','Emerald Reactor — כור ירוק'],['dusk','Dusk Horizon — אופק שקיעה'],['storm','Electric Storm — סערת חשמל'],['magma','Magma Flow — זרימת מגמה'],['holo','Holo Circuit — מעגל הולוגרפי']] },
     { k: 'enginePower', type: 'rng', l: 'עוצמת מנוע NOVA', d: 'משפיע על קצב הסימולציה והאנרגיה של האפקטים', min: 40, max: 150, step: 5, u: '%' },
     { k: 'particleDensity', type: 'rng', l: 'צפיפות חלקיקים', min: 20, max: 420, step: 20, u: '' },
     { k: 'layerDepth', type: 'rng', l: 'עומק שכבות ופרלקסה', min: 0, max: 100, step: 5, u: '%' },
     { k: 'interactiveFX', type: 'tog', l: 'אפקטים מגיבים לעכבר וללחיצות' },
-    { type: 'note', l: 'NOVA Visual Engine 9.0.0.1', d: 'מנוע מקורי המשלב שכבות Canvas 2D, קומפוזיטינג, חלקיקים, מסלולי אור ורקעים פרוצדורליים. אינו דורש Three.js או קבצי מודל חיצוניים.' }
+    { type: 'note', l: 'NOVA Visual Engine 9.0.0.1', d: 'מנוע מקורי עם 16 עולמות פרוצדורליים, שכבות Canvas 2D/2.5D וחמישה מודלי SDF תלת־ממדיים עם תאורה, צללים והשתקפויות. ללא מודלים חיצוניים.' }
   ] },
   { id: 'fx', t: 'אפקטים', i: 'fa-wand-magic-sparkles', c: '#ff375f', items: [
     { k: 'octaves', type: 'rng', l: 'רמת פירוט (אוקטבות)', d: 'כבד מאוד בערכים גבוהים', min: 2, max: 8, step: 1, u: '' },
@@ -1139,7 +1274,7 @@ const SCHEMA = [
     { k: 'ripple', type: 'tog', l: 'גלי הלם בלחיצה ובמעברים' } ] },
   { id: 'motion', t: 'תנועה ותלת־ממד', i: 'fa-cube', c: '#ff9f0a', items: [
     { k: 'engine3d', type: 'seg', l: 'שכבת מודל 3D ב־Fusion', d: 'הגדרה זו פעילה במצב Fusion; במצב NOVA המנוע פועל ללא מודל תלת־ממדי', o: [['auto', 'אוטומטי'], ['locked', 'נעילת 3D'], ['off', 'כבוי']] },
-    { k: 'shape3d', type: 'seg', l: 'מודל תלת־ממדי', o: [['core', 'מעבד PRIME'], ['crystal', 'קריסטל'], ['rog', 'ROG Reactor']] },
+    { k: 'shape3d', type: 'sel', l: 'מודל תלת־ממדי', d: 'בחירת מודל מפעילה אוטומטית את Fusion כדי שתוכל לראות אותו מיד.', o: [['core','מעבד PRIME'],['crystal','קריסטל'],['rog','ROG Reactor'],['cube','Holo Cube — קוביית אנרגיה'],['reactor','NOVA Turbine — טורבינת אנרגיה']] },
     { k: 'zoom3d', type: 'rng', l: 'זום מצלמת 3D', min: 80, max: 140, step: 5, u: '%' },
     { k: 'detail3d', type: 'rng', l: 'איכות מנוע 3D', min: 40, max: 100, step: 5, u: '%' },
     { k: 'glow3d', type: 'rng', l: 'עוצמת תאורה והילה', min: 0, max: 100, step: 5, u: '%' },
@@ -1174,6 +1309,7 @@ function buildCats() {
 function setVal(k, v) {
   P[k] = v;
   if (k === 'scene' && SCENES[v]) P.pal = SCENES[v].pal;
+  if (k === 'shape3d') { if (P.engineMode === 'nova') P.engineMode = 'fusion'; if (P.engine3d === 'off') P.engine3d = 'auto'; }
   if (k === 'shape3d' && v === 'rog') { P.pal = 'rog'; P.scene = 'rog'; }
   if (k === 'engineMode' && v === 'fusion' && P.engine3d === 'off') P.engine3d = 'auto';
   if (k === 'engineMode' && v === 'classic3d') P.engine3d = 'locked';
@@ -1225,7 +1361,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape') { closeSettings(); cl
 
 /* ---------- שליחת טפסים (Web3Forms, אותו מפתח) ---------- */
 const sx = $('#success');
-function openSuccess() { sx.classList.add('open'); sx.setAttribute('aria-hidden', 'false'); pulse(innerWidth / 2, innerHeight / 2, 1.4); tick(1300); }
+function openSuccess(title, message) { $('#ok-t').textContent = title || 'הטופס נשלח בהצלחה!'; $('#ok-msg').textContent = message || 'הפרטים התקבלו במערכת. תודה שהקדשת מזמנך!'; sx.classList.add('open'); sx.setAttribute('aria-hidden', 'false'); pulse(innerWidth / 2, innerHeight / 2, 1.4); tick(1300); }
 function closeSuccess() { sx.classList.remove('open'); sx.setAttribute('aria-hidden', 'true'); }
 $('#ok-close').addEventListener('click', closeSuccess); sx.addEventListener('click', e => { if (e.target === sx) closeSuccess(); });
 function wire(id, errText, after) {
@@ -1234,7 +1370,7 @@ function wire(id, errText, after) {
     event.preventDefault();
     const fd = new FormData(this), btn = this.querySelector('button[type="submit"]'); btn.textContent = btn.dataset.busy; btn.style.pointerEvents = 'none';
     fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd }).then(r => r.json()).then(d => {
-      if (d.success) { openSuccess(); form.reset(); if (after) after(); } else { alert(errText); }
+      if (d.success) { const copy = { 'f-apply': ['המועמדות נשלחה!', 'הפרטים שלך התקבלו בהצלחה. תודה על הרצון להצטרף לצוות הקהילה.'], 'f-report': ['הדיווח התקבל בהצלחה', 'תודה שהעברת לנו את המידע. הדיווח נשלח למערכת ויוכל להיבדק על ידי הצוות.'], 'f-feedback': ['הפידבק נשלח בהצלחה!', 'תודה שעזרת לנו להשתפר. הדעה שלך חשובה לנו ומסייעת לקדם את האתר.'] }; const msg = copy[id] || []; openSuccess(msg[0], msg[1]); form.reset(); if (after) after(); } else { alert(errText); }
     }).catch(err => { console.error('Error:', err); alert('שגיאת תקשורת במערכת הליבה.'); })
       .finally(() => { btn.textContent = btn.dataset.idle; btn.style.pointerEvents = 'auto'; });
   });
