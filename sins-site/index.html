@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>בואו להנות | קהילת האתר</title>
+<meta name="application-version" content="8.3.7">
+<title>בואו להנות | 3D Engine — Version 8.3.7</title>
 <link rel="icon" type="image/png" href="logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -46,7 +47,13 @@ a{color:var(--accent);text-decoration:none}
 #gl,#fx{position:fixed;inset:0;width:100vw;height:100vh}
 #gl{z-index:-3} #fx{z-index:-2;pointer-events:none}
 body.nogl #gl,body.nogl #fx{display:none}
-body.nogl::before{content:"";position:fixed;inset:-30%;z-index:-3;background:conic-gradient(var(--c1),var(--c2),var(--c3),var(--c1));filter:blur(100px);opacity:.5;animation:spin 50s linear infinite}
+body.nogl::before{content:"";position:fixed;inset:0;z-index:-3;background:
+ radial-gradient(circle at 15% 27%,rgba(103,213,255,.75) 0 2px,transparent 4px),radial-gradient(circle at 84% 22%,rgba(103,213,255,.72) 0 2px,transparent 4px),radial-gradient(circle at 17% 76%,rgba(103,213,255,.62) 0 2px,transparent 4px),radial-gradient(circle at 86% 73%,rgba(103,213,255,.62) 0 2px,transparent 4px),
+ radial-gradient(ellipse at 50% 48%,color-mix(in srgb,var(--c2) 26%,#061b42),transparent 58%),linear-gradient(135deg,#030b1d 0%,#082652 48%,#030b1d 100%),
+ repeating-linear-gradient(90deg,transparent 0 53px,rgba(64,174,255,.13) 54px,transparent 55px),repeating-linear-gradient(0deg,transparent 0 53px,rgba(64,174,255,.10) 54px,transparent 55px);background-blend-mode:screen,screen,screen,screen,screen,normal,screen,screen;opacity:1}
+body.nogl::after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:
+ linear-gradient(90deg,transparent 0 14.8%,rgba(42,154,255,.28) 14.9%,transparent 15.1% 100%),linear-gradient(90deg,transparent 0 84%,rgba(42,154,255,.24) 84.1%,transparent 84.3% 100%),
+ linear-gradient(135deg,transparent 0 38%,rgba(42,154,255,.18) 38.1%,transparent 38.4% 100%),linear-gradient(45deg,transparent 0 68%,rgba(42,154,255,.16) 68.1%,transparent 68.4% 100%)}
 #hud{position:fixed;left:14px;bottom:14px;z-index:900;display:none;padding:8px 12px;border-radius:14px;font:600 .78rem/1.3 ui-monospace,Menlo,Consolas,monospace;direction:ltr;pointer-events:none;color:#fff;background:rgba(0,0,0,.55);backdrop-filter:blur(10px)}
 body.hud #hud{display:block}
 body.debug *{outline:1px solid rgba(255,55,95,.3)}
@@ -265,193 +272,36 @@ select.input option{background:var(--bg);color:var(--label)}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
-/* ==========================================================
-   SIGNATURE iOS EXPERIENCE — visual upgrade layer
-   Preserves the original layout, forms, navigation and logic.
-   ========================================================== */
-:root{
-  --radius:32px;
-  --blur:38px;
-  --shadow:0 34px 100px rgba(0,0,0,.34),0 8px 28px rgba(30,45,100,.16);
-  --accent:#5e9cff;
-  --c1:#65d7ff;
-  --c2:#8b72ff;
-  --c3:#ff78b7;
-}
-body{
-  background:#050611;
-  background-image:
-    radial-gradient(ellipse at 14% 12%,rgba(61,103,255,.20),transparent 38%),
-    radial-gradient(ellipse at 88% 82%,rgba(174,62,255,.17),transparent 36%),
-    radial-gradient(ellipse at 55% 45%,rgba(20,190,210,.08),transparent 45%);
-}
-#gl{filter:saturate(1.22) contrast(1.06)}
-#fx{opacity:.78}
-.glass{
-  background:linear-gradient(145deg,rgba(255,255,255,.145),rgba(255,255,255,.045) 48%,rgba(255,255,255,.075));
-  border:1px solid rgba(255,255,255,.10);
-  box-shadow:0 28px 90px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.19),inset 0 -1px 0 rgba(255,255,255,.035);
-  -webkit-backdrop-filter:blur(var(--blur)) saturate(210%);
-  backdrop-filter:blur(var(--blur)) saturate(210%);
-}
-.glass::before{
-  background:linear-gradient(130deg,rgba(255,255,255,.82),rgba(255,255,255,.10) 22%,rgba(255,255,255,.035) 70%,rgba(255,255,255,.38));
-}
-.tile{
-  border:1px solid rgba(255,255,255,.085);
-  background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 18px 50px rgba(0,0,0,.13);
-}
-.tile:hover{transform:translateY(-5px) scale(1.006);box-shadow:0 26px 65px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.18)}
-/* Lock screen: cinematic layered aurora */
-#lock{
-  isolation:isolate;
-  overflow:hidden;
-  background:
-    radial-gradient(ellipse at 50% 26%,rgba(30,70,160,.12),transparent 38%),
-    linear-gradient(155deg,#050713 0%,#10132c 44%,#090a18 100%);
-}
-#lock::before{
-  inset:-18%;
-  opacity:1;
-  background:
-    radial-gradient(ellipse 36% 26% at 18% 22%,rgba(37,143,255,.43),transparent 72%),
-    radial-gradient(ellipse 42% 34% at 82% 36%,rgba(174,70,255,.34),transparent 72%),
-    radial-gradient(ellipse 44% 30% at 52% 86%,rgba(255,68,150,.22),transparent 72%),
-    radial-gradient(ellipse 25% 20% at 48% 48%,rgba(40,220,230,.12),transparent 75%),
-    linear-gradient(180deg,rgba(0,0,0,.08),transparent 48%,rgba(0,0,0,.45);
-  filter:saturate(1.25);
-  animation:lockAurora 18s ease-in-out infinite alternate;
-}
-#lock::after{
-  opacity:1;
-  z-index:-1;
-  background:
-    radial-gradient(ellipse at 50% 100%,rgba(76,139,255,.22),transparent 48%),
-    linear-gradient(180deg,rgba(0,0,0,.04),transparent 32%,rgba(0,0,0,.30));
-  mix-blend-mode:screen;
-}
-@keyframes lockAurora{
-  0%{transform:translate3d(-2%,0,0) scale(1) rotate(-2deg);filter:hue-rotate(0deg) saturate(1.2)}
-  50%{transform:translate3d(2%,-2%,0) scale(1.08) rotate(2deg);filter:hue-rotate(22deg) saturate(1.4)}
-  100%{transform:translate3d(0,2%,0) scale(1.04) rotate(-1deg);filter:hue-rotate(-16deg) saturate(1.3)}
-}
-#lock .lk-top{position:relative;z-index:1;margin-top:2.2vh;text-shadow:0 8px 38px rgba(0,0,0,.32)}
-#lk-ico{
-  display:inline-grid;place-items:center;width:38px;height:38px;
-  border:1px solid rgba(255,255,255,.24);border-radius:50%;
-  background:rgba(255,255,255,.10);backdrop-filter:blur(18px);
-  box-shadow:0 8px 30px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.25);
-  font-size:1rem;
-}
-#lk-date{font-weight:650;letter-spacing:.015em;text-shadow:0 3px 20px rgba(0,0,0,.35)}
-#lk-time{
-  margin-top:3px;
-  font-size:clamp(6.2rem,21vw,13.4rem);
-  font-weight:750;
-  letter-spacing:-.075em;
-  line-height:.91;
-  background:linear-gradient(180deg,#fff 4%,rgba(239,245,255,.92) 48%,rgba(205,220,255,.68));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 18px 45px rgba(0,0,0,.25));
-  text-shadow:none;
-}
-.lk-widgets{position:relative;z-index:1;gap:12px;margin-top:3.5vh}
-.widget{
-  border:1px solid rgba(255,255,255,.18);
-  background:linear-gradient(135deg,rgba(255,255,255,.17),rgba(255,255,255,.055));
-  box-shadow:0 18px 55px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.22);
-  backdrop-filter:blur(28px) saturate(180%);
-}
-.widget b{letter-spacing:-.02em}
-.widget small{color:rgba(255,255,255,.78)}
-#notifs{position:relative;z-index:1}
-.notif{
-  border:1px solid rgba(255,255,255,.17);
-  background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.065));
-  box-shadow:0 16px 45px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.20);
-  backdrop-filter:blur(30px) saturate(185%);
-}
-.lk-bottom{position:relative;z-index:1;margin-bottom:1vh}
-.lk-round{
-  width:62px;height:62px;
-  border:1px solid rgba(255,255,255,.23);
-  background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.07));
-  box-shadow:0 12px 34px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.28);
-  backdrop-filter:blur(24px);
-}
-#lk-go{padding:12px 20px;border-radius:22px;background:rgba(255,255,255,.075);backdrop-filter:blur(18px);text-shadow:0 2px 12px rgba(0,0,0,.3)}
-#lk-go span{font-size:.88rem}
-.homebar{height:5px;width:150px;box-shadow:0 0 16px rgba(255,255,255,.28);position:relative;z-index:2}
-/* Premium app frame */
-.topbar{
-  height:68px;
-  background:linear-gradient(110deg,rgba(255,255,255,.17),rgba(255,255,255,.055));
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 18px 55px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.24);
-}
-.brand .app-tile{--s:43px}
-.brand h1{filter:drop-shadow(0 3px 12px rgba(120,110,255,.22))}
-.ibtn{
-  background:rgba(255,255,255,.105);
-  border:1px solid rgba(255,255,255,.10);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
-}
-.window{
-  border:1px solid rgba(255,255,255,.13);
-  background:linear-gradient(145deg,rgba(255,255,255,.095),rgba(255,255,255,.025));
-  box-shadow:0 35px 110px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.16);
-}
-.panel>h2.title{letter-spacing:-.045em;text-shadow:0 8px 30px rgba(0,0,0,.13)}
-.panel>h2.title::after{width:92px;height:4px;box-shadow:0 0 22px color-mix(in srgb,var(--accent) 48%,transparent)}
-.hero{
-  position:relative;
-  background:
-    radial-gradient(ellipse at 12% 18%,rgba(83,200,255,.24),transparent 45%),
-    radial-gradient(ellipse at 90% 90%,rgba(190,75,255,.22),transparent 48%),
-    linear-gradient(135deg,rgba(30,115,220,.18),rgba(255,255,255,.045));
-}
-.hero::before{
-  content:"";position:absolute;width:310px;height:310px;left:-110px;bottom:-180px;border-radius:50%;
-  background:conic-gradient(from 30deg,var(--c1),var(--c2),var(--c3),var(--c1));
-  filter:blur(65px);opacity:.23;pointer-events:none;
-}
-.hero>*{position:relative;z-index:1}
-.btn{
-  border:1px solid rgba(255,255,255,.18);
-  box-shadow:0 14px 35px color-mix(in srgb,var(--accent) 35%,transparent),inset 0 1px 0 rgba(255,255,255,.25);
-}
-.btn.discord{box-shadow:0 14px 35px rgba(88,101,242,.34),inset 0 1px 0 rgba(255,255,255,.25)}
-.tabbar{
-  border:1px solid rgba(255,255,255,.16);
-  background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.065));
-  box-shadow:0 20px 60px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.22);
-  backdrop-filter:blur(34px) saturate(210%);
-}
-.tabbar .ind{background:linear-gradient(145deg,rgba(255,255,255,.34),rgba(255,255,255,.10));box-shadow:0 8px 28px rgba(70,130,255,.25),inset 0 1px 0 rgba(255,255,255,.45)}
-.tab[aria-selected="true"] i{filter:drop-shadow(0 0 12px color-mix(in srgb,var(--accent) 65%,transparent))}
-.avatar::before{filter:drop-shadow(0 0 12px color-mix(in srgb,var(--c2) 50%,transparent))}
-.input{
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.065);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.055);
-}
-.input:focus{background:rgba(255,255,255,.095)}
-.sheet{
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 35px 110px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.20);
-}
-.group{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.055)}
-@media(max-width:760px){
-  #lk-time{font-size:clamp(5.6rem,23vw,9rem)}
-  .lk-widgets{margin-top:3vh;gap:9px}
-  .widget{padding:13px 15px;border-radius:23px}
-  .topbar{height:60px}
-  .tabbar{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
-}
-@media(prefers-reduced-motion:reduce){
-  #lock::before{animation:none}
-}
+/* ================= V8.3.7 / NEXT-GEN 3D FINISH ================= */
+#gl{filter:saturate(1.22) contrast(1.08) brightness(.98);}
+#fx{mix-blend-mode:screen;opacity:.68}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(70% 55% at 50% 45%,transparent 30%,rgba(0,0,0,.14) 100%),
+             linear-gradient(115deg,rgba(255,255,255,.025),transparent 35%,rgba(255,255,255,.018));}
+.glass{-webkit-backdrop-filter:blur(calc(var(--blur) + 4px)) saturate(210%) brightness(1.08);
+  backdrop-filter:blur(calc(var(--blur) + 4px)) saturate(210%) brightness(1.08);
+  box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.045);}
+.glass::before{background:linear-gradient(128deg,rgba(255,255,255,.9),rgba(255,255,255,.08) 18%,rgba(255,255,255,.025) 52%,rgba(255,255,255,.34));}
+.tile{transform:translateZ(0);box-shadow:0 18px 50px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.22);}
+.tile:hover{transform:translateY(-5px) scale(1.008);box-shadow:0 24px 60px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.32);}
+.topbar{border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 55px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.24);}
+.brand-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+.brand-title{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.version-chip{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;font:700 .62rem/1.2 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.04em;direction:ltr;color:#fff;
+  background:linear-gradient(110deg,rgba(10,132,255,.78),rgba(191,90,242,.76));border:1px solid rgba(255,255,255,.28);box-shadow:0 4px 16px rgba(10,132,255,.22)}
+#hud{border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 30px rgba(0,0,0,.25)}
+@media(max-width:760px){.brand-title{gap:6px}.version-chip{font-size:.56rem;padding:3px 6px}}
+
+
+/* ================= V8.3.7 / PRIME BIOS VISUAL SYSTEM ================= */
+:root{--c1:#0860e8;--c2:#14b8ff;--c3:#6ee7ff}
+#gl{transform:translateZ(0);will-change:contents}
+#fx{filter:blur(.15px)}
+body::after{background:radial-gradient(58% 48% at 50% 48%,transparent 16%,rgba(0,5,20,.12) 100%),linear-gradient(135deg,rgba(10,112,230,.045),transparent 40%,rgba(35,195,255,.035))}
+.glass{border-color:rgba(104,190,255,.12);box-shadow:var(--shadow),inset 0 1px 0 rgba(214,241,255,.20),inset 0 -1px 0 rgba(35,150,255,.08)}
+.topbar{background:linear-gradient(110deg,rgba(4,18,42,.68),rgba(9,37,76,.48));border-color:rgba(89,179,255,.25)}
+.version-chip{background:linear-gradient(110deg,rgba(4,102,225,.88),rgba(20,184,255,.82));box-shadow:0 4px 22px rgba(0,140,255,.28)}
+.info{line-height:1.55}
 
 </style>
 </head>
@@ -485,7 +335,7 @@ body{
 <!-- ================= האתר ================= -->
 <div id="app">
   <header class="topbar glass">
-    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div><h1>בואו להנות</h1><p>הקהילה מתחילה כאן</p></div></div>
+    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 8.3.7</span></div><p>הקהילה מתחילה כאן · PRIME BIOS · Real-time 3D</p></div></div>
     <button class="ibtn" id="btn-relock" aria-label="נעילת מסך"><i class="fas fa-lock"></i></button>
     <button class="ibtn" id="btn-settings" aria-label="הגדרות"><i class="fas fa-gear"></i></button>
   </header>
@@ -670,72 +520,217 @@ const darkMQ = matchMedia('(prefers-color-scheme: dark)');
 /* ---------- הגדרות ברירת מחדל ופריסטים ---------- */
 const PRESETS = {
   low:   { renderScale: 50,  octaves: 3, bloom: 0,  chroma: 0,  grain: 0,  bokeh: 0,   speed: 80 },
-  med:   { renderScale: 75,  octaves: 4, bloom: 25, chroma: 0,  grain: 15, bokeh: 40,  speed: 100 },
-  high:  { renderScale: 100, octaves: 6, bloom: 40, chroma: 0,  grain: 25, bokeh: 100, speed: 100 },
-  ultra: { renderScale: 130, octaves: 8, bloom: 70, chroma: 55, grain: 35, bokeh: 220, speed: 110 }
+  med:   { renderScale: 75,  octaves: 4, bloom: 35, chroma: 0,  grain: 5,  bokeh: 24,  speed: 100 },
+  high:  { renderScale: 100, octaves: 6, bloom: 62, chroma: 0,  grain: 8,  bokeh: 48,  speed: 100 },
+  ultra: { renderScale: 130, octaves: 8, bloom: 78, chroma: 12, grain: 12, bokeh: 82, speed: 108 }
 };
 const GFX_KEYS = Object.keys(PRESETS.low);
 const q0 = coarse ? 'med' : 'high';
 const DEF = Object.assign({
   theme: 'auto', accent: 'blue', txt: 100, blur: 34, radius: 30, contrast: false,
-  quality: q0, wall: 'aurora', pal: 'aurora', fps: 60,
+  quality: q0, wall: 'prime', pal: 'prime', fps: 60,
   ripple: true, motion: !sysCalm, tilt: true, depth: 60, spot: true, tspeed: 100,
   hud: false, saver: false, pauseHidden: true, debug: false,
-  sound: false, vol: 50, haptic: false
+  sound: false, vol: 50, haptic: false,
+  engine3d: 'auto', zoom3d: 112, detail3d: 88, glow3d: 92, rotate3d: true, shadows3d: true, shape3d: 'core'
 }, PRESETS[q0]);
 let P = Object.assign({}, DEF);
-try { Object.assign(P, JSON.parse(store.get('prefs2') || '{}')); } catch (e) {}
-const save = () => store.set('prefs2', JSON.stringify(P));
+try {
+  const currentPrefs = store.get('prefs3');
+  if (currentPrefs) Object.assign(P, JSON.parse(currentPrefs));
+  else {
+    Object.assign(P, JSON.parse(store.get('prefs2') || '{}'));
+    P.wall = 'prime'; P.pal = 'prime'; P.shape3d = 'core';
+  }
+} catch (e) {}
+P.wall = 'prime';
+P.shape3d = P.shape3d === 'crystal' ? 'crystal' : 'core';
+const save = () => store.set('prefs3', JSON.stringify(P));
 
 const ACC = { blue: '#0a84ff', purple: '#bf5af2', pink: '#ff375f', green: '#30d158', orange: '#ff9f0a' };
 const PAL = {
-  aurora: { c: [[.04,.52,1],[.75,.35,.95],[1,.22,.37]], css: ['#0a84ff', '#bf5af2', '#ff375f'], n: 'אורורה' },
-  ocean:  { c: [[.04,.52,1],[.35,.78,.98],[.19,.82,.78]], css: ['#0a84ff', '#5ac8fa', '#30d0c6'], n: 'אוקיינוס' },
-  sunset: { c: [[1,.62,.04],[1,.22,.37],[.75,.35,.95]], css: ['#ff9f0a', '#ff375f', '#bf5af2'], n: 'שקיעה' },
-  forest: { c: [[.19,.82,.35],[0,.78,.75],[.39,.82,1]], css: ['#30d158', '#00c7be', '#64d2ff'], n: 'יער' },
-  mono:   { c: [[.56,.56,.58],[.39,.39,.4],[.68,.68,.7]], css: ['#8e8e93', '#636366', '#aeaeb2'], n: 'גרפיט' }
+  prime:   { c: [[.025,.34,.92],[.08,.72,1],[.43,.91,1]], css: ['#0860e8', '#14b8ff', '#6ee7ff'], n: 'PRIME Blue' },
+  arctic:  { c: [[.02,.48,.78],[.30,.82,1],[.78,.95,1]], css: ['#087ac7', '#4dd2ff', '#c7f4ff'], n: 'Arctic' },
+  violet:  { c: [[.27,.28,.88],[.35,.62,1],[.77,.58,1]], css: ['#4648e0', '#5aa0ff', '#c58cff'], n: 'Violet' },
+  emerald: { c: [[.02,.42,.50],[.05,.78,.70],[.42,.96,.82]], css: ['#087b8c', '#12c8b0', '#70f5d5'], n: 'Emerald' },
+  graphite:{ c: [[.28,.43,.62],[.55,.72,.88],[.82,.92,1]], css: ['#496f9e', '#8db8df', '#d1e8ff'], n: 'Graphite' }
 };
-const WALL = { aurora: 0, liquid: 1, nebula: 2, mesh: 3 };
+if (!PAL[P.pal]) P.pal = 'prime';
+const WALL = { prime: 0 }; // הרקע הקבוע: לוח אם בסגנון PRIME BIOS
 
 /* ---------- WebGL: שיידר רקע כבד ---------- */
 const glc = $('#gl'); let gl = null, U = {}, gpuName = 'לא זמין';
 const FS = `precision highp float;
-uniform vec2 uRes,uMouse; uniform float uTime,uOct,uBloom,uChroma,uGrain,uStyle,uDark; uniform vec3 uC1,uC2,uC3; uniform vec4 uPulse;
+uniform vec2 uRes,uMouse;
+uniform float uTime,uOct,uBloom,uChroma,uGrain,uStyle,uDark;
+uniform vec3 uC1,uC2,uC3;
+uniform vec4 uPulse;
+uniform float u3D,u3DQuality,uZoom,uGlow,uShadows,uRotate,uShape;
 float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float hash3(vec3 p){p=fract(p*.3183099+.1);p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);}
 float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<8;i++){if(float(i)>=uOct)break;v+=a*noise(p);p=p*2.03+vec2(17.1,9.3);a*=.5;}return v;}
+float segDist(vec2 p,vec2 a,vec2 b){vec2 v=b-a;float h=clamp(dot(p-a,v)/max(dot(v,v),.00001),0.,1.);return length(p-a-v*h);}
 vec3 field(vec2 uv,float t){
-  if(uStyle>2.5){
-    vec2 a=vec2(sin(t*.31),cos(t*.27))*.55,b=vec2(cos(t*.23),sin(t*.37))*.65,c=vec2(sin(t*.19+2.),cos(t*.29+1.))*.6;
-    float wa=1./(.12+dot(uv-a,uv-a)),wb=1./(.12+dot(uv-b,uv-b)),wc=1./(.12+dot(uv-c,uv-c));
-    return (uC1*wa+uC2*wb+uC3*wc)/(wa+wb+wc);
+  vec2 p=uv;
+  float radial=1.-smoothstep(.10,1.30,length(p*vec2(.92,1.05)));
+  vec3 navy=vec3(.004,.014,.042);
+  vec3 col=mix(navy,vec3(.018,.085,.19),.26+.24*radial);
+  col+=uC1*(.035+.12*radial);
+  // Large angular motherboard panels and machined diagonal seams.
+  float panelA=1.-smoothstep(.002,.010,abs(p.y-(.36-.34*p.x)));
+  float panelB=1.-smoothstep(.002,.010,abs(p.y-(-.39+.29*p.x)));
+  float panelC=1.-smoothstep(.002,.010,abs(p.x-(.72-.18*p.y)));
+  col+=uC1*(panelA+panelB+panelC)*.16;
+  float panelShade=smoothstep(-.62,-.12,p.x)*(.06+.06*sin(p.y*5.));
+  col+=vec3(.012,.055,.13)*panelShade;
+  // Fine etched PCB grid.
+  vec2 gp=p*vec2(58.,46.);vec2 gf=abs(fract(gp)-.5);
+  float gridLine=1.-smoothstep(.475,.497,min(gf.x,gf.y));
+  col+=uC1*gridLine*.045;
+  // Angular traces routed around the central processor area.
+  float tr=10.;
+  tr=min(tr,segDist(p,vec2(.55,.40),vec2(.82,.40)));
+  tr=min(tr,segDist(p,vec2(.82,.40),vec2(.82,.25)));
+  tr=min(tr,segDist(p,vec2(.82,.25),vec2(.94,.25)));
+  tr=min(tr,segDist(p,vec2(.52,.31),vec2(.69,.31)));
+  tr=min(tr,segDist(p,vec2(.69,.31),vec2(.69,.13)));
+  tr=min(tr,segDist(p,vec2(.69,.13),vec2(.91,.13)));
+  tr=min(tr,segDist(p,vec2(-.55,.40),vec2(-.82,.40)));
+  tr=min(tr,segDist(p,vec2(-.82,.40),vec2(-.82,.25)));
+  tr=min(tr,segDist(p,vec2(-.82,.25),vec2(-.94,.25)));
+  tr=min(tr,segDist(p,vec2(-.52,.31),vec2(-.69,.31)));
+  tr=min(tr,segDist(p,vec2(-.69,.31),vec2(-.69,.13)));
+  tr=min(tr,segDist(p,vec2(-.69,.13),vec2(-.91,.13)));
+  tr=min(tr,segDist(p,vec2(.56,-.40),vec2(.84,-.40)));
+  tr=min(tr,segDist(p,vec2(.84,-.40),vec2(.84,-.24)));
+  tr=min(tr,segDist(p,vec2(.84,-.24),vec2(.96,-.24)));
+  tr=min(tr,segDist(p,vec2(-.56,-.40),vec2(-.84,-.40)));
+  tr=min(tr,segDist(p,vec2(-.84,-.40),vec2(-.84,-.24)));
+  tr=min(tr,segDist(p,vec2(-.84,-.24),vec2(-.96,-.24)));
+  float traceCore=1.-smoothstep(.0025,.0065,tr);
+  float traceAura=exp(-tr*34.);
+  col+=uC2*(traceCore*.42+traceAura*.12);
+  // Solder pads and small signal LEDs.
+  float nodes=0.;
+  nodes=max(nodes,exp(-dot(p-vec2(.82,.25),p-vec2(.82,.25))*1700.));
+  nodes=max(nodes,exp(-dot(p-vec2(-.82,.25),p-vec2(-.82,.25))*1700.));
+  nodes=max(nodes,exp(-dot(p-vec2(.84,-.24),p-vec2(.84,-.24))*1700.));
+  nodes=max(nodes,exp(-dot(p-vec2(-.84,-.24),p-vec2(-.84,-.24))*1700.));
+  nodes=max(nodes,exp(-dot(p-vec2(.91,.13),p-vec2(.91,.13))*1700.));
+  nodes=max(nodes,exp(-dot(p-vec2(-.91,.13),p-vec2(-.91,.13))*1700.));
+  col+=uC3*nodes*(.22+.12*sin(t*2.4));
+  // Sweeping BIOS scan light and restrained central backlight.
+  float scan=pow(max(0.,1.-abs(fract(t*.045)-fract((p.x+p.y*.34+2.)*.19))*7.),5.);
+  col+=uC2*scan*.055;
+  col+=uC1*radial*.09;
+  float vign=1.-.30*smoothstep(.35,1.25,length(p*vec2(.82,1.0)));
+  return col*vign;
+}
+vec3 rotX(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(p.x,c*p.y-s*p.z,s*p.y+c*p.z);}
+vec3 rotY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}
+vec3 rotZ(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
+float sdSphere(vec3 p,float r){return length(p)-r;}
+float sdTorus(vec3 p,vec2 t){return length(vec2(length(p.xz)-t.x,p.y))-t.y;}
+float sdOcta(vec3 p,float s){p=abs(p);return (p.x+p.y+p.z-s)*.57735027;}
+vec2 opU(vec2 a,vec2 b){return a.x<b.x?a:b;}
+float sdBox(vec3 p,vec3 b){vec3 q=abs(p)-b;return length(max(q,0.))+min(max(q.x,max(q.y,q.z)),0.);}
+float sdRoundBox(vec3 p,vec3 b,float r){return sdBox(p,b)-r;}
+vec2 scene(vec3 p){
+  float rot=uRotate;
+  vec3 q=rotY(p,uTime*.13*rot);q=rotX(q,.16+sin(uTime*.18)*.035*rot);q=rotZ(q,.08*sin(uTime*.16)*rot);
+  vec2 d;
+  if(uShape<.5){
+    // Layered square PCB base, machined frame, silicon die and luminous core.
+    d=vec2(sdRoundBox(q,vec3(.94,.94,.16),.10),1.);
+    float outer=sdRoundBox(q-vec3(0.,0.,.19),vec3(.80,.80,.12),.075);
+    float inner=sdRoundBox(q-vec3(0.,0.,.20),vec3(.68,.68,.15),.055);
+    d=opU(d,vec2(max(outer,-inner),2.));
+    d=opU(d,vec2(sdRoundBox(q-vec3(0.,0.,.235),vec3(.62,.62,.09),.055),3.));
+    float core=mix(sdRoundBox(q-vec3(0.,0.,.39),vec3(.30,.30,.18),.055),sdOcta(q-vec3(0.,0.,.40),.39),.22);
+    d=opU(d,vec2(core,4.));
+    // Contact pads around all four sides of the processor.
+    vec2 px=vec2(mod(q.x+.90,.19)-.095,abs(q.y)-.98);
+    float pinsA=sdBox(vec3(px.x,px.y,q.z-.015),vec3(.035,.095,.045));
+    vec2 py=vec2(mod(q.y+.90,.19)-.095,abs(q.x)-.98);
+    float pinsB=sdBox(vec3(py.y,py.x,q.z-.015),vec3(.095,.035,.045));
+    d=opU(d,vec2(min(pinsA,pinsB),5.));
+  }else{
+    float wave=sin(q.x*8.+uTime*.48)*sin(q.y*7.-uTime*.32)*sin(q.z*8.)*.012;
+    d=vec2(sdOcta(q,1.16)+wave,1.);
   }
-  vec2 p=uv*1.6;
-  vec2 q=vec2(fbm(p+t*.10),fbm(p+vec2(5.2,1.3)-t*.08));
-  vec2 r=vec2(fbm(p+3.*q+vec2(1.7,9.2)+t*.15),fbm(p+3.*q+vec2(8.3,2.8)-t*.12));
-  float f=fbm(p+3.5*r);
-  vec3 col=mix(uC1,uC2,clamp(f*1.7,0.,1.));
-  col=mix(col,uC3,clamp(length(q)*.95,0.,1.)*.8);
-  if(uStyle>.5&&uStyle<1.5){float bands=abs(sin(f*10.+t*.6));col=mix(col*.82,vec3(1.),smoothstep(.93,1.,bands)*.55);}
-  col=mix(col,vec3(1.),smoothstep(.62,.95,f)*.33);
-  if(uStyle>1.5&&uStyle<2.5){vec2 g=floor(uv*190.);float s=step(.992,hash(g));col+=s*(.5+.5*sin(t*3.+hash(g+1.)*40.));col*=.8+.2*f;}
-  return col;
+  // Two precision orbital rings and a third thin signal ring.
+  vec3 r=rotZ(rotX(q,1.13),.16);
+  d=opU(d,vec2(sdTorus(r,vec2(1.34,.032)),6.));
+  d=opU(d,vec2(sdTorus(r,vec2(1.51,.012)),7.));
+  d=opU(d,vec2(sdTorus(rotX(q,1.13),vec2(1.20,.009)),6.));
+  float a=uTime*.42*rot;
+  vec3 s1=vec3(cos(a)*1.82,sin(a*.71)*.58,sin(a)*1.82);
+  vec3 s2=vec3(cos(-a*.72+2.2)*2.08,sin(a*.48+1.)*.78,sin(-a*.72+2.2)*2.08);
+  d=opU(d,vec2(sdRoundBox(q-s1,vec3(.095,.095,.095),.025),8.));
+  d=opU(d,vec2(sdSphere(q-s2,.075),9.));
+  return d;
+}
+vec3 normalAt(vec3 p){vec2 e=vec2(.0015,0.);return normalize(vec3(scene(p+e.xyy).x-scene(p-e.xyy).x,scene(p+e.yxy).x-scene(p-e.yxy).x,scene(p+e.yyx).x-scene(p-e.yyx).x));}
+float shadowAt(vec3 ro,vec3 rd){float res=1.,t=.035;for(int i=0;i<16;i++){float h=scene(ro+rd*t).x;res=min(res,9.*h/t);t+=clamp(h,.025,.22);if(h<.001||t>4.)break;}return clamp(res,.18,1.);}
+float aoAt(vec3 p,vec3 n){float occ=0.,sca=1.;for(int i=0;i<5;i++){float h=.045+.12*float(i)/4.;float d=scene(p+n*h).x;occ+=(h-d)*sca;sca*=.72;}return clamp(1.-occ*1.8, .42,1.);}
+vec3 sky(vec2 uv,float t){
+  vec3 c=field(uv,t);float vign=1.-.34*smoothstep(.25,1.35,length(uv*vec2(.82,1.)));c*=vign;
+  vec2 grid=floor((uv+vec2(t*.001,0.))*vec2(92.,62.));float star=step(.9975,hash(grid));
+  float tw=.45+.55*sin(t*1.7+hash(grid+4.)*35.);c+=star*tw*(u3DQuality*.85)*vec3(.6,.75,1.);
+  float halo=exp(-length(uv)*1.6);c+=halo*(uC1*.055+uC2*.035);
+  return c;
 }
 void main(){
-  vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y; float t=uTime;
-  vec2 m=(uMouse-.5*uRes)/uRes.y; vec2 d=uv-m; float md=length(d);
-  uv+=d/(md+.25)*.07*exp(-md*3.)*sin(t*2.-md*13.);
-  vec2 pc=(uPulse.xy-.5*uRes)/uRes.y; float pd=length(uv-pc);
-  float ring=exp(-pow((pd-uPulse.z*1.15)*6.5,2.))*uPulse.w;
-  uv+=normalize(uv-pc+1e-4)*ring*.06;
-  vec3 col;
-  if(uChroma>0.){float s=uChroma*.014;col=vec3(field(uv+vec2(s,0.),t).r,field(uv,t).g,field(uv-vec2(s,0.),t).b);}else col=field(uv,t);
-  col+=ring*.28;
-  float l=dot(col,vec3(.299,.587,.114));
-  col+=uBloom*pow(l,3.)*.65*col;
-  col=mix(mix(col,vec3(1.),.3)*1.03,col*.45+.02,uDark);
-  col*=1.-.38*smoothstep(.35,1.25,length((gl_FragCoord.xy/uRes-.5)*vec2(1.,.9)*2.));
-  col+=(hash(gl_FragCoord.xy+fract(uTime)*91.7)-.5)*uGrain*.14;
+  vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y;float t=uTime;
+  vec2 m=(uMouse-.5*uRes)/uRes.y;vec2 mdv=uv-m;float md=length(mdv);
+  vec2 warped=uv+mdv/(md+.25)*.045*exp(-md*3.)*sin(t*2.-md*13.);
+  vec2 pc=(uPulse.xy-.5*uRes)/uRes.y;float pd=length(warped-pc);float ring=exp(-pow((pd-uPulse.z*1.15)*6.5,2.))*uPulse.w;
+  warped+=normalize(warped-pc+1e-4)*ring*.045;
+  vec3 bg;
+  if(uChroma>0.){float cs=uChroma*.009;bg=vec3(field(warped+vec2(cs,0.),t).r,field(warped,t).g,field(warped-vec2(cs,0.),t).b);}else bg=field(warped,t);
+  bg*=1.-.36*smoothstep(.32,1.3,length(uv*vec2(.9,.85)));bg+=(hash(gl_FragCoord.xy+fract(t)*91.7)-.5)*uGrain*.12;
+  bg=mix(bg,bg*.42+.012,uDark);bg+=ring*.24;
+  vec3 col=bg;
+  if(u3D>.5){
+    float yaw=(uMouse.x/uRes.x-.5)*.30,pitch=(uMouse.y/uRes.y-.5)*.20;
+    vec3 ro=vec3(sin(yaw)*5.55/uZoom,pitch*1.7,cos(yaw)*5.55/uZoom);
+    vec3 fw=normalize(-ro),rt=normalize(cross(fw,vec3(0.,1.,0.))),up=normalize(cross(rt,fw));
+    vec3 rd=normalize(fw*1.62+rt*uv.x+up*uv.y);
+    float travel=0.,mat=0.;float maxSteps=mix(34.,76.,clamp(u3DQuality,0.,1.));
+    for(int i=0;i<104;i++){if(float(i)>=maxSteps)break;vec2 h=scene(ro+rd*travel);if(h.x<.0014){mat=h.y;break;}travel+=h.x*.88;if(travel>18.)break;}
+    float floorT=99.;if(rd.y<-.025)floorT=(-1.62-ro.y)/rd.y;
+    if(floorT>0.&&floorT<travel&&floorT<18.){
+      vec3 fp=ro+rd*floorT;float line1=abs(fract(fp.x*1.15)-.5),line2=abs(fract(fp.z*1.15)-.5);
+      float grid=1.-smoothstep(.012,.035,min(line1,line2));float fade=exp(-floorT*.22);
+      vec3 fc=mix(vec3(.004,.018,.046),uC1*.24,grid*.82);fc+=grid*uGlow*.20*(uC2+uC3)*.5;
+      float refl=exp(-abs(fp.z)*.25)*.11;fc+=refl*uC2;col=mix(col,fc,clamp(fade*.78,0.,.78));
+    }
+    if(mat>.5&&travel<18.){
+      vec3 pos=ro+rd*travel,n=normalAt(pos),view=normalize(ro-pos);
+      vec3 lightDir=normalize(vec3(-.55,.92,.72));float diff=max(dot(n,lightDir),0.);
+      float sh=uShadows>.5?shadowAt(pos+n*.006,lightDir):1.;float ao=aoAt(pos,n);
+      float spec=pow(max(dot(reflect(-lightDir,n),view),0.),mix(48.,110.,u3DQuality));
+      float fres=pow(1.-max(dot(n,view),0.),3.2);
+      vec3 base=uC1;
+      if(mat<1.5){base=mix(uC1,uC2,.22+.12*sin(pos.x*18.+pos.y*17.));}
+      else if(mat<2.5){base=mix(uC2,vec3(.58,.78,.94),.58);}
+      else if(mat<3.5){base=mix(uC1,uC2,.52);}
+      else if(mat<4.5){base=mix(uC2,uC3,.62+.18*sin(t*1.7));}
+      else if(mat<5.5){base=vec3(.58,.72,.84);}
+      else if(mat<7.5){base=mix(uC2,uC3,.5+.5*sin(t*.7+pos.x*3.));}
+      else {base=mat<8.5?uC3:uC2;}
+      vec3 halfV=normalize(lightDir+view);float glint=pow(max(dot(n,halfV),0.),105.);
+      vec3 lit=base*(.13+diff*1.35*sh)*ao+vec3(.82,.94,1.)*spec*(.45+uGlow*.55)+base*fres*.82;
+      lit+=base*(glint*1.15+fres*.34)*uGlow;
+      if(mat>1.5&&mat<7.5)lit+=base*(.18+uGlow*.62);
+      col=mix(col,lit,1.);col+=base*exp(-travel*.18)*fres*uGlow*.15;
+      float edge=pow(1.-max(dot(n,view),0.),5.);col+=mix(uC1,uC2,.5)*edge*uGlow*.45;
+    }
+  }
+  col+=ring*.16*(uC1+uC2);
+  float lum=dot(col,vec3(.299,.587,.114));col+=uBloom*pow(max(lum,0.),3.)*.52*col;
+  col=col/(1.+max(col,vec3(0.))*.12);col=pow(max(col,vec3(0.)),vec3(.94));
   gl_FragColor=vec4(col,1.);
 }`;
 function initGL() {
@@ -749,7 +744,7 @@ function initGL() {
   gl.useProgram(pr);
   const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
   const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  ['uRes','uMouse','uTime','uOct','uBloom','uChroma','uGrain','uStyle','uDark','uC1','uC2','uC3','uPulse'].forEach(n => U[n] = gl.getUniformLocation(pr, n));
+  ['uRes','uMouse','uTime','uOct','uBloom','uChroma','uGrain','uStyle','uDark','uC1','uC2','uC3','uPulse','u3D','u3DQuality','uZoom','uGlow','uShadows','uRotate','uShape'].forEach(n => U[n] = gl.getUniformLocation(pr, n));
   const ext = gl.getExtension('WEBGL_debug_renderer_info'); if (ext) gpuName = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || gpuName;
   glc.addEventListener('webglcontextlost', e => { e.preventDefault(); fail(); });
 }
@@ -777,7 +772,7 @@ function resize() {
 addEventListener('resize', () => { resize(); moveInd(); });
 function pulse(x, y, s) { if (!P.ripple || !P.motion) return; pulseS = { x: x, y: y, t0: performance.now(), s: s || 1 }; }
 
-let last = 0, frames = 0, fpsT = performance.now(), fps = 0;
+let last = 0, frames = 0, fpsT = performance.now(), fps = 0, adaptiveQuality = 1, adaptAt = 0;
 function loop(now) {
   requestAnimationFrame(loop);
   if (document.hidden && P.pauseHidden) return;
@@ -794,9 +789,18 @@ function loop(now) {
     gl.uniform2f(U.uRes, glc.width, glc.height); gl.uniform2f(U.uMouse, smx * k, (innerHeight - smy) * k);
     gl.uniform1f(U.uTime, T); gl.uniform1f(U.uOct, P.saver ? Math.min(P.octaves, 4) : P.octaves);
     gl.uniform1f(U.uBloom, P.bloom / 100); gl.uniform1f(U.uChroma, P.saver ? 0 : P.chroma / 100); gl.uniform1f(U.uGrain, P.grain / 100);
-    gl.uniform1f(U.uStyle, WALL[P.wall]); gl.uniform1f(U.uDark, dark);
+    gl.uniform1f(U.uStyle, 0.0); gl.uniform1f(U.uDark, dark);
     gl.uniform3f(U.uC1, curPal[0], curPal[1], curPal[2]); gl.uniform3f(U.uC2, curPal[3], curPal[4], curPal[5]); gl.uniform3f(U.uC3, curPal[6], curPal[7], curPal[8]);
     gl.uniform4f(U.uPulse, pulseS.x * k, (innerHeight - pulseS.y) * k, age, ps);
+    const engineOn = P.engine3d !== 'off';
+    const adaptive = P.engine3d === 'auto' ? adaptiveQuality : 1;
+    gl.uniform1f(U.u3D, engineOn ? 1 : 0);
+    gl.uniform1f(U.u3DQuality, Math.max(.28, Math.min(1, (P.detail3d / 100) * adaptive * (P.saver ? .72 : 1))));
+    gl.uniform1f(U.uZoom, P.zoom3d / 100);
+    gl.uniform1f(U.uGlow, P.glow3d / 100);
+    gl.uniform1f(U.uShadows, P.shadows3d ? 1 : 0);
+    gl.uniform1f(U.uRotate, P.rotate3d && P.motion ? 1 : 0);
+    gl.uniform1f(U.uShape, P.shape3d === 'crystal' ? 1 : 0);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
   /* בוקה */
@@ -814,7 +818,8 @@ function loop(now) {
     fx.globalAlpha = 1; fx.globalCompositeOperation = 'source-over';
   }
   frames++; if (now - fpsT > 500) { fps = Math.round(frames * 1000 / (now - fpsT)); frames = 0; fpsT = now;
-    if (document.body.classList.contains('hud')) $('#hud').textContent = 'FPS ' + fps + ' · ' + glc.width + '×' + glc.height + ' · oct ' + P.octaves + ' · bokeh ' + parts.length + (gl ? '' : ' · no-WebGL'); }
+    if (P.engine3d === 'auto' && now - adaptAt > 1800) { const target = P.saver ? .58 : (fps < 34 ? .48 : fps < 44 ? .62 : fps < 54 ? .78 : 1); adaptiveQuality += (target - adaptiveQuality) * .48; adaptAt = now; }
+    if (document.body.classList.contains('hud')) $('#hud').textContent = 'FPS ' + fps + ' · ' + glc.width + '×' + glc.height + ' · 3D ' + (P.engine3d === 'locked' ? 'LOCKED' : P.engine3d === 'auto' ? 'AUTO' : 'OFF') + ' · GPU ' + gpuName; }
 }
 
 /* ---------- סאונד / הפטי ---------- */
@@ -908,8 +913,8 @@ const SCHEMA = [
     { k: 'contrast', type: 'tog', l: 'ניגודיות גבוהה' } ] },
   { id: 'gfx', t: 'גרפיקה', i: 'fa-microchip', c: '#bf5af2', items: [
     { k: 'quality', type: 'seg', l: 'איכות גרפית', o: [['low', 'נמוכה'], ['med', 'בינונית'], ['high', 'גבוהה'], ['ultra', 'אולטרה'], ['custom', 'מותאם']] },
-    { k: 'wall', type: 'seg', l: 'סגנון רקע', o: [['aurora', 'אורורה'], ['liquid', 'נוזל'], ['nebula', 'ערפילית'], ['mesh', 'רשת']] },
-    { k: 'pal', type: 'sw', l: 'פלטת צבעים', o: 'pal' },
+    { type: 'note', l: 'רקע קבוע · PRIME BIOS', d: 'עיצוב לוח אם כחול מובנה ב־WebGL. אפשר לשנות את הצבעים בלבד, לא להחליף את הרקע.' },
+    { k: 'pal', type: 'sw', l: 'צבעי הרקע וה־3D', o: 'pal' },
     { k: 'renderScale', type: 'rng', l: 'רזולוציית רינדור', d: 'נמוך = מהיר יותר', min: 40, max: 150, step: 5, u: '%' },
     { k: 'fps', type: 'seg', l: 'הגבלת FPS', o: [[30, '30'], [60, '60'], [120, '120'], [0, 'ללא']] } ] },
   { id: 'fx', t: 'אפקטים', i: 'fa-wand-magic-sparkles', c: '#ff375f', items: [
@@ -921,7 +926,14 @@ const SCHEMA = [
     { k: 'bokeh', type: 'rng', l: 'חלקיקי אור (בוקה)', min: 0, max: 300, step: 10, u: '' },
     { k: 'ripple', type: 'tog', l: 'גלי הלם בלחיצה ובמעברים' } ] },
   { id: 'motion', t: 'תנועה ותלת־ממד', i: 'fa-cube', c: '#ff9f0a', items: [
-    { k: 'motion', type: 'tog', l: 'אנימציות' },
+    { k: 'engine3d', type: 'seg', l: 'מנוע 3D מובנה', d: 'אוטומטי מתאים איכות לביצועים; נעילה שומרת על מנוע תלת־ממד פעיל', o: [['auto', 'אוטומטי'], ['locked', 'נעילת 3D'], ['off', 'כבוי']] },
+    { k: 'shape3d', type: 'seg', l: 'מודל תלת־ממדי', o: [['core', 'מעבד PRIME'], ['crystal', 'קריסטל']] },
+    { k: 'zoom3d', type: 'rng', l: 'זום מצלמת 3D', min: 80, max: 140, step: 5, u: '%' },
+    { k: 'detail3d', type: 'rng', l: 'איכות מנוע 3D', min: 40, max: 100, step: 5, u: '%' },
+    { k: 'glow3d', type: 'rng', l: 'עוצמת תאורה והילה', min: 0, max: 100, step: 5, u: '%' },
+    { k: 'rotate3d', type: 'tog', l: 'סיבוב אובייקטים תלת־ממדיים' },
+    { k: 'shadows3d', type: 'tog', l: 'צללים ותאורת עומק' },
+    { k: 'motion', type: 'tog', l: 'אנימציות ממשק' },
     { k: 'tilt', type: 'tog', l: 'הטיית חלון תלת־ממדית' },
     { k: 'depth', type: 'rng', l: 'עומק פרלקסה', min: 0, max: 100, step: 5, u: '%' },
     { k: 'spot', type: 'tog', l: 'זרקור אור על זכוכית' },
@@ -974,9 +986,10 @@ function buildPane() {
       Object.keys(opts).forEach(n => { const b = document.createElement('button'); b.type = 'button'; b.className = 'sw'; b.style.setProperty('--c', opts[n]); b.title = it.o === 'pal' ? PAL[n].n : n; b.setAttribute('aria-label', b.title); b.setAttribute('aria-pressed', String(P[it.k] === n));
         b.addEventListener('click', () => { setVal(it.k, n); tick(); $$('.sw', s).forEach(x => x.setAttribute('aria-pressed', String(x === b))); pulse(innerWidth / 2, innerHeight / 2, .9); }); s.appendChild(b); });
       row.appendChild(s); }
-    else if (it.type === 'info') { row.innerHTML = lab; const d = document.createElement('div'); d.className = 'info'; d.textContent = gpuName + (gl ? '' : ' (WebGL כבוי)'); row.appendChild(d); }
+    else if (it.type === 'note') { row.classList.add('col'); row.innerHTML = '<div class="l"><span>' + it.l + '</span></div>'; const d = document.createElement('div'); d.className = 'info'; d.textContent = it.d || ''; row.appendChild(d); }
+    else if (it.type === 'info') { row.innerHTML = lab; const d = document.createElement('div'); d.className = 'info'; d.textContent = gpuName + (gl ? ' · WebGL 3D פעיל' : ' · WebGL לא זמין'); row.appendChild(d); }
     else if (it.type === 'btn') { row.innerHTML = lab; const b = document.createElement('button'); b.className = 'sbtn' + (it.red ? ' red' : ''); b.textContent = it.b;
-      b.addEventListener('click', () => { if (it.act === 'reset') { P = Object.assign({}, DEF); save(); apply(); buildPane(); } else { const txt = JSON.stringify(P, null, 2);
+      b.addEventListener('click', () => { if (it.act === 'reset') { P = Object.assign({}, DEF); adaptiveQuality = 1; save(); apply(); buildPane(); } else { const txt = JSON.stringify(P, null, 2);
         (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => { b.textContent = 'הועתק ✓'; }).catch(() => { b.textContent = 'לא זמין'; }); setTimeout(() => b.textContent = it.b, 1500); } tick(); });
       row.appendChild(b); }
     g.appendChild(row);
