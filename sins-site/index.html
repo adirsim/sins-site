@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="application-version" content="9.9.0.0">
-<title>בואו להנות | Babylon.js Engine — Version 9.9.0.0</title>
+<meta name="application-version" content="9.9.0.1">
+<title>בואו להנות | Babylon.js Engine — Version 9.9.0.1</title>
 <link rel="icon" type="image/png" href="logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -301,7 +301,7 @@ select.input option{background:var(--bg);color:var(--label)}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
-/* ================= V9.9.0.0 / NOVA VISUAL ENGINE ================= */
+/* ================= V9.9.0.1 / NOVA VISUAL ENGINE ================= */
 #gl{filter:saturate(1.22) contrast(1.08) brightness(.98);}
 #fx{mix-blend-mode:screen;opacity:.84;pointer-events:none}
 body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
@@ -322,7 +322,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 @media(max-width:760px){.brand-title{gap:6px}.version-chip{font-size:.56rem;padding:3px 6px}}
 
 
-/* ================= V9.9.0.0 / NOVA SCENE SYSTEM ================= */
+/* ================= V9.9.0.1 / NOVA SCENE SYSTEM ================= */
 :root{--c1:#0860e8;--c2:#14b8ff;--c3:#6ee7ff}
 #gl{transform:translateZ(0);will-change:contents}
 #fx{filter:blur(.15px)}
@@ -333,7 +333,7 @@ body::after{background:radial-gradient(58% 48% at 50% 48%,transparent 16%,rgba(0
 .info{line-height:1.55}
 
 
-/* ================= NOVA ENGINE / 9.9.0.0 ================= */
+/* ================= NOVA ENGINE / 9.9.0.1 ================= */
 #fx{will-change:contents;filter:blur(.12px) saturate(1.18);}
 .sselect{width:min(100%,360px);padding:12px 15px;border-radius:14px;border:1px solid var(--sep);background:var(--field);color:var(--label);font-weight:700;outline:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.10);}
 .sselect:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
@@ -404,7 +404,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;ba
 
 
 
-/* ================= VERSION 9.9.0.0 · FULL VIEWPORT + NEW UI ================= */
+/* ================= VERSION 9.9.0.1 · FULL VIEWPORT + NEW UI ================= */
 html,body{width:100%;height:100%;min-height:100%;}
 body{min-height:100dvh;}
 #gl{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;max-width:none!important;max-height:none!important;display:block;object-fit:fill;}
@@ -477,7 +477,7 @@ body{line-height:var(--line-height,1.45);}
 @media(max-width:700px){.chat-board{height:44vh;min-height:250px}.chat-toolbar{align-items:stretch}.chat-rooms{width:100%}.chat-room{flex:1}.chat-name-form{min-width:100%;}.chat-message{max-width:94%}.chat-messages{padding:12px;}}
 
 
-/* ================= VERSION 9.9.0.0 · LOCAL ONBOARDING + DIRECT P2P CHAT ================= */
+/* ================= VERSION 9.9.0.1 · LOCAL ONBOARDING + DIRECT P2P CHAT ================= */
 .survey-overlay{z-index:1200;padding:16px;overflow-y:auto;align-items:center;}
 .survey-card{width:min(720px,100%);max-height:min(94dvh,980px);overflow:auto;padding:clamp(20px,4vw,38px);border-radius:30px;background:radial-gradient(circle at 90% 0%,rgba(29,145,255,.22),transparent 34%),linear-gradient(145deg,rgba(12,34,64,.98),rgba(4,13,28,.99));border:1px solid rgba(120,190,255,.28);box-shadow:0 36px 110px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.14);transform:translateY(18px) scale(.985);transition:transform .35s cubic-bezier(.2,.8,.2,1);}
 .survey-overlay.open .survey-card{transform:none;}
@@ -523,6 +523,70 @@ body{line-height:var(--line-height,1.45);}
 .chat-config-note i{color:#8be4b2;margin-inline-end:5px;}
 @media(max-width:560px){.survey-card{padding:20px 16px;border-radius:23px}.survey-options{grid-template-columns:1fr}.survey-choice{min-height:44px}.chat-connect-card{padding:12px}.chat-connection-actions .chat-mini-btn{flex:1;white-space:normal;}}
 
+
+
+/* ================= VERSION 9.9.0.1 · RESPONSIVE DEVICE LAB ================= */
+:root{--touch-scale:1;--bg-sat:1.18;--bg-con:1.08;--edge-alpha:.9;--shadow-alpha:.8;--hover-lift:5px;}
+#gl{filter:saturate(var(--bg-sat,1.18)) contrast(var(--bg-con,1.08)) brightness(1);}
+.glass::before{opacity:var(--edge-alpha,.9);}
+.tile,.window,.chat-board{box-shadow:0 24px 70px rgba(0,0,0,var(--shadow-alpha,.24)),inset 0 1px 0 rgba(255,255,255,.10);}
+.tile:hover{transform:translateY(calc(0px - var(--hover-lift,5px))) scale(1.008);}
+.btn,.tile,.tab,.ibtn,.chat-mini-btn{transition-duration:calc(.24s * var(--tm,1));}
+body.no-hover-lift .tile:hover,body.no-hover-lift .btn:hover{transform:none!important;}
+body.no-cursor-aura .glass::after{display:none!important;}
+body.reduce-motion *,body.reduce-motion *::before,body.reduce-motion *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important;}
+body.large-touch .btn,body.large-touch .ibtn,body.large-touch .tab,body.large-touch .chat-room,body.large-touch .chat-mini-btn{min-height:calc(44px * var(--touch-scale,1));}
+body[data-device-mode="phone"] .topbar{width:calc(100vw - 18px);top:calc(7px + env(safe-area-inset-top,0px));height:56px;padding-inline:9px;}
+body[data-device-mode="phone"] .stage{inset:calc(72px + env(safe-area-inset-top,0px)) 7px calc(86px + env(safe-area-inset-bottom,0px));}
+body[data-device-mode="phone"] .window{border-radius:22px;}
+body[data-device-mode="phone"] .panel{padding:22px 14px 24px;}
+body[data-device-mode="phone"] .tabbar{width:calc(100vw - 12px);bottom:calc(7px + env(safe-area-inset-bottom,0px));padding:4px;}
+body[data-device-mode="phone"] .tabbar .tab{flex:1 0 42px;min-width:42px;padding:7px 3px;}
+body[data-device-mode="tablet"] .topbar{width:calc(100vw - 34px);}
+body[data-device-mode="tablet"] .stage{inset:calc(88px + env(safe-area-inset-top,0px)) 18px calc(98px + env(safe-area-inset-bottom,0px));}
+body[data-device-mode="tablet"] .window{width:min(1180px,100%);}
+body[data-device-mode="tablet"] .bento{grid-template-columns:repeat(6,minmax(0,1fr));}
+body[data-device-mode="tablet"] .hero{grid-column:span 4;}
+body[data-device-mode="tablet"] .t-rules,body[data-device-mode="tablet"] .t-team{grid-column:span 3;}
+body[data-device-mode="desktop"] .stage{inset:calc(94px + env(safe-area-inset-top,0px)) 22px calc(112px + env(safe-area-inset-bottom,0px));}
+body[data-device-mode="desktop"] .window{width:min(var(--content-max,1440px),calc(100vw - 44px));}
+body[data-device-mode="desktop"][data-nav-mode="rail"] .tabbar{left:14px;right:auto;top:50%;bottom:auto;translate:0 -50%;width:76px;max-width:76px;flex-direction:column;gap:5px;padding:7px;border-radius:24px;}
+body[data-device-mode="desktop"][data-nav-mode="rail"] .tabbar .ind{display:none;}
+body[data-device-mode="desktop"][data-nav-mode="rail"] .tabbar .tab{min-width:0;width:60px;padding:11px 5px;}
+body[data-device-mode="desktop"][data-nav-mode="rail"] .tabbar .tab span{display:none;}
+body[data-device-mode="desktop"][data-nav-mode="rail"] .stage{left:104px;}
+body[data-nav-mode="compact"] .tabbar .tab span{display:none;}
+body.no-safe-area .topbar{top:10px;}
+body.no-safe-area .tabbar{bottom:10px;}
+body.mobile-compact .tile{padding:15px;}
+body.mobile-compact .panel>h2.title{font-size:1.65rem;margin-bottom:17px;}
+.survey-progress{height:7px;border-radius:999px;overflow:hidden;background:rgba(150,200,255,.13);margin:13px 0 7px;}
+.survey-progress>span{display:block;height:100%;width:20%;border-radius:inherit;background:linear-gradient(90deg,#0878ed,#20d7e8,#a28cff);box-shadow:0 0 18px rgba(32,190,255,.38);transition:width .28s ease;}
+.survey-step-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;color:rgba(210,232,255,.68);font-size:.76rem;font-weight:800;margin-bottom:10px;}
+.survey-step-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 18px;}
+.survey-step-grid .survey-question{min-width:0;}
+.survey-step-grid .survey-question.wide{grid-column:1/-1;}
+.survey-nav{display:flex;gap:10px;margin-top:16px;}
+.survey-nav button{flex:1;min-width:0;}
+.survey-prev{background:rgba(255,255,255,.08)!important;color:#eaf6ff!important;box-shadow:none!important;border:1px solid rgba(140,195,255,.17)!important;}
+.survey-check-note{color:rgba(220,237,255,.55);font-size:.72rem;line-height:1.5;margin-top:7px;}
+.survey-textarea{width:100%;min-height:96px;resize:vertical;border:1px solid rgba(135,190,245,.2);border-radius:14px;background:rgba(1,10,24,.52);color:#f2f8ff;padding:12px 14px;outline:none;}
+.survey-textarea:focus{border-color:#3abfff;box-shadow:0 0 0 3px rgba(40,160,255,.12);}
+.survey-step-error{min-height:20px;margin-top:8px;color:#ffb2c0;font-size:.8rem;}
+@media(max-width:680px){.survey-step-grid{grid-template-columns:1fr}.survey-step-grid .survey-question.wide{grid-column:auto}.survey-nav{position:sticky;bottom:-1px;padding:8px 0 2px;background:linear-gradient(180deg,transparent,rgba(5,17,34,.96) 24%);}}
+@media(orientation:landscape) and (max-height:560px){.survey-card{max-height:96dvh;padding:14px 22px}.survey-card h2{margin:8px 0 4px;font-size:1.5rem}.survey-intro{margin-bottom:9px}.survey-question{padding-top:9px}.survey-nav{margin-top:8px}.survey-step-grid{gap:6px 14px;}}
+
+
+/* ================= NOVA Community Refresh · visual finish ================= */
+.survey-card{border-color:rgba(94,190,255,.32);box-shadow:0 38px 130px rgba(0,0,0,.62),0 0 0 1px rgba(64,174,255,.06),inset 0 1px 0 rgba(255,255,255,.16);}
+.survey-question{background:linear-gradient(110deg,rgba(30,100,180,.065),transparent 72%);border-radius:13px;padding:14px 10px 8px;margin-top:7px;}
+.survey-question legend{line-height:1.45;}
+.survey-choice{min-width:0;overflow-wrap:anywhere;}
+.survey-nav .btn{min-height:48px;}
+.chat-connect-card{backdrop-filter:blur(16px) saturate(145%);}
+@media(max-width:760px){.chat-board{height:min(48dvh,500px);min-height:230px}.chat-head{gap:8px}.chat-status{font-size:.72rem}.chat-compose{padding:9px}.chat-send{min-height:44px;}}
+@media(max-width:390px){.brand-title h1{font-size:1rem}.version-chip{font-size:.52rem}.chat-room{padding:8px 10px;font-size:.77rem}.survey-card{padding:17px 13px}.survey-card h2{font-size:1.6rem;}}
+
 </style>
 </head>
 <body>
@@ -555,7 +619,7 @@ body{line-height:var(--line-height,1.45);}
 <!-- ================= האתר ================= -->
 <div id="app">
   <header class="topbar glass">
-    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 9.9.0.0</span></div><p>הקהילה מתחילה כאן · NOVA Visual Studio · Babylon.js 3D · Local P2P</p></div></div>
+    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 9.9.0.1</span></div><p>הקהילה מתחילה כאן · NOVA Visual Studio · Babylon.js 3D · Local P2P</p></div></div>
     <button class="ibtn" id="btn-relock" aria-label="נעילת מסך"><i class="fas fa-lock"></i></button>
     <button class="ibtn" id="btn-settings" aria-label="הגדרות"><i class="fas fa-gear"></i></button>
   </header>
@@ -703,7 +767,7 @@ body{line-height:var(--line-height,1.45);}
     <!-- צ'אט לייב — חיבור ישיר ללא מסד ענן -->
     <section id="p-livechat" class="panel">
       <div class="chat-head">
-        <div><h2 class="title">צ׳אט לייב</h2><p class="chat-subtitle">שיחות ישירות בין חברים · בלי מסד הודעות בענן</p></div>
+        <div><h2 class="title">צ׳אט לייב</h2><p class="chat-subtitle">שיחות ישירות בין חברים · ללא שרת הודעות או שמירת ענן</p></div>
         <div class="chat-status" id="chat-status" aria-live="polite">ממתין לחבר</div>
       </div>
       <div class="chat-toolbar">
@@ -732,19 +796,19 @@ body{line-height:var(--line-height,1.45);}
         </div>
         <label class="chat-code-label" for="chat-code-out">הקוד שנוצר — שלחו אותו לחבר בלבד</label>
         <textarea id="chat-code-out" class="chat-code" rows="3" readonly placeholder="כאן יופיע קוד ההזמנה או התשובה…"></textarea>
-        <p class="chat-config-note"><i class="fas fa-shield-halved"></i> הודעות עוברות ישירות בין הדפדפנים ואינן נשמרות במסד ענן. קודי ההזמנה מכילים פרטי חיבור — שלחו אותם רק לחבר שאיתו תרצו לדבר. שירות STUN חיצוני מסייע לאתר נתיב רשת, אך אינו מקבל או שומר את תוכן ההודעות.</p>
+        <p class="chat-config-note"><i class="fas fa-shield-halved"></i> תוכן ההודעות עובר ישירות בין הדפדפנים ואינו נשמר במסד הודעות. קודי ההזמנה מכילים פרטי חיבור — שלחו אותם רק לאדם שאיתו תרצו לדבר. שרת STUN חיצוני משמש למציאת נתיב רשת בלבד; הוא אינו שירות צ׳אט ואינו מקבל את תוכן ההודעות. זהו צ׳אט P2P פרטי, לא חדר ציבורי לכל המבקרים.</p>
       </div>
 
       <div class="chat-board">
         <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions text">
-          <div class="chat-message system"><div class="chat-message-text">ברוכים הבאים לצ׳אט הקהילה. בחרו חדר, צרו קוד הזמנה או הדביקו קוד שקיבלתם מחבר.</div></div>
+          <div class="chat-message system"><div class="chat-message-text">ברוכים הבאים לצ׳אט הישיר. החדרים הם ערוצים מקומיים לחברים שחיברתם ב־P2P — הם אינם צ׳אט ציבורי גלובלי.</div></div>
         </div>
         <form class="chat-compose" id="chat-form">
           <input id="chat-message" class="chat-input" maxlength="500" placeholder="התחברו לחבר כדי לשלוח הודעה…" autocomplete="off" disabled>
           <button class="chat-send" id="chat-send" type="submit" aria-label="שליחת הודעה" disabled><i class="fas fa-paper-plane"></i></button>
         </form>
       </div>
-      <p class="chat-help" id="chat-help">אין שרת הודעות ואין שמירה בענן. לאחר יצירת חיבור ישיר תוכלו לשלוח הודעות בזמן אמת. היסטוריית השיחה קיימת בזיכרון הדפדפן הנוכחי בלבד ונמחקת ברענון.</p>
+      <p class="chat-help" id="chat-help">הודעות נשלחות רק לחברים שחוברו ישירות באמצעות קוד הזמנה. אין מסד הודעות ואין שמירת היסטוריה בענן; ההודעות נמחקות מרענון הדף. כדי לאפשר צ׳אט ציבורי בין מבקרים אקראיים נדרש שירות תיווך/איתות, ולכן הוא לא מוצג כאן כפעיל.</p>
     </section>
 
   </div></main>
@@ -761,39 +825,26 @@ body{line-height:var(--line-height,1.45);}
   </nav>
 </div>
 
-<!-- שאלון כניסה — מופיע רק בפעם הראשונה ונשמר במכשיר בלבד -->
+<!-- שאלון כניסה 9.9.0.1 — 15 שאלות, שלבים, שמירה מקומית בלבד -->
 <div class="overlay survey-overlay" id="welcome-survey" aria-hidden="true">
   <div class="survey-card glass" role="dialog" aria-modal="true" aria-labelledby="survey-title">
-    <div class="survey-topline"><span class="survey-orb"><i class="fas fa-sparkles"></i></span><span class="survey-kicker">WELCOME TO THE COMMUNITY</span><span class="survey-version">9.9.0.0</span></div>
-    <h2 id="survey-title">נעים להכיר! 👋</h2>
-    <p class="survey-intro">לפני שמתחילים, נשמח להכיר אותך ולשמוע מה דעתך על הקהילה שלנו.</p>
-    <form id="welcome-survey-form">
-      <fieldset class="survey-question"><legend><span>01</span> כמה אתה אוהב את שירות הרובלוקס שלנו?</legend>
-        <div class="survey-options">
-          <label class="survey-choice"><input id="survey-love-1" type="radio" name="surveyLove" value="מאוד" required><span>מאוד</span></label>
-          <label class="survey-choice"><input type="radio" name="surveyLove" value="מחבב"><span>מחבב</span></label>
-          <label class="survey-choice"><input type="radio" name="surveyLove" value="משחק בשביל הכיף עם ילדים חברים"><span>משחק בשביל הכיף עם ילדים חברים</span></label>
-          <label class="survey-choice"><input type="radio" name="surveyLove" value="לא מעניין אותי"><span>לא מעניין אותי</span></label>
-        </div>
-      </fieldset>
-      <fieldset class="survey-question"><legend><span>02</span> עד כמה אתה אוהב את האלמנטים שאנחנו יוצרים בשבילכם?</legend>
-        <div class="survey-options survey-options-two">
-          <label class="survey-choice"><input type="radio" name="surveyElements" value="מאוד" required><span>מאוד</span></label>
-          <label class="survey-choice"><input type="radio" name="surveyElements" value="לא"><span>לא</span></label>
-        </div>
-      </fieldset>
-      <fieldset class="survey-question"><legend><span>03</span> האם תרצה להזין את שם המשתמש שלך ברובלוקס כדי שנוכל ליצור איתך קשר?</legend>
-        <div class="survey-options survey-options-two">
-          <label class="survey-choice"><input type="radio" name="surveyContact" value="yes" required><span>כן, אשמח</span></label>
-          <label class="survey-choice"><input type="radio" name="surveyContact" value="no"><span>לא תודה</span></label>
-        </div>
-        <div id="survey-username-wrap" class="survey-username" hidden><label for="survey-roblox-user">שם המשתמש שלך ב־Roblox</label><input id="survey-roblox-user" name="robloxUsername" class="chat-input" maxlength="20" minlength="3" autocomplete="off" placeholder="Roblox username"><small>שם משתמש בלבד, בלי סיסמה ובלי פרטי התחברות.</small></div>
-      </fieldset>
-      <p class="survey-privacy"><i class="fas fa-lock"></i> התשובות נשמרות רק במכשיר ובדפדפן הזה. הן לא נשלחות לענן או לשרת. אם תרצה שהצוות יראה את שם המשתמש, תוכל להעתיק את התשובות ולשלוח אותן בעצמך בדיסקורד.</p>
-      <p id="survey-save-error" class="survey-error" hidden></p>
-      <button class="btn block survey-submit" type="submit"><i class="fas fa-check"></i> שמירת תשובות וכניסה לאתר</button>
+    <div class="survey-topline"><span class="survey-orb"><i class="fas fa-sparkles"></i></span><span class="survey-kicker">WELCOME TO THE COMMUNITY</span><span class="survey-version">9.9.0.1</span></div>
+    <h2 id="survey-title">בואו להכיר טוב יותר 👋</h2>
+    <p class="survey-intro">15 שאלות קצרות שיעזרו לנו להתאים את האתר לקהילה ולמכשירים שלכם. התשובות נשמרות בדפדפן בלבד.</p>
+    <div class="survey-step-meta"><span id="survey-step-name">שלב 1 מתוך 5</span><span id="survey-step-count">3 שאלות בעמוד הזה</span></div>
+    <div class="survey-progress" role="progressbar" aria-label="התקדמות השאלון" aria-valuemin="0" aria-valuemax="100" aria-valuenow="20"><span id="survey-progress-fill"></span></div>
+    <form id="welcome-survey-form" novalidate>
+      <div id="survey-step-container" class="survey-step-grid"></div>
+      <p id="survey-step-error" class="survey-step-error" aria-live="polite"></p>
+      <p class="survey-privacy"><i class="fas fa-lock"></i> פרטיות: התשובות, כולל שם המשתמש אם תבחרו למסור אותו, נשמרות ב־Local Storage במכשיר הזה בלבד. הן אינן נשלחות לענן או לשרת. אין להזין סיסמה או פרטי התחברות.</p>
+      <div class="survey-nav"><button type="button" class="btn survey-prev" id="survey-prev" hidden>חזרה</button><button type="button" class="btn survey-submit" id="survey-next">המשך לשלב הבא <i class="fas fa-arrow-left"></i></button><button type="submit" class="btn survey-submit" id="survey-submit" hidden><i class="fas fa-check"></i> שמירת השאלון וכניסה</button></div>
     </form>
-    <div id="survey-done" class="survey-done" hidden><div class="survey-done-icon"><i class="fas fa-check"></i></div><h3>תודה שהשתתפת!</h3><p>התשובות נשמרו בדפדפן הזה בלבד. האתר לא שלח אותן לצוות. אם ביקשת שיחזרו אליך, העתק את התשובות ושלח אותן בהודעה פרטית לצוות בדיסקורד.</p><div class="chat-connection-actions"><button type="button" class="chat-mini-btn primary" id="survey-copy-results"><i class="fas fa-copy"></i> העתקת תשובות לשיתוף</button><a class="chat-mini-btn" href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer">פתיחת דיסקורד</a></div><button type="button" class="btn block survey-submit" id="survey-done-close">כניסה לאתר</button></div>
+    <div id="survey-done" class="survey-done" hidden>
+      <div class="survey-done-icon"><i class="fas fa-check"></i></div><h3>תודה שהשתתפת!</h3>
+      <p>כל 15 התשובות נשמרו מקומית בדפדפן הזה. הן לא נשלחו לאתר או לצוות.</p>
+      <div class="chat-connection-actions"><button type="button" class="chat-mini-btn primary" id="survey-copy-results"><i class="fas fa-copy"></i> העתקת תשובות לשיתוף</button><a class="chat-mini-btn" href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer">פתיחת דיסקורד</a></div>
+      <button type="button" class="btn block survey-submit" id="survey-done-close">כניסה לאתר</button>
+    </div>
   </div>
 </div>
 
@@ -848,8 +899,12 @@ const DEF = Object.assign({
   showGrid: true, showTraces: true, bgBrightness: 100, gridDensity: 48, bgVignette: 72, backgroundZoom: 100, adaptiveResolution: true,
   particleSpeed: 100, particleSize: 100, scanlines: false, ambientPulse: true, sparkle: true,
   compactUI: false, solidGlass: false, underlineLinks: false, lineHeight: 145, contentWidth: 1440, stickyTitles: false, rememberTab: true, largeControls: false, fontStyle: 'heebo',
-  chatNotify: false, chatSound: true, chatTimestamps: true, saveChatName: true,
-  engine3d: 'auto', zoom3d: 112, detail3d: 92, glow3d: 96, rotate3d: true, shadows3d: true, shape3d: 'core'
+  chatNotify: false, chatSound: true, chatTimestamps: true, saveChatName: true, reduceMotion: sysCalm,
+  engine3d: 'auto', zoom3d: 112, detail3d: 92, glow3d: 96, rotate3d: true, shadows3d: true, shape3d: 'core',
+  deviceMode: 'auto', navMode: 'auto', touchScale: 100, uiScale: 100, safeArea: true, mobileCompact: false, reduce3dOnPhone: false,
+  bgSaturation: 118, bgContrast: 108, backgroundSharpness: 100, glassEdge: 90, cardShadow: 80, hoverLift: 55, cursorAura: true,
+  cameraFov: 45, orbitSpeed: 100, float3d: true, pulse3d: true, metallic3d: 78, wireframe3d: false, ambientLight3d: 92, keyLight3d: 88,
+  notificationBadge: true, confirmExternalLinks: false, rememberSurveyChoice: true, autoSavePrefs: true
 }, PRESETS[q0]);
 let P = Object.assign({}, DEF);
 try {
@@ -863,8 +918,10 @@ try {
 P.wall = 'prime';
 P.engineMode = 'babylon';
 P.scene = ['prime','rog','cyber','aurora','nebula','quantum','matrix','solar','synth','abyss','prism','emerald','dusk','storm','magma','holo'].includes(P.scene) ? P.scene : 'prime';
-P.shape3d = ['core','crystal','rog','cube','reactor'].includes(P.shape3d) ? P.shape3d : 'core';
+P.shape3d = ['core','crystal','rog','cube','reactor','aether'].includes(P.shape3d) ? P.shape3d : 'core';
 P.engineMode = 'babylon';
+P.deviceMode = ['auto','phone','tablet','desktop'].includes(P.deviceMode) ? P.deviceMode : 'auto';
+P.navMode = ['auto','bottom','rail','compact'].includes(P.navMode) ? P.navMode : 'auto';
 P.renderScale = Math.max(65, Math.min(100, Number(P.renderScale) || 100));
 P.particleDensity = Math.max(20, Math.min(200, Number(P.particleDensity) || 110));
 P.bokeh = Math.max(0, Math.min(100, Number(P.bokeh) || 24));
@@ -878,8 +935,8 @@ P.contentWidth=Math.max(900,Math.min(1800,Number(P.contentWidth)||1440));
 P.lineHeight=Math.max(125,Math.min(190,Number(P.lineHeight)||145));
 P.fps = P.fps === 0 ? 60 : Math.max(30, Math.min(60, Number(P.fps) || 60));
 const save = () => store.set('prefs3', JSON.stringify(P));
-// First launch of 9.9.0.0 restores native full-resolution rendering once.
-if (store.get('novaAppVersion') !== '9.9.0.0') { P.renderScale = 100; P.quality = 'high'; store.set('novaAppVersion', '9.9.0.0'); save(); }
+// Version 9.9.0.1 applies the refreshed responsive and graphics defaults once.
+if (store.get('novaAppVersion') !== '9.9.0.1') { P.renderScale = 100; P.quality = 'high'; store.set('novaAppVersion', '9.9.0.1'); save(); }
 
 const ACC = { blue: '#0a84ff', purple: '#bf5af2', pink: '#ff375f', green: '#30d158', orange: '#ff9f0a' };
 const PAL = {
@@ -915,7 +972,7 @@ const SCENES = {
 if (!PAL[P.pal]) P.pal = 'prime';
 const WALL = { prime: 0 }; // הרקע הקבוע: לוח אם בסגנון PRIME BIOS
 
-/* ---------- Babylon.js 3D Engine · Version 9.9.0.0 ---------- */
+/* ---------- Babylon.js 3D Engine · Version 9.9.0.1 ---------- */
 const glc = $('#gl'), fxc = $('#fx');
 let gl = null, U = {}, gpuName = 'Babylon.js — initializing';
 const NovaEdge = (() => {
@@ -932,7 +989,7 @@ const NovaEdge = (() => {
   const mat = (name, diffuse, emissive, specular=.32) => {
     const m = new B.StandardMaterial(name, scene);
     m.diffuseColor = col(diffuse);
-    m.emissiveColor = col(emissive).scale(.2 + clamp((Number(P.glow3d)||75)/100,0,1)*.62);
+    m.emissiveColor = col(emissive).scale(.2 + clamp((Number.isFinite(Number(P.glow3d))?Number(P.glow3d):75)/100,0,1)*.62);
     modelMaterials.push(m);
     m.specularColor = new B.Color3(specular, specular, specular);
     m.specularPower = 96;
@@ -1112,7 +1169,30 @@ const NovaEdge = (() => {
         orbitParts.push(node);
       }
       orbitParts.push(torus('cube-orbit',4.9,.026,trace,.95,.24,.22));
-    } else {
+    } else if (shape === 'aether') {
+      // AETHER Prism Reactor — compact, layered geometry with a luminous center.
+      const plinth=cylinder('aether-foundation',.28,3.55,dark,0,-1.62,0,Math.PI/2,0,0,28);
+      const plinthTop=cylinder('aether-foundation-top',.12,3.12,base,0,-1.43,0,Math.PI/2,0,0,28);
+      torus('aether-base-light',3.18,.055,bright,Math.PI/2,0,0);
+      const shell=B.MeshBuilder.CreatePolyhedron('aether-outer-shell',{type:2,size:2.05},scene);
+      shell.scaling.set(1.18,1.30,.86);shell.rotation.set(.18,.28,.05);attach(shell,dark);
+      const coreShell=B.MeshBuilder.CreatePolyhedron('aether-inner-shell',{type:1,size:1.56},scene);
+      coreShell.scaling.set(1.08,1.13,.78);coreShell.rotation.set(-.12,-.22,.13);coreShell.position.z=-.22;attach(coreShell,main);
+      const energy=B.MeshBuilder.CreateSphere('aether-energy-heart',{diameter:1.38,segments:20},scene);
+      energy.scaling.set(1.0,1.0,.62);energy.position.z=-.75;attach(energy,bright);
+      sphere('aether-hotspot',.35,white,0,0,-1.20,12);
+      for(let i=0;i<8;i++){
+        const a=i*Math.PI/4,x=Math.cos(a)*1.85,y=Math.sin(a)*1.52;
+        const fin=box('aether-fin-'+i,.26,.82,.14,i%2?accent:base,x,y,-.40,a+Math.PI/2);
+        fin.rotation.x=.12*Math.sin(a);fin.rotation.y=.10*Math.cos(a);
+        sphere('aether-node-'+i,.11,white,x*1.10,y*1.10,-.63,8);
+      }
+      orbitParts=[torus('aether-orbit-a',4.25,.035,bright,.65,.2,.08),torus('aether-orbit-b',5.05,.022,white,.22,.82,.28),torus('aether-orbit-c',5.60,.016,accent,.94,.16,-.18)];
+      for(let i=0;i<4;i++){
+        const a=i*Math.PI/2;
+        orbitParts.push(sphere('aether-satellite-'+i,.16,i%2?bright:white,Math.cos(a)*2.65,Math.sin(a)*2.15,-.56,10));
+      }
+    } else if (shape === 'reactor') {
       // NOVA turbine — visible mechanical blades, central shaft and turbine rings.
       cylinder('turbine-rear-housing',.54,3.25,dark,0,0,.08,Math.PI/2,0,0,32);
       torus('turbine-outer-rim',4.30,.16,base,.04,.08,0);
@@ -1141,7 +1221,7 @@ const NovaEdge = (() => {
 
   function drawBackdrop(name, colors, settings=P) {
     // High-end static art plate: generated once per theme switch, then reused as a GPU texture.
-    const canvas=document.createElement('canvas');canvas.width=1536;canvas.height=960;
+    const canvas=document.createElement('canvas');canvas.width=1920;canvas.height=1080;
     const ctx=canvas.getContext('2d',{alpha:false});
     const schemes={
       prime:['#020917','#082a55','#06142a'],rog:['#09040c','#310919','#090711'],cyber:['#090819','#251052','#07091b'],
@@ -1223,11 +1303,13 @@ const NovaEdge = (() => {
     if(P.shape3d+'|'+colors.join('|')+'|'+P.detail3d!==lastModel){
       makeModel(P.shape3d,colors,P.detail3d);lastModel=P.shape3d+'|'+colors.join('|')+'|'+P.detail3d;
     }
+    modelMaterials.forEach(m=>{m.wireframe=!!P.wireframe3d;m.specularPower=24+(clamp(Number.isFinite(Number(P.metallic3d))?Number(P.metallic3d):78,0,100)/100)*150;});
     const count=clamp(Math.round((Number(P.particleDensity)||80)*.22+(Number(P.bokeh)||0)*.16),8,64)*(P.saver?.5:1)|0;
     if(count!==lastParticleCount)buildParticles(P,colors);
-    modelRoot.setEnabled(P.engine3d!=='off');
-    if(shadowDisc)shadowDisc.setEnabled(!!P.shadows3d && P.engine3d!=='off');
-    const glow=clamp((Number(P.glow3d)||75)/100,0,1);
+    const modelVisible=P.engine3d!=='off'&&!(P.reduce3dOnPhone&&document.body.dataset.deviceMode==='phone');
+    modelRoot.setEnabled(modelVisible);
+    if(shadowDisc)shadowDisc.setEnabled(!!P.shadows3d&&modelVisible);
+    const glow=clamp((Number.isFinite(Number(P.glow3d))?Number(P.glow3d):75)/100,0,1);
     if(Math.abs(glow-lastGlow)>.01){modelMaterials.forEach(m=>{m.emissiveColor=m.diffuseColor.scale(.2+glow*.62);});lastGlow=glow;}
   }
 
@@ -1309,11 +1391,12 @@ const NovaEdge = (() => {
     applyHardwareScale(P,adaptive);
     viewW=glc.clientWidth||innerWidth;viewH=glc.clientHeight||innerHeight;
     updateSceneTheme(P,colors);
-    if(rimLight)rimLight.intensity=P.ambientPulse?.62+.16*Math.sin(t*1.25):.62;
-    if(hemiLight)hemiLight.intensity=P.ambientPulse?.92+.06*Math.sin(t*.8):.92;
-    if(bgPlane&&P.motion){bgPlane.position.x=Math.sin(t*.16)*.12*(P.layerDepth/100);bgPlane.position.y=Math.cos(t*.13)*.08*(P.layerDepth/100);}else if(bgPlane){bgPlane.position.x=0;bgPlane.position.y=0;}
-    const motion=P.motion?1:0;
-    const speed=motion*clamp(Number(P.speed)||100,0,300)/100;
+    if(rimLight)rimLight.intensity=(Number(P.keyLight3d)||88)/100*(P.ambientPulse?.72+.12*Math.sin(t*1.25):.72);
+    if(hemiLight)hemiLight.intensity=(Number(P.ambientLight3d)||92)/100*(P.ambientPulse?.92+.06*Math.sin(t*.8):.92);
+    if(keyLight)keyLight.intensity=(Number(P.keyLight3d)||88)/100;
+    if(bgPlane&&P.motion&&!P.reduceMotion){bgPlane.position.x=Math.sin(t*.16)*.12*(P.layerDepth/100);bgPlane.position.y=Math.cos(t*.13)*.08*(P.layerDepth/100);}else if(bgPlane){bgPlane.position.x=0;bgPlane.position.y=0;}
+    const motion=P.motion&&!P.reduceMotion?1:0;
+    const speed=motion*clamp(Number.isFinite(Number(P.speed))?Number(P.speed):100,0,300)/100*clamp(Number.isFinite(Number(P.orbitSpeed))?Number(P.orbitSpeed):100,0,250)/100;
     const depth=P.interactiveFX?clamp(Number(P.layerDepth)||60,0,100)/100:0;
     const power=clamp(Number(P.enginePower)||90,20,120)/100;
     if(P.rotate3d&&motion){
@@ -1321,18 +1404,20 @@ const NovaEdge = (() => {
       modelRoot.rotation.x=.12+Math.sin(t*.14)*.075-(mouse.y/Math.max(1,viewH)-.5)*depth*.10;
       orbitParts.forEach((m,i)=>{m.rotation.z += dt*speed*(i%2?-.075:.105);});
     }
+    if(camera){const fov=clamp(Number(P.cameraFov)||45,32,70)*Math.PI/180;if(Math.abs(camera.fov-fov)>.001)camera.fov=fov;}
     modelRoot.position.x=P.interactiveFX?(mouse.x/Math.max(1,viewW)-.5)*depth*.42:0;
-    modelRoot.position.y=P.interactiveFX?-(mouse.y/Math.max(1,viewH)-.5)*depth*.28+Math.sin(t*.7)*.035*motion:Math.sin(t*.7)*.035*motion;
+    modelRoot.position.y=P.interactiveFX?-(mouse.y/Math.max(1,viewH)-.5)*depth*.28+(P.float3d?Math.sin(t*.7)*.12*motion:0):(P.float3d?Math.sin(t*.7)*.12*motion:0);
     const scale=clamp(Math.min(viewW/900,viewH/680)*.98,.55,1.18)*(Number(P.zoom3d)||100)/100;
-    modelRoot.scaling.setAll(scale);
-    modelRoot.setEnabled(P.engine3d!=='off');
-    if(shadowDisc){shadowDisc.setEnabled(!!P.shadows3d&&P.engine3d!=='off');shadowDisc.position.x=modelRoot.position.x;}
+    const pulseScale=P.pulse3d&&motion?1+.018*Math.sin(t*1.7):1;modelRoot.scaling.setAll(scale*pulseScale);
+    const modelVisible=P.engine3d!=='off'&&!(P.reduce3dOnPhone&&document.body.dataset.deviceMode==='phone');
+    modelRoot.setEnabled(modelVisible);
+    if(shadowDisc){shadowDisc.setEnabled(!!P.shadows3d&&modelVisible);shadowDisc.position.x=modelRoot.position.x;}
     const particleLimit=Math.max(8,Math.floor(particles.length*clamp(adaptive,.35,1)));
     for(let i=0;i<particles.length;i++){
       const p=particles[i];p.setEnabled(i<particleLimit);
       if(i>=particleLimit)continue;
       const md=p.metadata||{};
-      if(motion){const pSpeed=clamp((Number(P.particleSpeed)||100)/100,0,2.5);p.position.x+=md.vx*dt*speed*power*8*pSpeed;p.position.y+=md.vy*dt*speed*power*8*pSpeed;md.phase+=dt;}
+      if(motion){const pSpeed=clamp((Number.isFinite(Number(P.particleSpeed))?Number(P.particleSpeed):100)/100,0,2.5);p.position.x+=md.vx*dt*speed*power*8*pSpeed;p.position.y+=md.vy*dt*speed*power*8*pSpeed;md.phase+=dt;}
       if(P.sparkle&&motion){const pulseScale=.78+.22*Math.sin(t*1.8+md.phase);p.scaling.setAll((md.baseScale||1)*pulseScale);}
       if(p.position.x<-9.5)p.position.x=9.5;if(p.position.x>9.5)p.position.x=-9.5;
       if(p.position.y<-5.8)p.position.y=5.8;if(p.position.y>5.8)p.position.y=-5.8;
@@ -1362,9 +1447,9 @@ let mx = innerWidth/2, my = innerHeight/2, smx = mx, smy = my;
 let curPal = PAL[P.pal].css.slice(), T = 0, dark = 0;
 const isDark = () => P.theme === 'dark' || (P.theme === 'auto' && darkMQ.matches);
 function resize() { NovaEdge.resize(P, PAL[P.pal].css); }
-addEventListener('resize', () => { resize(); moveInd(); });
+addEventListener('resize', () => { apply(); moveInd(); });
 if(window.ResizeObserver){const canvasRO=new ResizeObserver(()=>resize());canvasRO.observe(glc);}
-function pulse(x, y, s) { if (!P.ripple || !P.motion) return; NovaEdge.pulse(x,y); }
+function pulse(x, y, s) { if (!P.ripple || !P.motion || P.reduceMotion) return; NovaEdge.pulse(x,y); }
 
 let last = 0, frames = 0, fpsT = performance.now(), fps = 0, adaptiveQuality = 1, adaptAt = 0;
 function loop(now) {
@@ -1373,7 +1458,7 @@ function loop(now) {
   const cap = P.saver ? 30 : Math.min(60,Number(P.fps)||60);
   if (cap && now-last < 1000/cap-2) return;
   const dt = Math.min((now-last)/1000,.1); last=now;
-  T += dt * (P.motion ? P.speed/100 : 0);
+  T += dt * (P.motion && !P.reduceMotion ? P.speed/100 : 0);
   smx += (mx-smx)*.08; smy += (my-smy)*.08;
   dark += ((isDark()?1:0)-dark)*.08;
   NovaEdge.render(P,PAL[P.pal].css,T,dt,{x:smx,y:smy},adaptiveQuality);
@@ -1404,13 +1489,31 @@ function apply() {
   R.style.setProperty('--spot', P.spot ? 1 : 0); R.style.setProperty('--tm', (100 / P.tspeed).toFixed(2));
   R.style.setProperty('--content-max', (Number(P.contentWidth)||1440)+'px');
   R.style.setProperty('--line-height', (Number(P.lineHeight)||145)/100);
+  R.style.setProperty('--bg-sat', (Number(P.bgSaturation)||118)/100);
+  R.style.setProperty('--bg-con', ((Number(P.bgContrast)||108)/100)*((Number(P.backgroundSharpness)||100)/100));
+  R.style.setProperty('--edge-alpha', (Number(P.glassEdge)||90)/100);
+  R.style.setProperty('--shadow-alpha', Math.min(.32,Math.max(0,(Number.isFinite(Number(P.cardShadow))?Number(P.cardShadow):80)/100*.32)));
+  R.style.setProperty('--hover-lift', (Number(P.hoverLift)/20)+'px');
+  R.style.setProperty('--touch-scale', (Number(P.touchScale)||100)/100);
+  R.style.setProperty('--txt', (Number(P.txt)||100)/100*(Number(P.uiScale)||100)/100);
+  const width=innerWidth;
+  const autoDevice=width<=620?'phone':width<=1080?'tablet':'desktop';
+  const device=P.deviceMode==='auto'?autoDevice:P.deviceMode;
+  B.dataset.deviceMode=device;B.dataset.navMode=P.navMode||'auto';
+  B.classList.toggle('large-touch',device==='phone'||device==='tablet');
+  B.classList.toggle('mobile-compact',!!P.mobileCompact);
+  B.classList.toggle('no-safe-area',!P.safeArea);
+  B.classList.toggle('no-hover-lift',Number(P.hoverLift)===0);
+  B.classList.toggle('no-cursor-aura',!P.cursorAura);
+  B.classList.toggle('reduce-motion',!!P.reduceMotion);
+  B.classList.toggle('reduce-3d-phone',!!P.reduce3dOnPhone&&device==='phone');
   const fontMap={heebo:'"Heebo",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',system:'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',arial:'Arial,Helvetica,sans-serif'};
   R.style.setProperty('--font',fontMap[P.fontStyle]||fontMap.heebo);
   const pc = PAL[P.pal].css; R.style.setProperty('--c1', pc[0]); R.style.setProperty('--c2', pc[1]); R.style.setProperty('--c3', pc[2]);
   R.classList.toggle('hc', P.contrast);
   R.classList.toggle('compact-ui',!!P.compactUI);R.classList.toggle('solid-ui',!!P.solidGlass);R.classList.toggle('link-underline',!!P.underlineLinks);R.classList.toggle('large-controls',!!P.largeControls);R.classList.toggle('sticky-titles',!!P.stickyTitles);R.classList.toggle('hide-chat-time',!P.chatTimestamps);
   B.dataset.scene = P.scene; B.dataset.engine = 'babylon';
-  B.classList.toggle('calm', !P.motion); B.classList.toggle('notilt', !P.tilt || !P.motion); B.classList.toggle('hud', P.hud); B.classList.toggle('debug', P.debug);
+  B.classList.toggle('calm', !P.motion); B.classList.toggle('notilt', !P.tilt || !P.motion || P.reduceMotion); B.classList.toggle('hud', P.hud); B.classList.toggle('debug', P.debug);
   resize(); setTimeout(moveInd, 60);
 }
 
@@ -1493,7 +1596,7 @@ function chatRenderItem(item){
   chatUI.messages.appendChild(el);while(chatUI.messages.children.length>140)chatUI.messages.removeChild(chatUI.messages.firstChild);chatUI.messages.scrollTop=chatUI.messages.scrollHeight;
 }
 function chatSystem(text){chatAddItem({type:'system',room:chatState.room,text:String(text),time:Date.now()});}
-function chatShowRoom(){chatUI.messages.innerHTML='';const items=chatState.history[chatState.room]||[];if(!items.length)chatRenderItem({type:'system',text:'חדר '+chatRoomNames[chatState.room]+' נפתח. ההודעות יופיעו כאן לאחר חיבור לחברים.'});else items.forEach(chatRenderItem);}
+function chatShowRoom(){chatUI.messages.innerHTML='';const items=chatState.history[chatState.room]||[];if(!items.length)chatRenderItem({type:'system',text:'חדר '+chatRoomNames[chatState.room]+' נפתח. ההודעות יוצגו כאן רק מחברים המחוברים ישירות אליכם.'});else items.forEach(chatRenderItem);}
 function chatBeep(){if(!P.chatSound)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const a=new AC(),o=a.createOscillator(),g=a.createGain();o.type='sine';o.frequency.value=760;g.gain.setValueAtTime(.03,a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.12);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.13);o.onended=()=>a.close();}catch(e){}}
 function chatRandomId(){return (window.crypto&&crypto.randomUUID)?crypto.randomUUID():('p'+Date.now().toString(36)+Math.random().toString(36).slice(2,10));}
 function encodeSignal(obj){const bytes=new TextEncoder().encode(JSON.stringify(obj));let bin='';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
@@ -1584,26 +1687,100 @@ chatUI.form.addEventListener('submit',e=>{
   chatUI.input.value='';if(P.saveChatName){try{localStorage.setItem('novaChatNickname',nameValue);}catch(e){}}chatUI.input.focus();
 });
 
-/* ---------- שאלון כניסה חד־פעמי · שמירה מקומית בלבד ---------- */
-const SURVEY_KEY='bhnWelcomeSurvey_v9900';
+/* ---------- שאלון קהילה · 15 שאלות · אחסון מקומי בלבד ---------- */
+const SURVEY_KEY='bhnWelcomeSurvey_v9901';
 const surveyOverlay=$('#welcome-survey');
+const SURVEY_QUESTIONS=[
+  {id:'robloxLove',title:'כמה אתה אוהב את שירות הרובלוקס שלנו?',type:'single',required:true,options:['מאוד','מחבב','משחק בשביל הכיף עם ילדים וחברים','לא מעניין אותי']},
+  {id:'communityElements',title:'עד כמה אתה אוהב את האלמנטים שאנחנו יוצרים בשבילכם?',type:'single',required:true,options:['מאוד','די אוהב','בסדר','אפשר לשפר','לא']},
+  {id:'contact',title:'האם תרצה לשתף את שם המשתמש שלך ברובלוקס כדי שנוכל ליצור איתך קשר?',type:'conditional',required:true,options:['כן, אשמח','לא תודה']},
+  {id:'visitFrequency',title:'באיזו תדירות אתה נכנס לאתר?',type:'single',required:true,options:['כל יום','כמה פעמים בשבוע','פעם בשבוע','לעיתים רחוקות','זו הפעם הראשונה']},
+  {id:'mainDevice',title:'באיזה מכשיר אתה משתמש בדרך כלל באתר?',type:'single',required:true,options:['מחשב נייח או נייד','טלפון Android','iPhone','iPad או טאבלט Android','קונסולה','מכשיר אחר']},
+  {id:'browser',title:'באיזה דפדפן אתה משתמש בדרך כלל?',type:'single',required:true,options:['Google Chrome','Microsoft Edge','Safari','Firefox','דפדפן אחר','לא יודע']},
+  {id:'navigation',title:'כמה קל לך למצוא את מה שאתה מחפש באתר?',type:'single',required:true,options:['קל מאוד','די קל','בינוני','קשה','קשה מאוד']},
+  {id:'favoriteFeatures',title:'מה אתה הכי אוהב באתר? אפשר לבחור כמה תשובות.',type:'multi',options:['האלמנטים והרכיבים','סקריפטים וכלים לרובלוקס','העיצוב והגרפיקה','עדכונים וחדשות','הצוות והתמיכה','הקהילה והצ׳אט']},
+  {id:'wantedContent',title:'איזה תוכן היית רוצה לראות יותר?',type:'multi',options:['מדריכים והסברים','הצגת יצירות חדשות','עדכוני פיתוח','אירועים ואתגרים','סרטונים והדגמות','טיפים לרובלוקס']},
+  {id:'visualRating',title:'איך היית מדרג את המראה של האתר?',type:'single',required:true,options:['מצוין','יפה מאוד','בסדר','דורש שיפור']},
+  {id:'preferredStyle',title:'איזה סגנון גרפי אתה מעדיף?',type:'single',required:true,options:['PRIME כחול','ROG אדום','Neon צבעוני','כהה ומינימליסטי','תן לאתר לבחור']},
+  {id:'chatUse',title:'איך היית רוצה להשתמש בצ׳אט לייב?',type:'single',required:true,options:['לשוחח עם הצוות','לשאול חברים שאלות','לשוחח בקבוצה פרטית','לא משתמש בצ׳אט']},
+  {id:'notifications',title:'האם תרצה לקבל התראות על עדכונים חדשים?',type:'single',required:true,options:['כן, על כל עדכון','רק על הודעות חשובות','לא, תודה']},
+  {id:'improvements',title:'מה הכי חשוב לך שנשפר? אפשר לבחור כמה תשובות.',type:'multi',options:['מהירות טעינה','התאמה לטלפון ולטאבלט','גרפיקה ואנימציות','תוכן וכלים לרובלוקס','צ׳אט וקהילה','נגישות ונוחות']},
+  {id:'suggestion',title:'יש לך רעיון, בקשה או משהו נוסף שתרצה לספר לנו?',type:'text',placeholder:'כתוב כאן הצעה או רעיון (לא חובה)…'}
+];
+let surveyStep=0;const surveyAnswers={};
 function readSurvey(){try{return JSON.parse(localStorage.getItem(SURVEY_KEY)||'null');}catch(e){return null;}}
-function showWelcomeSurvey(){if(readSurvey())return;surveyOverlay.classList.add('open');surveyOverlay.setAttribute('aria-hidden','false');setTimeout(()=>$('#survey-love-1')?.focus(),220);}
+function showWelcomeSurvey(){if(readSurvey())return;surveyStep=0;Object.keys(surveyAnswers).forEach(k=>delete surveyAnswers[k]);renderSurveyStep();surveyOverlay.classList.add('open');surveyOverlay.setAttribute('aria-hidden','false');setTimeout(()=>$('#survey-step-container input')?.focus(),220);}
 function closeWelcomeSurvey(){surveyOverlay.classList.remove('open');surveyOverlay.setAttribute('aria-hidden','true');}
-$$('input[name="surveyContact"]').forEach(r=>r.addEventListener('change',()=>{
-  const wants=$('input[name="surveyContact"]:checked')?.value==='yes';const wrap=$('#survey-username-wrap'),field=$('#survey-roblox-user');wrap.hidden=!wants;field.required=wants;if(!wants)field.value='';
-}));
+function makeSurveyOption(q,opt,index){
+  const label=document.createElement('label');label.className='survey-choice';
+  const input=document.createElement('input');input.type=q.type==='multi'?'checkbox':'radio';input.name=q.id;input.value=opt;
+  const saved=surveyAnswers[q.id];input.checked=q.type==='multi'?Array.isArray(saved)&&saved.includes(opt):(q.id==='contact'?(saved==='כן'&&opt==='כן, אשמח'||saved==='לא'&&opt==='לא תודה'):saved===opt);
+  const span=document.createElement('span');span.textContent=opt;label.append(input,span);return label;
+}
+function renderSurveyStep(){
+  const host=$('#survey-step-container');host.innerHTML='';const start=surveyStep*3,questions=SURVEY_QUESTIONS.slice(start,start+3);
+  questions.forEach((q,offset)=>{
+    const field=document.createElement('fieldset');field.className='survey-question'+(q.type==='text'?' wide':'');
+    const legend=document.createElement('legend');const num=document.createElement('span');num.textContent=String(start+offset+1).padStart(2,'0');legend.append(num,document.createTextNode(q.title));field.appendChild(legend);
+    if(q.type==='single'||q.type==='multi'){
+      const opts=document.createElement('div');opts.className='survey-options'+(q.options.length<=2?' survey-options-two':'');
+      q.options.forEach((o,i)=>opts.appendChild(makeSurveyOption(q,o,i)));field.appendChild(opts);
+      if(q.type==='multi'){const note=document.createElement('small');note.className='survey-check-note';note.textContent='ניתן לסמן יותר מתשובה אחת.';field.appendChild(note);}
+    }else if(q.type==='conditional'){
+      const opts=document.createElement('div');opts.className='survey-options survey-options-two';q.options.forEach((o,i)=>opts.appendChild(makeSurveyOption({...q,type:'single'},o,i)));field.appendChild(opts);
+      const wrap=document.createElement('div');wrap.id='survey-username-wrap';wrap.className='survey-username';wrap.hidden=surveyAnswers.contact!=='כן';
+      const lab=document.createElement('label');lab.htmlFor='survey-roblox-user';lab.textContent='שם המשתמש שלך ברובלוקס';
+      const input=document.createElement('input');input.id='survey-roblox-user';input.className='chat-input';input.maxLength=20;input.minLength=3;input.autocomplete='off';input.placeholder='Roblox username';input.value=surveyAnswers.robloxUsername||'';input.dir='ltr';input.required=surveyAnswers.contact==='כן';
+      const small=document.createElement('small');small.textContent='שם משתמש בלבד — לעולם אל תזין סיסמה או קוד התחברות.';wrap.append(lab,input,small);field.appendChild(wrap);
+      opts.addEventListener('change',()=>{const yes=!!field.querySelector('input:checked')&&field.querySelector('input:checked').value==='כן, אשמח';wrap.hidden=!yes;input.required=yes;if(!yes)input.value='';});
+    }else if(q.type==='text'){
+      const area=document.createElement('textarea');area.className='survey-textarea';area.name=q.id;area.maxLength=700;area.placeholder=q.placeholder;area.value=surveyAnswers[q.id]||'';field.appendChild(area);
+    }
+    host.appendChild(field);
+  });
+  const total=Math.ceil(SURVEY_QUESTIONS.length/3),progress=Math.round((surveyStep+1)/total*100);
+  $('#survey-step-name').textContent='שלב '+(surveyStep+1)+' מתוך '+total;
+  $('#survey-step-count').textContent='שאלות '+(start+1)+'–'+Math.min(start+3,SURVEY_QUESTIONS.length)+' מתוך 15';
+  $('#survey-progress-fill').style.width=progress+'%';
+  $('.survey-progress').setAttribute('aria-valuenow',String(progress));
+  $('#survey-prev').hidden=surveyStep===0;$('#survey-next').hidden=surveyStep===total-1;$('#survey-submit').hidden=surveyStep!==total-1;
+  $('#survey-step-error').textContent='';
+}
+function collectSurveyStep(validate=true){
+  const start=surveyStep*3,questions=SURVEY_QUESTIONS.slice(start,start+3);
+  for(const q of questions){
+    const field=$$('#survey-step-container .survey-question')[questions.indexOf(q)];
+    if(q.type==='single'){
+      const chosen=field.querySelector('input:checked');if(q.required&&!chosen&&validate){$('#survey-step-error').textContent='צריך לבחור תשובה בשאלה: '+q.title;field.scrollIntoView({behavior:'smooth',block:'center'});return false;}surveyAnswers[q.id]=chosen?chosen.value:'';
+    }else if(q.type==='multi'){
+      surveyAnswers[q.id]=Array.from(field.querySelectorAll('input:checked')).map(x=>x.value);
+    }else if(q.type==='conditional'){
+      const chosen=field.querySelector('input:checked');if(!chosen&&validate){$('#survey-step-error').textContent='בחר כן או לא בשאלה על יצירת קשר.';return false;}
+      surveyAnswers.contact=chosen?(chosen.value==='כן, אשמח'?'כן':'לא'):'';
+      const username=field.querySelector('#survey-roblox-user');const value=(username?.value||'').trim();
+      if(surveyAnswers.contact==='כן'&&!/^[A-Za-z0-9_]{3,20}$/.test(value)){if(validate){$('#survey-step-error').textContent='שם המשתמש צריך להיות 3–20 אותיות באנגלית, מספרים או קו תחתון.';username?.focus();}return false;}
+      surveyAnswers.robloxUsername=surveyAnswers.contact==='כן'?value:'';
+    }else if(q.type==='text'){
+      surveyAnswers[q.id]=field.querySelector('textarea')?.value.trim()||'';
+    }
+  }
+  return true;
+}
+$('#survey-next').addEventListener('click',()=>{if(!collectSurveyStep(true))return;surveyStep=Math.min(surveyStep+1,4);renderSurveyStep();tick(900);});
+$('#survey-prev').addEventListener('click',()=>{collectSurveyStep(false);surveyStep=Math.max(0,surveyStep-1);renderSurveyStep();tick(760);});
 $('#welcome-survey-form').addEventListener('submit',e=>{
-  e.preventDefault();const fd=new FormData(e.currentTarget);const wants=fd.get('surveyContact')==='yes';
-  const username=wants?String(fd.get('robloxUsername')||'').trim().replace(/[<>]/g,'').slice(0,20):'';
-  if(wants&&!/^[A-Za-z0-9_]{3,20}$/.test(username)){$('#survey-roblox-user').setCustomValidity('הכניסו שם משתמש תקין באורך 3–20 תווים, באנגלית ובמספרים.');$('#survey-roblox-user').reportValidity();$('#survey-roblox-user').setCustomValidity('');return;}
-  const answers={robloxLove:fd.get('surveyLove'),communityElements:fd.get('surveyElements'),wantsContact:wants,robloxUsername:username,savedAt:new Date().toISOString(),storage:'local-only'};
+  e.preventDefault();if(!collectSurveyStep(true))return;
+  if(surveyStep<4){surveyStep++;renderSurveyStep();tick(900);return;}
+  const answers={...surveyAnswers,version:'9.9.0.1',savedAt:new Date().toISOString(),storage:'local-only'};
   try{localStorage.setItem(SURVEY_KEY,JSON.stringify(answers));$('#welcome-survey-form').hidden=true;$('#survey-done').hidden=false;tick(1150);}
-  catch(err){$('#survey-save-error').hidden=false;$('#survey-save-error').textContent='הדפדפן חסם שמירה מקומית. אפשר לאפשר אחסון לאתר ולנסות שוב.';}
+  catch(err){$('#survey-step-error').textContent='הדפדפן חסם שמירה מקומית. אפשר לאפשר אחסון לאתר ולנסות שוב.';}
 });
-function resetWelcomeSurvey(){try{localStorage.removeItem(SURVEY_KEY);}catch(e){}$('#welcome-survey-form').reset();$('#welcome-survey-form').hidden=false;$('#survey-done').hidden=true;$('#survey-username-wrap').hidden=true;$('#survey-roblox-user').required=false;$('#survey-save-error').hidden=true;closeSettings();showWelcomeSurvey();}
+function resetWelcomeSurvey(){try{localStorage.removeItem(SURVEY_KEY);localStorage.removeItem('bhnWelcomeSurvey_v9900');}catch(e){}Object.keys(surveyAnswers).forEach(k=>delete surveyAnswers[k]);surveyStep=0;$('#welcome-survey-form').hidden=false;$('#survey-done').hidden=true;renderSurveyStep();closeSettings();surveyOverlay.classList.add('open');surveyOverlay.setAttribute('aria-hidden','false');}
 $('#survey-done-close').addEventListener('click',closeWelcomeSurvey);
-$('#survey-copy-results').addEventListener('click',async()=>{const a=readSurvey();if(!a)return;const text='שאלון בואו להנות\nאהבת שירות הרובלוקס: '+a.robloxLove+'\nאהבת האלמנטים: '+a.communityElements+'\nמעוניין ביצירת קשר: '+(a.wantsContact?'כן':'לא')+'\nשם משתמש ברובלוקס: '+(a.robloxUsername||'לא נמסר');try{await navigator.clipboard.writeText(text);$('#survey-copy-results').textContent='הועתק ✓';}catch(e){$('#survey-copy-results').textContent='לא ניתן להעתיק — נסו שוב';}});
+$('#survey-copy-results').addEventListener('click',async()=>{const a=readSurvey();if(!a)return;const rows=SURVEY_QUESTIONS.map((q,i)=>`${i+1}. ${q.title}\n${q.id==='contact'?'בחירה: '+(a.contact||'')+'\nשם משתמש: '+(a.robloxUsername||'לא נמסר'):Array.isArray(a[q.id])?a[q.id].join(', '):a[q.id]||'לא נענה'}`);const text='שאלון בואו להנות · גרסה 9.9.0.1\n\n'+rows.join('\n\n')+'\n\nנשמר מקומית בלבד.';try{await navigator.clipboard.writeText(text);$('#survey-copy-results').textContent='הועתק ✓';}catch(e){$('#survey-copy-results').textContent='העתקה לא זמינה';}});
+// Reset the previous short survey so this 15-question onboarding is shown once after the upgrade.
+try{localStorage.removeItem('bhnWelcomeSurvey_v9900');}catch(e){}
+renderSurveyStep();
 
 /* ---------- ניווט ולשונית נגררת ---------- */
 const tabs = $$('.tab'), ind = $('#ind');
@@ -1624,7 +1801,7 @@ const win = $('#win'), root = document.documentElement.style;
 addEventListener('pointermove', e => {
   mx = e.clientX; my = e.clientY;
   const nx = e.clientX / innerWidth - .5, ny = e.clientY / innerHeight - .5, dp = P.depth / 100;
-  if (P.tilt && P.motion) { root.setProperty('--ry', (nx * 9 * dp).toFixed(2) + 'deg'); root.setProperty('--rx', (-ny * 7 * dp).toFixed(2) + 'deg'); root.setProperty('--tx', (nx * -16 * dp).toFixed(1)); }
+  if (P.tilt && P.motion && !P.reduceMotion) { root.setProperty('--ry', (nx * 9 * dp).toFixed(2) + 'deg'); root.setProperty('--rx', (-ny * 7 * dp).toFixed(2) + 'deg'); root.setProperty('--tx', (nx * -16 * dp).toFixed(1)); }
   const g = e.target.closest && e.target.closest('.glass,.tile'); if (g) { const r = g.getBoundingClientRect(); g.style.setProperty('--gx', (e.clientX - r.left) + 'px'); g.style.setProperty('--gy', (e.clientY - r.top) + 'px'); }
 });
 addEventListener('pointerdown', e => { if (unlocked) pulse(e.clientX, e.clientY, .55); });
@@ -1641,12 +1818,25 @@ const SCHEMA = [
     { k: 'solidGlass', type: 'tog', l: 'זכוכית פחות שקופה' },
     { k: 'compactUI', type: 'tog', l: 'ממשק קומפקטי' },
     { k: 'contentWidth', type: 'rng', l: 'רוחב חלון התוכן', min: 900, max: 1800, step: 50, u: 'px' } ] },
+  { id: 'devices', t: 'מכשירים ומסכים', i: 'fa-mobile-screen-button', c: '#19b7c9', items: [
+    { k: 'deviceMode', type: 'seg', l: 'פריסת מכשיר', d: 'התאמה אוטומטית או אילוץ תצוגת טלפון, טאבלט או מחשב', o: [['auto','אוטומטי'],['phone','טלפון'],['tablet','טאבלט / iPad'],['desktop','מחשב']] },
+    { k: 'navMode', type: 'seg', l: 'סגנון סרגל ניווט', o: [['auto','אוטומטי'],['bottom','תחתון'],['rail','צדדי במחשב'],['compact','סמלים בלבד']] },
+    { k: 'uiScale', type: 'rng', l: 'קנה מידה כללי של הממשק', min: 85, max: 125, step: 5, u: '%' },
+    { k: 'touchScale', type: 'rng', l: 'גודל אזורי מגע', d: 'מגדיל כפתורים ומטרות לחיצה בטלפון ובטאבלט', min: 90, max: 140, step: 5, u: '%' },
+    { k: 'mobileCompact', type: 'tog', l: 'פריסה קומפקטית למסכים קטנים' },
+    { k: 'safeArea', type: 'tog', l: 'התחשבות במגרעת ובאזורי בטיחות' },
+    { k: 'reduce3dOnPhone', type: 'tog', l: 'הפחתת עומס 3D בטלפונים' },
+    { type: 'note', l: 'זיהוי מסך', d: 'במצב אוטומטי האתר מתאים את הפריסה לרוחב החלון. ניתן לבחור ידנית מצב טלפון, טאבלט או מחשב.' }
+  ] },
   { id: 'gfx', t: 'גרפיקה', i: 'fa-microchip', c: '#bf5af2', items: [
     { k: 'quality', type: 'seg', l: 'איכות גרפית', o: [['low', 'נמוכה'], ['med', 'בינונית'], ['high', 'גבוהה'], ['ultra', 'אולטרה'], ['custom', 'מותאם']] },
     { type: 'note', l: 'רקע קבוע · PRIME BIOS', d: 'רקע PRIME קבוע; בחירת ROG Reactor מחליפה אוטומטית לסביבת גרפיקה אדומה בסגנון ROG.' },
     { k: 'pal', type: 'sw', l: 'צבעי הרקע וה־3D', o: 'pal' },
     { k: 'renderScale', type: 'rng', l: 'רזולוציית רינדור', d: '100% משתמש ברזולוציית המסך המלאה; התאמה אוטומטית יכולה להוריד עומס זמנית', min: 65, max: 100, step: 5, u: '%' },
     { k: 'bgBrightness', type: 'rng', l: 'בהירות הרקע', min: 60, max: 140, step: 5, u: '%' },
+    { k: 'bgSaturation', type: 'rng', l: 'רוויה של צבעי הרקע', min: 60, max: 160, step: 5, u: '%' },
+    { k: 'bgContrast', type: 'rng', l: 'ניגודיות שכבת הגרפיקה', min: 80, max: 140, step: 5, u: '%' },
+    { k: 'backgroundSharpness', type: 'rng', l: 'חדות תמונת הרקע', min: 70, max: 130, step: 5, u: '%' },
     { k: 'backgroundZoom', type: 'rng', l: 'זום הרקע', min: 85, max: 130, step: 5, u: '%' },
     { k: 'gridDensity', type: 'rng', l: 'צפיפות רשת טכנולוגית', min: 24, max: 96, step: 4, u: 'px' },
     { k: 'showGrid', type: 'tog', l: 'הצגת רשת רקע' },
@@ -1661,7 +1851,15 @@ const SCHEMA = [
     { k: 'particleDensity', type: 'rng', l: 'צפיפות חלקיקים', d: 'מוגבלת אוטומטית כדי לשמור על ביצועים', min: 20, max: 160, step: 10, u: '' },
     { k: 'layerDepth', type: 'rng', l: 'עומק שכבות ופרלקסה', min: 0, max: 100, step: 5, u: '%' },
     { k: 'interactiveFX', type: 'tog', l: 'אפקטים מגיבים לעכבר וללחיצות' },
-    { type: 'note', l: 'Babylon.js · Version 9.9.0.0', d: '16 עולמות רקע, מצלמת 3D, אובייקטים עם עומק אמיתי, חומרים ותאורה. במקרה ש־Babylon.js לא נטען, מוצג רקע CSS חלופי.' }
+    { k: 'cameraFov', type: 'rng', l: 'זווית ראייה של המצלמה', min: 32, max: 70, step: 2, u: '°' },
+    { k: 'orbitSpeed', type: 'rng', l: 'מהירות מסלולי האובייקט', min: 0, max: 250, step: 10, u: '%' },
+    { k: 'ambientLight3d', type: 'rng', l: 'תאורה סביבתית', min: 20, max: 140, step: 5, u: '%' },
+    { k: 'keyLight3d', type: 'rng', l: 'עוצמת אור ראשי', min: 20, max: 140, step: 5, u: '%' },
+    { k: 'metallic3d', type: 'rng', l: 'ברק וחומר מתכתי', min: 0, max: 100, step: 5, u: '%' },
+    { k: 'wireframe3d', type: 'tog', l: 'תצוגת רשת קווים (Wireframe)' },
+    { k: 'float3d', type: 'tog', l: 'ריחוף עדין של המודל' },
+    { k: 'pulse3d', type: 'tog', l: 'פעימת אנרגיה של ליבת המודל' },
+    { type: 'note', l: 'Babylon.js · Version 9.9.0.1', d: '16 עולמות רקע, שישה מודלים פרוצדורליים, שליטה במצלמה, במתכתיות, בתאורה ובריחוף. במקרה ש־Babylon.js לא נטען, מוצג רקע CSS חלופי.' }
   ] },
   { id: 'fx', t: 'אפקטים', i: 'fa-wand-magic-sparkles', c: '#ff375f', items: [
     { k: 'speed', type: 'rng', l: 'מהירות תנועה', min: 0, max: 300, step: 10, u: '%' },
@@ -1674,10 +1872,14 @@ const SCHEMA = [
     { k: 'scanlines', type: 'tog', l: 'קווי סריקה קולנועיים' },
     { k: 'ambientPulse', type: 'tog', l: 'פעימת תאורה סביבתית' },
     { k: 'sparkle', type: 'tog', l: 'נצנוץ חלקיקים' },
-    { k: 'ripple', type: 'tog', l: 'גלי אנרגיה בלחיצה' } ] },
+    { k: 'ripple', type: 'tog', l: 'גלי אנרגיה בלחיצה' },
+    { k: 'glassEdge', type: 'rng', l: 'עוצמת מסגרת Liquid Glass', min: 0, max: 100, step: 5, u: '%' },
+    { k: 'cardShadow', type: 'rng', l: 'עומק הצל של כרטיסים', min: 0, max: 120, step: 5, u: '%' },
+    { k: 'hoverLift', type: 'rng', l: 'גובה ריחוף כרטיסים', min: 0, max: 100, step: 5, u: '%' },
+    { k: 'cursorAura', type: 'tog', l: 'הילה מגיבה למיקום הסמן' } ] },
   { id: 'motion', t: 'תנועה ותלת־ממד', i: 'fa-cube', c: '#ff9f0a', items: [
     { k: 'engine3d', type: 'seg', l: 'הצגת מודל תלת־ממדי', d: 'בחירת תצוגה אוטומטית, פעילה תמיד או כבויה', o: [['auto', 'אוטומטי'], ['locked', 'מופעל תמיד'], ['off', 'כבוי']] },
-    { k: 'shape3d', type: 'sel', l: 'מודל תלת־ממדי', d: 'מודלים פרוצדורליים אמיתיים בתוך סצנת Babylon.js.', o: [['core','מעבד PRIME'],['crystal','קריסטל'],['rog','ROG Reactor'],['cube','Holo Cube — קוביית אנרגיה'],['reactor','NOVA Turbine — טורבינת אנרגיה']] },
+    { k: 'shape3d', type: 'sel', l: 'מודל תלת־ממדי', d: 'מודלים פרוצדורליים אמיתיים בתוך סצנת Babylon.js.', o: [['core','מעבד PRIME'],['crystal','קריסטל'],['rog','ROG Reactor'],['cube','Holo Cube — קוביית אנרגיה'],['reactor','NOVA Turbine — טורבינת אנרגיה'],['aether','AETHER Prism Reactor — כור פריזמה']] },
     { k: 'zoom3d', type: 'rng', l: 'זום מצלמת 3D', min: 80, max: 140, step: 5, u: '%' },
     { k: 'detail3d', type: 'rng', l: 'רמת פירוט המודל', min: 40, max: 100, step: 5, u: '%' },
     { k: 'glow3d', type: 'rng', l: 'עוצמת תאורה והילה', min: 0, max: 100, step: 5, u: '%' },
@@ -1712,6 +1914,7 @@ const SCHEMA = [
     { k: 'underlineLinks', type: 'tog', l: 'קו תחתון לקישורים' },
     { k: 'solidGlass', type: 'tog', l: 'הפחתת שקיפות וטשטוש' },
     { k: 'contrast', type: 'tog', l: 'ניגודיות גבוהה' },
+    { k: 'reduceMotion', type: 'tog', l: 'הפחתת תנועה ואנימציות' },
     { type: 'note', l: 'תמיכה בנגישות', d: 'אפשר להשתמש במקלדת, להתמקד בכפתורים ולשנות את גודל הטקסט מתפריט התצוגה.' }
   ] },
   { id: 'notify', t: 'התראות', i: 'fa-bell', c: '#ff9f0a', items: [
@@ -1724,7 +1927,12 @@ const SCHEMA = [
     { k: 'saveChatName', type: 'tog', l: 'שמירת הכינוי במכשיר הזה' },
     { k: 'chatTimestamps', type: 'tog', l: 'הצגת שעה ליד הודעות' },
     { type: 'btn', l: 'מחיקת הכינוי השמור', b: 'נקה כינוי', act: 'clearChatName', red: true },
-    { type: 'note', l: 'חדרי הקהילה', d: 'בצ׳אט יש חדר כללי, חדר עזרה וחדר הצעות. החיבור נעשה ישירות בין דפדפנים באמצעות WebRTC, ללא מסד הודעות בענן.' }
+    { type: 'note', l: 'חדרי הקהילה', d: 'החדרים הם ערוצים לוגיים בין חברים שחוברו בקודי WebRTC. אין צ׳אט ציבורי לכל המבקרים, כי חיבור כזה מחייב תיווך/איתות כלשהו.' }
+  ] },
+  { id: 'personal', t: 'העדפות אישיות', i: 'fa-user-gear', c: '#d58bff', items: [
+    { k: 'confirmExternalLinks', type: 'tog', l: 'אישור לפני פתיחת קישורים חיצוניים' },
+    { k: 'autoSavePrefs', type: 'tog', l: 'שמירה אוטומטית של העדפות' },
+    { type: 'note', l: 'שליטה במידע', d: 'כאשר שמירה אוטומטית כבויה, שינויי העדפות יחולו עד סגירת הדף ולא יישמרו לפעם הבאה.' }
   ] },
   { id: 'privacy', t: 'פרטיות', i: 'fa-shield-halved', c: '#6b9bb8', items: [
     { type: 'note', l: 'שמירת מידע', d: 'תשובות שאלון הכניסה והעדפות נשמרות מקומית בדפדפן הזה. הודעות הצ׳אט עוברות ישירות בין משתמשים ואינן נשמרות בענן או אחרי רענון.' },
@@ -1749,7 +1957,9 @@ function setVal(k, v) {
   if (k === 'shape3d' && v === 'rog') { P.pal = 'rog'; P.scene = 'rog'; }
   if (k === 'quality' && PRESETS[v]) { Object.assign(P, PRESETS[v]); }
   else if (GFX_KEYS.includes(k) && P.quality !== 'custom') { P.quality = 'custom'; const q = $('[data-k="quality"]'); if (q) $$('button', q).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === 'custom'))); }
-  save(); apply();
+  if(k==='autoSavePrefs'){if(v)save();}
+  else if(P.autoSavePrefs!==false) save();
+  apply();
   if (k === 'scene' || k === 'engine3d' || k === 'shape3d') buildPane();
 }
 function buildPane() {
@@ -1799,6 +2009,7 @@ function closeSettings() { so.classList.remove('open'); so.setAttribute('aria-hi
 $('#btn-settings').addEventListener('click', openSettings);
 so.addEventListener('click', e => { if (e.target === so) closeSettings(); });
 addEventListener('keydown', e => { if (e.key === 'Escape') { closeSettings(); closeSuccess(); } });
+document.addEventListener('click',e=>{if(!P.confirmExternalLinks)return;const a=e.target.closest&&e.target.closest('a[target="_blank"]');if(!a)return;e.preventDefault();if(confirm('לפתוח קישור חיצוני בכרטיסייה חדשה?\n'+a.href))window.open(a.href,'_blank','noopener,noreferrer');},true);
 
 /* ---------- שליחת טפסים (Web3Forms, אותו מפתח) ---------- */
 const sx = $('#success');
