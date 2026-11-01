@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="application-version" content="8.3.7">
-<title>בואו להנות | 3D Engine — Version 8.3.7</title>
+<meta name="application-version" content="8.3.8">
+<title>בואו להנות | 3D Engine — Version 8.3.8</title>
 <link rel="icon" type="image/png" href="logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -272,7 +272,7 @@ select.input option{background:var(--bg);color:var(--label)}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
-/* ================= V8.3.7 / NEXT-GEN 3D FINISH ================= */
+/* ================= V8.3.8 / NEXT-GEN 3D FINISH ================= */
 #gl{filter:saturate(1.22) contrast(1.08) brightness(.98);}
 #fx{mix-blend-mode:screen;opacity:.68}
 body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
@@ -293,7 +293,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 @media(max-width:760px){.brand-title{gap:6px}.version-chip{font-size:.56rem;padding:3px 6px}}
 
 
-/* ================= V8.3.7 / PRIME BIOS VISUAL SYSTEM ================= */
+/* ================= V8.3.8 / PRIME + ROG VISUAL SYSTEM ================= */
 :root{--c1:#0860e8;--c2:#14b8ff;--c3:#6ee7ff}
 #gl{transform:translateZ(0);will-change:contents}
 #fx{filter:blur(.15px)}
@@ -335,7 +335,7 @@ body::after{background:radial-gradient(58% 48% at 50% 48%,transparent 16%,rgba(0
 <!-- ================= האתר ================= -->
 <div id="app">
   <header class="topbar glass">
-    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 8.3.7</span></div><p>הקהילה מתחילה כאן · PRIME BIOS · Real-time 3D</p></div></div>
+    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 8.3.8</span></div><p>הקהילה מתחילה כאן · PRIME BIOS · Real-time 3D</p></div></div>
     <button class="ibtn" id="btn-relock" aria-label="נעילת מסך"><i class="fas fa-lock"></i></button>
     <button class="ibtn" id="btn-settings" aria-label="הגדרות"><i class="fas fa-gear"></i></button>
   </header>
@@ -532,7 +532,7 @@ const DEF = Object.assign({
   ripple: true, motion: !sysCalm, tilt: true, depth: 60, spot: true, tspeed: 100,
   hud: false, saver: false, pauseHidden: true, debug: false,
   sound: false, vol: 50, haptic: false,
-  engine3d: 'auto', zoom3d: 112, detail3d: 88, glow3d: 92, rotate3d: true, shadows3d: true, shape3d: 'core'
+  engine3d: 'auto', zoom3d: 112, detail3d: 92, glow3d: 96, rotate3d: true, shadows3d: true, shape3d: 'core'
 }, PRESETS[q0]);
 let P = Object.assign({}, DEF);
 try {
@@ -544,7 +544,7 @@ try {
   }
 } catch (e) {}
 P.wall = 'prime';
-P.shape3d = P.shape3d === 'crystal' ? 'crystal' : 'core';
+P.shape3d = ['crystal','rog'].includes(P.shape3d) ? P.shape3d : 'core';
 const save = () => store.set('prefs3', JSON.stringify(P));
 
 const ACC = { blue: '#0a84ff', purple: '#bf5af2', pink: '#ff375f', green: '#30d158', orange: '#ff9f0a' };
@@ -553,7 +553,8 @@ const PAL = {
   arctic:  { c: [[.02,.48,.78],[.30,.82,1],[.78,.95,1]], css: ['#087ac7', '#4dd2ff', '#c7f4ff'], n: 'Arctic' },
   violet:  { c: [[.27,.28,.88],[.35,.62,1],[.77,.58,1]], css: ['#4648e0', '#5aa0ff', '#c58cff'], n: 'Violet' },
   emerald: { c: [[.02,.42,.50],[.05,.78,.70],[.42,.96,.82]], css: ['#087b8c', '#12c8b0', '#70f5d5'], n: 'Emerald' },
-  graphite:{ c: [[.28,.43,.62],[.55,.72,.88],[.82,.92,1]], css: ['#496f9e', '#8db8df', '#d1e8ff'], n: 'Graphite' }
+  graphite:{ c: [[.28,.43,.62],[.55,.72,.88],[.82,.92,1]], css: ['#496f9e', '#8db8df', '#d1e8ff'], n: 'Graphite' },
+  rog:     { c: [[.34,.018,.055],[.98,.045,.12],[1.0,.34,.25]], css: ['#861329', '#ff2448', '#ff8068'], n: 'ROG Red' }
 };
 if (!PAL[P.pal]) P.pal = 'prime';
 const WALL = { prime: 0 }; // הרקע הקבוע: לוח אם בסגנון PRIME BIOS
@@ -624,6 +625,39 @@ vec3 field(vec2 uv,float t){
   float scan=pow(max(0.,1.-abs(fract(t*.045)-fract((p.x+p.y*.34+2.)*.19))*7.),5.);
   col+=uC2*scan*.055;
   col+=uC1*radial*.09;
+  // ROG-inspired dark graphite / crimson motherboard scene, enabled by the ROG model.
+  if(uShape>1.5){
+    vec3 redBase=vec3(.004,.004,.010);
+    float redHalo=exp(-length(p*vec2(.88,1.05))*1.55);
+    col=mix(redBase,vec3(.035,.006,.019),.34+.22*redHalo);
+    float slashA=1.-smoothstep(.003,.018,abs(p.y-(.58*p.x+.26)));
+    float slashB=1.-smoothstep(.003,.018,abs(p.y-(-.58*p.x-.26)));
+    float slashC=1.-smoothstep(.004,.022,abs(p.y-(.34*p.x-.48)));
+    col+=uC1*(slashA*.15+slashB*.15+slashC*.09);
+    float circuit=10.;
+    circuit=min(circuit,segDist(p,vec2(-1.02,.58),vec2(-.72,.58)));
+    circuit=min(circuit,segDist(p,vec2(-.72,.58),vec2(-.72,.38)));
+    circuit=min(circuit,segDist(p,vec2(-.72,.38),vec2(-.48,.38)));
+    circuit=min(circuit,segDist(p,vec2(.48,-.38),vec2(.72,-.38)));
+    circuit=min(circuit,segDist(p,vec2(.72,-.38),vec2(.72,-.58)));
+    circuit=min(circuit,segDist(p,vec2(.72,-.58),vec2(1.02,-.58)));
+    float cCore=1.-smoothstep(.002,.006,circuit);
+    col+=uC2*(cCore*.72+exp(-circuit*30.)*.18);
+    // Large, low-contrast angular eye mark behind the 3D reactor.
+    float eyeY=.27*(1.-abs(p.x)/.92);
+    float eyeLine=abs(abs(p.y)-eyeY);
+    float eyeGlow=exp(-eyeLine*72.)*step(abs(p.x),.92);
+    float eyeBottom=exp(-abs(abs(p.y)+eyeY)*72.)*step(abs(p.x),.92);
+    col+=uC1*(eyeGlow+eyeBottom)*.10;
+    float iris=exp(-dot(p,p)*24.);
+    col+=uC3*iris*.055;
+    vec2 rg=floor((p+vec2(1.6,1.2))*vec2(42.,34.));
+    float led=step(.9965,hash(rg))* (.35+.65*sin(t*2.1+hash(rg+7.)*24.));
+    col+=uC3*led*.18;
+    float scanR=pow(max(0.,1.-abs(fract(t*.055)-fract((p.x-p.y*.24+2.)*.16))*8.),5.);
+    col+=uC2*scanR*.075;
+    col+=vec3(.045,.004,.016)*redHalo;
+  }
   float vign=1.-.30*smoothstep(.35,1.25,length(p*vec2(.82,1.0)));
   return col*vign;
 }
@@ -632,6 +666,7 @@ vec3 rotY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s
 vec3 rotZ(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
 float sdSphere(vec3 p,float r){return length(p)-r;}
 float sdTorus(vec3 p,vec2 t){return length(vec2(length(p.xz)-t.x,p.y))-t.y;}
+float sdTorusZ(vec3 p,vec2 t){return length(vec2(length(p.xy)-t.x,p.z))-t.y;}
 float sdOcta(vec3 p,float s){p=abs(p);return (p.x+p.y+p.z-s)*.57735027;}
 vec2 opU(vec2 a,vec2 b){return a.x<b.x?a:b;}
 float sdBox(vec3 p,vec3 b){vec3 q=abs(p)-b;return length(max(q,0.))+min(max(q.x,max(q.y,q.z)),0.);}
@@ -655,15 +690,39 @@ vec2 scene(vec3 p){
     vec2 py=vec2(mod(q.y+.90,.19)-.095,abs(q.x)-.98);
     float pinsB=sdBox(vec3(py.y,py.x,q.z-.015),vec3(.095,.035,.045));
     d=opU(d,vec2(min(pinsA,pinsB),5.));
-  }else{
+  }else if(uShape<1.5){
     float wave=sin(q.x*8.+uTime*.48)*sin(q.y*7.-uTime*.32)*sin(q.z*8.)*.012;
     d=vec2(sdOcta(q,1.16)+wave,1.);
+  }else{
+    // ROG-inspired angular eye reactor: graphite chassis, beveled crimson eye plate and plasma iris.
+    d=vec2(sdRoundBox(q,vec3(.88,.62,.17),.13),11.);
+    float outerEye=max(abs(q.y)-(.43*(1.-abs(q.x)/.98)),abs(q.x)-.98);
+    float outerEye3=max(outerEye,abs(q.z-.20)-.115);
+    float innerEye=max(abs(q.y)-(.205*(1.-abs(q.x)/.57)),abs(q.x)-.57);
+    float innerEye3=max(innerEye,abs(q.z-.22)-.16);
+    d=opU(d,vec2(max(outerEye3,-innerEye3),12.));
+    // Three swept armor blades on each side.
+    vec3 bl1=rotZ(q-vec3(-.60,.38,.02),-.38);
+    vec3 bl2=rotZ(q-vec3(-.64,.16,.01),-.20);
+    vec3 br1=rotZ(q-vec3(.60,.38,.02),.38);
+    vec3 br2=rotZ(q-vec3(.64,.16,.01),.20);
+    float blades=min(min(sdRoundBox(bl1,vec3(.34,.052,.075),.025),sdRoundBox(bl2,vec3(.30,.042,.065),.02)),min(sdRoundBox(br1,vec3(.34,.052,.075),.025),sdRoundBox(br2,vec3(.30,.042,.065),.02)));
+    d=opU(d,vec2(blades,12.));
+    d=opU(d,vec2(sdOcta(q-vec3(0.,0.,.30),.255),14.));
+    d=opU(d,vec2(sdTorusZ(q-vec3(0.,0.,.19),vec2(.34,.025)),13.));
+    // Machined side ports and metallic fasteners.
+    for(int i=0;i<4;i++){
+      float x=-.60+float(i)*.40;
+      d=opU(d,vec2(sdSphere(q-vec3(x,.51,.16),.035),15.));
+      d=opU(d,vec2(sdSphere(q-vec3(x,-.51,.16),.035),15.));
+    }
   }
   // Two precision orbital rings and a third thin signal ring.
   vec3 r=rotZ(rotX(q,1.13),.16);
-  d=opU(d,vec2(sdTorus(r,vec2(1.34,.032)),6.));
-  d=opU(d,vec2(sdTorus(r,vec2(1.51,.012)),7.));
-  d=opU(d,vec2(sdTorus(rotX(q,1.13),vec2(1.20,.009)),6.));
+  float ringScale=uShape>1.5?1.10:1.0;
+  d=opU(d,vec2(sdTorus(r,vec2(1.34*ringScale,.032)),6.));
+  d=opU(d,vec2(sdTorus(r,vec2(1.51*ringScale,.012)),7.));
+  d=opU(d,vec2(sdTorus(rotX(q,1.13),vec2(1.20*ringScale,.009)),6.));
   float a=uTime*.42*rot;
   vec3 s1=vec3(cos(a)*1.82,sin(a*.71)*.58,sin(a)*1.82);
   vec3 s2=vec3(cos(-a*.72+2.2)*2.08,sin(a*.48+1.)*.78,sin(-a*.72+2.2)*2.08);
@@ -713,7 +772,13 @@ void main(){
       float spec=pow(max(dot(reflect(-lightDir,n),view),0.),mix(48.,110.,u3DQuality));
       float fres=pow(1.-max(dot(n,view),0.),3.2);
       vec3 base=uC1;
-      if(mat<1.5){base=mix(uC1,uC2,.22+.12*sin(pos.x*18.+pos.y*17.));}
+      if(uShape>1.5&&mat>10.5){
+        if(mat<11.5)base=vec3(.045,.052,.075);
+        else if(mat<12.5)base=mix(uC1,vec3(.075,.008,.022),.28);
+        else if(mat<13.5)base=mix(uC2,uC3,.35);
+        else if(mat<14.5)base=mix(uC2,vec3(1.,.20,.12),.48+.18*sin(t*2.));
+        else base=vec3(.46,.52,.61);
+      }else if(mat<1.5){base=mix(uC1,uC2,.22+.12*sin(pos.x*18.+pos.y*17.));}
       else if(mat<2.5){base=mix(uC2,vec3(.58,.78,.94),.58);}
       else if(mat<3.5){base=mix(uC1,uC2,.52);}
       else if(mat<4.5){base=mix(uC2,uC3,.62+.18*sin(t*1.7));}
@@ -800,7 +865,7 @@ function loop(now) {
     gl.uniform1f(U.uGlow, P.glow3d / 100);
     gl.uniform1f(U.uShadows, P.shadows3d ? 1 : 0);
     gl.uniform1f(U.uRotate, P.rotate3d && P.motion ? 1 : 0);
-    gl.uniform1f(U.uShape, P.shape3d === 'crystal' ? 1 : 0);
+    gl.uniform1f(U.uShape, P.shape3d === 'rog' ? 2 : P.shape3d === 'crystal' ? 1 : 0);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
   /* בוקה */
@@ -913,7 +978,7 @@ const SCHEMA = [
     { k: 'contrast', type: 'tog', l: 'ניגודיות גבוהה' } ] },
   { id: 'gfx', t: 'גרפיקה', i: 'fa-microchip', c: '#bf5af2', items: [
     { k: 'quality', type: 'seg', l: 'איכות גרפית', o: [['low', 'נמוכה'], ['med', 'בינונית'], ['high', 'גבוהה'], ['ultra', 'אולטרה'], ['custom', 'מותאם']] },
-    { type: 'note', l: 'רקע קבוע · PRIME BIOS', d: 'עיצוב לוח אם כחול מובנה ב־WebGL. אפשר לשנות את הצבעים בלבד, לא להחליף את הרקע.' },
+    { type: 'note', l: 'רקע קבוע · PRIME BIOS', d: 'רקע PRIME קבוע; בחירת ROG Reactor מחליפה אוטומטית לסביבת גרפיקה אדומה בסגנון ROG.' },
     { k: 'pal', type: 'sw', l: 'צבעי הרקע וה־3D', o: 'pal' },
     { k: 'renderScale', type: 'rng', l: 'רזולוציית רינדור', d: 'נמוך = מהיר יותר', min: 40, max: 150, step: 5, u: '%' },
     { k: 'fps', type: 'seg', l: 'הגבלת FPS', o: [[30, '30'], [60, '60'], [120, '120'], [0, 'ללא']] } ] },
@@ -927,7 +992,7 @@ const SCHEMA = [
     { k: 'ripple', type: 'tog', l: 'גלי הלם בלחיצה ובמעברים' } ] },
   { id: 'motion', t: 'תנועה ותלת־ממד', i: 'fa-cube', c: '#ff9f0a', items: [
     { k: 'engine3d', type: 'seg', l: 'מנוע 3D מובנה', d: 'אוטומטי מתאים איכות לביצועים; נעילה שומרת על מנוע תלת־ממד פעיל', o: [['auto', 'אוטומטי'], ['locked', 'נעילת 3D'], ['off', 'כבוי']] },
-    { k: 'shape3d', type: 'seg', l: 'מודל תלת־ממדי', o: [['core', 'מעבד PRIME'], ['crystal', 'קריסטל']] },
+    { k: 'shape3d', type: 'seg', l: 'מודל תלת־ממדי', o: [['core', 'מעבד PRIME'], ['crystal', 'קריסטל'], ['rog', 'ROG Reactor']] },
     { k: 'zoom3d', type: 'rng', l: 'זום מצלמת 3D', min: 80, max: 140, step: 5, u: '%' },
     { k: 'detail3d', type: 'rng', l: 'איכות מנוע 3D', min: 40, max: 100, step: 5, u: '%' },
     { k: 'glow3d', type: 'rng', l: 'עוצמת תאורה והילה', min: 0, max: 100, step: 5, u: '%' },
@@ -961,6 +1026,8 @@ function buildCats() {
 }
 function setVal(k, v) {
   P[k] = v;
+  if (k === 'shape3d' && v === 'rog') P.pal = 'rog';
+  else if (k === 'shape3d' && v !== 'rog' && P.pal === 'rog') P.pal = 'prime';
   if (k === 'quality' && PRESETS[v]) { Object.assign(P, PRESETS[v]); }
   else if (GFX_KEYS.includes(k) && P.quality !== 'custom') { P.quality = 'custom'; const q = $('[data-k="quality"]'); if (q) $$('button', q).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === 'custom'))); }
   save(); apply();
