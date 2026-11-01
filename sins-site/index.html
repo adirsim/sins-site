@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="application-version" content="9.6.23.40">
-<title>בואו להנות | Babylon.js Engine — Version 9.6.23.40</title>
+<meta name="application-version" content="9.6.23.41">
+<title>בואו להנות | Babylon.js Engine — Version 9.6.23.41</title>
 <link rel="icon" type="image/png" href="logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -301,7 +301,7 @@ select.input option{background:var(--bg);color:var(--label)}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
-/* ================= V9.6.23.40 / NOVA VISUAL ENGINE ================= */
+/* ================= V9.6.23.41 / NOVA VISUAL ENGINE ================= */
 #gl{filter:saturate(1.22) contrast(1.08) brightness(.98);}
 #fx{mix-blend-mode:screen;opacity:.84;pointer-events:none}
 body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
@@ -322,7 +322,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 @media(max-width:760px){.brand-title{gap:6px}.version-chip{font-size:.56rem;padding:3px 6px}}
 
 
-/* ================= V9.6.23.40 / NOVA SCENE SYSTEM ================= */
+/* ================= V9.6.23.41 / NOVA SCENE SYSTEM ================= */
 :root{--c1:#0860e8;--c2:#14b8ff;--c3:#6ee7ff}
 #gl{transform:translateZ(0);will-change:contents}
 #fx{filter:blur(.15px)}
@@ -333,7 +333,7 @@ body::after{background:radial-gradient(58% 48% at 50% 48%,transparent 16%,rgba(0
 .info{line-height:1.55}
 
 
-/* ================= NOVA ENGINE / 9.6.23.40 ================= */
+/* ================= NOVA ENGINE / 9.6.23.41 ================= */
 #fx{will-change:contents;filter:blur(.12px) saturate(1.18);}
 .sselect{width:min(100%,360px);padding:12px 15px;border-radius:14px;border:1px solid var(--sep);background:var(--field);color:var(--label);font-weight:700;outline:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.10);}
 .sselect:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
@@ -402,6 +402,72 @@ body::before{content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;ba
 .sbtn{background:rgba(33,129,220,.18);color:#dff4ff;border:1px solid rgba(120,200,255,.18);}
 @media(max-width:760px){.stage{inset:calc(86px + env(safe-area-inset-top,0px)) 10px calc(98px + env(safe-area-inset-bottom,0px));}.hero{min-height:280px}.hero::after{inset-inline-start:28%;opacity:.55}}
 
+
+
+/* ================= VERSION 9.6.23.41 · FULL VIEWPORT + NEW UI ================= */
+html,body{width:100%;height:100%;min-height:100%;}
+body{min-height:100dvh;}
+#gl{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;max-width:none!important;max-height:none!important;display:block;object-fit:fill;}
+#fx{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;max-width:none!important;max-height:none!important;}
+.window{width:min(var(--content-max,1200px),100%);}
+.compact-ui .panel{padding:30px clamp(18px,3vw,38px) 26px;}
+.compact-ui .tile{padding:18px;}
+.compact-ui .srow{padding:9px 13px;}
+.solid-ui .glass{--blur:8px!important;-webkit-backdrop-filter:blur(8px) saturate(130%)!important;backdrop-filter:blur(8px) saturate(130%)!important;background:rgba(7,18,36,.90)!important;}
+.link-underline a{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;}
+.large-controls .btn,.large-controls .ibtn,.large-controls .tab,.large-controls .sbtn{min-height:48px;}
+.sticky-titles .panel>h2.title{position:sticky;top:-1px;z-index:4;padding:8px 0 12px;background:linear-gradient(180deg,rgba(7,20,40,.96),rgba(7,20,40,.76) 78%,transparent);backdrop-filter:blur(8px);}
+:root{--line-height:1.45;}
+body{line-height:var(--line-height,1.45);}
+#tabbar{width:min(760px,calc(100vw - 20px));overflow-x:auto;overflow-y:hidden;scrollbar-width:none;justify-content:space-between;}
+#tabbar::-webkit-scrollbar{display:none;}
+#tabbar .tab{flex:1 0 72px;}
+@media(max-width:760px){
+ #tabbar{width:calc(100vw - 16px);padding:5px;gap:1px;}
+ #tabbar .tab{flex:1 0 46px;min-width:46px;padding:8px 6px;}
+ #tabbar .tab span{display:none;}
+ .stage{inset:calc(86px + env(safe-area-inset-top,0px)) 8px calc(102px + env(safe-area-inset-bottom,0px));}
+}
+
+/* Live chat */
+.chat-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+.chat-head .title{margin-bottom:8px!important;}
+.chat-subtitle{color:rgba(220,235,255,.68);font-size:.94rem;}
+.chat-status{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);font-size:.8rem;font-weight:800;color:#dcecff;}
+.chat-status::before{content:"";width:8px;height:8px;border-radius:50%;background:#ffb84d;box-shadow:0 0 12px currentColor;}
+.chat-status.is-online{color:#8df0b5;border-color:rgba(60,220,140,.24);background:rgba(30,190,110,.09);}
+.chat-status.is-online::before{background:#30d158;}
+.chat-status.is-error{color:#ff9d9d;border-color:rgba(255,80,80,.25);background:rgba(255,50,50,.08);}
+.chat-toolbar{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px;}
+.chat-name-form{display:flex;align-items:end;gap:9px;flex:1;min-width:min(100%,280px);}
+.chat-name-field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;}
+.chat-name-field label{font-size:.78rem;font-weight:800;color:rgba(220,235,255,.72);}
+.chat-input{width:100%;min-width:0;padding:11px 14px;border-radius:14px;border:1px solid rgba(140,195,255,.20);background:rgba(2,12,28,.58);color:#f4f9ff;outline:none;}
+.chat-input:focus{border-color:#26b9ff;box-shadow:0 0 0 3px rgba(38,185,255,.14);}
+.chat-mini-btn{border:1px solid rgba(140,195,255,.22);border-radius:13px;padding:11px 15px;background:rgba(35,126,220,.20);color:#eaf7ff;font-weight:800;cursor:pointer;white-space:nowrap;}
+.chat-rooms{display:flex;gap:7px;flex-wrap:wrap;}
+.chat-room{border:1px solid rgba(140,195,255,.16);border-radius:999px;padding:9px 14px;background:rgba(255,255,255,.05);color:rgba(230,242,255,.76);font-weight:800;cursor:pointer;}
+.chat-room[aria-pressed="true"]{background:linear-gradient(120deg,rgba(0,132,255,.30),rgba(20,184,255,.16));border-color:rgba(65,185,255,.48);color:#fff;box-shadow:0 6px 22px rgba(0,132,255,.12);}
+.chat-board{height:min(48vh,520px);min-height:270px;display:flex;flex-direction:column;border:1px solid rgba(140,195,255,.17);border-radius:22px;overflow:hidden;background:linear-gradient(145deg,rgba(2,13,30,.72),rgba(5,23,45,.58));box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 48px rgba(0,0,0,.16);}
+.chat-messages{flex:1;min-height:0;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:11px;scroll-behavior:smooth;}
+.chat-message{max-width:min(82%,680px);align-self:flex-start;padding:11px 14px;border-radius:17px 17px 17px 5px;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.07);color:#eff7ff;overflow-wrap:anywhere;box-shadow:0 8px 22px rgba(0,0,0,.10);}
+.chat-message.mine{align-self:flex-end;border-radius:17px 17px 5px 17px;background:linear-gradient(130deg,rgba(0,116,230,.42),rgba(18,157,220,.22));border-color:rgba(90,190,255,.20);}
+.chat-message.system{align-self:center;max-width:95%;text-align:center;background:rgba(255,184,77,.08);border-color:rgba(255,184,77,.17);color:#ffdda6;font-size:.84rem;}
+.chat-message-head{display:flex;align-items:center;gap:10px;margin-bottom:4px;font-size:.76rem;font-weight:900;color:#9bdcff;}
+.chat-message.mine .chat-message-head{color:#b7e6ff;}
+.chat-message-text{font-size:.94rem;line-height:1.55;white-space:pre-wrap;}
+.chat-time{margin-inline-start:auto;font-size:.68rem;font-weight:600;color:rgba(230,242,255,.48);direction:ltr;}
+.hide-chat-time .chat-time{display:none;}
+.chat-compose{display:flex;gap:9px;padding:12px;border-top:1px solid rgba(140,195,255,.13);background:rgba(1,10,24,.35);}
+.chat-compose input{flex:1;min-width:0;}
+.chat-send{width:48px;height:46px;flex:0 0 48px;border:0;border-radius:14px;background:linear-gradient(135deg,#0878ed,#12b7ed);color:white;font-size:1.1rem;cursor:pointer;box-shadow:0 9px 24px rgba(0,132,255,.22);}
+.chat-send:disabled,.chat-input:disabled{opacity:.45;cursor:not-allowed;}
+.chat-help{margin-top:11px;color:rgba(220,235,255,.60);font-size:.81rem;line-height:1.6;}
+.chat-setup{margin-top:12px;border:1px solid rgba(255,184,77,.18);background:rgba(255,184,77,.06);border-radius:16px;padding:12px 15px;color:#ffe1b3;font-size:.83rem;line-height:1.6;}
+.chat-setup summary{font-weight:900;cursor:pointer;}
+.chat-setup code{direction:ltr;display:block;white-space:pre-wrap;overflow-wrap:anywhere;background:rgba(0,0,0,.24);border-radius:10px;padding:10px;margin-top:9px;color:#c9edff;font: .76rem/1.5 ui-monospace,monospace;}
+@media(max-width:700px){.chat-board{height:44vh;min-height:250px}.chat-toolbar{align-items:stretch}.chat-rooms{width:100%}.chat-room{flex:1}.chat-name-form{min-width:100%;}.chat-message{max-width:94%}.chat-messages{padding:12px;}}
+
 </style>
 </head>
 <body>
@@ -434,7 +500,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;ba
 <!-- ================= האתר ================= -->
 <div id="app">
   <header class="topbar glass">
-    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 9.6.23.40</span></div><p>הקהילה מתחילה כאן · NOVA Visual Studio · Babylon.js 3D</p></div></div>
+    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 9.6.23.41</span></div><p>הקהילה מתחילה כאן · NOVA Visual Studio · Babylon.js 3D</p></div></div>
     <button class="ibtn" id="btn-relock" aria-label="נעילת מסך"><i class="fas fa-lock"></i></button>
     <button class="ibtn" id="btn-settings" aria-label="הגדרות"><i class="fas fa-gear"></i></button>
   </header>
@@ -578,6 +644,61 @@ body::before{content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;ba
       </div>
     </section>
 
+
+    <!-- צ'אט לייב -->
+    <section id="p-livechat" class="panel">
+      <div class="chat-head">
+        <div><h2 class="title">צ׳אט לייב</h2><p class="chat-subtitle">שיחות הקהילה בזמן אמת · בחרו חדר והצטרפו לשיחה</p></div>
+        <div class="chat-status" id="chat-status" aria-live="polite">ממתין לחיבור שרת</div>
+      </div>
+      <div class="chat-toolbar">
+        <form class="chat-name-form" id="chat-name-form">
+          <div class="chat-name-field"><label for="chat-nickname">השם שיוצג בצ׳אט</label><input id="chat-nickname" class="chat-input" maxlength="24" minlength="2" placeholder="כתבו כינוי" autocomplete="nickname" required></div>
+          <button class="chat-mini-btn" type="submit"><i class="fas fa-user-check"></i> שמירת שם</button>
+        </form>
+        <div class="chat-rooms" role="group" aria-label="חדרי צ׳אט">
+          <button class="chat-room" type="button" data-room="general" aria-pressed="true"># כללי</button>
+          <button class="chat-room" type="button" data-room="help" aria-pressed="false"># עזרה</button>
+          <button class="chat-room" type="button" data-room="ideas" aria-pressed="false"># הצעות</button>
+        </div>
+      </div>
+      <div class="chat-board">
+        <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions text">
+          <div class="chat-message system"><div class="chat-message-text">ברוכים הבאים לצ׳אט הקהילה. יש לחבר שירות Realtime כדי שהודעות יופיעו אצל כל המשתמשים.</div></div>
+        </div>
+        <form class="chat-compose" id="chat-form">
+          <input id="chat-message" class="chat-input" maxlength="500" placeholder="הצ׳אט יופעל לאחר חיבור שרת בזמן אמת…" autocomplete="off" disabled>
+          <button class="chat-send" id="chat-send" type="submit" aria-label="שליחת הודעה" disabled><i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+      <p class="chat-help" id="chat-help">הצ׳אט כרגע במצב הכנה. לאחר חיבור Firebase, הודעות חדשות יופיעו אצל כל המשתמשים בזמן אמת. אל תשתפו פרטים אישיים, סיסמאות או פרטי התחברות.</p>
+      <details class="chat-setup" id="chat-setup">
+        <summary>איך מפעילים צ׳אט אמיתי לכל המשתמשים?</summary>
+        <p>נדרש פרויקט Firebase עם Realtime Database וכניסה אנונימית. ב־Firebase Console יוצרים Web App, מעתיקים את פרטי התצורה ומשנים את הערכים במשתנה FIREBASE_CONFIG שבתחילת קוד הצ׳אט. לאחר מכן מפעילים Authentication → Sign-in method → Anonymous ויוצרים Realtime Database.</p>
+        <p>דוגמת כללי אבטחה התחלתיים ל־Realtime Database (יש להדביק בלשונית Rules):</p>
+        <pre><code>{
+  "rules": {
+    "liveChat": {
+      "rooms": {
+        "$room": {
+          ".read": "auth != null",
+          "$messageId": {
+            ".write": "auth != null && newData.child('uid').val() === auth.uid",
+            ".validate": "newData.hasChildren(['uid','name','text','createdAt'])",
+            "uid": { ".validate": "newData.isString() && newData.val() === auth.uid" },
+            "name": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 24" },
+            "text": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 500" },
+            "createdAt": { ".validate": "newData.isNumber()" }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+        <p>הודעות נשמרות במסד הנתונים ומסונכרנות לכל המשתמשים שמחוברים לאותו חדר. אלה כללי התחלה בלבד; לפני פתיחה ציבורית מומלץ להוסיף הגבלת קצב ואפשרויות דיווח/חסימה בצד השרת. בלי הגדרת פרויקט, התצוגה נשארת במצב הכנה ולא תציג הודעות מדומות כאילו נשלחו.</p>
+      </details>
+    </section>
+
   </div></main>
 
   <nav class="tabbar glass" id="tabbar" aria-label="ניווט ראשי">
@@ -588,6 +709,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;ba
     <button class="tab" data-p="p-report" aria-selected="false"><i class="fas fa-user-shield"></i><span>דיווחים</span></button>
     <button class="tab" data-p="p-feedback" aria-selected="false"><i class="fas fa-comment-dots"></i><span>פידבק</span></button>
     <button class="tab" data-p="p-join" aria-selected="false"><i class="fab fa-discord"></i><span>דיסקורד</span></button>
+    <button class="tab" data-p="p-livechat" aria-selected="false"><i class="fas fa-comments"></i><span>צ׳אט לייב</span></button>
   </nav>
 </div>
 
@@ -625,10 +747,10 @@ const darkMQ = matchMedia('(prefers-color-scheme: dark)');
 
 /* ---------- הגדרות ברירת מחדל ופריסטים ---------- */
 const PRESETS = {
-  low:   { renderScale: 55, octaves: 2, bloom: 16, chroma: 0, grain: 0, bokeh: 0,  speed: 75, particleDensity: 35 },
-  med:   { renderScale: 62, octaves: 3, bloom: 28, chroma: 0, grain: 2, bokeh: 12, speed: 90, particleDensity: 60 },
-  high:  { renderScale: 72, octaves: 4, bloom: 42, chroma: 0, grain: 4, bokeh: 24, speed: 100, particleDensity: 90 },
-  ultra: { renderScale: 84, octaves: 5, bloom: 58, chroma: 0, grain: 6, bokeh: 38, speed: 105, particleDensity: 130 }
+  low:   { renderScale: 78, octaves: 2, bloom: 16, chroma: 0, grain: 0, bokeh: 0,  speed: 75, particleDensity: 35 },
+  med:   { renderScale: 90, octaves: 3, bloom: 28, chroma: 0, grain: 2, bokeh: 12, speed: 90, particleDensity: 60 },
+  high:  { renderScale: 100, octaves: 4, bloom: 42, chroma: 0, grain: 4, bokeh: 24, speed: 100, particleDensity: 90 },
+  ultra: { renderScale: 100, octaves: 5, bloom: 58, chroma: 0, grain: 6, bokeh: 38, speed: 105, particleDensity: 130 }
 };
 const GFX_KEYS = Object.keys(PRESETS.low);
 const q0 = coarse ? 'med' : 'high';
@@ -638,7 +760,11 @@ const DEF = Object.assign({
   ripple: true, motion: !sysCalm, tilt: true, depth: 60, spot: true, tspeed: 100,
   hud: false, saver: false, pauseHidden: true, debug: false,
   sound: false, vol: 50, haptic: false,
-  engineMode: 'babylon', scene: 'prime', particleDensity: 190, enginePower: 100, layerDepth: 78, interactiveFX: true,
+  engineMode: 'babylon', scene: 'prime', particleDensity: 110, enginePower: 100, layerDepth: 78, interactiveFX: true,
+  showGrid: true, showTraces: true, bgBrightness: 100, gridDensity: 48, bgVignette: 72, backgroundZoom: 100, adaptiveResolution: true,
+  particleSpeed: 100, particleSize: 100, scanlines: false, ambientPulse: true, sparkle: true,
+  compactUI: false, solidGlass: false, underlineLinks: false, lineHeight: 145, contentWidth: 1440, stickyTitles: false, rememberTab: true, largeControls: false, fontStyle: 'heebo',
+  chatNotify: false, chatSound: true, chatTimestamps: true, saveChatName: true,
   engine3d: 'auto', zoom3d: 112, detail3d: 92, glow3d: 96, rotate3d: true, shadows3d: true, shape3d: 'core'
 }, PRESETS[q0]);
 let P = Object.assign({}, DEF);
@@ -655,13 +781,21 @@ P.engineMode = 'babylon';
 P.scene = ['prime','rog','cyber','aurora','nebula','quantum','matrix','solar','synth','abyss','prism','emerald','dusk','storm','magma','holo'].includes(P.scene) ? P.scene : 'prime';
 P.shape3d = ['core','crystal','rog','cube','reactor'].includes(P.shape3d) ? P.shape3d : 'core';
 P.engineMode = 'babylon';
-P.renderScale = Math.max(50, Math.min(90, Number(P.renderScale) || 72));
-P.particleDensity = Math.max(20, Math.min(160, Number(P.particleDensity) || 90));
-P.bokeh = Math.max(0, Math.min(80, Number(P.bokeh) || 24));
-P.octaves = Math.max(2, Math.min(5, Number(P.octaves) || 4));
+P.renderScale = Math.max(65, Math.min(100, Number(P.renderScale) || 100));
+P.particleDensity = Math.max(20, Math.min(200, Number(P.particleDensity) || 110));
+P.bokeh = Math.max(0, Math.min(100, Number(P.bokeh) || 24));
+P.octaves = Math.max(2, Math.min(8, Number(P.octaves) || 4));
 P.chroma = 0;
+P.renderScale=Math.max(65,Math.min(100,Number(P.renderScale)||100));
+P.gridDensity=Math.max(24,Math.min(96,Number(P.gridDensity)||48));
+P.particleSize=Math.max(50,Math.min(180,Number(P.particleSize)||100));
+P.particleSpeed=Math.max(0,Math.min(250,Number(P.particleSpeed)||100));
+P.contentWidth=Math.max(900,Math.min(1800,Number(P.contentWidth)||1440));
+P.lineHeight=Math.max(125,Math.min(190,Number(P.lineHeight)||145));
 P.fps = P.fps === 0 ? 60 : Math.max(30, Math.min(60, Number(P.fps) || 60));
 const save = () => store.set('prefs3', JSON.stringify(P));
+// First launch of 9.6.23.41 restores native full-resolution rendering once.
+if (store.get('novaAppVersion') !== '9.6.23.41') { P.renderScale = 100; P.quality = 'high'; store.set('novaAppVersion', '9.6.23.41'); save(); }
 
 const ACC = { blue: '#0a84ff', purple: '#bf5af2', pink: '#ff375f', green: '#30d158', orange: '#ff9f0a' };
 const PAL = {
@@ -697,7 +831,7 @@ const SCENES = {
 if (!PAL[P.pal]) P.pal = 'prime';
 const WALL = { prime: 0 }; // הרקע הקבוע: לוח אם בסגנון PRIME BIOS
 
-/* ---------- Babylon.js 3D Engine · Version 9.6.23.40 ---------- */
+/* ---------- Babylon.js 3D Engine · Version 9.6.23.41 ---------- */
 const glc = $('#gl'), fxc = $('#fx');
 let gl = null, U = {}, gpuName = 'Babylon.js — initializing';
 const NovaEdge = (() => {
@@ -706,8 +840,8 @@ const NovaEdge = (() => {
   let bgPlane = null, bgTexture = null, bgMaterial = null;
   let modelRoot = null, modelParts = [], modelMaterials = [], orbitParts = [], particleSource = null, particles = [];
   let shadowDisc = null, pulseMeshes = [], pulseQueue = [];
-  let lastBackdrop = '', lastModel = '', lastParticleCount = -1, lastScale = -1, lastGlow = -1;
-  let viewW = innerWidth, viewH = innerHeight;
+  let lastBackdrop = '', lastModel = '', lastParticleCount = -1, lastParticleSize = -1, lastScale = -1, lastGlow = -1;
+  let viewW = innerWidth, viewH = innerHeight, hemiLight = null, keyLight = null, rimLight = null;
   const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
   const rand = (a,b) => a + Math.random() * (b-a);
   const col = value => B.Color3.FromHexString(String(value || '#ffffff'));
@@ -921,7 +1055,7 @@ const NovaEdge = (() => {
     orbitParts.push(sat1,sat2);
   }
 
-  function drawBackdrop(name, colors) {
+  function drawBackdrop(name, colors, settings=P) {
     // High-end static art plate: generated once per theme switch, then reused as a GPU texture.
     const canvas=document.createElement('canvas');canvas.width=1536;canvas.height=960;
     const ctx=canvas.getContext('2d',{alpha:false});
@@ -937,17 +1071,18 @@ const NovaEdge = (() => {
     const w=canvas.width,h=canvas.height,cx=w*.5,cy=h*.48;
     let g=ctx.createLinearGradient(0,0,w,h);g.addColorStop(0,base[0]);g.addColorStop(.48,base[1]);g.addColorStop(1,base[2]);ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
     // Wide cinematic pools of light.
+    const bloomStrength=.35+clamp((Number(settings.bloom)||0)/100,0,1)*1.05;
     [[.18,.22,.34,colors[0],.22],[.82,.30,.32,colors[1],.17],[.54,.80,.40,colors[2],.11],[.50,.48,.25,colors[0],.10]].forEach(([x,y,r,c,a])=>{
+      a*=bloomStrength;
       const glow=ctx.createRadialGradient(w*x,h*y,2,w*x,h*y,w*r);glow.addColorStop(0,rgb(c,a));glow.addColorStop(.52,rgb(c,a*.22));glow.addColorStop(1,rgb(c,0));ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
     });
-    // Fine engineering grid, fading away from the central focal object.
+    // Fine engineering grid, with user-controlled density.
     ctx.save();ctx.lineWidth=1;ctx.strokeStyle=rgb(colors[0],.105);
-    for(let x=0;x<=w;x+=48){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
-    for(let y=0;y<=h;y+=48){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
-    const fade=ctx.createRadialGradient(cx,cy,100,cx,cy,690);fade.addColorStop(0,'rgba(0,0,0,.02)');fade.addColorStop(.62,'rgba(0,0,0,.10)');fade.addColorStop(1,'rgba(0,0,0,.58)');ctx.fillStyle=fade;ctx.fillRect(0,0,w,h);ctx.restore();
+    if(settings.showGrid!==false){const gridStep=clamp(Number(settings.gridDensity)||48,24,96);for(let x=0;x<=w;x+=gridStep){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}for(let y=0;y<=h;y+=gridStep){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}}
+    const fade=ctx.createRadialGradient(cx,cy,100,cx,cy,690);fade.addColorStop(0,'rgba(0,0,0,.02)');fade.addColorStop(.62,'rgba(0,0,0,'+(0.10*(Number(settings.bgVignette)||0)/100)+')');fade.addColorStop(1,'rgba(0,0,0,'+(0.58*(Number(settings.bgVignette)||0)/100)+')');ctx.fillStyle=fade;ctx.fillRect(0,0,w,h);ctx.restore();
     // Centered reactor halo and technical arcs.
     ctx.save();
-    [178,220,278,346].forEach((r,i)=>{ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.strokeStyle=rgb(i%2?colors[1]:colors[0],.13-i*.018);ctx.lineWidth=i===1?2:1;ctx.setLineDash(i===2?[8,13]:i===3?[2,14]:[]);ctx.stroke();});
+    Array.from({length:clamp(Number(settings.octaves)||4,2,8)},(_,i)=>178+i*48).forEach((r,i)=>{ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.strokeStyle=rgb(i%2?colors[1]:colors[0],Math.max(.035,.13-i*.012));ctx.lineWidth=i===1?2:1;ctx.setLineDash(i%3===2?[8,13]:i%4===3?[2,14]:[]);ctx.stroke();});
     ctx.setLineDash([]);
     for(let i=0;i<8;i++){const a=i*Math.PI/4;ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*350,cy+Math.sin(a)*350);ctx.lineTo(cx+Math.cos(a)*445,cy+Math.sin(a)*445);ctx.strokeStyle=rgb(colors[2],.16);ctx.lineWidth=1.2;ctx.stroke();}
     // Corner brackets, small reticles and hardware marks.
@@ -961,12 +1096,15 @@ const NovaEdge = (() => {
       [[w,690],[w-150,690],[w-150,600],[w-260,600],[w-260,540],[w-365,540]],
       [[245,0],[245,112],[330,112],[330,174]],[[w-245,h],[w-245,h-112],[w-330,h-112],[w-330,h-174]]
     ];
-    routes.forEach((pts,i)=>{ctx.beginPath();pts.forEach((p,j)=>j?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=rgb(colors[0],.18);ctx.lineWidth=7;ctx.stroke();ctx.strokeStyle=rgb(colors[2],.63);ctx.lineWidth=1.5;ctx.stroke();pts.forEach(p=>{ctx.beginPath();ctx.arc(p[0],p[1],3.2,0,Math.PI*2);ctx.fillStyle=rgb(colors[2],.75);ctx.fill();});});
+    if(settings.showTraces!==false) routes.forEach((pts,i)=>{ctx.beginPath();pts.forEach((p,j)=>j?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=rgb(colors[0],.18);ctx.lineWidth=7;ctx.stroke();ctx.strokeStyle=rgb(colors[2],.63);ctx.lineWidth=1.5;ctx.stroke();pts.forEach(p=>{ctx.beginPath();ctx.arc(p[0],p[1],3.2,0,Math.PI*2);ctx.fillStyle=rgb(colors[2],.75);ctx.fill();});});
     // Subtle data panels left/right.
     const panel=(x,y,ww,hh,align)=>{ctx.fillStyle='rgba(2,12,28,.34)';ctx.strokeStyle=rgb(colors[0],.24);ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x,y,ww,hh,12);ctx.fill();ctx.stroke();ctx.fillStyle=rgb(colors[2],.56);ctx.fillRect(x+14,y+14,align==='left'?ww*.34:ww*.46,3);for(let j=0;j<4;j++){ctx.fillStyle=rgb(colors[j%3],.26);ctx.fillRect(x+14,y+32+j*13,ww*(.25+(j%2)*.16),2);}};
     panel(42,365,190,110,'left');panel(w-232,365,190,110,'right');
     // A fine field of stars / micro LEDs using deterministic coordinates.
     for(let i=0;i<125;i++){const x=((i*197+31)%w),y=((i*113+71)%h),r=.7+(i%4)*.42;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=rgb(colors[i%3],.24+(i%4)*.09);ctx.fill();}
+    // Optional scanlines and fine film grain, baked once when settings change.
+    if(settings.scanlines){ctx.save();ctx.fillStyle='rgba(0,0,0,.12)';for(let y=0;y<h;y+=5)ctx.fillRect(0,y,w,1);ctx.restore();}
+    const grainAmount=clamp(Number(settings.grain)||0,0,100);if(grainAmount>0){ctx.save();for(let i=0;i<Math.round(grainAmount*5.5);i++){const x=(i*811+37)%w,y=(i*457+91)%h;ctx.fillStyle=i%2?'rgba(255,255,255,.10)':'rgba(0,0,0,.12)';ctx.fillRect(x,y,1+(i%3===0?1:0),1);}ctx.restore();}
     // Diagonal light sweep and cinematic vignette.
     const sweep=ctx.createLinearGradient(0,h*.15,w,h*.82);sweep.addColorStop(0,'rgba(255,255,255,0)');sweep.addColorStop(.48,rgb(colors[1],.055));sweep.addColorStop(.54,'rgba(255,255,255,0)');sweep.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=sweep;ctx.fillRect(0,0,w,h);
     const vignette=ctx.createRadialGradient(cx,cy,260,cx,cy,930);vignette.addColorStop(0,'rgba(0,0,0,0)');vignette.addColorStop(1,'rgba(0,0,0,.68)');ctx.fillStyle=vignette;ctx.fillRect(0,0,w,h);
@@ -979,7 +1117,7 @@ const NovaEdge = (() => {
   function buildParticles(P, colors) {
     particles.slice(1).forEach(p=>p.dispose());particles=[];
     if(particleSource){particleSource.dispose();particleSource=null;}
-    const count=clamp(Math.round((Number(P.particleDensity)||60)*.24),12,42)*(P.saver?.55:1)|0;
+    const count=clamp(Math.round((Number(P.particleDensity)||80)*.22+(Number(P.bokeh)||0)*.16),8,64)*(P.saver?.5:1)|0;
     const particleMat=mat('star-particle',colors[2],colors[2],.1);
     particleSource=B.MeshBuilder.CreateSphere('particle-source',{diameter:.045,segments:5},scene);
     particleSource.material=particleMat;particleSource.isPickable=false;
@@ -987,20 +1125,21 @@ const NovaEdge = (() => {
     for(let i=1;i<count;i++) particles.push(particleSource.createInstance('particle-'+i));
     particles.forEach(p=>{
       p.position.set(rand(-9,9),rand(-5.5,5.5),rand(1.5,4.1));
-      const scale=rand(.55,1.5);p.scaling.setAll(scale);
-      p.metadata={vx:rand(-.12,.12),vy:rand(-.17,.17),phase:rand(0,6.28)};
+      const scale=rand(.55,1.5)*clamp((Number(P.particleSize)||100)/100,.5,1.8);p.scaling.setAll(scale);
+      p.metadata={vx:rand(-.12,.12),vy:rand(-.17,.17),phase:rand(0,6.28),baseScale:scale};
       p.isPickable=false;
     });
-    lastParticleCount=count;
+    lastParticleCount=count;lastParticleSize=P.particleSize;
   }
 
   function updateSceneTheme(P, colors) {
-    const key=P.scene+'|'+colors.join('|');
-    if(key!==lastBackdrop){drawBackdrop(P.scene,colors);lastBackdrop=key;}
+    const key=P.scene+'|'+colors.join('|')+'|'+[P.showGrid,P.showTraces,P.bgBrightness,P.gridDensity,P.bgVignette,P.bloom,P.grain,P.scanlines,P.octaves].join('|');
+    if(key!==lastBackdrop){drawBackdrop(P.scene,colors,P);lastBackdrop=key;}
+    if(bgMaterial){const br=clamp((Number(P.bgBrightness)||100)/100,.45,1.5);bgMaterial.emissiveColor=new B.Color3(br,br,br);}
     if(P.shape3d+'|'+colors.join('|')+'|'+P.detail3d!==lastModel){
       makeModel(P.shape3d,colors,P.detail3d);lastModel=P.shape3d+'|'+colors.join('|')+'|'+P.detail3d;
     }
-    const count=clamp(Math.round((Number(P.particleDensity)||60)*.24),12,42)*(P.saver?.55:1)|0;
+    const count=clamp(Math.round((Number(P.particleDensity)||80)*.22+(Number(P.bokeh)||0)*.16),8,64)*(P.saver?.5:1)|0;
     if(count!==lastParticleCount)buildParticles(P,colors);
     modelRoot.setEnabled(P.engine3d!=='off');
     if(shadowDisc)shadowDisc.setEnabled(!!P.shadows3d && P.engine3d!=='off');
@@ -1008,11 +1147,30 @@ const NovaEdge = (() => {
     if(Math.abs(glow-lastGlow)>.01){modelMaterials.forEach(m=>{m.emissiveColor=m.diffuseColor.scale(.2+glow*.62);});lastGlow=glow;}
   }
 
+  function targetHardwareScale(settings, adaptive=1){
+    const nativeScale=100/clamp(Number(settings.renderScale)||100,65,100);
+    const adaptivePenalty=settings.adaptiveResolution===false?0:(1-clamp(adaptive,.42,1))*.72;
+    return clamp(nativeScale+(settings.saver?.14:0)+adaptivePenalty,1,1.65);
+  }
+  function fitBackground(settings=P){
+    if(!bgPlane||!camera||!engine)return;
+    const aspect=Math.max(.45,engine.getAspectRatio(camera));
+    const distance=Math.abs(bgPlane.position.z-camera.position.z);
+    const visibleH=2*Math.tan(camera.fov/2)*distance*1.10;
+    const visibleW=visibleH*aspect;
+    const zoom=clamp((Number(settings.backgroundZoom)||100)/100,.85,1.30);
+    bgPlane.scaling.set((visibleW/30)*zoom,(visibleH/18.8)*zoom,1);
+  }
+  function applyHardwareScale(settings, adaptive=1){
+    if(!engine)return;
+    const target=targetHardwareScale(settings,adaptive);
+    if(Math.abs(target-lastScale)>.035){engine.setHardwareScalingLevel(target);engine.resize();lastScale=target;fitBackground(settings);}
+  }
   async function init(P, colors) {
     if(!B || !B.Engine) throw new Error('Babylon.js CDN unavailable');
-    engine=new B.Engine(glc,false,{alpha:true,antialias:false,stencil:false,preserveDrawingBuffer:false,powerPreference:'high-performance',adaptToDeviceRatio:true},true);
+    engine=new B.Engine(glc,false,{alpha:true,antialias:true,stencil:false,preserveDrawingBuffer:false,powerPreference:'high-performance',adaptToDeviceRatio:true},true);
     engine.enableOfflineSupport=false;
-    engine.setHardwareScalingLevel(clamp(1.18+(1-(Number(P.renderScale)||72)/100)*.62,1.12,1.55));
+    engine.setHardwareScalingLevel(targetHardwareScale(P,1));lastScale=targetHardwareScale(P,1);
     scene=new B.Scene(engine);
     scene.clearColor=new B.Color4(0,0,0,0);
     scene.skipPointerMovePicking=true;
@@ -1021,15 +1179,15 @@ const NovaEdge = (() => {
     camera=new B.UniversalCamera('babylon-camera',new B.Vector3(0,0,-14.6),scene);
     camera.setTarget(B.Vector3.Zero());camera.fov=.78;camera.minZ=.1;camera.maxZ=80;
     camera.inputs.clear();scene.activeCamera=camera;
-    const hemi=new B.HemisphericLight('soft-hemisphere',new B.Vector3(0,1,-1),scene);hemi.intensity=.92;hemi.diffuse=new B.Color3(.62,.76,1);hemi.groundColor=new B.Color3(.025,.04,.08);
-    const keyLight=new B.DirectionalLight('front-key',new B.Vector3(0,0,1),scene);keyLight.position=new B.Vector3(-4,5,-8);keyLight.intensity=.88;keyLight.diffuse=new B.Color3(.72,.86,1);
-    const rimLight=new B.PointLight('rim-light',new B.Vector3(3,2,2),scene);rimLight.intensity=.62;rimLight.range=18;
+    hemiLight=new B.HemisphericLight('soft-hemisphere',new B.Vector3(0,1,-1),scene);hemiLight.intensity=.92;hemiLight.diffuse=new B.Color3(.62,.76,1);hemiLight.groundColor=new B.Color3(.025,.04,.08);
+    keyLight=new B.DirectionalLight('front-key',new B.Vector3(0,0,1),scene);keyLight.position=new B.Vector3(-4,5,-8);keyLight.intensity=.88;keyLight.diffuse=new B.Color3(.72,.86,1);
+    rimLight=new B.PointLight('rim-light',new B.Vector3(3,2,2),scene);rimLight.intensity=.62;rimLight.range=18;
 
     bgPlane=B.MeshBuilder.CreatePlane('procedural-background',{width:30,height:18.8},scene);
     bgPlane.position.set(0,0,6.2);bgPlane.isPickable=false;
     bgMaterial=new B.StandardMaterial('procedural-background-material',scene);
     bgMaterial.disableLighting=true;bgMaterial.backFaceCulling=false;bgMaterial.specularColor=B.Color3.Black();
-    bgPlane.material=bgMaterial;
+    bgPlane.material=bgMaterial;fitBackground(P);
 
     shadowDisc=B.MeshBuilder.CreateDisc('soft-model-shadow',{radius:2.15,tessellation:48},scene);
     shadowDisc.position.set(0,-2.65,-.8);shadowDisc.scaling.y=.27;
@@ -1050,9 +1208,8 @@ const NovaEdge = (() => {
 
   function resize(P, colors) {
     if(!ready)return;
-    const target=clamp(1.18+(1-(Number(P.renderScale)||72)/100)*.62+(P.saver?.18:0),1.12,1.75);
-    if(Math.abs(target-lastScale)>.02){engine.setHardwareScalingLevel(target);lastScale=target;}
-    engine.resize();viewW=innerWidth;viewH=innerHeight;
+    viewW=glc.clientWidth||innerWidth;viewH=glc.clientHeight||innerHeight;
+    engine.resize();applyHardwareScale(P,1);fitBackground(P);
     updateSceneTheme(P,colors);
   }
   function pulse(x,y) {
@@ -1065,7 +1222,12 @@ const NovaEdge = (() => {
   }
   function render(P, colors, t, dt, mouse, adaptive=1) {
     if(!ready)return;
+    applyHardwareScale(P,adaptive);
+    viewW=glc.clientWidth||innerWidth;viewH=glc.clientHeight||innerHeight;
     updateSceneTheme(P,colors);
+    if(rimLight)rimLight.intensity=P.ambientPulse?.62+.16*Math.sin(t*1.25):.62;
+    if(hemiLight)hemiLight.intensity=P.ambientPulse?.92+.06*Math.sin(t*.8):.92;
+    if(bgPlane&&P.motion){bgPlane.position.x=Math.sin(t*.16)*.12*(P.layerDepth/100);bgPlane.position.y=Math.cos(t*.13)*.08*(P.layerDepth/100);}else if(bgPlane){bgPlane.position.x=0;bgPlane.position.y=0;}
     const motion=P.motion?1:0;
     const speed=motion*clamp(Number(P.speed)||100,0,300)/100;
     const depth=P.interactiveFX?clamp(Number(P.layerDepth)||60,0,100)/100:0;
@@ -1086,7 +1248,8 @@ const NovaEdge = (() => {
       const p=particles[i];p.setEnabled(i<particleLimit);
       if(i>=particleLimit)continue;
       const md=p.metadata||{};
-      if(motion){p.position.x+=md.vx*dt*speed*power*8;p.position.y+=md.vy*dt*speed*power*8;md.phase+=dt;}
+      if(motion){const pSpeed=clamp((Number(P.particleSpeed)||100)/100,0,2.5);p.position.x+=md.vx*dt*speed*power*8*pSpeed;p.position.y+=md.vy*dt*speed*power*8*pSpeed;md.phase+=dt;}
+      if(P.sparkle&&motion){const pulseScale=.78+.22*Math.sin(t*1.8+md.phase);p.scaling.setAll((md.baseScale||1)*pulseScale);}
       if(p.position.x<-9.5)p.position.x=9.5;if(p.position.x>9.5)p.position.x=-9.5;
       if(p.position.y<-5.8)p.position.y=5.8;if(p.position.y>5.8)p.position.y=-5.8;
       if(P.interactiveFX){const dx=p.position.x-(mouse.x/Math.max(1,viewW)-.5)*15.5,dy=p.position.y-(.5-mouse.y/Math.max(1,viewH))*8.6;if(dx*dx+dy*dy<1.8){p.position.x+=dx*.002*depth;p.position.y+=dy*.002*depth;}}
@@ -1116,6 +1279,7 @@ let curPal = PAL[P.pal].css.slice(), T = 0, dark = 0;
 const isDark = () => P.theme === 'dark' || (P.theme === 'auto' && darkMQ.matches);
 function resize() { NovaEdge.resize(P, PAL[P.pal].css); }
 addEventListener('resize', () => { resize(); moveInd(); });
+if(window.ResizeObserver){const canvasRO=new ResizeObserver(()=>resize());canvasRO.observe(glc);}
 function pulse(x, y, s) { if (!P.ripple || !P.motion) return; NovaEdge.pulse(x,y); }
 
 let last = 0, frames = 0, fpsT = performance.now(), fps = 0, adaptiveQuality = 1, adaptAt = 0;
@@ -1132,8 +1296,8 @@ function loop(now) {
   frames++;
   if(now-fpsT>650){
     fps=Math.round(frames*1000/(now-fpsT));frames=0;fpsT=now;
-    if(now-adaptAt>1800){const target=P.saver?.58:(fps<32?.42:fps<40?.55:fps<48?.68:fps<55?.82:1);adaptiveQuality+=(target-adaptiveQuality)*.45;adaptAt=now;}
-    if(document.body.classList.contains('hud'))$('#hud').textContent='FPS '+fps+' · '+(NovaEdge.ready?gpuName:'CSS fallback')+' · '+P.scene.toUpperCase()+' · '+Math.round(P.renderScale)+'%';
+    if(now-adaptAt>1800){const target=P.adaptiveResolution?(P.saver?.58:(fps<32?.48:fps<40?.62:fps<48?.76:fps<55?.88:1)):1;adaptiveQuality+=(target-adaptiveQuality)*.45;adaptAt=now;}
+    if(document.body.classList.contains('hud'))$('#hud').textContent='FPS '+fps+' · '+(NovaEdge.ready?gpuName:'CSS fallback')+' · '+P.scene.toUpperCase()+' · '+Math.round(P.renderScale)+'% native';
   }
 }
 
@@ -1154,8 +1318,13 @@ function apply() {
   R.style.setProperty('--accent', ACC[P.accent]); R.style.setProperty('--txt', P.txt / 100);
   R.style.setProperty('--blur', P.blur + 'px'); R.style.setProperty('--radius', P.radius + 'px');
   R.style.setProperty('--spot', P.spot ? 1 : 0); R.style.setProperty('--tm', (100 / P.tspeed).toFixed(2));
+  R.style.setProperty('--content-max', (Number(P.contentWidth)||1440)+'px');
+  R.style.setProperty('--line-height', (Number(P.lineHeight)||145)/100);
+  const fontMap={heebo:'"Heebo",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',system:'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',arial:'Arial,Helvetica,sans-serif'};
+  R.style.setProperty('--font',fontMap[P.fontStyle]||fontMap.heebo);
   const pc = PAL[P.pal].css; R.style.setProperty('--c1', pc[0]); R.style.setProperty('--c2', pc[1]); R.style.setProperty('--c3', pc[2]);
   R.classList.toggle('hc', P.contrast);
+  R.classList.toggle('compact-ui',!!P.compactUI);R.classList.toggle('solid-ui',!!P.solidGlass);R.classList.toggle('link-underline',!!P.underlineLinks);R.classList.toggle('large-controls',!!P.largeControls);R.classList.toggle('sticky-titles',!!P.stickyTitles);R.classList.toggle('hide-chat-time',!P.chatTimestamps);
   B.dataset.scene = P.scene; B.dataset.engine = 'babylon';
   B.classList.toggle('calm', !P.motion); B.classList.toggle('notilt', !P.tilt || !P.motion); B.classList.toggle('hud', P.hud); B.classList.toggle('debug', P.debug);
   resize(); setTimeout(moveInd, 60);
@@ -1198,15 +1367,99 @@ addEventListener('keydown', e => { if (!unlocked && (e.key === 'Enter' || e.key 
 addEventListener('wheel', e => { if (!unlocked && e.deltaY > 40) unlock(); }, { passive: true });
 $('#btn-relock').addEventListener('click', relock);
 
+
+/* ---------- NOVA Live Chat · Firebase Realtime Database ---------- */
+// Replace these public web-app settings with your own Firebase project config.
+// Do not put service-account credentials or private server keys in this HTML.
+const FIREBASE_CONFIG = {
+  apiKey: 'YOUR_FIREBASE_API_KEY',
+  authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
+  databaseURL: 'https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com',
+  projectId: 'YOUR_PROJECT_ID',
+  appId: 'YOUR_FIREBASE_APP_ID'
+};
+const chatUI={status:$('#chat-status'),messages:$('#chat-messages'),form:$('#chat-form'),input:$('#chat-message'),send:$('#chat-send'),nameForm:$('#chat-name-form'),name:$('#chat-nickname'),help:$('#chat-help')};
+const chatState={booting:false,connected:false,db:null,uid:null,ref:null,listener:null,room:'general',lastSend:0,started:false,noticeShown:false};
+const chatRoomNames={general:'כללי',help:'עזרה',ideas:'הצעות'};
+if(P.saveChatName){try{chatUI.name.value=localStorage.getItem('novaChatNickname')||'';}catch(e){}}
+function chatStatus(text,kind='pending'){chatUI.status.textContent=text;chatUI.status.classList.toggle('is-online',kind==='online');chatUI.status.classList.toggle('is-error',kind==='error');}
+function chatSystem(text){const el=document.createElement('div');el.className='chat-message system';const body=document.createElement('div');body.className='chat-message-text';body.textContent=text;el.appendChild(body);chatUI.messages.appendChild(el);chatUI.messages.scrollTop=chatUI.messages.scrollHeight;}
+function chatRenderMessage(data,key){
+  if(!data||typeof data.text!=='string'||typeof data.name!=='string')return;
+  const nearBottom=chatUI.messages.scrollHeight-chatUI.messages.scrollTop-chatUI.messages.clientHeight<90;
+  const el=document.createElement('article');el.className='chat-message'+(data.uid===chatState.uid?' mine':'');el.dataset.key=key||'';
+  const head=document.createElement('div');head.className='chat-message-head';
+  const name=document.createElement('span');name.textContent=data.name.slice(0,24);head.appendChild(name);
+  const stamp=document.createElement('time');stamp.className='chat-time';const dt=Number(data.createdAt);stamp.textContent=Number.isFinite(dt)&&dt>0?new Date(dt).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}):'';head.appendChild(stamp);
+  const body=document.createElement('div');body.className='chat-message-text';body.textContent=data.text.slice(0,500);
+  el.append(head,body);chatUI.messages.appendChild(el);
+  while(chatUI.messages.children.length>85)chatUI.messages.removeChild(chatUI.messages.firstChild);
+  if(nearBottom)chatUI.messages.scrollTop=chatUI.messages.scrollHeight;
+  if(data.uid!==chatState.uid && P.chatNotify && (document.hidden || !$('#p-livechat').classList.contains('active')) && 'Notification' in window && Notification.permission==='granted'){
+    try{new Notification('הודעה חדשה בצ׳אט',{body:data.name+' שלח/ה הודעה',icon:'logo.png'});}catch(e){}
+  }
+  if(data.uid!==chatState.uid)chatBeep();
+}
+function chatBeep(){if(!P.chatSound)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const a=new AC(),o=a.createOscillator(),g=a.createGain();o.type='sine';o.frequency.value=760;g.gain.setValueAtTime(.035,a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.12);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.13);o.onended=()=>a.close();}catch(e){}}
+function chatClearRoom(){chatUI.messages.innerHTML='';chatSystem('טוען הודעות בחדר '+(chatRoomNames[chatState.room]||'כללי')+'…');}
+function attachChatRoom(){
+  if(!chatState.db)return;
+  if(chatState.ref&&chatState.listener)chatState.ref.off('child_added',chatState.listener);
+  chatClearRoom();
+  chatState.ref=chatState.db.ref('liveChat/rooms/'+chatState.room).limitToLast(80);
+  chatState.listener=snap=>{chatUI.messages.querySelector('.chat-message.system')?.remove();chatRenderMessage(snap.val(),snap.key);};
+  chatState.ref.on('child_added',chatState.listener,error=>{chatStatus('שגיאת גישה למסד הנתונים','error');chatSystem('לא ניתן לקרוא הודעות. בדקו את כללי האבטחה של Firebase.');console.warn('Live chat read error:',error);});
+}
+let firebaseScriptsPromise=null;
+function loadFirebaseSDK(){
+  if(window.firebase&&window.firebase.database)return Promise.resolve();
+  if(firebaseScriptsPromise)return firebaseScriptsPromise;
+  const files=['https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js','https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js','https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js'];
+  firebaseScriptsPromise=files.reduce((chain,url)=>chain.then(()=>new Promise((resolve,reject)=>{const el=document.createElement('script');el.src=url;el.onload=resolve;el.onerror=()=>reject(new Error('לא ניתן לטעון את Firebase SDK'));document.head.appendChild(el);})),Promise.resolve());
+  return firebaseScriptsPromise;
+}
+async function startLiveChat(){
+  if(chatState.connected||chatState.booting)return;
+  const configured=FIREBASE_CONFIG.apiKey&&!FIREBASE_CONFIG.apiKey.includes('YOUR_')&&FIREBASE_CONFIG.projectId&&!FIREBASE_CONFIG.projectId.includes('YOUR_')&&FIREBASE_CONFIG.databaseURL&&!FIREBASE_CONFIG.databaseURL.includes('YOUR_')&&FIREBASE_CONFIG.appId&&!FIREBASE_CONFIG.appId.includes('YOUR_');
+  if(!configured){chatStatus('מוכן לחיבור שרת','pending');chatUI.input.disabled=true;chatUI.send.disabled=true;if(!chatState.noticeShown){chatSystem('הצ׳אט מוכן מבחינת ממשק, אך עדיין לא מחובר לשרת משותף. יש להוסיף את פרטי Firebase בקוד כדי שהודעות יגיעו לכל המשתמשים.');chatState.noticeShown=true;}return;}
+  chatState.booting=true;chatStatus('מתחבר לשרת…','pending');
+  try{
+    await loadFirebaseSDK();
+    if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
+    const auth=firebase.auth();if(!auth.currentUser)await auth.signInAnonymously();
+    chatState.uid=auth.currentUser.uid;chatState.db=firebase.database();chatState.connected=true;chatUI.input.disabled=false;chatUI.send.disabled=false;
+    chatUI.input.placeholder='כתבו הודעה לקהילה…';chatUI.help.textContent='מחוברים לצ׳אט בזמן אמת. ההודעות בחדר זה מוצגות לכל המשתמשים המחוברים. אל תשתפו פרטים אישיים או פרטי התחברות.';
+    chatStatus('מחובר בזמן אמת','online');attachChatRoom();
+  }catch(err){console.warn('Firebase chat connection failed:',err);chatStatus('לא ניתן להתחבר','error');chatSystem('החיבור נכשל. בדקו את פרטי Firebase, הפעילו Anonymous Authentication וודאו שכללי Realtime Database מאפשרים קריאה וכתיבה למשתמשים מחוברים.');}
+  finally{chatState.booting=false;chatState.started=true;}
+}
+chatUI.nameForm.addEventListener('submit',e=>{e.preventDefault();const value=chatUI.name.value.trim().replace(/[<>]/g,'').slice(0,24);if(value.length<2){chatUI.name.focus();return;}chatUI.name.value=value;if(P.saveChatName){try{localStorage.setItem('novaChatNickname',value);}catch(e){}}chatUI.help.textContent='הכינוי נשמר. אפשר לבחור חדר ולכתוב הודעה לאחר חיבור השרת.';tick(980);});
+$$('.chat-room').forEach(btn=>btn.addEventListener('click',()=>{if(chatState.room===btn.dataset.room)return;chatState.room=btn.dataset.room;$$('.chat-room').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));if(chatState.connected)attachChatRoom();else{chatUI.messages.innerHTML='';chatSystem('החדר '+(chatRoomNames[chatState.room]||'כללי')+' ייפתח לאחר חיבור שרת בזמן אמת.');}tick(880);}));
+chatUI.form.addEventListener('submit',async e=>{
+  e.preventDefault();const textValue=chatUI.input.value.trim();const nameValue=chatUI.name.value.trim().replace(/[<>]/g,'').slice(0,24);
+  if(!chatState.connected||!chatState.db){chatStatus('נדרש חיבור שרת','pending');return;}
+  if(nameValue.length<2){chatUI.name.focus();chatUI.help.textContent='בחרו כינוי באורך 2–24 תווים לפני שליחת הודעה.';return;}
+  if(!textValue||textValue.length>500)return;
+  const now=Date.now();if(now-chatState.lastSend<1000){chatUI.help.textContent='רגע קטן בין הודעות כדי למנוע הצפה.';return;}chatState.lastSend=now;
+  chatUI.send.disabled=true;
+  try{await chatState.db.ref('liveChat/rooms/'+chatState.room).push({uid:chatState.uid,name:nameValue,text:textValue,createdAt:firebase.database.ServerValue.TIMESTAMP});chatUI.input.value='';if(P.saveChatName)try{localStorage.setItem('novaChatNickname',nameValue);}catch(e){}}
+  catch(err){console.warn('Chat send failed:',err);chatUI.help.textContent='לא הצלחנו לשלוח את ההודעה. בדקו את הרשאות הכתיבה ב־Firebase.';}
+  finally{chatUI.send.disabled=false;chatUI.input.focus();}
+});
+
 /* ---------- ניווט ולשונית נגררת ---------- */
 const tabs = $$('.tab'), ind = $('#ind');
 function moveInd() { const b = tabs.find(t => t.getAttribute('aria-selected') === 'true'); if (!b) return; ind.style.left = b.offsetLeft + 'px'; ind.style.width = b.offsetWidth + 'px'; }
 tabs.forEach(b => b.addEventListener('click', () => {
   $$('.panel').forEach(p => p.classList.remove('active')); $('#' + b.dataset.p).classList.add('active'); $('#' + b.dataset.p).scrollTop = 0;
   tabs.forEach(t => t.setAttribute('aria-selected', String(t === b))); moveInd(); tick();
+  if(P.rememberTab)store.set('lastTab',b.dataset.p);
+  if(b.dataset.p==='p-livechat')startLiveChat();
   const r = b.getBoundingClientRect(); pulse(r.left + r.width / 2, r.top, .8);
 }));
+if(P.rememberTab){const saved=store.get('lastTab');const target=saved&&tabs.find(t=>t.dataset.p===saved);if(target){$$('.panel').forEach(p=>p.classList.remove('active'));$('#'+saved).classList.add('active');tabs.forEach(t=>t.setAttribute('aria-selected',String(t===target)));if(saved==='p-livechat')startLiveChat();}}
 if (window.ResizeObserver) new ResizeObserver(moveInd).observe($('#tabbar')); addEventListener('load', () => setTimeout(moveInd, 100));
+addEventListener('fullscreenchange',()=>{resize();setTimeout(moveInd,80);});if(window.visualViewport)visualViewport.addEventListener('resize',()=>{resize();setTimeout(moveInd,60);});
 
 /* ---------- עכבר: פרלקסה, הטיה, זרקור זכוכית ---------- */
 const win = $('#win'), root = document.documentElement.style;
@@ -1226,12 +1479,22 @@ const SCHEMA = [
     { k: 'txt', type: 'rng', l: 'גודל טקסט', min: 90, max: 135, step: 5, u: '%' },
     { k: 'blur', type: 'rng', l: 'עוצמת זכוכית (טשטוש)', min: 0, max: 60, step: 2, u: 'px' },
     { k: 'radius', type: 'rng', l: 'עיגול פינות', min: 14, max: 44, step: 2, u: 'px' },
-    { k: 'contrast', type: 'tog', l: 'ניגודיות גבוהה' } ] },
+    { k: 'contrast', type: 'tog', l: 'ניגודיות גבוהה' },
+    { k: 'solidGlass', type: 'tog', l: 'זכוכית פחות שקופה' },
+    { k: 'compactUI', type: 'tog', l: 'ממשק קומפקטי' },
+    { k: 'contentWidth', type: 'rng', l: 'רוחב חלון התוכן', min: 900, max: 1800, step: 50, u: 'px' } ] },
   { id: 'gfx', t: 'גרפיקה', i: 'fa-microchip', c: '#bf5af2', items: [
     { k: 'quality', type: 'seg', l: 'איכות גרפית', o: [['low', 'נמוכה'], ['med', 'בינונית'], ['high', 'גבוהה'], ['ultra', 'אולטרה'], ['custom', 'מותאם']] },
     { type: 'note', l: 'רקע קבוע · PRIME BIOS', d: 'רקע PRIME קבוע; בחירת ROG Reactor מחליפה אוטומטית לסביבת גרפיקה אדומה בסגנון ROG.' },
     { k: 'pal', type: 'sw', l: 'צבעי הרקע וה־3D', o: 'pal' },
-    { k: 'renderScale', type: 'rng', l: 'איכות ורזולוציית רינדור', d: 'המנוע מגביל את הרזולוציה כדי להפחית עומס', min: 50, max: 90, step: 5, u: '%' },
+    { k: 'renderScale', type: 'rng', l: 'רזולוציית רינדור', d: '100% משתמש ברזולוציית המסך המלאה; התאמה אוטומטית יכולה להוריד עומס זמנית', min: 65, max: 100, step: 5, u: '%' },
+    { k: 'bgBrightness', type: 'rng', l: 'בהירות הרקע', min: 60, max: 140, step: 5, u: '%' },
+    { k: 'backgroundZoom', type: 'rng', l: 'זום הרקע', min: 85, max: 130, step: 5, u: '%' },
+    { k: 'gridDensity', type: 'rng', l: 'צפיפות רשת טכנולוגית', min: 24, max: 96, step: 4, u: 'px' },
+    { k: 'showGrid', type: 'tog', l: 'הצגת רשת רקע' },
+    { k: 'showTraces', type: 'tog', l: 'מסלולי מעגלים אלקטרוניים' },
+    { k: 'bgVignette', type: 'rng', l: 'עוצמת הצללה בקצוות', min: 0, max: 100, step: 5, u: '%' },
+    { k: 'adaptiveResolution', type: 'tog', l: 'התאמת רזולוציה אוטומטית לפי FPS' },
     { k: 'fps', type: 'seg', l: 'הגבלת FPS', o: [[30, '30'], [45, '45'], [60, '60'], [0, 'אוטומטי (עד 60)']] } ] },
   { id: 'nova', t: 'Babylon.js 3D Engine', i: 'fa-gauge-high', c: '#00c8ff', items: [
     { type: 'note', l: 'Babylon.js 9.33.1 · מנוע תלת־ממדי אמיתי', d: 'סצנת 3D עם מצלמה, תאורה, חומרים וגאומטריה. הרינדור נעשה ב־WebGL עם רזולוציה מופחתת, ללא צללי GPU או פוסט־פרוססינג כבדים.' },
@@ -1240,15 +1503,20 @@ const SCHEMA = [
     { k: 'particleDensity', type: 'rng', l: 'צפיפות חלקיקים', d: 'מוגבלת אוטומטית כדי לשמור על ביצועים', min: 20, max: 160, step: 10, u: '' },
     { k: 'layerDepth', type: 'rng', l: 'עומק שכבות ופרלקסה', min: 0, max: 100, step: 5, u: '%' },
     { k: 'interactiveFX', type: 'tog', l: 'אפקטים מגיבים לעכבר וללחיצות' },
-    { type: 'note', l: 'Babylon.js · Version 9.6.23.40', d: '16 עולמות רקע, מצלמת 3D, אובייקטים עם עומק אמיתי, חומרים ותאורה. במקרה ש־Babylon.js לא נטען, מוצג רקע CSS חלופי.' }
+    { type: 'note', l: 'Babylon.js · Version 9.6.23.41', d: '16 עולמות רקע, מצלמת 3D, אובייקטים עם עומק אמיתי, חומרים ותאורה. במקרה ש־Babylon.js לא נטען, מוצג רקע CSS חלופי.' }
   ] },
   { id: 'fx', t: 'אפקטים', i: 'fa-wand-magic-sparkles', c: '#ff375f', items: [
-    { k: 'octaves', type: 'rng', l: 'רמת פרטי רקע', d: 'שולטת בכמות הקווים והעיטורים הסטטיים', min: 2, max: 5, step: 1, u: '' },
     { k: 'speed', type: 'rng', l: 'מהירות תנועה', min: 0, max: 300, step: 10, u: '%' },
-    { k: 'bloom', type: 'rng', l: 'הילה (Bloom)', min: 0, max: 100, step: 5, u: '' },
-    { k: 'grain', type: 'rng', l: 'גרעיניות פילם', min: 0, max: 100, step: 5, u: '' },
-    { k: 'bokeh', type: 'rng', l: 'חלקיקי אור (בוקה)', min: 0, max: 80, step: 5, u: '' },
-    { k: 'ripple', type: 'tog', l: 'גלי הלם בלחיצה ובמעברים' } ] },
+    { k: 'bloom', type: 'rng', l: 'הילה וזוהר (Bloom)', min: 0, max: 100, step: 5, u: '%' },
+    { k: 'grain', type: 'rng', l: 'גרעיניות פילם', min: 0, max: 100, step: 5, u: '%' },
+    { k: 'bokeh', type: 'rng', l: 'חלקיקי אור (Bokeh)', min: 0, max: 100, step: 5, u: '%' },
+    { k: 'particleSpeed', type: 'rng', l: 'מהירות חלקיקים', min: 0, max: 250, step: 10, u: '%' },
+    { k: 'particleSize', type: 'rng', l: 'גודל חלקיקים', min: 50, max: 180, step: 5, u: '%' },
+    { k: 'octaves', type: 'rng', l: 'רמת פרטי רקע', min: 2, max: 8, step: 1, u: '' },
+    { k: 'scanlines', type: 'tog', l: 'קווי סריקה קולנועיים' },
+    { k: 'ambientPulse', type: 'tog', l: 'פעימת תאורה סביבתית' },
+    { k: 'sparkle', type: 'tog', l: 'נצנוץ חלקיקים' },
+    { k: 'ripple', type: 'tog', l: 'גלי אנרגיה בלחיצה' } ] },
   { id: 'motion', t: 'תנועה ותלת־ממד', i: 'fa-cube', c: '#ff9f0a', items: [
     { k: 'engine3d', type: 'seg', l: 'הצגת מודל תלת־ממדי', d: 'בחירת תצוגה אוטומטית, פעילה תמיד או כבויה', o: [['auto', 'אוטומטי'], ['locked', 'מופעל תמיד'], ['off', 'כבוי']] },
     { k: 'shape3d', type: 'sel', l: 'מודל תלת־ממדי', d: 'מודלים פרוצדורליים אמיתיים בתוך סצנת Babylon.js.', o: [['core','מעבד PRIME'],['crystal','קריסטל'],['rog','ROG Reactor'],['cube','Holo Cube — קוביית אנרגיה'],['reactor','NOVA Turbine — טורבינת אנרגיה']] },
@@ -1273,7 +1541,37 @@ const SCHEMA = [
   { id: 'snd', t: 'צליל ותחושה', i: 'fa-volume-high', c: '#30d158', items: [
     { k: 'sound', type: 'tog', l: 'צלילי ממשק' },
     { k: 'vol', type: 'rng', l: 'עוצמת קול', min: 0, max: 100, step: 5, u: '%' },
-    { k: 'haptic', type: 'tog', l: 'רטט במכשירים ניידים' } ] }
+    { k: 'haptic', type: 'tog', l: 'רטט במכשירים ניידים' } ] },
+  { id: 'experience', t: 'חוויית משתמש', i: 'fa-wand-magic-sparkles', c: '#7c5cff', items: [
+    { k: 'rememberTab', type: 'tog', l: 'זכור את העמוד האחרון שביקרתי בו' },
+    { k: 'stickyTitles', type: 'tog', l: 'כותרת דביקה בזמן גלילה' },
+    { k: 'fontStyle', type: 'sel', l: 'סגנון גופן', o: [['heebo','Heebo — מודרני'],['system','גופן מערכת'],['arial','Arial']] },
+    { k: 'lineHeight', type: 'rng', l: 'מרווח בין שורות', min: 125, max: 190, step: 5, u: '%' },
+    { type: 'btn', l: 'תצוגת מסך מלא', b: 'הפעל / צא', act: 'fullscreen' }
+  ] },
+  { id: 'access', t: 'נגישות', i: 'fa-universal-access', c: '#00a89c', items: [
+    { k: 'largeControls', type: 'tog', l: 'כפתורים ובקרים גדולים יותר' },
+    { k: 'underlineLinks', type: 'tog', l: 'קו תחתון לקישורים' },
+    { k: 'solidGlass', type: 'tog', l: 'הפחתת שקיפות וטשטוש' },
+    { k: 'contrast', type: 'tog', l: 'ניגודיות גבוהה' },
+    { type: 'note', l: 'תמיכה בנגישות', d: 'אפשר להשתמש במקלדת, להתמקד בכפתורים ולשנות את גודל הטקסט מתפריט התצוגה.' }
+  ] },
+  { id: 'notify', t: 'התראות', i: 'fa-bell', c: '#ff9f0a', items: [
+    { k: 'chatNotify', type: 'tog', l: 'התראות על הודעות צ׳אט חדשות' },
+    { k: 'chatSound', type: 'tog', l: 'צליל בעת קבלת הודעה' },
+    { type: 'btn', l: 'הרשאת התראות בדפדפן', b: 'אפשר התראות', act: 'notify' },
+    { type: 'note', l: 'הערה', d: 'התראות דפדפן יופיעו רק אחרי אישור מפורש שלך ורק כאשר הצ׳אט מחובר לשרת בזמן אמת.' }
+  ] },
+  { id: 'community', t: 'קהילה וצ׳אט', i: 'fa-people-group', c: '#5865f2', items: [
+    { k: 'saveChatName', type: 'tog', l: 'שמירת הכינוי במכשיר הזה' },
+    { k: 'chatTimestamps', type: 'tog', l: 'הצגת שעה ליד הודעות' },
+    { type: 'btn', l: 'מחיקת הכינוי השמור', b: 'נקה כינוי', act: 'clearChatName', red: true },
+    { type: 'note', l: 'חדרי הקהילה', d: 'בצ׳אט יש חדר כללי, חדר עזרה וחדר הצעות. ההודעות משותפות לכל המשתמשים לאחר חיבור Firebase.' }
+  ] },
+  { id: 'privacy', t: 'פרטיות', i: 'fa-shield-halved', c: '#6b9bb8', items: [
+    { type: 'note', l: 'שמירת מידע', d: 'העדפות וכינוי נשמרים בדפדפן שלך. תוכן צ׳אט אמיתי נשמר במסד הנתונים של שירות Realtime שתגדיר.' },
+    { type: 'btn', l: 'איפוס העדפות האתר', b: 'איפוס הגדרות', act: 'reset', red: true }
+  ] }
 ];
 let curCat = 'display';
 const cats = $('#cats'), pane = $('#pane');
@@ -1285,6 +1583,8 @@ function buildCats() {
 }
 function setVal(k, v) {
   P[k] = v;
+  if(k==='saveChatName'&&!v){try{localStorage.removeItem('novaChatNickname');}catch(e){}}
+  if(k==='saveChatName'&&v&&$('#chat-nickname')?.value.trim()){try{localStorage.setItem('novaChatNickname',$('#chat-nickname').value.trim());}catch(e){}}
   if (k === 'scene' && SCENES[v]) P.pal = SCENES[v].pal;
   if (k === 'shape3d' && P.engine3d === 'off') P.engine3d = 'auto';
   if (k === 'shape3d' && v === 'rog') { P.pal = 'rog'; P.scene = 'rog'; }
@@ -1320,8 +1620,14 @@ function buildPane() {
     else if (it.type === 'note') { row.classList.add('col'); row.innerHTML = '<div class="l"><span>' + it.l + '</span></div>'; const d = document.createElement('div'); d.className = 'info'; d.textContent = it.d || ''; row.appendChild(d); }
     else if (it.type === 'info') { row.innerHTML = lab; const d = document.createElement('div'); d.className = 'info'; d.textContent = gpuName; row.appendChild(d); }
     else if (it.type === 'btn') { row.innerHTML = lab; const b = document.createElement('button'); b.className = 'sbtn' + (it.red ? ' red' : ''); b.textContent = it.b;
-      b.addEventListener('click', () => { if (it.act === 'reset') { P = Object.assign({}, DEF); adaptiveQuality = 1; save(); apply(); buildPane(); } else { const txt = JSON.stringify(P, null, 2);
-        (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => { b.textContent = 'הועתק ✓'; }).catch(() => { b.textContent = 'לא זמין'; }); setTimeout(() => b.textContent = it.b, 1500); } tick(); });
+      b.addEventListener('click', () => {
+        if (it.act === 'reset') { P = Object.assign({}, DEF); adaptiveQuality = 1; save(); apply(); buildPane(); }
+        else if (it.act === 'fullscreen') { const action=document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.(); if(action&&action.catch)action.catch(()=>{}); }
+        else if (it.act === 'notify') { if(!('Notification' in window)){b.textContent='לא נתמך';} else Notification.requestPermission().then(v=>{b.textContent=v==='granted'?'התראות אושרו ✓':v==='denied'?'ההרשאה נדחתה':'לא אושר';setTimeout(()=>b.textContent=it.b,1800);}); }
+        else if (it.act === 'clearChatName') { localStorage.removeItem('novaChatNickname'); const n=$('#chat-nickname');if(n)n.value=''; b.textContent='נוקה ✓';setTimeout(()=>b.textContent=it.b,1400); }
+        else { const txt = JSON.stringify(P, null, 2); (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => { b.textContent = 'הועתק ✓'; }).catch(() => { b.textContent = 'לא זמין'; }); setTimeout(() => b.textContent = it.b, 1500); }
+        tick();
+      });
       row.appendChild(b); }
     g.appendChild(row);
   });
