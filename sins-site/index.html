@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="application-version" content="9.6.23.41">
-<title>בואו להנות | Babylon.js Engine — Version 9.6.23.41</title>
+<meta name="application-version" content="9.9.0.0">
+<title>בואו להנות | Babylon.js Engine — Version 9.9.0.0</title>
 <link rel="icon" type="image/png" href="logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -301,7 +301,7 @@ select.input option{background:var(--bg);color:var(--label)}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
-/* ================= V9.6.23.41 / NOVA VISUAL ENGINE ================= */
+/* ================= V9.9.0.0 / NOVA VISUAL ENGINE ================= */
 #gl{filter:saturate(1.22) contrast(1.08) brightness(.98);}
 #fx{mix-blend-mode:screen;opacity:.84;pointer-events:none}
 body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
@@ -322,7 +322,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 @media(max-width:760px){.brand-title{gap:6px}.version-chip{font-size:.56rem;padding:3px 6px}}
 
 
-/* ================= V9.6.23.41 / NOVA SCENE SYSTEM ================= */
+/* ================= V9.9.0.0 / NOVA SCENE SYSTEM ================= */
 :root{--c1:#0860e8;--c2:#14b8ff;--c3:#6ee7ff}
 #gl{transform:translateZ(0);will-change:contents}
 #fx{filter:blur(.15px)}
@@ -333,7 +333,7 @@ body::after{background:radial-gradient(58% 48% at 50% 48%,transparent 16%,rgba(0
 .info{line-height:1.55}
 
 
-/* ================= NOVA ENGINE / 9.6.23.41 ================= */
+/* ================= NOVA ENGINE / 9.9.0.0 ================= */
 #fx{will-change:contents;filter:blur(.12px) saturate(1.18);}
 .sselect{width:min(100%,360px);padding:12px 15px;border-radius:14px;border:1px solid var(--sep);background:var(--field);color:var(--label);font-weight:700;outline:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.10);}
 .sselect:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
@@ -404,7 +404,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;ba
 
 
 
-/* ================= VERSION 9.6.23.41 · FULL VIEWPORT + NEW UI ================= */
+/* ================= VERSION 9.9.0.0 · FULL VIEWPORT + NEW UI ================= */
 html,body{width:100%;height:100%;min-height:100%;}
 body{min-height:100dvh;}
 #gl{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;max-width:none!important;max-height:none!important;display:block;object-fit:fill;}
@@ -466,7 +466,62 @@ body{line-height:var(--line-height,1.45);}
 .chat-setup{margin-top:12px;border:1px solid rgba(255,184,77,.18);background:rgba(255,184,77,.06);border-radius:16px;padding:12px 15px;color:#ffe1b3;font-size:.83rem;line-height:1.6;}
 .chat-setup summary{font-weight:900;cursor:pointer;}
 .chat-setup code{direction:ltr;display:block;white-space:pre-wrap;overflow-wrap:anywhere;background:rgba(0,0,0,.24);border-radius:10px;padding:10px;margin-top:9px;color:#c9edff;font: .76rem/1.5 ui-monospace,monospace;}
+.chat-config-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0;}
+.chat-config-field{display:flex;flex-direction:column;gap:6px;min-width:0;}
+.chat-config-field label{font-size:.78rem;font-weight:800;color:rgba(220,235,255,.78);}
+.chat-config-field input{width:100%;min-width:0;padding:10px 12px;border-radius:12px;border:1px solid rgba(140,195,255,.22);background:rgba(2,12,28,.68);color:#f4f9ff;direction:ltr;text-align:left;outline:none;}
+.chat-config-field input:focus{border-color:#26b9ff;box-shadow:0 0 0 3px rgba(38,185,255,.12);}
+.chat-config-actions{display:flex;gap:9px;flex-wrap:wrap;margin:10px 0 14px;}
+.chat-config-note{font-size:.8rem;color:rgba(220,235,255,.72);line-height:1.6;}
+@media(max-width:600px){.chat-config-grid{grid-template-columns:1fr;}}
 @media(max-width:700px){.chat-board{height:44vh;min-height:250px}.chat-toolbar{align-items:stretch}.chat-rooms{width:100%}.chat-room{flex:1}.chat-name-form{min-width:100%;}.chat-message{max-width:94%}.chat-messages{padding:12px;}}
+
+
+/* ================= VERSION 9.9.0.0 · LOCAL ONBOARDING + DIRECT P2P CHAT ================= */
+.survey-overlay{z-index:1200;padding:16px;overflow-y:auto;align-items:center;}
+.survey-card{width:min(720px,100%);max-height:min(94dvh,980px);overflow:auto;padding:clamp(20px,4vw,38px);border-radius:30px;background:radial-gradient(circle at 90% 0%,rgba(29,145,255,.22),transparent 34%),linear-gradient(145deg,rgba(12,34,64,.98),rgba(4,13,28,.99));border:1px solid rgba(120,190,255,.28);box-shadow:0 36px 110px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.14);transform:translateY(18px) scale(.985);transition:transform .35s cubic-bezier(.2,.8,.2,1);}
+.survey-overlay.open .survey-card{transform:none;}
+.survey-topline{display:flex;align-items:center;gap:10px;color:#8bdcff;font-size:.72rem;font-weight:900;letter-spacing:.14em;}
+.survey-orb{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#0878ed,#38d2f4);color:#fff;font-size:1rem;box-shadow:0 8px 24px rgba(0,145,255,.32);}
+.survey-version{margin-inline-start:auto;color:rgba(210,232,255,.52);font:700 .72rem ui-monospace,monospace;direction:ltr;}
+.survey-card h2{font-size:clamp(1.8rem,4vw,2.45rem);font-weight:900;color:#f4f9ff;margin:20px 0 7px;letter-spacing:-.03em;}
+.survey-intro{color:rgba(220,237,255,.68);margin-bottom:23px;}
+.survey-question{border:0;border-top:1px solid rgba(140,195,255,.15);padding:18px 0 5px;margin:0;min-width:0;}
+.survey-question legend{display:flex;align-items:flex-start;gap:11px;width:100%;padding:0 0 13px;color:#f0f7ff;font-size:1rem;font-weight:850;}
+.survey-question legend span{flex:0 0 29px;width:29px;height:29px;border-radius:9px;display:grid;place-items:center;background:rgba(24,150,255,.18);color:#73d2ff;font:800 .76rem ui-monospace,monospace;}
+.survey-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+.survey-options-two{grid-template-columns:repeat(2,minmax(0,1fr));}
+.survey-choice{position:relative;display:flex;align-items:center;min-height:48px;padding:11px 13px;border:1px solid rgba(135,190,245,.18);border-radius:14px;background:rgba(255,255,255,.045);color:#deedff;cursor:pointer;transition:border-color .18s,background .18s,transform .18s;}
+.survey-choice:hover{border-color:rgba(63,180,255,.52);background:rgba(29,135,230,.10);transform:translateY(-1px);}
+.survey-choice:has(input:checked){border-color:rgba(57,190,255,.78);background:linear-gradient(110deg,rgba(0,128,255,.22),rgba(0,207,255,.09));box-shadow:inset 0 0 0 1px rgba(40,177,255,.12);}
+.survey-choice input{width:17px;height:17px;margin:0 0 0 9px;accent-color:#25b8ff;flex:0 0 auto;}
+.survey-choice span{font-weight:700;font-size:.9rem;}
+.survey-username{margin-top:13px;padding:14px;border-radius:15px;background:rgba(0,0,0,.16);border:1px solid rgba(130,190,245,.15);}
+.survey-username label,.chat-code-label{display:block;margin:0 0 7px;color:#bce5ff;font-size:.8rem;font-weight:850;}
+.survey-username input{direction:ltr;text-align:left;}
+.survey-username small{display:block;margin-top:6px;color:rgba(220,237,255,.56);font-size:.72rem;}
+.survey-privacy{display:flex;gap:8px;align-items:flex-start;margin:17px 0 14px;color:rgba(195,226,255,.68);font-size:.77rem;line-height:1.55;}
+.survey-privacy i{color:#71d8ac;margin-top:2px;}
+.survey-error{padding:10px 12px;border-radius:12px;background:rgba(255,55,95,.12);color:#ffb2c0;font-size:.84rem;}
+.survey-done{padding-top:18px;text-align:center;}
+.survey-done-icon{width:68px;height:68px;margin:6px auto 14px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#20c981,#098c62);color:#fff;font-size:1.7rem;box-shadow:0 12px 30px rgba(15,190,125,.24);}
+.survey-done h3{color:#f3fbff;font-size:1.45rem;margin-bottom:7px;}
+.survey-done p{color:rgba(215,234,255,.69);font-size:.88rem;line-height:1.65;margin:0 auto 15px;max-width:52ch;}
+.survey-submit{margin-top:4px;min-height:54px;background:linear-gradient(110deg,#0878ed,#0bbbd4);}
+.chat-connect-card{margin:14px 0 16px;padding:16px;border-radius:20px;border:1px solid rgba(110,186,255,.18);background:linear-gradient(145deg,rgba(8,35,66,.72),rgba(3,14,30,.62));box-shadow:inset 0 1px 0 rgba(255,255,255,.07);}
+.chat-connect-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px;}
+.chat-connect-heading strong{display:block;color:#e9f6ff;font-weight:900;}
+.chat-connect-heading strong i{color:#63ccff;margin-inline-end:7px;}
+.chat-connect-heading small{display:block;color:rgba(210,232,255,.57);font-size:.76rem;margin-top:4px;}
+.chat-p2p-badge{padding:6px 10px;border-radius:999px;background:rgba(47,208,143,.10);border:1px solid rgba(47,208,143,.24);color:#8af0bd;font-size:.72rem;font-weight:900;white-space:nowrap;}
+.chat-connection-actions{display:flex;gap:9px;flex-wrap:wrap;margin:9px 0 12px;}
+.chat-mini-btn.primary{background:linear-gradient(110deg,#0878ed,#0badd1);border-color:rgba(100,210,255,.35);color:#fff;}
+.chat-mini-btn:disabled{opacity:.42;cursor:not-allowed;}
+.chat-code{display:block;width:100%;min-width:0;resize:vertical;direction:ltr;text-align:left;word-break:break-all;padding:11px 13px;border-radius:13px;border:1px solid rgba(120,190,255,.19);background:rgba(0,7,18,.52);color:#d8f0ff;font: .72rem/1.5 ui-monospace,Consolas,monospace;outline:none;}
+.chat-code:focus{border-color:#3bbdff;box-shadow:0 0 0 3px rgba(40,160,255,.12);}
+.chat-config-note{margin-top:10px;color:rgba(210,232,255,.60);font-size:.76rem;line-height:1.6;}
+.chat-config-note i{color:#8be4b2;margin-inline-end:5px;}
+@media(max-width:560px){.survey-card{padding:20px 16px;border-radius:23px}.survey-options{grid-template-columns:1fr}.survey-choice{min-height:44px}.chat-connect-card{padding:12px}.chat-connection-actions .chat-mini-btn{flex:1;white-space:normal;}}
 
 </style>
 </head>
@@ -500,7 +555,7 @@ body{line-height:var(--line-height,1.45);}
 <!-- ================= האתר ================= -->
 <div id="app">
   <header class="topbar glass">
-    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 9.6.23.41</span></div><p>הקהילה מתחילה כאן · NOVA Visual Studio · Babylon.js 3D</p></div></div>
+    <div class="brand"><div class="app-tile"><i class="fas fa-face-smile-beam"></i></div><div class="brand-copy"><div class="brand-title"><h1>בואו להנות</h1><span class="version-chip">Version 9.9.0.0</span></div><p>הקהילה מתחילה כאן · NOVA Visual Studio · Babylon.js 3D · Local P2P</p></div></div>
     <button class="ibtn" id="btn-relock" aria-label="נעילת מסך"><i class="fas fa-lock"></i></button>
     <button class="ibtn" id="btn-settings" aria-label="הגדרות"><i class="fas fa-gear"></i></button>
   </header>
@@ -645,11 +700,11 @@ body{line-height:var(--line-height,1.45);}
     </section>
 
 
-    <!-- צ'אט לייב -->
+    <!-- צ'אט לייב — חיבור ישיר ללא מסד ענן -->
     <section id="p-livechat" class="panel">
       <div class="chat-head">
-        <div><h2 class="title">צ׳אט לייב</h2><p class="chat-subtitle">שיחות הקהילה בזמן אמת · בחרו חדר והצטרפו לשיחה</p></div>
-        <div class="chat-status" id="chat-status" aria-live="polite">ממתין לחיבור שרת</div>
+        <div><h2 class="title">צ׳אט לייב</h2><p class="chat-subtitle">שיחות ישירות בין חברים · בלי מסד הודעות בענן</p></div>
+        <div class="chat-status" id="chat-status" aria-live="polite">ממתין לחבר</div>
       </div>
       <div class="chat-toolbar">
         <form class="chat-name-form" id="chat-name-form">
@@ -662,41 +717,34 @@ body{line-height:var(--line-height,1.45);}
           <button class="chat-room" type="button" data-room="ideas" aria-pressed="false"># הצעות</button>
         </div>
       </div>
+
+      <div class="chat-connect-card">
+        <div class="chat-connect-heading"><div><strong><i class="fas fa-link"></i> חיבור ישיר עם חברים</strong><small>יוצרים הזמנה ומחליפים קודים באופן פרטי כדי להתחבר.</small></div><span class="chat-p2p-badge"><i class="fas fa-lock"></i> P2P</span></div>
+        <div class="chat-connection-actions">
+          <button class="chat-mini-btn primary" type="button" id="chat-create-invite"><i class="fas fa-qrcode"></i> יצירת קוד הזמנה</button>
+          <button class="chat-mini-btn" type="button" id="chat-disconnect"><i class="fas fa-plug-circle-xmark"></i> ניתוק כל החברים</button>
+        </div>
+        <label class="chat-code-label" for="chat-code-in">הדבק כאן קוד הזמנה של חבר או קוד תשובה</label>
+        <textarea id="chat-code-in" class="chat-code" rows="3" spellcheck="false" placeholder="הדביקו כאן את הקוד שקיבלתם מחבר…"></textarea>
+        <div class="chat-connection-actions">
+          <button class="chat-mini-btn" type="button" id="chat-process-code"><i class="fas fa-right-left"></i> עיבוד קוד / חיבור</button>
+          <button class="chat-mini-btn" type="button" id="chat-copy-code" disabled><i class="fas fa-copy"></i> העתקת הקוד שנוצר</button>
+        </div>
+        <label class="chat-code-label" for="chat-code-out">הקוד שנוצר — שלחו אותו לחבר בלבד</label>
+        <textarea id="chat-code-out" class="chat-code" rows="3" readonly placeholder="כאן יופיע קוד ההזמנה או התשובה…"></textarea>
+        <p class="chat-config-note"><i class="fas fa-shield-halved"></i> הודעות עוברות ישירות בין הדפדפנים ואינן נשמרות במסד ענן. קודי ההזמנה מכילים פרטי חיבור — שלחו אותם רק לחבר שאיתו תרצו לדבר. שירות STUN חיצוני מסייע לאתר נתיב רשת, אך אינו מקבל או שומר את תוכן ההודעות.</p>
+      </div>
+
       <div class="chat-board">
         <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions text">
-          <div class="chat-message system"><div class="chat-message-text">ברוכים הבאים לצ׳אט הקהילה. יש לחבר שירות Realtime כדי שהודעות יופיעו אצל כל המשתמשים.</div></div>
+          <div class="chat-message system"><div class="chat-message-text">ברוכים הבאים לצ׳אט הקהילה. בחרו חדר, צרו קוד הזמנה או הדביקו קוד שקיבלתם מחבר.</div></div>
         </div>
         <form class="chat-compose" id="chat-form">
-          <input id="chat-message" class="chat-input" maxlength="500" placeholder="הצ׳אט יופעל לאחר חיבור שרת בזמן אמת…" autocomplete="off" disabled>
+          <input id="chat-message" class="chat-input" maxlength="500" placeholder="התחברו לחבר כדי לשלוח הודעה…" autocomplete="off" disabled>
           <button class="chat-send" id="chat-send" type="submit" aria-label="שליחת הודעה" disabled><i class="fas fa-paper-plane"></i></button>
         </form>
       </div>
-      <p class="chat-help" id="chat-help">הצ׳אט כרגע במצב הכנה. לאחר חיבור Firebase, הודעות חדשות יופיעו אצל כל המשתמשים בזמן אמת. אל תשתפו פרטים אישיים, סיסמאות או פרטי התחברות.</p>
-      <details class="chat-setup" id="chat-setup">
-        <summary>איך מפעילים צ׳אט אמיתי לכל המשתמשים?</summary>
-        <p>נדרש פרויקט Firebase עם Realtime Database וכניסה אנונימית. ב־Firebase Console יוצרים Web App, מעתיקים את פרטי התצורה ומשנים את הערכים במשתנה FIREBASE_CONFIG שבתחילת קוד הצ׳אט. לאחר מכן מפעילים Authentication → Sign-in method → Anonymous ויוצרים Realtime Database.</p>
-        <p>דוגמת כללי אבטחה התחלתיים ל־Realtime Database (יש להדביק בלשונית Rules):</p>
-        <pre><code>{
-  "rules": {
-    "liveChat": {
-      "rooms": {
-        "$room": {
-          ".read": "auth != null",
-          "$messageId": {
-            ".write": "auth != null && newData.child('uid').val() === auth.uid",
-            ".validate": "newData.hasChildren(['uid','name','text','createdAt'])",
-            "uid": { ".validate": "newData.isString() && newData.val() === auth.uid" },
-            "name": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 24" },
-            "text": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 500" },
-            "createdAt": { ".validate": "newData.isNumber()" }
-          }
-        }
-      }
-    }
-  }
-}</code></pre>
-        <p>הודעות נשמרות במסד הנתונים ומסונכרנות לכל המשתמשים שמחוברים לאותו חדר. אלה כללי התחלה בלבד; לפני פתיחה ציבורית מומלץ להוסיף הגבלת קצב ואפשרויות דיווח/חסימה בצד השרת. בלי הגדרת פרויקט, התצוגה נשארת במצב הכנה ולא תציג הודעות מדומות כאילו נשלחו.</p>
-      </details>
+      <p class="chat-help" id="chat-help">אין שרת הודעות ואין שמירה בענן. לאחר יצירת חיבור ישיר תוכלו לשלוח הודעות בזמן אמת. היסטוריית השיחה קיימת בזיכרון הדפדפן הנוכחי בלבד ונמחקת ברענון.</p>
     </section>
 
   </div></main>
@@ -711,6 +759,42 @@ body{line-height:var(--line-height,1.45);}
     <button class="tab" data-p="p-join" aria-selected="false"><i class="fab fa-discord"></i><span>דיסקורד</span></button>
     <button class="tab" data-p="p-livechat" aria-selected="false"><i class="fas fa-comments"></i><span>צ׳אט לייב</span></button>
   </nav>
+</div>
+
+<!-- שאלון כניסה — מופיע רק בפעם הראשונה ונשמר במכשיר בלבד -->
+<div class="overlay survey-overlay" id="welcome-survey" aria-hidden="true">
+  <div class="survey-card glass" role="dialog" aria-modal="true" aria-labelledby="survey-title">
+    <div class="survey-topline"><span class="survey-orb"><i class="fas fa-sparkles"></i></span><span class="survey-kicker">WELCOME TO THE COMMUNITY</span><span class="survey-version">9.9.0.0</span></div>
+    <h2 id="survey-title">נעים להכיר! 👋</h2>
+    <p class="survey-intro">לפני שמתחילים, נשמח להכיר אותך ולשמוע מה דעתך על הקהילה שלנו.</p>
+    <form id="welcome-survey-form">
+      <fieldset class="survey-question"><legend><span>01</span> כמה אתה אוהב את שירות הרובלוקס שלנו?</legend>
+        <div class="survey-options">
+          <label class="survey-choice"><input id="survey-love-1" type="radio" name="surveyLove" value="מאוד" required><span>מאוד</span></label>
+          <label class="survey-choice"><input type="radio" name="surveyLove" value="מחבב"><span>מחבב</span></label>
+          <label class="survey-choice"><input type="radio" name="surveyLove" value="משחק בשביל הכיף עם ילדים חברים"><span>משחק בשביל הכיף עם ילדים חברים</span></label>
+          <label class="survey-choice"><input type="radio" name="surveyLove" value="לא מעניין אותי"><span>לא מעניין אותי</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="survey-question"><legend><span>02</span> עד כמה אתה אוהב את האלמנטים שאנחנו יוצרים בשבילכם?</legend>
+        <div class="survey-options survey-options-two">
+          <label class="survey-choice"><input type="radio" name="surveyElements" value="מאוד" required><span>מאוד</span></label>
+          <label class="survey-choice"><input type="radio" name="surveyElements" value="לא"><span>לא</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="survey-question"><legend><span>03</span> האם תרצה להזין את שם המשתמש שלך ברובלוקס כדי שנוכל ליצור איתך קשר?</legend>
+        <div class="survey-options survey-options-two">
+          <label class="survey-choice"><input type="radio" name="surveyContact" value="yes" required><span>כן, אשמח</span></label>
+          <label class="survey-choice"><input type="radio" name="surveyContact" value="no"><span>לא תודה</span></label>
+        </div>
+        <div id="survey-username-wrap" class="survey-username" hidden><label for="survey-roblox-user">שם המשתמש שלך ב־Roblox</label><input id="survey-roblox-user" name="robloxUsername" class="chat-input" maxlength="20" minlength="3" autocomplete="off" placeholder="Roblox username"><small>שם משתמש בלבד, בלי סיסמה ובלי פרטי התחברות.</small></div>
+      </fieldset>
+      <p class="survey-privacy"><i class="fas fa-lock"></i> התשובות נשמרות רק במכשיר ובדפדפן הזה. הן לא נשלחות לענן או לשרת. אם תרצה שהצוות יראה את שם המשתמש, תוכל להעתיק את התשובות ולשלוח אותן בעצמך בדיסקורד.</p>
+      <p id="survey-save-error" class="survey-error" hidden></p>
+      <button class="btn block survey-submit" type="submit"><i class="fas fa-check"></i> שמירת תשובות וכניסה לאתר</button>
+    </form>
+    <div id="survey-done" class="survey-done" hidden><div class="survey-done-icon"><i class="fas fa-check"></i></div><h3>תודה שהשתתפת!</h3><p>התשובות נשמרו בדפדפן הזה בלבד. האתר לא שלח אותן לצוות. אם ביקשת שיחזרו אליך, העתק את התשובות ושלח אותן בהודעה פרטית לצוות בדיסקורד.</p><div class="chat-connection-actions"><button type="button" class="chat-mini-btn primary" id="survey-copy-results"><i class="fas fa-copy"></i> העתקת תשובות לשיתוף</button><a class="chat-mini-btn" href="https://discord.gg/bbfYMNXkD" target="_blank" rel="noopener noreferrer">פתיחת דיסקורד</a></div><button type="button" class="btn block survey-submit" id="survey-done-close">כניסה לאתר</button></div>
+  </div>
 </div>
 
 <!-- ================= תפריט הגדרות ================= -->
@@ -794,8 +878,8 @@ P.contentWidth=Math.max(900,Math.min(1800,Number(P.contentWidth)||1440));
 P.lineHeight=Math.max(125,Math.min(190,Number(P.lineHeight)||145));
 P.fps = P.fps === 0 ? 60 : Math.max(30, Math.min(60, Number(P.fps) || 60));
 const save = () => store.set('prefs3', JSON.stringify(P));
-// First launch of 9.6.23.41 restores native full-resolution rendering once.
-if (store.get('novaAppVersion') !== '9.6.23.41') { P.renderScale = 100; P.quality = 'high'; store.set('novaAppVersion', '9.6.23.41'); save(); }
+// First launch of 9.9.0.0 restores native full-resolution rendering once.
+if (store.get('novaAppVersion') !== '9.9.0.0') { P.renderScale = 100; P.quality = 'high'; store.set('novaAppVersion', '9.9.0.0'); save(); }
 
 const ACC = { blue: '#0a84ff', purple: '#bf5af2', pink: '#ff375f', green: '#30d158', orange: '#ff9f0a' };
 const PAL = {
@@ -831,7 +915,7 @@ const SCENES = {
 if (!PAL[P.pal]) P.pal = 'prime';
 const WALL = { prime: 0 }; // הרקע הקבוע: לוח אם בסגנון PRIME BIOS
 
-/* ---------- Babylon.js 3D Engine · Version 9.6.23.41 ---------- */
+/* ---------- Babylon.js 3D Engine · Version 9.9.0.0 ---------- */
 const glc = $('#gl'), fxc = $('#fx');
 let gl = null, U = {}, gpuName = 'Babylon.js — initializing';
 const NovaEdge = (() => {
@@ -1348,7 +1432,7 @@ function unlock() {
   ico.className = 'fas fa-lock-open pop'; const r = ico.getBoundingClientRect(); pulse(r.left + r.width / 2, r.top + r.height / 2, 1.2);
   lock.classList.add('unlocking');
   setTimeout(() => { lock.style.transform = 'translateY(-105%)'; lock.style.opacity = '0'; app.style.opacity = ''; app.classList.add('on'); setTimeout(moveInd, 80); pulse(innerWidth / 2, innerHeight / 2, 1); }, 450);
-  setTimeout(() => lock.classList.add('gone'), 1300);
+  setTimeout(() => { lock.classList.add('gone'); showWelcomeSurvey(); }, 1300);
 }
 function relock() {
   unlocked = false; tick(700); lock.classList.remove('gone'); void lock.offsetWidth; lock.style.transform = ''; lock.style.opacity = ''; lock.classList.add('unlocking');
@@ -1368,84 +1452,158 @@ addEventListener('wheel', e => { if (!unlocked && e.deltaY > 40) unlock(); }, { 
 $('#btn-relock').addEventListener('click', relock);
 
 
-/* ---------- NOVA Live Chat · Firebase Realtime Database ---------- */
-// Replace these public web-app settings with your own Firebase project config.
-// Do not put service-account credentials or private server keys in this HTML.
-const FIREBASE_CONFIG = {
-  apiKey: 'YOUR_FIREBASE_API_KEY',
-  authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
-  databaseURL: 'https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com',
-  projectId: 'YOUR_PROJECT_ID',
-  appId: 'YOUR_FIREBASE_APP_ID'
+/* ---------- NOVA Live Chat · Direct WebRTC (no cloud message storage) ---------- */
+const chatUI={
+  status:$('#chat-status'),messages:$('#chat-messages'),form:$('#chat-form'),input:$('#chat-message'),send:$('#chat-send'),
+  nameForm:$('#chat-name-form'),name:$('#chat-nickname'),help:$('#chat-help'),codeIn:$('#chat-code-in'),codeOut:$('#chat-code-out'),
+  create:$('#chat-create-invite'),process:$('#chat-process-code'),copy:$('#chat-copy-code'),disconnect:$('#chat-disconnect')
 };
-const chatUI={status:$('#chat-status'),messages:$('#chat-messages'),form:$('#chat-form'),input:$('#chat-message'),send:$('#chat-send'),nameForm:$('#chat-name-form'),name:$('#chat-nickname'),help:$('#chat-help')};
-const chatState={booting:false,connected:false,db:null,uid:null,ref:null,listener:null,room:'general',lastSend:0,started:false,noticeShown:false};
 const chatRoomNames={general:'כללי',help:'עזרה',ideas:'הצעות'};
+const chatState={room:'general',peers:new Map(),pendingCount:0,lastSend:0,history:{general:[],help:[],ideas:[]},seen:new Set(),outCode:''};
+const PEER_ICE_CONFIG={iceServers:[{urls:'stun:stun.l.google.com:19302'}]};
 if(P.saveChatName){try{chatUI.name.value=localStorage.getItem('novaChatNickname')||'';}catch(e){}}
-function chatStatus(text,kind='pending'){chatUI.status.textContent=text;chatUI.status.classList.toggle('is-online',kind==='online');chatUI.status.classList.toggle('is-error',kind==='error');}
-function chatSystem(text){const el=document.createElement('div');el.className='chat-message system';const body=document.createElement('div');body.className='chat-message-text';body.textContent=text;el.appendChild(body);chatUI.messages.appendChild(el);chatUI.messages.scrollTop=chatUI.messages.scrollHeight;}
-function chatRenderMessage(data,key){
-  if(!data||typeof data.text!=='string'||typeof data.name!=='string')return;
-  const nearBottom=chatUI.messages.scrollHeight-chatUI.messages.scrollTop-chatUI.messages.clientHeight<90;
-  const el=document.createElement('article');el.className='chat-message'+(data.uid===chatState.uid?' mine':'');el.dataset.key=key||'';
-  const head=document.createElement('div');head.className='chat-message-head';
-  const name=document.createElement('span');name.textContent=data.name.slice(0,24);head.appendChild(name);
-  const stamp=document.createElement('time');stamp.className='chat-time';const dt=Number(data.createdAt);stamp.textContent=Number.isFinite(dt)&&dt>0?new Date(dt).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}):'';head.appendChild(stamp);
-  const body=document.createElement('div');body.className='chat-message-text';body.textContent=data.text.slice(0,500);
-  el.append(head,body);chatUI.messages.appendChild(el);
-  while(chatUI.messages.children.length>85)chatUI.messages.removeChild(chatUI.messages.firstChild);
-  if(nearBottom)chatUI.messages.scrollTop=chatUI.messages.scrollHeight;
-  if(data.uid!==chatState.uid && P.chatNotify && (document.hidden || !$('#p-livechat').classList.contains('active')) && 'Notification' in window && Notification.permission==='granted'){
-    try{new Notification('הודעה חדשה בצ׳אט',{body:data.name+' שלח/ה הודעה',icon:'logo.png'});}catch(e){}
+function chatStatus(text,kind='pending'){
+  chatUI.status.textContent=text;
+  chatUI.status.classList.toggle('is-online',kind==='online');
+  chatUI.status.classList.toggle('is-error',kind==='error');
+}
+function chatConnectedCount(){let n=0;for(const p of chatState.peers.values())if(p.channel&&p.channel.readyState==='open')n++;return n;}
+function chatSetComposer(){const on=chatConnectedCount()>0;chatUI.input.disabled=!on;chatUI.send.disabled=!on;chatUI.input.placeholder=on?'כתבו הודעה לחברים…':'התחברו לחבר כדי לשלוח הודעה…';}
+function chatUpdateStatus(){
+  const n=chatConnectedCount();chatSetComposer();
+  if(n){chatStatus(n+' חברים מחוברים · חיבור ישיר','online');chatUI.help.textContent='מחוברים ישירות. ההודעות אינן נשמרות בענן או לאחר רענון. כדי לצרף חבר נוסף, צרו עבורו קוד הזמנה נפרד.';}
+  else if(chatState.peers.size){chatStatus('ממתין לחיבור ישיר','pending');}
+  else{chatStatus('ממתין לחבר','pending');}
+}
+function chatAddItem(item){
+  const room=chatState.history[item.room]||chatState.history.general;room.push(item);if(room.length>120)room.shift();
+  if(item.room===chatState.room)chatRenderItem(item);
+}
+function chatRenderItem(item){
+  const el=document.createElement(item.type==='system'?'div':'article');
+  el.className=item.type==='system'?'chat-message system':'chat-message'+(item.mine?' mine':'');
+  if(item.type==='system'){
+    const body=document.createElement('div');body.className='chat-message-text';body.textContent=item.text;el.appendChild(body);
+  }else{
+    const head=document.createElement('div');head.className='chat-message-head';
+    const name=document.createElement('span');name.textContent=String(item.name||'חבר').slice(0,24);head.appendChild(name);
+    if(P.chatTimestamps){const time=document.createElement('time');time.className='chat-time';time.textContent=new Date(item.time||Date.now()).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});head.appendChild(time);}
+    const body=document.createElement('div');body.className='chat-message-text';body.textContent=String(item.text||'').slice(0,500);el.append(head,body);
   }
-  if(data.uid!==chatState.uid)chatBeep();
+  chatUI.messages.appendChild(el);while(chatUI.messages.children.length>140)chatUI.messages.removeChild(chatUI.messages.firstChild);chatUI.messages.scrollTop=chatUI.messages.scrollHeight;
 }
-function chatBeep(){if(!P.chatSound)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const a=new AC(),o=a.createOscillator(),g=a.createGain();o.type='sine';o.frequency.value=760;g.gain.setValueAtTime(.035,a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.12);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.13);o.onended=()=>a.close();}catch(e){}}
-function chatClearRoom(){chatUI.messages.innerHTML='';chatSystem('טוען הודעות בחדר '+(chatRoomNames[chatState.room]||'כללי')+'…');}
-function attachChatRoom(){
-  if(!chatState.db)return;
-  if(chatState.ref&&chatState.listener)chatState.ref.off('child_added',chatState.listener);
-  chatClearRoom();
-  chatState.ref=chatState.db.ref('liveChat/rooms/'+chatState.room).limitToLast(80);
-  chatState.listener=snap=>{chatUI.messages.querySelector('.chat-message.system')?.remove();chatRenderMessage(snap.val(),snap.key);};
-  chatState.ref.on('child_added',chatState.listener,error=>{chatStatus('שגיאת גישה למסד הנתונים','error');chatSystem('לא ניתן לקרוא הודעות. בדקו את כללי האבטחה של Firebase.');console.warn('Live chat read error:',error);});
+function chatSystem(text){chatAddItem({type:'system',room:chatState.room,text:String(text),time:Date.now()});}
+function chatShowRoom(){chatUI.messages.innerHTML='';const items=chatState.history[chatState.room]||[];if(!items.length)chatRenderItem({type:'system',text:'חדר '+chatRoomNames[chatState.room]+' נפתח. ההודעות יופיעו כאן לאחר חיבור לחברים.'});else items.forEach(chatRenderItem);}
+function chatBeep(){if(!P.chatSound)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const a=new AC(),o=a.createOscillator(),g=a.createGain();o.type='sine';o.frequency.value=760;g.gain.setValueAtTime(.03,a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.12);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.13);o.onended=()=>a.close();}catch(e){}}
+function chatRandomId(){return (window.crypto&&crypto.randomUUID)?crypto.randomUUID():('p'+Date.now().toString(36)+Math.random().toString(36).slice(2,10));}
+function encodeSignal(obj){const bytes=new TextEncoder().encode(JSON.stringify(obj));let bin='';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function decodeSignal(code){
+  const clean=String(code||'').trim().replace(/\s+/g,'');if(clean.length<40||clean.length>24000)throw new Error('קוד החיבור קצר או ארוך מדי.');
+  const b64=clean.replace(/-/g,'+').replace(/_/g,'/');const bin=atob(b64.padEnd(Math.ceil(b64.length/4)*4,'='));const bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));
+  const obj=JSON.parse(new TextDecoder().decode(bytes));if(!obj||obj.v!==1||!['offer','answer'].includes(obj.type)||typeof obj.id!=='string'||!obj.sdp||typeof obj.sdp.sdp!=='string')throw new Error('קוד הזמנה לא תקין או לא מתאים לגרסה.');return obj;
 }
-let firebaseScriptsPromise=null;
-function loadFirebaseSDK(){
-  if(window.firebase&&window.firebase.database)return Promise.resolve();
-  if(firebaseScriptsPromise)return firebaseScriptsPromise;
-  const files=['https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js','https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js','https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js'];
-  firebaseScriptsPromise=files.reduce((chain,url)=>chain.then(()=>new Promise((resolve,reject)=>{const el=document.createElement('script');el.src=url;el.onload=resolve;el.onerror=()=>reject(new Error('לא ניתן לטעון את Firebase SDK'));document.head.appendChild(el);})),Promise.resolve());
-  return firebaseScriptsPromise;
+function waitForIceGathering(pc){
+  if(pc.iceGatheringState==='complete')return Promise.resolve();
+  return new Promise(resolve=>{let done=false;const finish=()=>{if(done)return;done=true;pc.removeEventListener('icegatheringstatechange',check);clearTimeout(timer);resolve();};const check=()=>{if(pc.iceGatheringState==='complete')finish();};const timer=setTimeout(finish,12000);pc.addEventListener('icegatheringstatechange',check);check();});
 }
-async function startLiveChat(){
-  if(chatState.connected||chatState.booting)return;
-  const configured=FIREBASE_CONFIG.apiKey&&!FIREBASE_CONFIG.apiKey.includes('YOUR_')&&FIREBASE_CONFIG.projectId&&!FIREBASE_CONFIG.projectId.includes('YOUR_')&&FIREBASE_CONFIG.databaseURL&&!FIREBASE_CONFIG.databaseURL.includes('YOUR_')&&FIREBASE_CONFIG.appId&&!FIREBASE_CONFIG.appId.includes('YOUR_');
-  if(!configured){chatStatus('מוכן לחיבור שרת','pending');chatUI.input.disabled=true;chatUI.send.disabled=true;if(!chatState.noticeShown){chatSystem('הצ׳אט מוכן מבחינת ממשק, אך עדיין לא מחובר לשרת משותף. יש להוסיף את פרטי Firebase בקוד כדי שהודעות יגיעו לכל המשתמשים.');chatState.noticeShown=true;}return;}
-  chatState.booting=true;chatStatus('מתחבר לשרת…','pending');
+function chatSetOutput(code){chatState.outCode=code||'';chatUI.codeOut.value=chatState.outCode;chatUI.copy.disabled=!chatState.outCode;}
+function chatAttachChannel(peerId,channel){const rec=chatState.peers.get(peerId);if(!rec)return;rec.channel=channel;channel.onopen=()=>{rec.openedAt=Date.now();chatUpdateStatus();chatSystem('חיבור ישיר נפתח עם חבר. אפשר להתחיל לשוחח.');};channel.onclose=()=>{chatUpdateStatus();chatSystem('החיבור עם אחד החברים נסגר.');};channel.onerror=()=>{chatUI.help.textContent='אירעה שגיאה בחיבור הישיר. אפשר ליצור הזמנה חדשה.';};channel.onmessage=e=>chatReceive(peerId,e.data);}
+function chatNewPeer(peerId,role){
+  const pc=new RTCPeerConnection(PEER_ICE_CONFIG);const rec={id:peerId,pc,channel:null,role};chatState.peers.set(peerId,rec);
+  pc.onconnectionstatechange=()=>{
+    if(pc.connectionState==='failed'){chatStatus('החיבור הישיר נכשל','error');chatUI.help.textContent='הרשת לא אפשרה חיבור ישיר. נסו ליצור קוד חדש; רשתות מסוימות חוסמות P2P ללא שרת TURN.';chatUpdateStatus();}
+    else if(pc.connectionState==='disconnected'){chatStatus('החיבור נקטע · מנסה להתאושש','pending');}
+    else if(pc.connectionState==='connected'){chatUpdateStatus();}
+    else if(pc.connectionState==='closed'){chatState.peers.delete(peerId);chatUpdateStatus();}
+  };
+  pc.oniceconnectionstatechange=()=>{if(pc.iceConnectionState==='failed'){chatStatus('לא ניתן למצוא נתיב ישיר','error');chatUI.help.textContent='נראה שהרשת חוסמת חיבור ישיר. אין שרת ממסר מוגדר, כדי שההודעות לא יעברו דרך ענן.';}};
+  return rec;
+}
+function chatReceive(peerId,raw){
+  if(typeof raw!=='string'||raw.length>6000)return;let m;try{m=JSON.parse(raw);}catch(e){return;}
+  if(!m||m.kind!=='chat'||typeof m.id!=='string'||typeof m.text!=='string'||m.text.length<1||m.text.length>500||!chatRoomNames[m.room]||chatState.seen.has(m.id))return;
+  chatState.seen.add(m.id);if(chatState.seen.size>3000)chatState.seen.delete(chatState.seen.values().next().value);
+  const item={type:'message',room:m.room,name:String(m.name||'חבר').replace(/[<>]/g,'').slice(0,24)||'חבר',text:m.text,time:Number(m.time)||Date.now(),mine:false};
+  chatAddItem(item);if(m.room===chatState.room){chatBeep();if(P.chatNotify&&(document.hidden||!$('#p-livechat').classList.contains('active'))&&'Notification'in window&&Notification.permission==='granted'){try{new Notification('הודעה חדשה בצ׳אט',{body:item.name+' שלח/ה הודעה'});}catch(e){}}}
+  // Forward once to other direct peers, enabling a small peer mesh without a central message server.
+  const priorHops=Number(m.hops)||0;if(priorHops<8){const relay=JSON.stringify({...m,hops:priorHops+1});for(const [id,p] of chatState.peers){if(id!==peerId&&p.channel&&p.channel.readyState==='open'){try{p.channel.send(relay);}catch(e){}}}}
+}
+async function chatCreateInvite(){
+  if(!('RTCPeerConnection'in window)){chatStatus('WebRTC לא נתמך בדפדפן','error');chatUI.help.textContent='פתחו את האתר בגרסה עדכנית של Chrome, Edge, Firefox או Safari.';return;}
+  chatUI.create.disabled=true;chatStatus('יוצר קוד הזמנה…','pending');
+  const id=chatRandomId();const rec=chatNewPeer(id,'initiator');
   try{
-    await loadFirebaseSDK();
-    if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
-    const auth=firebase.auth();if(!auth.currentUser)await auth.signInAnonymously();
-    chatState.uid=auth.currentUser.uid;chatState.db=firebase.database();chatState.connected=true;chatUI.input.disabled=false;chatUI.send.disabled=false;
-    chatUI.input.placeholder='כתבו הודעה לקהילה…';chatUI.help.textContent='מחוברים לצ׳אט בזמן אמת. ההודעות בחדר זה מוצגות לכל המשתמשים המחוברים. אל תשתפו פרטים אישיים או פרטי התחברות.';
-    chatStatus('מחובר בזמן אמת','online');attachChatRoom();
-  }catch(err){console.warn('Firebase chat connection failed:',err);chatStatus('לא ניתן להתחבר','error');chatSystem('החיבור נכשל. בדקו את פרטי Firebase, הפעילו Anonymous Authentication וודאו שכללי Realtime Database מאפשרים קריאה וכתיבה למשתמשים מחוברים.');}
-  finally{chatState.booting=false;chatState.started=true;}
+    const channel=rec.pc.createDataChannel('bhn-community-chat',{ordered:true});chatAttachChannel(id,channel);
+    const offer=await rec.pc.createOffer();await rec.pc.setLocalDescription(offer);await waitForIceGathering(rec.pc);
+    chatSetOutput(encodeSignal({v:1,type:'offer',id,sdp:{type:rec.pc.localDescription.type,sdp:rec.pc.localDescription.sdp}}));
+    chatSystem('נוצר קוד הזמנה. שלחו אותו לחבר בפרטי; החבר יחזיר לכם קוד תשובה.');
+    chatStatus('הזמנה מוכנה · ממתין לחבר','pending');chatUI.help.textContent='שלחו את הקוד שנוצר לחבר. החבר ידביק אותו בשדה העליון, ילחץ על ״עיבוד קוד / חיבור״ וישלח לכם בחזרה את קוד התשובה.';
+  }catch(err){console.warn('Create P2P invite failed',err);chatStatus('לא ניתן ליצור הזמנה','error');chatSystem('יצירת ההזמנה נכשלה. ודאו שהדפדפן מאפשר WebRTC ונסו שוב.');chatState.peers.delete(id);try{rec.pc.close();}catch(e){}}
+  finally{chatUI.create.disabled=false;chatUpdateStatus();}
 }
-chatUI.nameForm.addEventListener('submit',e=>{e.preventDefault();const value=chatUI.name.value.trim().replace(/[<>]/g,'').slice(0,24);if(value.length<2){chatUI.name.focus();return;}chatUI.name.value=value;if(P.saveChatName){try{localStorage.setItem('novaChatNickname',value);}catch(e){}}chatUI.help.textContent='הכינוי נשמר. אפשר לבחור חדר ולכתוב הודעה לאחר חיבור השרת.';tick(980);});
-$$('.chat-room').forEach(btn=>btn.addEventListener('click',()=>{if(chatState.room===btn.dataset.room)return;chatState.room=btn.dataset.room;$$('.chat-room').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));if(chatState.connected)attachChatRoom();else{chatUI.messages.innerHTML='';chatSystem('החדר '+(chatRoomNames[chatState.room]||'כללי')+' ייפתח לאחר חיבור שרת בזמן אמת.');}tick(880);}));
-chatUI.form.addEventListener('submit',async e=>{
-  e.preventDefault();const textValue=chatUI.input.value.trim();const nameValue=chatUI.name.value.trim().replace(/[<>]/g,'').slice(0,24);
-  if(!chatState.connected||!chatState.db){chatStatus('נדרש חיבור שרת','pending');return;}
-  if(nameValue.length<2){chatUI.name.focus();chatUI.help.textContent='בחרו כינוי באורך 2–24 תווים לפני שליחת הודעה.';return;}
-  if(!textValue||textValue.length>500)return;
-  const now=Date.now();if(now-chatState.lastSend<1000){chatUI.help.textContent='רגע קטן בין הודעות כדי למנוע הצפה.';return;}chatState.lastSend=now;
-  chatUI.send.disabled=true;
-  try{await chatState.db.ref('liveChat/rooms/'+chatState.room).push({uid:chatState.uid,name:nameValue,text:textValue,createdAt:firebase.database.ServerValue.TIMESTAMP});chatUI.input.value='';if(P.saveChatName)try{localStorage.setItem('novaChatNickname',nameValue);}catch(e){}}
-  catch(err){console.warn('Chat send failed:',err);chatUI.help.textContent='לא הצלחנו לשלוח את ההודעה. בדקו את הרשאות הכתיבה ב־Firebase.';}
-  finally{chatUI.send.disabled=false;chatUI.input.focus();}
+async function chatProcessCode(){
+  const raw=chatUI.codeIn.value.trim();if(!raw){chatUI.codeIn.focus();return;}
+  chatUI.process.disabled=true;
+  try{
+    const obj=decodeSignal(raw);
+    if(obj.type==='offer'){
+      if(chatState.peers.has(obj.id))throw new Error('ההזמנה הזו כבר עובדה במכשיר. בקשו קוד הזמנה חדש.');
+      const rec=chatNewPeer(obj.id,'answerer');rec.pc.ondatachannel=e=>chatAttachChannel(obj.id,e.channel);
+      await rec.pc.setRemoteDescription(new RTCSessionDescription(obj.sdp));const answer=await rec.pc.createAnswer();await rec.pc.setLocalDescription(answer);await waitForIceGathering(rec.pc);
+      chatSetOutput(encodeSignal({v:1,type:'answer',id:obj.id,sdp:{type:rec.pc.localDescription.type,sdp:rec.pc.localDescription.sdp}}));
+      chatUI.codeIn.value='';chatSystem('קוד ההזמנה התקבל ונוצר קוד תשובה. שלחו את קוד התשובה בחזרה למי שהזמין אתכם.');chatStatus('תשובה מוכנה · ממתין לאישור','pending');
+      chatUI.help.textContent='העתיקו את קוד התשובה ושלחו אותו לחבר שיצר את ההזמנה. לאחר שהוא ידביק אותו, החיבור הישיר ייפתח.';
+    }else{
+      const rec=chatState.peers.get(obj.id);if(!rec||rec.role!=='initiator')throw new Error('לא נמצאה הזמנה תואמת במכשיר הזה. הדביקו את קוד התשובה במכשיר שיצר את ההזמנה המקורית.');
+      await rec.pc.setRemoteDescription(new RTCSessionDescription(obj.sdp));chatUI.codeIn.value='';chatStatus('קוד התקבל · מתחבר…','pending');chatSystem('קוד התשובה התקבל. ממתינים לפתיחת החיבור הישיר…');
+    }
+  }catch(err){console.warn('Process P2P code failed',err);chatStatus('לא ניתן לעבד את הקוד','error');chatUI.help.textContent=err.message||'בדקו שהקוד הועתק במלואו ושייך להזמנה הנכונה.';chatSystem(err.message||'קוד לא תקין.');}
+  finally{chatUI.process.disabled=false;chatUpdateStatus();}
+}
+chatUI.create.addEventListener('click',chatCreateInvite);
+chatUI.process.addEventListener('click',chatProcessCode);
+chatUI.copy.addEventListener('click',async()=>{
+  if(!chatState.outCode)return;
+  try{await navigator.clipboard.writeText(chatState.outCode);chatUI.help.textContent='הקוד הועתק. שלחו אותו לחבר שאיתו אתם מתחברים.';}
+  catch(e){chatUI.codeOut.focus();chatUI.codeOut.select();try{document.execCommand('copy');chatUI.help.textContent='נסיון העתקה בוצע. אם לא הועתק, סמנו והעתיקו ידנית.';}catch(e2){chatUI.help.textContent='סמנו את הקוד והעתיקו אותו ידנית.';}}
 });
+chatUI.disconnect.addEventListener('click',()=>{
+  for(const rec of chatState.peers.values()){try{rec.pc.close();}catch(e){}}
+  chatState.peers.clear();chatSetOutput('');chatUI.codeIn.value='';chatUpdateStatus();chatSystem('כל החיבורים הישירים נותקו.');
+});
+chatUI.nameForm.addEventListener('submit',e=>{e.preventDefault();const value=chatUI.name.value.trim().replace(/[<>]/g,'').slice(0,24);if(value.length<2){chatUI.name.focus();return;}chatUI.name.value=value;if(P.saveChatName){try{localStorage.setItem('novaChatNickname',value);}catch(e){}}chatUI.help.textContent='הכינוי נשמר במכשיר הזה. אפשר ליצור הזמנה או להתחבר לחבר.';tick(980);});
+$$('.chat-room').forEach(btn=>btn.addEventListener('click',()=>{chatState.room=btn.dataset.room;$$('.chat-room').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));chatShowRoom();tick(880);}));
+chatUI.form.addEventListener('submit',e=>{
+  e.preventDefault();const textValue=chatUI.input.value.trim();const nameValue=chatUI.name.value.trim().replace(/[<>]/g,'').slice(0,24);
+  if(!chatConnectedCount()){chatUI.help.textContent='אין כרגע חברים מחוברים. צרו קוד הזמנה והשלימו חיבור ישיר.';return;}
+  if(nameValue.length<2){chatUI.name.focus();chatUI.help.textContent='בחרו כינוי באורך 2–24 תווים לפני שליחת הודעה.';return;}
+  if(!textValue||textValue.length>500)return;const now=Date.now();if(now-chatState.lastSend<650){chatUI.help.textContent='רגע קטן בין הודעות כדי למנוע הצפה.';return;}chatState.lastSend=now;
+  const msg={kind:'chat',id:chatRandomId(),room:chatState.room,name:nameValue,text:textValue,time:now,hops:0};chatState.seen.add(msg.id);
+  chatAddItem({type:'message',room:msg.room,name:msg.name,text:msg.text,time:msg.time,mine:true});const wire=JSON.stringify(msg);
+  for(const rec of chatState.peers.values())if(rec.channel&&rec.channel.readyState==='open'){try{rec.channel.send(wire);}catch(err){console.warn('P2P send failed',err);}}
+  chatUI.input.value='';if(P.saveChatName){try{localStorage.setItem('novaChatNickname',nameValue);}catch(e){}}chatUI.input.focus();
+});
+
+/* ---------- שאלון כניסה חד־פעמי · שמירה מקומית בלבד ---------- */
+const SURVEY_KEY='bhnWelcomeSurvey_v9900';
+const surveyOverlay=$('#welcome-survey');
+function readSurvey(){try{return JSON.parse(localStorage.getItem(SURVEY_KEY)||'null');}catch(e){return null;}}
+function showWelcomeSurvey(){if(readSurvey())return;surveyOverlay.classList.add('open');surveyOverlay.setAttribute('aria-hidden','false');setTimeout(()=>$('#survey-love-1')?.focus(),220);}
+function closeWelcomeSurvey(){surveyOverlay.classList.remove('open');surveyOverlay.setAttribute('aria-hidden','true');}
+$$('input[name="surveyContact"]').forEach(r=>r.addEventListener('change',()=>{
+  const wants=$('input[name="surveyContact"]:checked')?.value==='yes';const wrap=$('#survey-username-wrap'),field=$('#survey-roblox-user');wrap.hidden=!wants;field.required=wants;if(!wants)field.value='';
+}));
+$('#welcome-survey-form').addEventListener('submit',e=>{
+  e.preventDefault();const fd=new FormData(e.currentTarget);const wants=fd.get('surveyContact')==='yes';
+  const username=wants?String(fd.get('robloxUsername')||'').trim().replace(/[<>]/g,'').slice(0,20):'';
+  if(wants&&!/^[A-Za-z0-9_]{3,20}$/.test(username)){$('#survey-roblox-user').setCustomValidity('הכניסו שם משתמש תקין באורך 3–20 תווים, באנגלית ובמספרים.');$('#survey-roblox-user').reportValidity();$('#survey-roblox-user').setCustomValidity('');return;}
+  const answers={robloxLove:fd.get('surveyLove'),communityElements:fd.get('surveyElements'),wantsContact:wants,robloxUsername:username,savedAt:new Date().toISOString(),storage:'local-only'};
+  try{localStorage.setItem(SURVEY_KEY,JSON.stringify(answers));$('#welcome-survey-form').hidden=true;$('#survey-done').hidden=false;tick(1150);}
+  catch(err){$('#survey-save-error').hidden=false;$('#survey-save-error').textContent='הדפדפן חסם שמירה מקומית. אפשר לאפשר אחסון לאתר ולנסות שוב.';}
+});
+function resetWelcomeSurvey(){try{localStorage.removeItem(SURVEY_KEY);}catch(e){}$('#welcome-survey-form').reset();$('#welcome-survey-form').hidden=false;$('#survey-done').hidden=true;$('#survey-username-wrap').hidden=true;$('#survey-roblox-user').required=false;$('#survey-save-error').hidden=true;closeSettings();showWelcomeSurvey();}
+$('#survey-done-close').addEventListener('click',closeWelcomeSurvey);
+$('#survey-copy-results').addEventListener('click',async()=>{const a=readSurvey();if(!a)return;const text='שאלון בואו להנות\nאהבת שירות הרובלוקס: '+a.robloxLove+'\nאהבת האלמנטים: '+a.communityElements+'\nמעוניין ביצירת קשר: '+(a.wantsContact?'כן':'לא')+'\nשם משתמש ברובלוקס: '+(a.robloxUsername||'לא נמסר');try{await navigator.clipboard.writeText(text);$('#survey-copy-results').textContent='הועתק ✓';}catch(e){$('#survey-copy-results').textContent='לא ניתן להעתיק — נסו שוב';}});
 
 /* ---------- ניווט ולשונית נגררת ---------- */
 const tabs = $$('.tab'), ind = $('#ind');
@@ -1454,10 +1612,10 @@ tabs.forEach(b => b.addEventListener('click', () => {
   $$('.panel').forEach(p => p.classList.remove('active')); $('#' + b.dataset.p).classList.add('active'); $('#' + b.dataset.p).scrollTop = 0;
   tabs.forEach(t => t.setAttribute('aria-selected', String(t === b))); moveInd(); tick();
   if(P.rememberTab)store.set('lastTab',b.dataset.p);
-  if(b.dataset.p==='p-livechat')startLiveChat();
+  if(b.dataset.p==='p-livechat'){chatUpdateStatus();chatShowRoom();}
   const r = b.getBoundingClientRect(); pulse(r.left + r.width / 2, r.top, .8);
 }));
-if(P.rememberTab){const saved=store.get('lastTab');const target=saved&&tabs.find(t=>t.dataset.p===saved);if(target){$$('.panel').forEach(p=>p.classList.remove('active'));$('#'+saved).classList.add('active');tabs.forEach(t=>t.setAttribute('aria-selected',String(t===target)));if(saved==='p-livechat')startLiveChat();}}
+if(P.rememberTab){const saved=store.get('lastTab');const target=saved&&tabs.find(t=>t.dataset.p===saved);if(target){$$('.panel').forEach(p=>p.classList.remove('active'));$('#'+saved).classList.add('active');tabs.forEach(t=>t.setAttribute('aria-selected',String(t===target)));if(saved==='p-livechat'){chatUpdateStatus();chatShowRoom();}}}
 if (window.ResizeObserver) new ResizeObserver(moveInd).observe($('#tabbar')); addEventListener('load', () => setTimeout(moveInd, 100));
 addEventListener('fullscreenchange',()=>{resize();setTimeout(moveInd,80);});if(window.visualViewport)visualViewport.addEventListener('resize',()=>{resize();setTimeout(moveInd,60);});
 
@@ -1503,7 +1661,7 @@ const SCHEMA = [
     { k: 'particleDensity', type: 'rng', l: 'צפיפות חלקיקים', d: 'מוגבלת אוטומטית כדי לשמור על ביצועים', min: 20, max: 160, step: 10, u: '' },
     { k: 'layerDepth', type: 'rng', l: 'עומק שכבות ופרלקסה', min: 0, max: 100, step: 5, u: '%' },
     { k: 'interactiveFX', type: 'tog', l: 'אפקטים מגיבים לעכבר וללחיצות' },
-    { type: 'note', l: 'Babylon.js · Version 9.6.23.41', d: '16 עולמות רקע, מצלמת 3D, אובייקטים עם עומק אמיתי, חומרים ותאורה. במקרה ש־Babylon.js לא נטען, מוצג רקע CSS חלופי.' }
+    { type: 'note', l: 'Babylon.js · Version 9.9.0.0', d: '16 עולמות רקע, מצלמת 3D, אובייקטים עם עומק אמיתי, חומרים ותאורה. במקרה ש־Babylon.js לא נטען, מוצג רקע CSS חלופי.' }
   ] },
   { id: 'fx', t: 'אפקטים', i: 'fa-wand-magic-sparkles', c: '#ff375f', items: [
     { k: 'speed', type: 'rng', l: 'מהירות תנועה', min: 0, max: 300, step: 10, u: '%' },
@@ -1560,16 +1718,17 @@ const SCHEMA = [
     { k: 'chatNotify', type: 'tog', l: 'התראות על הודעות צ׳אט חדשות' },
     { k: 'chatSound', type: 'tog', l: 'צליל בעת קבלת הודעה' },
     { type: 'btn', l: 'הרשאת התראות בדפדפן', b: 'אפשר התראות', act: 'notify' },
-    { type: 'note', l: 'הערה', d: 'התראות דפדפן יופיעו רק אחרי אישור מפורש שלך ורק כאשר הצ׳אט מחובר לשרת בזמן אמת.' }
+    { type: 'note', l: 'הערה', d: 'התראות דפדפן יופיעו רק אחרי אישור מפורש שלך ורק כאשר יש חיבור ישיר לחבר.' }
   ] },
   { id: 'community', t: 'קהילה וצ׳אט', i: 'fa-people-group', c: '#5865f2', items: [
     { k: 'saveChatName', type: 'tog', l: 'שמירת הכינוי במכשיר הזה' },
     { k: 'chatTimestamps', type: 'tog', l: 'הצגת שעה ליד הודעות' },
     { type: 'btn', l: 'מחיקת הכינוי השמור', b: 'נקה כינוי', act: 'clearChatName', red: true },
-    { type: 'note', l: 'חדרי הקהילה', d: 'בצ׳אט יש חדר כללי, חדר עזרה וחדר הצעות. ההודעות משותפות לכל המשתמשים לאחר חיבור Firebase.' }
+    { type: 'note', l: 'חדרי הקהילה', d: 'בצ׳אט יש חדר כללי, חדר עזרה וחדר הצעות. החיבור נעשה ישירות בין דפדפנים באמצעות WebRTC, ללא מסד הודעות בענן.' }
   ] },
   { id: 'privacy', t: 'פרטיות', i: 'fa-shield-halved', c: '#6b9bb8', items: [
-    { type: 'note', l: 'שמירת מידע', d: 'העדפות וכינוי נשמרים בדפדפן שלך. תוכן צ׳אט אמיתי נשמר במסד הנתונים של שירות Realtime שתגדיר.' },
+    { type: 'note', l: 'שמירת מידע', d: 'תשובות שאלון הכניסה והעדפות נשמרות מקומית בדפדפן הזה. הודעות הצ׳אט עוברות ישירות בין משתמשים ואינן נשמרות בענן או אחרי רענון.' },
+    { type: 'btn', l: 'הצגת שאלון הכניסה מחדש', b: 'פתח שאלון', act: 'resetSurvey' },
     { type: 'btn', l: 'איפוס העדפות האתר', b: 'איפוס הגדרות', act: 'reset', red: true }
   ] }
 ];
@@ -1625,6 +1784,7 @@ function buildPane() {
         else if (it.act === 'fullscreen') { const action=document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.(); if(action&&action.catch)action.catch(()=>{}); }
         else if (it.act === 'notify') { if(!('Notification' in window)){b.textContent='לא נתמך';} else Notification.requestPermission().then(v=>{b.textContent=v==='granted'?'התראות אושרו ✓':v==='denied'?'ההרשאה נדחתה':'לא אושר';setTimeout(()=>b.textContent=it.b,1800);}); }
         else if (it.act === 'clearChatName') { localStorage.removeItem('novaChatNickname'); const n=$('#chat-nickname');if(n)n.value=''; b.textContent='נוקה ✓';setTimeout(()=>b.textContent=it.b,1400); }
+        else if (it.act === 'resetSurvey') { resetWelcomeSurvey(); }
         else { const txt = JSON.stringify(P, null, 2); (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => { b.textContent = 'הועתק ✓'; }).catch(() => { b.textContent = 'לא זמין'; }); setTimeout(() => b.textContent = it.b, 1500); }
         tick();
       });
